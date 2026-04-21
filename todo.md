@@ -1,0 +1,14 @@
+- [ ] Design and build the landing page with hero section, feature links, and navigation.
+- [ ] Create a CV page with resume content and a PDF download/viewer link.
+- [ ] Add a blog listing page plus post view support for existing blog content.
+- [ ] Add a docs/PDF page to list and serve PDF resources.
+- [ ] Build the card repository page:
+  - load `cards.json`
+  - support search, filtering, and card detail views
+  - add a table of contents / book grouping navigation
+- [ ] Implement client-side search indexing for cards, titles, and metadata.
+- [ ] Add shared layout components: header, footer, and page sections.
+- [ ] Create a minimal style system using Skeleton and Tailwind.
+- [ ] Wire the frontend to static assets and generated JSON output.
+- [ ] Ensure the frontend deploys as a static site and can be built from the root.
+- [ ] Prototype automated tag generation / cross-card reference discovery from `cards.json` using an LLM or semantic vectorizer.

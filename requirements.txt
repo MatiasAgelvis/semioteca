@@ -1,0 +1,2 @@
+pypandoc==1.15
+mammoth==1.9.0
