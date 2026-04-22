@@ -12,7 +12,7 @@
 	} = $props();
 </script>
 
-<aside class="lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto">
+<aside class="max-h-[70vh] overflow-y-auto lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)]">
 	<ul class="menu menu-sm bg-base-100 border border-base-300 rounded-box">
 		<li class="menu-title">Tabla de contenidos</li>
 		{#each cards as card}

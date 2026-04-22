@@ -20,6 +20,8 @@
 	let observer: IntersectionObserver | null = null;
 	const cardElements = new Map<string, HTMLElement>();
 	const visibleCardIds = new Set<string>();
+	let focusLockCardId: string | null = null;
+	let focusLockTimeout: ReturnType<typeof setTimeout> | null = null;
 
 	const books = $derived.by(() => {
 		const grouped = new Map<string, { key: string; author: string; title: string; count: number }>();
@@ -56,10 +58,16 @@
 	}
 
 	function scrollToCard(id: string) {
-		const node = cardElements.get(id);
+		const node = cardElements.get(id) ?? document.getElementById(`card-${id}`);
 		if (!node) return;
+		focusLockCardId = id;
+		if (focusLockTimeout) clearTimeout(focusLockTimeout);
+		focusLockTimeout = setTimeout(() => {
+			if (focusLockCardId === id) focusLockCardId = null;
+			focusLockTimeout = null;
+		}, 600);
 		focusedCardId = id;
-		node.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		node.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
 	}
 
 	async function setupObserver() {
@@ -74,6 +82,17 @@
 					if (!id) continue;
 					if (entry.isIntersecting) visibleCardIds.add(id);
 					else visibleCardIds.delete(id);
+				}
+				if (focusLockCardId) {
+					if (visibleCardIds.has(focusLockCardId)) {
+						focusedCardId = focusLockCardId;
+						focusLockCardId = null;
+						if (focusLockTimeout) {
+							clearTimeout(focusLockTimeout);
+							focusLockTimeout = null;
+						}
+					}
+					return;
 				}
 				// Pick the topmost visible card among all currently visible ones
 				let topmost: string | null = null;
@@ -107,7 +126,11 @@
 			}
 			if (!cancelled) { loading = false; await setupObserver(); }
 		})();
-		return () => { cancelled = true; observer?.disconnect(); };
+		return () => {
+			cancelled = true;
+			observer?.disconnect();
+			if (focusLockTimeout) clearTimeout(focusLockTimeout);
+		};
 	});
 
 	$effect(() => { if (!loading) void setupObserver(); });
