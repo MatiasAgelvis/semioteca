@@ -13,7 +13,7 @@
 
 	let loading = $state(true);
 	let query = $state('');
-	let selectedBook = $state('all');
+	let selectedBook = $state<string | null>(null);
 	let focusedCardId = $state<string | null>(null);
 	let mobileDrawerOpen = $state(false);
 	let cards = $state<CardRecord[]>([]);
@@ -41,7 +41,7 @@
 	const filteredCards = $derived.by(() => {
 		const q = query.trim().toLowerCase();
 		return cards.filter((card) => {
-			if (selectedBook !== 'all' && getBookKey(card) !== selectedBook) return false;
+			if (selectedBook && getBookKey(card) !== selectedBook) return false;
 			if (!q) return true;
 			return [card.title, card.author, card.book, card.page ?? '', card.content]
 				.join(' ').toLowerCase().includes(q);
@@ -66,8 +66,16 @@
 		}
 	}
 
-	function scrollToCard(id: string) {
-		const node = cardElements.get(id) ?? document.getElementById(`card-${id}`);
+	async function scrollToCard(id: string) {
+		const cardIndex = filteredCards.findIndex((card) => card.id === id);
+		if (cardIndex === -1) return;
+
+		let node = cardElements.get(id) ?? document.getElementById(`card-${id}`);
+		if (!node) {
+			await tick();
+			node = cardElements.get(id) ?? document.getElementById(`card-${id}`);
+		}
+
 		if (!node) return;
 		focusLockCardId = id;
 		if (focusLockTimeout) clearTimeout(focusLockTimeout);
@@ -155,6 +163,20 @@
 
 	$effect(() => {
 		if (loading) return;
+		books.length;
+		if (books.length === 0) {
+			selectedBook = null;
+			return;
+		}
+		if (!selectedBook || !books.some((book) => book.key === selectedBook)) {
+			selectedBook = books[0].key;
+		}
+	});
+
+	$effect(() => {
+		if (loading) return;
+		query;
+		selectedBook;
 		filteredCards.length;
 		void setupObserver();
 	});
@@ -205,8 +227,7 @@
 						</div>
 						<BookSidebar
 							{books}
-							{selectedBook}
-							totalCards={data.totalCards}
+							selectedBook={selectedBook ?? ''}
 							onselect={selectBook}
 						/>
 						<CardsToc
@@ -222,8 +243,7 @@
 				<div class="hidden lg:block">
 					<BookSidebar
 						{books}
-						{selectedBook}
-						totalCards={data.totalCards}
+						selectedBook={selectedBook ?? ''}
 						onselect={selectBook}
 					/>
 				</div>
