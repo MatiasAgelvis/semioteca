@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
 	import type { CardRecord } from '$lib/types/content';
 
 	let {
@@ -16,12 +15,14 @@
 
 	let element: HTMLElement;
 
-	onMount(() => {
-		onregister?.(element, card.id);
-	});
+	$effect(() => {
+		if (!element) return;
+		const id = card.id;
+		onregister?.(element, id);
 
-	onDestroy(() => {
-		onunregister?.(element, card.id);
+		return () => {
+			onunregister?.(element, id);
+		};
 	});
 </script>
 

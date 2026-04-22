@@ -249,7 +249,7 @@
 					{#if loading}
 						<p>Cargando tarjetas...</p>
 					{:else}
-						{#each filteredCards as card}
+						{#each filteredCards as card (card.id)}
 							<CardItem
 								{card}
 								focused={focusedCardId === card.id}
