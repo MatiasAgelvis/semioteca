@@ -12,3 +12,17 @@
 - [ ] Wire the frontend to static assets and generated JSON output.
 - [ ] Ensure the frontend deploys as a static site and can be built from the root.
 - [ ] Prototype automated tag generation / cross-card reference discovery from `cards.json` using an LLM or semantic vectorizer.
+- [ ] Card Images
+  - [ ] Add support for card images in `cards.json` and display them in the UI.
+  - [ ] Implement image optimization and responsive loading for card images.
+- [ ] Card Metadata
+  - [ ] Add support for additional metadata fields in `cards.json` (e.g., tags, categories, related cards).
+  - [ ] Implement filtering and sorting of cards based on metadata in the UI.
+- [ ] Card Detail View
+  - [ ] Create a detailed view for each card that displays all relevant information and metadata.
+  - [ ] Add navigation from the card listing to the card detail view.
+- [ ] Search Functionality
+  - [ ] Implement a search bar that allows users to search for cards by title, content, and metadata.
+  - [ ] Add support for advanced search features (e.g., boolean operators, filters).
+  - [ ] Highlight search terms in the search results for better visibility.
+  
