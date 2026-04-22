@@ -10,11 +10,11 @@
 	} = $props();
 </script>
 
-<section class="">
-	<div class="">
-		<h2 class="">{title}</h2>
+<section>
+	<div class="mb-6">
+		<h2 class="text-2xl font-black tracking-tight">{title}</h2>
 		{#if description}
-			<p class="">{description}</p>
+			<p class="mt-1 text-sm opacity-70">{description}</p>
 		{/if}
 	</div>
 	{@render children()}

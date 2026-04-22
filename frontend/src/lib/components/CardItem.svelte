@@ -29,15 +29,17 @@
 	bind:this={element}
 	id={`card-${card.id}`}
 	data-card-id={card.id}
-	class={`scroll-mt-28 rounded-xl border bg-surface-100/80 p-5 transition-colors ${focused ? 'border-primary-300' : 'border-surface-300/70'}`}
+	class={`card bg-base-100 border scroll-mt-28 transition-colors ${focused ? 'border-primary shadow-sm' : 'border-base-300'}`}
 >
-	<div class="flex flex-wrap items-center justify-between gap-2">
-		<p class="font-bold text-surface-900">{card.author} - {card.book}</p>
-		<p class="text-xs tracking-[0.13em] text-surface-600 uppercase">p. {card.page ?? 's/p'}</p>
-	</div>
-	<p class="mt-4 whitespace-pre-wrap text-sm leading-7 text-surface-700">{card.content}</p>
-	<div class="mt-4 flex items-center justify-between gap-2">
-		<p class="text-xs text-surface-600">ID: {card.id}</p>
-		<a class="btn btn-sm btn-outline" href={`/cards/${card.id}`}>Ver detalle</a>
+	<div class="card-body p-5">
+		<div class="flex flex-wrap items-center justify-between gap-2">
+			<p class="font-bold">{card.author} — {card.book}</p>
+			<span class="badge badge-ghost badge-sm">p. {card.page ?? 's/p'}</span>
+		</div>
+		<p class="whitespace-pre-wrap text-sm leading-7 opacity-80">{card.content}</p>
+		<div class="card-actions items-center justify-between">
+			<span class="text-xs opacity-50">ID: {card.id}</span>
+			<a class="btn btn-sm btn-outline" href={`/cards/${card.id}`}>Ver detalle</a>
+		</div>
 	</div>
 </article>

@@ -119,8 +119,8 @@
 					bind:value={query}
 				/>
 			</label>
-			<div class="flex items-center rounded-xl border px-4 py-3">
-				<p class="text-sm">Mostrando {filteredCards.length} de {data.totalCards} tarjetas.</p>
+			<div class="flex items-center rounded-xl border border-base-300 bg-base-200 px-4 py-3">
+				<p class="text-sm opacity-70">Mostrando <strong>{filteredCards.length}</strong> de {data.totalCards} tarjetas.</p>
 			</div>
 		</div>
 

@@ -14,26 +14,33 @@
 	} = $props();
 </script>
 
-<aside class="rounded-2xl border border-surface-300/70 bg-surface-50/90 p-4 lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto">
-	<p class="text-sm font-semibold tracking-[0.16em] text-surface-600 uppercase">Libros</p>
-	<div class="mt-4 space-y-2">
-		<button
-			type="button"
-			class={`w-full rounded-lg px-3 py-2 text-left text-sm ${selectedBook === 'all' ? 'bg-primary-100 text-primary-900' : 'bg-surface-100 text-surface-700'}`}
-			onclick={() => onselect('all')}
-		>
-			<span class="font-semibold">Todos los libros</span>
-			<span class="block text-xs">{totalCards} tarjetas</span>
-		</button>
-		{#each books as book}
+<aside class="lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto">
+	<ul class="menu menu-sm bg-base-100 border border-base-300 rounded-box">
+		<li class="menu-title">Libros</li>
+		<li>
 			<button
 				type="button"
-				class={`w-full rounded-lg px-3 py-2 text-left text-sm ${selectedBook === book.key ? 'bg-primary-100 text-primary-900' : 'bg-surface-100 text-surface-700'}`}
-				onclick={() => onselect(book.key)}
+				class={selectedBook === 'all' ? 'active' : ''}
+				onclick={() => onselect('all')}
 			>
-				<span class="font-semibold">{book.author}</span>
-				<span class="block text-xs">{book.title} ({book.count})</span>
+				<span class="grow font-semibold">Todos los libros</span>
+				<span class="badge badge-sm">{totalCards}</span>
 			</button>
+		</li>
+		{#each books as book}
+			<li>
+				<button
+					type="button"
+					class={selectedBook === book.key ? 'active' : ''}
+					onclick={() => onselect(book.key)}
+				>
+					<span class="grow">
+						<span class="block font-semibold">{book.author}</span>
+						<span class="block text-xs opacity-60">{book.title}</span>
+					</span>
+					<span class="badge badge-sm">{book.count}</span>
+				</button>
+			</li>
 		{/each}
-	</div>
+	</ul>
 </aside>
