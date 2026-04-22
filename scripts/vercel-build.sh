@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 set -eu
 
-./.vercel-venv/bin/python -m pip --version >/dev/null
+export PATH="./.vercel-venv/bin:$PATH"
 npm run build
