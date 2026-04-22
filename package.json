@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "content:generate": "cd backend && sh ../scripts/venv-python.sh ./generate_cards_json.py --report-anomalies",
+    "content:generate": "sh scripts/venv-python.sh backend/generate_cards_json.py --report-anomalies",
     "content:sync": "node ./scripts/sync-content.mjs",
     "content:prepare": "npm run content:generate && npm run content:sync",
     "frontend:dev": "npm --prefix frontend run dev",
