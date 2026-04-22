@@ -12,7 +12,7 @@
 	} = $props();
 </script>
 
-<aside class="lg:sticky lg:top-24">
+<aside class="lg:sticky lg:top-24 lg:self-start">
 	<div class="relative rounded-box border border-base-300 bg-base-100">
 		<div class="border-b border-base-200 px-4 py-3">
 			<p class="menu-title p-0">Tabla de contenidos</p>
