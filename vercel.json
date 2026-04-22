@@ -1,5 +1,5 @@
 {
-  "installCommand": "npm --prefix frontend ci && python3 -m venv .vercel-venv && ./.vercel-venv/bin/python -m pip install --upgrade pip && ./.vercel-venv/bin/python -m pip install -r requirements.txt && ./.vercel-venv/bin/python -c \"import pypandoc; pypandoc.download_pandoc(targetfolder='./.vercel-venv/bin')\"",
-  "buildCommand": ". ./.vercel-venv/bin/activate && npm run build",
+  "installCommand": "sh scripts/vercel-install.sh",
+  "buildCommand": "sh scripts/vercel-build.sh",
   "outputDirectory": "frontend/build"
 }
