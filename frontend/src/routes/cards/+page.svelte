@@ -15,6 +15,7 @@
 	let query = $state('');
 	let selectedBook = $state('all');
 	let focusedCardId = $state<string | null>(null);
+	let mobileDrawerOpen = $state(false);
 	let cards = $state<CardRecord[]>([]);
 
 	let observer: IntersectionObserver | null = null;
@@ -55,6 +56,14 @@
 	function unregisterCard(el: HTMLElement, id: string) {
 		observer?.unobserve(el);
 		cardElements.delete(id);
+		visibleCardIds.delete(id);
+		if (focusLockCardId === id) {
+			focusLockCardId = null;
+			if (focusLockTimeout) {
+				clearTimeout(focusLockTimeout);
+				focusLockTimeout = null;
+			}
+		}
 	}
 
 	function scrollToCard(id: string) {
@@ -68,6 +77,16 @@
 		}, 600);
 		focusedCardId = id;
 		node.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+	}
+
+	function selectBook(key: string) {
+		selectedBook = key;
+		mobileDrawerOpen = false;
+	}
+
+	function handleTocScroll(id: string) {
+		scrollToCard(id);
+		mobileDrawerOpen = false;
 	}
 
 	async function setupObserver() {
@@ -104,6 +123,7 @@
 					if (y < topmostY) { topmostY = y; topmost = id; }
 				}
 				if (topmost) focusedCardId = topmost;
+				else if (filteredCards.length > 0) focusedCardId = filteredCards[0].id;
 			},
 			{ root: null, rootMargin: '-20% 0px -60% 0px', threshold: [0.05, 0.25, 0.6] }
 		);
@@ -133,7 +153,11 @@
 		};
 	});
 
-	$effect(() => { if (!loading) void setupObserver(); });
+	$effect(() => {
+		if (loading) return;
+		filteredCards.length;
+		void setupObserver();
+	});
 </script>
 
 <svelte:head>
@@ -160,37 +184,76 @@
 			</div>
 		</div>
 
-		<div class="mt-6 grid gap-6 lg:grid-cols-[17rem_minmax(0,1fr)_20rem]">
-			<BookSidebar
-				{books}
-				{selectedBook}
-				totalCards={data.totalCards}
-				onselect={(key) => { selectedBook = key; }}
-			/>
-
-			<div class="space-y-5">
-				{#if loading}
-					<p>Cargando tarjetas...</p>
-				{:else}
-					{#each filteredCards as card}
-						<CardItem
-							{card}
-							focused={focusedCardId === card.id}
-							onregister={registerCard}
-							onunregister={unregisterCard}
+		<div class="mt-6">
+			<button
+				class="btn btn-primary btn-sm fixed right-4 bottom-4 z-30 shadow-lg lg:hidden"
+				onclick={() => { mobileDrawerOpen = true; }}
+			>
+				Filtros y TOC
+			</button>
+			<div class="drawer drawer-end lg:hidden">
+				<input id="cards-mobile-drawer" type="checkbox" class="drawer-toggle" bind:checked={mobileDrawerOpen} />
+				<div class="drawer-content"></div>
+				<div class="drawer-side z-40">
+					<label for="cards-mobile-drawer" class="drawer-overlay" aria-label="Cerrar panel lateral"></label>
+					<div class="min-h-full w-80 max-w-[85vw] space-y-4 bg-base-200 p-4">
+						<div class="flex items-center justify-between">
+							<p class="text-sm font-semibold">Navegacion</p>
+							<button class="btn btn-ghost btn-xs" onclick={() => { mobileDrawerOpen = false; }}>
+								Cerrar
+							</button>
+						</div>
+						<BookSidebar
+							{books}
+							{selectedBook}
+							totalCards={data.totalCards}
+							onselect={selectBook}
 						/>
-					{/each}
-					{#if filteredCards.length === 0}
-						<p class="text-sm">No hay tarjetas que coincidan con la búsqueda o el filtro seleccionado.</p>
-					{/if}
-				{/if}
+						<CardsToc
+							cards={filteredCards}
+							{focusedCardId}
+							onscrollto={handleTocScroll}
+						/>
+					</div>
+				</div>
 			</div>
 
-			<CardsToc
-				cards={filteredCards}
-				{focusedCardId}
-				onscrollto={scrollToCard}
-			/>
+			<div class="grid gap-6 lg:grid-cols-[17rem_minmax(0,1fr)_20rem]">
+				<div class="hidden lg:block">
+					<BookSidebar
+						{books}
+						{selectedBook}
+						totalCards={data.totalCards}
+						onselect={selectBook}
+					/>
+				</div>
+
+				<div class="space-y-5">
+					{#if loading}
+						<p>Cargando tarjetas...</p>
+					{:else}
+						{#each filteredCards as card}
+							<CardItem
+								{card}
+								focused={focusedCardId === card.id}
+								onregister={registerCard}
+								onunregister={unregisterCard}
+							/>
+						{/each}
+						{#if filteredCards.length === 0}
+							<p class="text-sm">No hay tarjetas que coincidan con la búsqueda o el filtro seleccionado.</p>
+						{/if}
+					{/if}
+				</div>
+
+				<div class="hidden lg:block">
+					<CardsToc
+						cards={filteredCards}
+						{focusedCardId}
+						onscrollto={scrollToCard}
+					/>
+				</div>
+			</div>
 		</div>
 	</PageSection>
 </div>
