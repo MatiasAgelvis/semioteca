@@ -1,0 +1,14 @@
+{
+  "name": "semioteca-root",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "content:generate": "cd backend && python generate_cards_json.py --report-anomalies",
+    "content:sync": "node ./scripts/sync-content.mjs",
+    "content:prepare": "npm run content:generate && npm run content:sync",
+    "frontend:dev": "npm --prefix frontend run dev",
+    "frontend:check": "npm --prefix frontend run check",
+    "frontend:build": "npm --prefix frontend run build",
+    "build": "npm run content:prepare && npm run frontend:build"
+  }
+}
