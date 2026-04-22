@@ -19,7 +19,7 @@
 			<li>
 				<button
 					type="button"
-					class={focusedCardId === card.id ? 'active' : ''}
+					class={focusedCardId === card.id ? 'menu-active' : ''}
 					onclick={() => onscrollto(card.id)}
 				>
 					<span>

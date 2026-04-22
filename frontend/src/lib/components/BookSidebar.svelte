@@ -20,7 +20,7 @@
 		<li>
 			<button
 				type="button"
-				class={selectedBook === 'all' ? 'active' : ''}
+				class={selectedBook === 'all' ? 'menu-active' : ''}
 				onclick={() => onselect('all')}
 			>
 				<span class="grow font-semibold">Todos los libros</span>
@@ -31,7 +31,7 @@
 			<li>
 				<button
 					type="button"
-					class={selectedBook === book.key ? 'active' : ''}
+					class={selectedBook === book.key ? 'menu-active' : ''}
 					onclick={() => onselect(book.key)}
 				>
 					<span class="grow">

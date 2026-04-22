@@ -19,6 +19,7 @@
 
 	let observer: IntersectionObserver | null = null;
 	const cardElements = new Map<string, HTMLElement>();
+	const visibleCardIds = new Set<string>();
 
 	const books = $derived.by(() => {
 		const grouped = new Map<string, { key: string; author: string; title: string; count: number }>();
@@ -65,13 +66,25 @@
 		if (typeof window === 'undefined' || loading) return;
 		await tick();
 		observer?.disconnect();
+		visibleCardIds.clear();
 		observer = new IntersectionObserver(
 			(entries) => {
-				const visible = entries
-					.filter((e) => e.isIntersecting)
-					.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-				const cardId = visible[0]?.target.getAttribute('data-card-id');
-				if (cardId) focusedCardId = cardId;
+				for (const entry of entries) {
+					const id = entry.target.getAttribute('data-card-id');
+					if (!id) continue;
+					if (entry.isIntersecting) visibleCardIds.add(id);
+					else visibleCardIds.delete(id);
+				}
+				// Pick the topmost visible card among all currently visible ones
+				let topmost: string | null = null;
+				let topmostY = Infinity;
+				for (const id of visibleCardIds) {
+					const el = cardElements.get(id);
+					if (!el) continue;
+					const y = el.getBoundingClientRect().top;
+					if (y < topmostY) { topmostY = y; topmost = id; }
+				}
+				if (topmost) focusedCardId = topmost;
 			},
 			{ root: null, rootMargin: '-20% 0px -60% 0px', threshold: [0.05, 0.25, 0.6] }
 		);
