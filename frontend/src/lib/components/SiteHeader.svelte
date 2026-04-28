@@ -96,7 +96,13 @@
 <header bind:this={headerEl} class="sticky top-0 z-50 border-b border-base-200/80 bg-base-100/90 backdrop-blur-md dark:border-base-200/40 dark:bg-base-900/85">
     <div class="mx-auto w-full max-w-7xl px-5 lg:px-10">
         <div class={`grid items-center gap-3 transition-[padding,grid-template-columns,gap] duration-300 ease-out ${compactHeader ? 'grid-cols-[auto_minmax(0,1fr)_auto] py-2' : 'grid-cols-[auto_minmax(0,1fr)_auto] py-3'}`}>
-            <a href="/" class={`text-base-content transition-[font-size,transform] duration-300 ease-out ${compactHeader ? 'text-lg lg:text-xl' : 'text-xl' } font-black tracking-tight`}>
+            <a href="/" class={`flex items-center gap-2 text-base-content transition-[font-size,transform] duration-300 ease-out ${compactHeader ? 'text-lg lg:text-xl' : 'text-xl' } font-black tracking-tight`}>
+                <span class="inline-flex h-7 w-7 items-center justify-center rounded-full border border-base-300/80 bg-base-300/60" aria-hidden="true">
+                    <span
+                        class="h-4 w-4 bg-base-content"
+                        style="mask: url('/favicon.svg') center / contain no-repeat; -webkit-mask: url('/favicon.svg') center / contain no-repeat;"
+                    ></span>
+                </span>
                 Significado Total
             </a>
 
@@ -120,7 +126,7 @@
                         {#each links as link}
                             <a
                                 href={link.href}
-                                class={`btn btn-ghost btn ${isActive(link.href) ? 'btn-active' : ''}`}
+                                class={`btn btn-ghost ${isActive(link.href) ? 'btn-active' : ''}`}
                             >
                                 {link.label}
                             </a>
@@ -130,7 +136,7 @@
                 
                 <button
                     type="button"
-                    class={`btn btn-ghost btn transition-[opacity,transform] duration-300 ease-out ${compactHeader ? 'inline-flex translate-y-0 opacity-100' : 'inline-flex xl:hidden'}`}
+                    class={`btn btn-ghost transition-[opacity,transform] duration-300 ease-out ${compactHeader ? 'inline-flex translate-y-0 opacity-100' : 'inline-flex xl:hidden'}`}
                     onclick={toggleMenu}
                     aria-expanded={menuOpen}
                     aria-label="Abrir menu"
