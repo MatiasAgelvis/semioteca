@@ -34,7 +34,7 @@
 
 <button
     type="button"
-    class="btn btn-ghost btn-square"
+    class="btn btn-ghost btn-sm btn-square"
     onclick={toggleTheme}
     aria-label="Toggle color mode"
 >
