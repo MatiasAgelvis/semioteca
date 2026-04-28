@@ -13,6 +13,7 @@
 	<PageSection
 		title="Blog"
 		description="Ensayos y notas críticas generadas desde el repositorio de manuscritos."
+		headingLevel="h1"
 	>
 		<div class="grid gap-5 md:grid-cols-2">
 			{#each data.posts as post}

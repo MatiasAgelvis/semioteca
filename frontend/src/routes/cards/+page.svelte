@@ -373,6 +373,7 @@
 	<PageSection
 		title="Repositorio de tarjetas"
 		description="Búsqueda y navegación por fichas bibliográficas extraídas de los manuscritos fuente."
+		headingLevel="h1"
 	>
 		<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm opacity-70">
 			{#if fullResultsMode}

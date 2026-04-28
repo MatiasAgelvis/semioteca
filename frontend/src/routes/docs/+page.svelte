@@ -10,7 +10,7 @@
 </svelte:head>
 
 <div class="mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 py-10 lg:px-10">
-	<PageSection title="Documentos" description="Biblioteca de PDFs publicada como recursos estáticos.">
+	<PageSection title="Documentos" description="Biblioteca de PDFs publicada como recursos estáticos." headingLevel="h1">
 		<div class="grid gap-3">
 			{#each data.resources as resource}
 				<div class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-base-300/70 bg-base-200/70 px-4 py-3">

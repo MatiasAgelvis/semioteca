@@ -4,7 +4,7 @@
 </svelte:head>
 
 <div class="mx-auto w-full max-w-7xl px-5 py-10 lg:px-10">
-	<section class="rounded-[2rem] border border-base-300/70 bg-base-100/90 p-8 shadow-xl shadow-base-content/5 lg:p-12">
+	<section class="rounded-2xl border border-base-300/70 bg-base-100/90 p-8 shadow-xl shadow-base-content/5 lg:p-12">
 		<p class="text-primary text-sm font-semibold tracking-[0.25em] uppercase">Semioteca</p>
 		<h1 class="mt-3 max-w-4xl text-5xl font-black tracking-tight text-base-content sm:text-6xl">
 			Semiótica aplicada, biblioteca viva y archivo documental.

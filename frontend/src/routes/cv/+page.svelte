@@ -13,6 +13,7 @@
 	<PageSection
 		title="Curriculum y producción académica"
 		description="Resumen profesional y acceso directo a los documentos curriculares en PDF."
+		headingLevel="h1"
 	>
 		<div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
 			<article class="rounded-2xl border border-base-300/70 bg-base-200/70 p-5">
