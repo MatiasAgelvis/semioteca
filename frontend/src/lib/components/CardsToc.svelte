@@ -16,12 +16,12 @@
 	} = $props();
 </script>
 
-<aside class="lg:sticky lg:top-24 lg:self-start">
+<aside class="lg:sticky lg:top-28 lg:self-start xl:top-24">
 	<div class="relative rounded-box border border-base-300 bg-base-100">
 		<div class="border-b border-base-200 px-4 py-3">
 			<p class="menu-title p-0">Tabla de contenidos</p>
 		</div>
-		<div class="max-h-[60vh] overflow-y-auto lg:max-h-[calc(100vh-14rem)]">
+		<div class="max-h-[60vh] overflow-y-auto lg:max-h-[calc(100vh-15rem)] xl:max-h-[calc(100vh-14rem)]">
 			<ul class="menu menu-sm p-2">
 				{#each cards as card}
 					{@const authorSegments = getHighlightSegments(card.author, searchTerms)}

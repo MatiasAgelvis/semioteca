@@ -6,6 +6,12 @@
 	import CardItem from '$lib/components/CardItem.svelte';
 	import CardsToc from '$lib/components/CardsToc.svelte';
 	import SearchResultItem from '$lib/components/SearchResultItem.svelte';
+	import {
+		cardsSearchDialogOpen,
+		cardsSearchQuery,
+		closeCardsSearch,
+		openCardsSearch
+	} from '$lib/stores/cardsSearch';
 	import { getBookKey } from '$lib/utils/books';
 	import { getMatchCount, matchesAllTerms, tokenizeQuery } from '$lib/utils/search';
 	import type { CardRecord, CardsDataset } from '$lib/types/content';
@@ -18,8 +24,6 @@
 	let focusedCardId = $state<string | null>(null);
 	let mobileDrawerOpen = $state(false);
 	let cards = $state<CardRecord[]>([]);
-	let searchDialogOpen = $state(false);
-	let searchQuery = $state('');
 
 	let observer: IntersectionObserver | null = null;
 	let searchDialog: HTMLDialogElement;
@@ -28,7 +32,7 @@
 	const visibleCardIds = new Set<string>();
 	let focusLockCardId: string | null = null;
 	let focusLockTimeout: ReturnType<typeof setTimeout> | null = null;
-	const searchTerms = $derived(tokenizeQuery(searchQuery));
+	const searchTerms = $derived(tokenizeQuery($cardsSearchQuery));
 
 	const books = $derived.by(() => {
 		const grouped = new Map<string, { key: string; author: string; title: string; count: number }>();
@@ -122,18 +126,11 @@
 	}
 
 	async function openSearchDialog() {
-		if (!searchDialog) return;
-		searchDialog.showModal();
-		searchDialogOpen = true;
-		await tick();
-		searchInput?.focus();
-		searchInput?.select();
+		openCardsSearch();
 	}
 
 	function closeSearchDialog() {
-		if (!searchDialog?.open) return;
-		searchDialog.close();
-		searchDialogOpen = false;
+		closeCardsSearch();
 	}
 
 	async function selectSearchResult(card: CardRecord) {
@@ -200,7 +197,7 @@
 		const handleKeydown = (event: KeyboardEvent) => {
 			if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
 				event.preventDefault();
-				void openSearchDialog();
+				openCardsSearch();
 			}
 		};
 
@@ -239,6 +236,25 @@
 		filteredCards.length;
 		void setupObserver();
 	});
+
+	$effect(() => {
+		if (!searchDialog) return;
+
+		if ($cardsSearchDialogOpen) {
+			if (!searchDialog.open) {
+				searchDialog.showModal();
+			}
+			void tick().then(() => {
+				searchInput?.focus();
+				if ($cardsSearchQuery) searchInput?.select();
+			});
+			return;
+		}
+
+		if (searchDialog.open) {
+			searchDialog.close();
+		}
+	});
 </script>
 
 <svelte:head>
@@ -250,20 +266,9 @@
 		title="Repositorio de tarjetas"
 		description="Búsqueda y navegación por fichas bibliográficas extraídas de los manuscritos fuente."
 	>
-		<div class="grid gap-4 lg:grid-cols-[2fr_1fr]">
-			<div class="space-y-2">
-				<span class="text-sm font-semibold">Explorar el libro seleccionado</span>
-				<div class="flex flex-wrap gap-2">
-					<button class="btn btn-primary" type="button" onclick={() => { void openSearchDialog(); }}>
-						Buscar en todas las tarjetas
-					</button>
-					<span class="badge badge-ghost h-auto px-3 py-2">⌘K / Ctrl+K</span>
-				</div>
-				<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs opacity-70">
-					<span>{filteredCards.length} tarjetas en este libro</span>
-					<span>La búsqueda global abre un popup con vistas previas y resaltado</span>
-				</div>
-			</div>
+		<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm opacity-70">
+			<span>{filteredCards.length} tarjetas en este libro</span>
+			<span>Usa la barra fija del encabezado para buscar en toda la colección</span>
 		</div>
 
 		<div class="mt-6">
@@ -344,7 +349,7 @@
 <dialog
 	bind:this={searchDialog}
 	class="modal"
-	onclose={() => { searchDialogOpen = false; }}
+	onclose={() => { closeCardsSearch(); }}
 >
 	<div class="modal-box max-w-3xl rounded-4xl border border-base-300 bg-base-100 p-0 shadow-2xl">
 		<div class="border-b border-base-200 px-6 py-5">
@@ -360,7 +365,7 @@
 			<label class="mt-4 block">
 				<input
 					bind:this={searchInput}
-					bind:value={searchQuery}
+					bind:value={$cardsSearchQuery}
 					class="input input-lg input-bordered w-full"
 					placeholder="Busca por autor, libro, página o fragmento"
 					type="search"

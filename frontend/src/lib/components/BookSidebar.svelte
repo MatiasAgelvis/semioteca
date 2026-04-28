@@ -12,7 +12,7 @@
 	} = $props();
 </script>
 
-<aside class="lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)] lg:overflow-y-auto">
+<aside class="lg:sticky lg:top-28 lg:h-[calc(100vh-9rem)] lg:overflow-y-auto xl:top-24 xl:h-[calc(100vh-8rem)]">
 	<ul class="menu menu-sm bg-base-100 border border-base-300 rounded-box">
 		<li class="menu-title">Libros</li>
 		{#each books as book}
