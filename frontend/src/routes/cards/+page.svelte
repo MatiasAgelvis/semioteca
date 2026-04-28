@@ -6,6 +6,7 @@
 	import CardItem from '$lib/components/CardItem.svelte';
 	import CardsToc from '$lib/components/CardsToc.svelte';
 	import { getBookKey } from '$lib/utils/books';
+	import { getMatchCount, matchesAllTerms, tokenizeQuery } from '$lib/utils/search';
 	import type { CardRecord, CardsDataset } from '$lib/types/content';
 	import type { PageData } from './$types';
 
@@ -23,6 +24,7 @@
 	const visibleCardIds = new Set<string>();
 	let focusLockCardId: string | null = null;
 	let focusLockTimeout: ReturnType<typeof setTimeout> | null = null;
+	const searchTerms = $derived(tokenizeQuery(query));
 
 	const books = $derived.by(() => {
 		const grouped = new Map<string, { key: string; author: string; title: string; count: number }>();
@@ -39,13 +41,39 @@
 	});
 
 	const filteredCards = $derived.by(() => {
-		const q = query.trim().toLowerCase();
-		return cards.filter((card) => {
-			if (selectedBook && getBookKey(card) !== selectedBook) return false;
-			if (!q) return true;
-			return [card.title, card.author, card.book, card.page ?? '', card.content]
-				.join(' ').toLowerCase().includes(q);
-		});
+		const terms = searchTerms;
+		const matchingCards = cards
+			.map((card, index) => ({
+				card,
+				index,
+				searchableText: [card.title, card.author, card.book, card.page ?? '', card.content].join(' ')
+			}))
+			.filter(({ card, searchableText }) => {
+				if (selectedBook && getBookKey(card) !== selectedBook) return false;
+				if (terms.length === 0) return true;
+				return matchesAllTerms(searchableText, terms);
+			});
+
+		if (terms.length === 0) {
+			return matchingCards.map(({ card }) => card);
+		}
+
+		return matchingCards
+			.map(({ card, index, searchableText }) => ({
+				card,
+				index,
+				score:
+					getMatchCount(card.title, terms) * 8 +
+					getMatchCount(card.author, terms) * 6 +
+					getMatchCount(card.book, terms) * 5 +
+					getMatchCount(card.page ?? '', terms) * 4 +
+					getMatchCount(searchableText, terms)
+			}))
+			.sort((left, right) => {
+				if (right.score !== left.score) return right.score - left.score;
+				return left.index - right.index;
+			})
+			.map(({ card }) => card);
 	});
 
 	function registerCard(el: HTMLElement, id: string) {
@@ -194,12 +222,25 @@
 		<div class="grid gap-4 lg:grid-cols-[2fr_1fr]">
 			<label class="space-y-2">
 				<span class="text-sm font-semibold">Buscar en título, libro, autor y contenido</span>
-				<input
-					class="input input-bordered w-full"
-					placeholder="Ej: pragmática, Putnam, p. 34"
-					type="search"
-					bind:value={query}
-				/>
+				<div class="flex gap-2">
+					<input
+						class="input input-bordered w-full"
+						placeholder="Ej: pragmática, Putnam, p. 34"
+						type="search"
+						bind:value={query}
+					/>
+					{#if query.trim()}
+						<button class="btn btn-outline" type="button" onclick={() => { query = ''; }}>
+							Limpiar
+						</button>
+					{/if}
+				</div>
+				<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs opacity-70">
+					<span>{filteredCards.length} resultados</span>
+					{#if searchTerms.length > 0}
+						<span>Búsqueda por términos sin acentos y con resaltado</span>
+					{/if}
+				</div>
 			</label>
 		</div>
 
@@ -230,6 +271,7 @@
 						<CardsToc
 							cards={filteredCards}
 							{focusedCardId}
+							{searchTerms}
 							onscrollto={handleTocScroll}
 						/>
 					</div>
@@ -253,6 +295,7 @@
 							<CardItem
 								{card}
 								focused={focusedCardId === card.id}
+								{searchTerms}
 								onregister={registerCard}
 								onunregister={unregisterCard}
 							/>
@@ -267,6 +310,7 @@
 					<CardsToc
 						cards={filteredCards}
 						{focusedCardId}
+						{searchTerms}
 						onscrollto={scrollToCard}
 					/>
 				</div>

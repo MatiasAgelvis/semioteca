@@ -1,13 +1,17 @@
 <script lang="ts">
+	import HighlightedText from '$lib/components/HighlightedText.svelte';
 	import type { CardRecord } from '$lib/types/content';
+	import { getHighlightSegments } from '$lib/utils/search';
 
 	let {
 		cards,
 		focusedCardId,
+		searchTerms = [],
 		onscrollto
 	}: {
 		cards: CardRecord[];
 		focusedCardId: string | null;
+		searchTerms?: string[];
 		onscrollto: (id: string) => void;
 	} = $props();
 </script>
@@ -20,6 +24,9 @@
 		<div class="max-h-[60vh] overflow-y-auto lg:max-h-[calc(100vh-14rem)]">
 			<ul class="menu menu-sm p-2">
 				{#each cards as card}
+					{@const authorSegments = getHighlightSegments(card.author, searchTerms)}
+					{@const bookSegments = getHighlightSegments(card.book, searchTerms)}
+					{@const pageSegments = getHighlightSegments(card.page ?? 's/p', searchTerms)}
 					<li>
 						<button
 							type="button"
@@ -27,8 +34,10 @@
 							onclick={() => onscrollto(card.id)}
 						>
 							<span>
-								<span class="block font-semibold">{card.author}</span>
-								<span class="block text-xs opacity-60">{card.book} · p. {card.page ?? 's/p'}</span>
+								<span class="block font-semibold"><HighlightedText segments={authorSegments} /></span>
+								<span class="block text-xs opacity-60">
+									<HighlightedText segments={bookSegments} /> · p. <HighlightedText segments={pageSegments} />
+								</span>
 							</span>
 						</button>
 					</li>
@@ -38,6 +47,6 @@
 				{/if}
 			</ul>
 		</div>
-		<div class="pointer-events-none absolute right-0 bottom-0 left-0 h-10 bg-gradient-to-t from-base-100 to-transparent"></div>
+		<div class="pointer-events-none absolute right-0 bottom-0 left-0 h-10 bg-linear-to-t from-base-100 to-transparent"></div>
 	</div>
 </aside>
