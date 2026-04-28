@@ -120,7 +120,7 @@
                         {#each links as link}
                             <a
                                 href={link.href}
-                                class={`btn btn-ghost btn-sm ${isActive(link.href) ? 'btn-active' : ''}`}
+                                class={`btn btn-ghost btn ${isActive(link.href) ? 'btn-active' : ''}`}
                             >
                                 {link.label}
                             </a>
@@ -130,7 +130,7 @@
                 
                 <button
                     type="button"
-                    class={`btn btn-ghost btn-sm transition-[opacity,transform] duration-300 ease-out ${compactHeader ? 'inline-flex translate-y-0 opacity-100' : 'inline-flex xl:hidden'}`}
+                    class={`btn btn-ghost btn transition-[opacity,transform] duration-300 ease-out ${compactHeader ? 'inline-flex translate-y-0 opacity-100' : 'inline-flex xl:hidden'}`}
                     onclick={toggleMenu}
                     aria-expanded={menuOpen}
                     aria-label="Abrir menu"
