@@ -1,10 +1,12 @@
 <script lang="ts">
+    import { SHOW_CV, SHOW_DOCS } from '$lib/config/features';
+
     const navLinks = [
         { label: 'Inicio', href: '/' },
         { label: 'Tarjetas', href: '/cards' },
         { label: 'Blog', href: '/blog' },
-        { label: 'Documentos', href: '/docs' },
-        { label: 'CV', href: '/cv' },
+        ...(SHOW_DOCS ? [{ label: 'Documentos', href: '/docs' }] : []),
+        ...(SHOW_CV ? [{ label: 'CV', href: '/cv' }] : []),
     ];
 
     const currentYear = new Date().getFullYear();

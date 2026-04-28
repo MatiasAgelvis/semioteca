@@ -5,14 +5,15 @@
     import { page } from '$app/state';
     import ThemeSwitcher from './ThemeSwitcher.svelte';
     import { cardsSearchDialogOpen, cardsSearchQuery, openCardsSearch } from '$lib/stores/cardsSearch';
+    import { SHOW_CV, SHOW_DOCS } from '$lib/config/features';
     import { goto } from '$app/navigation';
 
     const links = [
         { href: '/', label: 'Inicio' },
         { href: '/cards', label: 'Tarjetas' },
         { href: '/blog', label: 'Blog' },
-        { href: '/docs', label: 'Documentos' },
-        { href: '/cv', label: 'CV' }
+        ...(SHOW_DOCS ? [{ href: '/docs', label: 'Documentos' }] : []),
+        ...(SHOW_CV ? [{ href: '/cv', label: 'CV' }] : [])
     ];
 
     let suppressFocus = false;
