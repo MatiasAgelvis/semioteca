@@ -1,12 +1,11 @@
-import { error } from '@sveltejs/kit';
 import { SHOW_CV } from '$lib/config/features';
 import { listPdfResources } from '$lib/server/content';
 
-export const prerender = SHOW_CV;
+export const prerender = true;
 
 export async function load() {
 	if (!SHOW_CV) {
-		error(404, 'Not found');
+		return { resources: [] };
 	}
 
 	const resources = await listPdfResources();
