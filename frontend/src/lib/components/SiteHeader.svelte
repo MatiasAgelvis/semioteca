@@ -97,7 +97,7 @@
     <div class="mx-auto w-full max-w-7xl px-5 lg:px-10">
         <div class={`grid items-center gap-3 transition-[padding,grid-template-columns,gap] duration-300 ease-out ${compactHeader ? 'grid-cols-[auto_minmax(0,1fr)_auto] py-2' : 'grid-cols-[auto_minmax(0,1fr)_auto] py-3'}`}>
             <a href="/" class={`text-base-content transition-[font-size,transform] duration-300 ease-out ${compactHeader ? 'text-lg lg:text-xl' : 'text-xl' } font-black tracking-tight`}>
-                Semioteca
+                Significado Total
             </a>
 
             {#if isCardsRoute}

@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-	<title>CV | Semioteca</title>
+	<title>CV | Significado Total</title>
 </svelte:head>
 
 <div class="mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 py-10 lg:px-10">

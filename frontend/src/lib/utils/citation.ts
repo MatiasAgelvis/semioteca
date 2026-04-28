@@ -15,7 +15,7 @@ export function buildCardCitationAPA(card: CardRecord): string {
 	const title = normalizeSpace(card.book || 'Sin titulo');
 	const page = normalizeSpace(card.page || 's. p.');
     
-	return `${author}. (${year}). ${title} (p. ${page}). Semioteca.`;
+	return `${author}. (${year}). ${title} (p. ${page}). Significado Total.`;
 }
 
 export function buildCardFullText(card: CardRecord): string {

@@ -38,7 +38,7 @@ function excerptFromMarkdown(markdown: string): string {
 		if (!clean) continue;
 		return clean.length > 220 ? `${clean.slice(0, 217)}...` : clean;
 	}
-	return 'Post available in the Semioteca archive.';
+	return 'Post available in the Significado Total archive.';
 }
 
 function coverFromMarkdown(markdown: string, slug: string): string | null {

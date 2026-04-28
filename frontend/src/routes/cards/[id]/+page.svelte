@@ -28,7 +28,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.card.author} - {data.card.book} | Semioteca</title>
+	<title>{data.card.author} - {data.card.book} | Significado Total</title>
 </svelte:head>
 
 <div class="mx-auto w-full max-w-5xl px-5 py-10 lg:px-10">

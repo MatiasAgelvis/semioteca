@@ -3,19 +3,19 @@
 </script>
 
 <svelte:head>
-	<title>Semioteca</title>
-	<meta name="description" content="Archivo semiótico estático con fichas y blog." />
+	<title>Significado Total</title>
+	<meta name="description" content="Fichero de ciencias del significado: tarjetas, ensayos y documentos sobre semiótica, lingüística y filosofía del lenguaje." />
 </svelte:head>
 
 <div class="mx-auto w-full max-w-7xl px-5 py-10 lg:px-10">
 	<section class="rounded-2xl border border-base-300/70 bg-base-100/90 p-8 shadow-xl shadow-base-content/5 lg:p-12">
-		<p class="text-primary text-sm font-semibold tracking-[0.25em] uppercase">Semioteca</p>
+		<!-- <p class="text-primary text-sm font-semibold tracking-[0.25em] uppercase">Significado Total</p> -->
 		<h1 class="mt-3 max-w-4xl text-5xl font-black tracking-tight text-base-content sm:text-6xl">
-			Semiótica aplicada, biblioteca viva y archivo documental.
+			Ciencias del significado
 		</h1>
 		<p class="mt-6 max-w-3xl text-lg leading-8 text-base-content/70">
-			Una plataforma estática para consultar tarjetas de lectura, ensayos, CV y documentos en PDF con un
-			flujo reproducible desde backend hacia frontend.
+			Un fichero estático para explorar tarjetas de lectura, ensayos y documentos sobre semiótica,
+			lingüística y filosofía del lenguaje.
 		</p>
 		<div class="mt-8 flex flex-wrap gap-3">
 			<a class="btn btn-primary" href="/cards">Explorar tarjetas</a>

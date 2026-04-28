@@ -14,7 +14,7 @@
 
 <footer class="footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-8 md:p-10">
     <aside>
-        <p class="text-xl font-black tracking-tight">Semioteca</p>
+        <p class="text-xl font-black tracking-tight">Significado Total</p>
         <p class="max-w-2xl text-sm opacity-80">Archivo de tarjetas, blog y documentos sobre semiotica, lenguaje y memoria.</p>
     </aside>
 
@@ -24,5 +24,5 @@
         {/each}
     </nav>
 
-    <p class="text-xs opacity-70">© {currentYear} Semioteca</p>
+    <p class="text-xs opacity-70">© {currentYear} Significado Total</p>
 </footer>
