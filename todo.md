@@ -47,3 +47,21 @@
 - [x] **#8 — `scroll-mt-28` fixed offset** · Cards use a fixed 7 rem scroll offset but the header height changes dynamically; may under/overshoot.
 - [x] **#9 — Inconsistent border-radius scale** · Docs rows use `rounded-xl`, cards/blog use `rounded-2xl` / `rounded-[1.75rem]` / `rounded-[2rem]` — no consistent scale.
 - [x] **#10 — Heading hierarchy** · `PageSection` emits `<h2>` but the cards page has no wrapping `<h1>`; blog post and home page have their own ad-hoc `<h1>` outside the component.
+
+## Card Composer (2026-04-28)
+
+- [ ] MVP: Let users compose a custom document from selected cards.
+  - [ ] Add a composer store with local persistence (`semioteca:composer:v1`).
+  - [ ] Add "Add to document" action in card list and card detail views.
+  - [ ] Build `/cards/compose` page with ordered card table/list and remove actions.
+  - [ ] Support reorder via drag-and-drop and keyboard move up/down controls.
+  - [ ] Add document metadata fields (title required, subtitle/compiler/intro optional).
+  - [ ] Add export flow using print-friendly route and browser "Save as PDF".
+- [ ] Phase 2: Improve export quality and scale.
+  - [ ] Tune print CSS (A4/Letter, page-break controls, readable grayscale output).
+  - [ ] Add optional per-card notes in composed documents.
+  - [ ] Add local snapshots (multiple saved compositions).
+- [ ] Phase 3: Advanced capabilities.
+  - [ ] Evaluate server-rendered PDF for deterministic pagination.
+  - [ ] Add shareable composition links or account-backed saved documents.
+  - [ ] Add citation-format presets and bibliography appendix generation.
