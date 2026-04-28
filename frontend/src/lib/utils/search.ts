@@ -73,6 +73,12 @@ export function matchesAllTerms(text: string, terms: string[]): boolean {
 	return terms.every((term) => folded.includes(term));
 }
 
+export function matchesAnyTerm(text: string, terms: string[]): boolean {
+	if (terms.length === 0) return false;
+	const { folded } = buildFoldedIndex(text);
+	return terms.some((term) => folded.includes(term));
+}
+
 export function getHighlightSegments(text: string, terms: string[]): HighlightSegment[] {
 	if (!text) return [{ text: '', match: false }];
 	if (terms.length === 0) return [{ text, match: false }];

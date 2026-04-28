@@ -13,7 +13,7 @@
 		openCardsSearch
 	} from '$lib/stores/cardsSearch';
 	import { getBookKey } from '$lib/utils/books';
-	import { getMatchCount, matchesAllTerms, tokenizeQuery } from '$lib/utils/search';
+	import { getMatchCount, matchesAllTerms, matchesAnyTerm, tokenizeQuery } from '$lib/utils/search';
 	import type { CardRecord, CardsDataset } from '$lib/types/content';
 	import type { PageData } from './$types';
 
@@ -24,6 +24,39 @@
 	let focusedCardId = $state<string | null>(null);
 	let mobileDrawerOpen = $state(false);
 	let cards = $state<CardRecord[]>([]);
+
+	// Advanced search filters
+	let advancedOpen = $state(false);
+	let selectedAuthors = $state<Set<string>>(new Set());
+	let matchMode = $state<'all' | 'any'>('all');
+	let searchFields = $state({ content: true, authorBook: true, page: true });
+
+	const authors = $derived.by(() => {
+		const seen = new Set<string>();
+		return cards
+			.map((c) => c.author)
+			.filter((a) => { if (seen.has(a)) return false; seen.add(a); return true; })
+			.sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
+	});
+
+	const activeFilterCount = $derived(
+		selectedAuthors.size +
+		(matchMode === 'any' ? 1 : 0) +
+		(!searchFields.content || !searchFields.authorBook || !searchFields.page ? 1 : 0)
+	);
+
+	function toggleAuthor(author: string) {
+		const next = new Set(selectedAuthors);
+		if (next.has(author)) next.delete(author);
+		else next.add(author);
+		selectedAuthors = next;
+	}
+
+	function clearAdvancedFilters() {
+		selectedAuthors = new Set();
+		matchMode = 'all';
+		searchFields = { content: true, authorBook: true, page: true };
+	}
 
 	let observer: IntersectionObserver | null = null;
 	let searchDialog: HTMLDialogElement;
@@ -54,30 +87,37 @@
 
 	const searchResults = $derived.by(() => {
 		const terms = searchTerms;
-		if (terms.length === 0) return [] as CardRecord[];
+		const hasFilters = selectedAuthors.size > 0;
+		if (terms.length === 0 && !hasFilters) return [] as CardRecord[];
+
+		const matchFn = matchMode === 'all' ? matchesAllTerms : matchesAnyTerm;
 
 		return cards
-			.map((card, index) => ({
-				card,
-				index,
-				searchableText: [card.title, card.author, card.book, card.page ?? '', card.content].join(' ')
-			}))
-			.filter(({ searchableText }) => matchesAllTerms(searchableText, terms))
+			.map((card, index) => {
+				const parts: string[] = [];
+				if (searchFields.authorBook) parts.push(card.author, card.book);
+				if (searchFields.page) parts.push(card.page ?? '');
+				if (searchFields.content) parts.push(card.content);
+				return { card, index, searchableText: parts.join(' ') };
+			})
+			.filter(({ card, searchableText }) => {
+				if (selectedAuthors.size > 0 && !selectedAuthors.has(card.author)) return false;
+				if (terms.length === 0) return true;
+				return matchFn(searchableText, terms);
+			})
 			.map(({ card, index, searchableText }) => ({
 				card,
 				index,
 				score:
-					getMatchCount(card.title, terms) * 8 +
-					getMatchCount(card.author, terms) * 6 +
-					getMatchCount(card.book, terms) * 5 +
-					getMatchCount(card.page ?? '', terms) * 4 +
-					getMatchCount(searchableText, terms)
+					(searchFields.authorBook ? getMatchCount(card.author, terms) * 6 + getMatchCount(card.book, terms) * 5 : 0) +
+					(searchFields.page ? getMatchCount(card.page ?? '', terms) * 4 : 0) +
+					(searchFields.content ? getMatchCount(card.content, terms) : 0)
 			}))
 			.sort((left, right) => {
 				if (right.score !== left.score) return right.score - left.score;
 				return left.index - right.index;
 			})
-			.slice(0, 18)
+			.slice(0, 24)
 			.map(({ card }) => card);
 	});
 
@@ -371,18 +411,104 @@
 					type="search"
 				/>
 			</label>
-			<div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs opacity-70">
-				{#if searchTerms.length === 0}
-					<span>Escribe para buscar en toda la colección</span>
-				{:else}
-					<span>{searchResults.length} resultados visibles</span>
-					<span>Coincidencia sin acentos y con resaltado</span>
-				{/if}
+
+			<div class="mt-3 flex items-center justify-between gap-3">
+				<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs opacity-70">
+					{#if searchTerms.length === 0 && selectedAuthors.size === 0}
+						<span>Escribe para buscar en toda la colección</span>
+					{:else}
+						<span>{searchResults.length} resultados</span>
+						{#if activeFilterCount > 0}
+							<button class="text-primary hover:underline" type="button" onclick={clearAdvancedFilters}>
+								{activeFilterCount} {activeFilterCount === 1 ? 'filtro activo' : 'filtros activos'} ×
+							</button>
+						{/if}
+					{/if}
+				</div>
+				<button
+					type="button"
+					class={`btn btn-xs gap-1 ${advancedOpen ? 'btn-primary' : 'btn-ghost'}`}
+					onclick={() => { advancedOpen = !advancedOpen; }}
+				>
+					Avanzado
+					{#if activeFilterCount > 0}
+						<span class="badge badge-xs badge-warning">{activeFilterCount}</span>
+					{/if}
+					<span class={`text-xs transition-transform duration-200 ${advancedOpen ? 'rotate-180' : ''}`}>▾</span>
+				</button>
 			</div>
+
+			{#if advancedOpen}
+				<div class="mt-4 space-y-5 rounded-2xl border border-base-200 bg-base-50/60 px-5 py-4">
+
+					<div class="space-y-2">
+						<p class="text-xs font-semibold uppercase tracking-widest opacity-50">Modo de búsqueda</p>
+						<div class="flex gap-2">
+							<button
+								type="button"
+								class={`btn btn-sm ${matchMode === 'all' ? 'btn-primary' : 'btn-outline'}`}
+								onclick={() => { matchMode = 'all'; }}
+							>
+								Todos los términos
+							</button>
+							<button
+								type="button"
+								class={`btn btn-sm ${matchMode === 'any' ? 'btn-primary' : 'btn-outline'}`}
+								onclick={() => { matchMode = 'any'; }}
+							>
+								Algún término
+							</button>
+						</div>
+					</div>
+
+					<div class="space-y-2">
+						<p class="text-xs font-semibold uppercase tracking-widest opacity-50">Buscar en</p>
+						<div class="flex flex-wrap gap-2">
+							<label class={`btn btn-sm gap-2 ${searchFields.content ? 'btn-primary' : 'btn-outline'}`}>
+								<input type="checkbox" class="hidden" bind:checked={searchFields.content} />
+								Contenido
+							</label>
+							<label class={`btn btn-sm gap-2 ${searchFields.authorBook ? 'btn-primary' : 'btn-outline'}`}>
+								<input type="checkbox" class="hidden" bind:checked={searchFields.authorBook} />
+								Autor / libro
+							</label>
+							<label class={`btn btn-sm gap-2 ${searchFields.page ? 'btn-primary' : 'btn-outline'}`}>
+								<input type="checkbox" class="hidden" bind:checked={searchFields.page} />
+								Página
+							</label>
+						</div>
+					</div>
+
+					<div class="space-y-2">
+						<div class="flex items-center justify-between">
+							<p class="text-xs font-semibold uppercase tracking-widest opacity-50">Filtrar por autor</p>
+							{#if selectedAuthors.size > 0}
+								<button
+									type="button"
+									class="text-xs text-primary hover:underline"
+									onclick={() => { selectedAuthors = new Set(); }}
+								>Limpiar</button>
+							{/if}
+						</div>
+						<div class="flex max-h-32 flex-wrap gap-2 overflow-y-auto">
+							{#each authors as author}
+								<button
+									type="button"
+									class={`btn btn-xs rounded-full ${selectedAuthors.has(author) ? 'btn-primary' : 'btn-outline'}`}
+									onclick={() => toggleAuthor(author)}
+								>
+									{author}{selectedAuthors.has(author) ? ' ×' : ''}
+								</button>
+							{/each}
+						</div>
+					</div>
+
+				</div>
+			{/if}
 		</div>
 
-		<div class="max-h-[65vh] space-y-3 overflow-y-auto px-6 py-5">
-			{#if searchTerms.length === 0}
+		<div class="max-h-[55vh] space-y-3 overflow-y-auto px-6 py-5">
+			{#if searchTerms.length === 0 && selectedAuthors.size === 0}
 				<p class="rounded-2xl border border-dashed border-base-300 px-4 py-8 text-center text-sm opacity-70">
 					Busca en autores, libros, páginas y contenido. Al elegir un resultado, se abrirá su libro y se hará scroll a la tarjeta.
 				</p>
