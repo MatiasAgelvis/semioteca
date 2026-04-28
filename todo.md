@@ -1,16 +1,16 @@
-- [ ] Design and build the landing page with hero section, feature links, and navigation.
-- [ ] Create a CV page with resume content and a PDF download/viewer link.
-- [ ] Add a blog listing page plus post view support for existing blog content.
-- [ ] Add a docs/PDF page to list and serve PDF resources.
-- [ ] Build the card repository page:
+- [x] Design and build the landing page with hero section, feature links, and navigation.
+- [x] Create a CV page with resume content and a PDF download/viewer link.
+- [x] Add a blog listing page plus post view support for existing blog content.
+- [x] Add a docs/PDF page to list and serve PDF resources.
+- [x] Build the card repository page:
   - load `cards.json`
   - support search, filtering, and card detail views
   - add a table of contents / book grouping navigation
-- [ ] Implement client-side search indexing for cards, titles, and metadata.
-- [ ] Add shared layout components: header, footer, and page sections.
-- [ ] Create a minimal style system using Skeleton and Tailwind.
-- [ ] Wire the frontend to static assets and generated JSON output.
-- [ ] Ensure the frontend deploys as a static site and can be built from the root.
+- [x] Implement client-side search indexing for cards, titles, and metadata.
+- [x] Add shared layout components: header, footer, and page sections.
+- [x] Create a minimal style system using Skeleton and Tailwind.
+- [x] Wire the frontend to static assets and generated JSON output.
+- [x] Ensure the frontend deploys as a static site and can be built from the root.
 - [ ] Prototype automated tag generation / cross-card reference discovery from `cards.json` using an LLM or semantic vectorizer.
 - [ ] Card Images
   - [ ] Add support for card images in `cards.json` and display them in the UI.
@@ -21,8 +21,8 @@
 - [ ] Card Detail View
   - [ ] Create a detailed view for each card that displays all relevant information and metadata.
   - [ ] Add navigation from the card listing to the card detail view.
-- [ ] Search Functionality
-  - [ ] Implement a search bar that allows users to search for cards by title, content, and metadata.
-  - [ ] Add support for advanced search features (e.g., boolean operators, filters).
-  - [ ] Highlight search terms in the search results for better visibility.
+- [x] Search Functionality
+  - [x] Implement a search bar that allows users to search for cards by title, content, and metadata.
+  - [x] Add support for advanced search features (e.g., boolean operators, filters).
+  - [x] Highlight search terms in the search results for better visibility.
   
