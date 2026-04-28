@@ -96,7 +96,10 @@
 	});
 
 	const filteredCards = $derived.by(() => {
-		return cards.filter((card) => !selectedBook || getBookKey(card) === selectedBook);
+		if (cards.length === 0) return [];
+		// Avoid rendering the entire dataset on first paint before selectedBook is initialized.
+		const activeBookKey = selectedBook ?? getBookKey(cards[0]);
+		return cards.filter((card) => getBookKey(card) === activeBookKey);
 	});
 
 	const hasSearchCriteria = $derived(searchTerms.length > 0 || selectedAuthors.size > 0);
