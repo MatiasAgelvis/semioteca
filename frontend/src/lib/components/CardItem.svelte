@@ -102,7 +102,9 @@
 			<div class="mt-1 space-y-3">
 				{#each expandedParts as part}
 					{#if part.kind === 'text'}
-						<p class="whitespace-pre-wrap text-sm leading-7 opacity-80">{part.text}</p>
+						<p class="whitespace-pre-wrap text-sm leading-7 opacity-80">
+							<HighlightedText segments={getHighlightSegments(part.text, searchTerms)} />
+						</p>
 					{:else}
 						<figure class="my-2">
 							<img

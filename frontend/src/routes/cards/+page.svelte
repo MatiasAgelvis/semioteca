@@ -16,7 +16,7 @@
 	import { countMatchedTerms, getMatchCount, matchesAllTerms, matchesAnyTerm, tokenizeQuery } from '$lib/utils/search';
 	import type { CardRecord, CardsDataset } from '$lib/types/content';
 	import type { PageData } from './$types';
-
+ 
 	let { data }: { data: PageData } = $props();
 
 	let loading = $state(true);
@@ -184,6 +184,9 @@
 			focusLockTimeout = null;
 		}, 600);
 		focusedCardId = id;
+		// Move keyboard focus to the selected card so it does not stay in the search input.
+		node.setAttribute('tabindex', '-1');
+		node.focus({ preventScroll: true });
 		node.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
 	}
 
@@ -204,6 +207,7 @@
 	async function selectSearchResult(card: CardRecord) {
 		fullResultsMode = false;
 		selectedBook = getBookKey(card);
+		(document.activeElement as HTMLElement | null)?.blur();
 		closeSearchDialog();
 		await tick();
 		await scrollToCard(card.id);
