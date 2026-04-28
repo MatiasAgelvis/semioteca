@@ -21,6 +21,7 @@
 
 	let loading = $state(true);
 	let selectedBook = $state<string | null>(null);
+	let fullResultsMode = $state(false);
 	let returnToCardId = $state<string | null>(
 		typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('cards:returnTo') : null
 	);
@@ -98,7 +99,9 @@
 		return cards.filter((card) => !selectedBook || getBookKey(card) === selectedBook);
 	});
 
-	const searchResults = $derived.by(() => {
+	const hasSearchCriteria = $derived(searchTerms.length > 0 || selectedAuthors.size > 0);
+
+	const rankedSearchResults = $derived.by(() => {
 		const terms = searchTerms;
 		const hasFilters = selectedAuthors.size > 0;
 		if (terms.length === 0 && !hasFilters) return [] as CardRecord[];
@@ -138,9 +141,12 @@
 				if (right.score !== left.score) return right.score - left.score;
 				return left.index - right.index;
 			})
-			.slice(0, 24)
 			.map(({ card }) => card);
 	});
+
+	const searchResults = $derived(rankedSearchResults.slice(0, 24));
+	const fullResultsCount = $derived(rankedSearchResults.length);
+	const displayCards = $derived(fullResultsMode ? rankedSearchResults : filteredCards);
 
 	function registerCard(el: HTMLElement, id: string) {
 		cardElements.set(id, el);
@@ -161,7 +167,7 @@
 	}
 
 	async function scrollToCard(id: string) {
-		const cardIndex = filteredCards.findIndex((card) => card.id === id);
+		const cardIndex = displayCards.findIndex((card) => card.id === id);
 		if (cardIndex === -1) return;
 
 		let node = cardElements.get(id) ?? document.getElementById(`card-${id}`);
@@ -182,6 +188,7 @@
 	}
 
 	function selectBook(key: string) {
+		fullResultsMode = false;
 		selectedBook = key;
 		mobileDrawerOpen = false;
 	}
@@ -195,10 +202,24 @@
 	}
 
 	async function selectSearchResult(card: CardRecord) {
+		fullResultsMode = false;
 		selectedBook = getBookKey(card);
 		closeSearchDialog();
 		await tick();
 		await scrollToCard(card.id);
+	}
+
+	async function openFullResultsMode() {
+		if (!hasSearchCriteria) return;
+		fullResultsMode = true;
+		closeSearchDialog();
+		mobileDrawerOpen = false;
+		await tick();
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	}
+
+	function closeFullResultsMode() {
+		fullResultsMode = false;
 	}
 
 	function handleTocScroll(id: string) {
@@ -244,12 +265,12 @@
 			},
 			{ root: null, rootMargin: '-20% 0px -60% 0px', threshold: [0.05, 0.25, 0.6] }
 		);
-		for (const card of filteredCards) {
+		for (const card of displayCards) {
 			const node = cardElements.get(card.id);
 			if (node) observer.observe(node);
 		}
-		if (filteredCards.length > 0 && (!focusedCardId || !filteredCards.some((c) => c.id === focusedCardId))) {
-			focusedCardId = filteredCards[0].id;
+		if (displayCards.length > 0 && (!focusedCardId || !displayCards.some((c) => c.id === focusedCardId))) {
+			focusedCardId = displayCards[0].id;
 		}
 	}
 
@@ -309,8 +330,15 @@
 	$effect(() => {
 		if (loading) return;
 		selectedBook;
-		filteredCards.length;
+		fullResultsMode;
+		displayCards.length;
 		void setupObserver();
+	});
+
+	$effect(() => {
+		if (fullResultsMode && !hasSearchCriteria) {
+			fullResultsMode = false;
+		}
 	});
 
 	$effect(() => {
@@ -343,8 +371,13 @@
 		description="Búsqueda y navegación por fichas bibliográficas extraídas de los manuscritos fuente."
 	>
 		<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm opacity-70">
-			<span>{filteredCards.length} tarjetas en este libro</span>
-			<span>Usa la barra fija del encabezado para buscar en toda la colección</span>
+			{#if fullResultsMode}
+				<span>{fullResultsCount} resultados globales</span>
+				<button class="btn btn-ghost btn-xs" type="button" onclick={closeFullResultsMode}>Volver al modo libro</button>
+			{:else}
+				<span>{filteredCards.length} tarjetas en este libro</span>
+				<span>Usa la barra fija del encabezado para buscar en toda la colección</span>
+			{/if}
 		</div>
 
 		<div class="mt-6">
@@ -381,7 +414,8 @@
 				</div>
 			</div>
 
-			<div class="grid gap-6 lg:grid-cols-[17rem_minmax(0,1fr)_20rem]">
+			<div class={`grid gap-6 ${fullResultsMode ? '' : 'lg:grid-cols-[17rem_minmax(0,1fr)_20rem]'}`}>
+				{#if !fullResultsMode}
 				<div class="hidden lg:block">
 					<BookSidebar
 						{books}
@@ -389,34 +423,37 @@
 						onselect={selectBook}
 					/>
 				</div>
+				{/if}
 
 				<div class="space-y-5">
 					{#if loading}
 						<p>Cargando tarjetas...</p>
 					{:else}
-						{#each filteredCards as card (card.id)}
+						{#each displayCards as card (card.id)}
 							<CardItem
 								{card}
 								focused={focusedCardId === card.id}
-								searchTerms={[]}
+								searchTerms={fullResultsMode ? searchTerms : []}
 								onregister={registerCard}
 								onunregister={unregisterCard}
 							/>
 						{/each}
-						{#if filteredCards.length === 0}
+						{#if displayCards.length === 0}
 							<p class="text-sm">No hay tarjetas que coincidan con la búsqueda o el filtro seleccionado.</p>
 						{/if}
 					{/if}
 				</div>
 
+				{#if !fullResultsMode}
 				<div class="hidden lg:block">
 					<CardsToc
-						cards={filteredCards}
+						cards={displayCards}
 						{focusedCardId}
-						searchTerms={[]}
+						searchTerms={fullResultsMode ? searchTerms : []}
 						onscrollto={scrollToCard}
 					/>
 				</div>
+				{/if}
 			</div>
 		</div>
 	</PageSection>
@@ -453,7 +490,7 @@
 					{#if searchTerms.length === 0 && selectedAuthors.size === 0}
 						<span>Escribe para buscar en toda la colección</span>
 					{:else}
-						<span>{searchResults.length} resultados</span>
+						<span>{fullResultsCount} resultados</span>
 						{#if activeFilterCount > 0}
 							<button class="text-primary hover:underline" type="button" onclick={clearAdvancedFilters}>
 								{activeFilterCount} {activeFilterCount === 1 ? 'filtro activo' : 'filtros activos'} ×
@@ -461,17 +498,24 @@
 						{/if}
 					{/if}
 				</div>
-				<button
-					type="button"
-					class={`btn btn-xs gap-1 ${advancedOpen ? 'btn-primary' : 'btn-ghost'}`}
-					onclick={() => { advancedOpen = !advancedOpen; }}
-				>
-					Avanzado
-					{#if activeFilterCount > 0}
-						<span class="badge badge-xs badge-warning">{activeFilterCount}</span>
+				<div class="flex items-center gap-2">
+					{#if hasSearchCriteria && fullResultsCount > 0}
+						<button type="button" class="btn btn-xs btn-primary" onclick={openFullResultsMode}>
+							Ver todos ({fullResultsCount})
+						</button>
 					{/if}
-					<span class={`text-xs transition-transform duration-200 ${advancedOpen ? 'rotate-180' : ''}`}>▾</span>
-				</button>
+					<button
+						type="button"
+						class={`btn btn-xs gap-1 ${advancedOpen ? 'btn-primary' : 'btn-ghost'}`}
+						onclick={() => { advancedOpen = !advancedOpen; }}
+					>
+						Avanzado
+						{#if activeFilterCount > 0}
+							<span class="badge badge-xs badge-warning">{activeFilterCount}</span>
+						{/if}
+						<span class={`text-xs transition-transform duration-200 ${advancedOpen ? 'rotate-180' : ''}`}>▾</span>
+					</button>
+				</div>
 			</div>
 
 			{#if advancedOpen}
