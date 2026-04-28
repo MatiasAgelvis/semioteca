@@ -1,6 +1,7 @@
 <script lang="ts">
 	import HighlightedText from '$lib/components/HighlightedText.svelte';
 	import type { CardImage, CardRecord } from '$lib/types/content';
+	import { buildCardCitationAPA, buildCardFullText, copyTextToClipboard } from '$lib/utils/citation';
 	import { createExcerpt, getHighlightSegments, getMatchCount } from '$lib/utils/search';
 
 	let {
@@ -19,6 +20,8 @@
 
 	let element: HTMLElement;
 	let expanded = $state(false);
+	let copyFeedback = $state<string | null>(null);
+	let feedbackTimer: ReturnType<typeof setTimeout> | null = null;
 
 	const searchActive = $derived(searchTerms.length > 0);
 	const hasImages = $derived(card.images.length > 0);
@@ -66,11 +69,36 @@
 		return idx !== -1 ? `/content/${image.path.slice(idx)}` : '';
 	}
 
+	function showFeedback(message: string) {
+		copyFeedback = message;
+		if (feedbackTimer) clearTimeout(feedbackTimer);
+		feedbackTimer = setTimeout(() => {
+			copyFeedback = null;
+			feedbackTimer = null;
+		}, 1800);
+	}
+
+	async function copyCitation() {
+		const copied = await copyTextToClipboard(buildCardCitationAPA(card));
+		showFeedback(copied ? 'Cita copiada' : 'No se pudo copiar');
+	}
+
+	async function copyCardText() {
+		const copied = await copyTextToClipboard(buildCardFullText(card));
+		showFeedback(copied ? 'Texto copiado' : 'No se pudo copiar');
+	}
+
 	$effect(() => {
 		if (!element) return;
 		const id = card.id;
 		onregister?.(element, id);
 		return () => { onunregister?.(element, id); };
+	});
+
+	$effect(() => {
+		return () => {
+			if (feedbackTimer) clearTimeout(feedbackTimer);
+		};
 	});
 </script>
 
@@ -128,7 +156,24 @@
 		{/if}
 
 		<div class="card-actions justify-end">
-			<div class="flex items-center gap-2">
+			<div class="flex flex-wrap items-center justify-end gap-2">
+				<details class="dropdown dropdown-end">
+					<summary class="btn btn-sm btn-ghost">Opciones</summary>
+					<ul class="menu dropdown-content z-20 mt-1 w-56 rounded-box border border-base-300 bg-base-100 p-2 shadow">
+						<li>
+							<a
+								href={`/cards/${card.id}`}
+								target="_blank"
+								rel="noopener noreferrer"
+								data-sveltekit-reload
+							>
+								Abrir en nueva pestana
+							</a>
+						</li>
+						<li><button type="button" onclick={copyCitation}>Copiar cita</button></li>
+						<li><button type="button" onclick={copyCardText}>Copiar texto</button></li>
+					</ul>
+				</details>
 				<button
 					type="button"
 					class="btn btn-sm btn-outline"
@@ -136,19 +181,9 @@
 				>
 					{expanded ? 'Cerrar' : 'Ver detalle'}
 				</button>
-				<a
-					href={`/cards/${card.id}`}
-					class="btn btn-sm btn-ghost btn-square"
-					title="Abrir página de esta tarjeta"
-					aria-label="Abrir página de esta tarjeta"
-					target="_blank"
-					rel="noopener noreferrer"
-					data-sveltekit-reload
-				>
-					<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-					</svg>
-				</a>
+				{#if copyFeedback}
+					<span class="text-xs opacity-70">{copyFeedback}</span>
+				{/if}
 			</div>
 		</div>
 	</div>
