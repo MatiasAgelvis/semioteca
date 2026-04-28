@@ -4,7 +4,8 @@
     import { onMount } from 'svelte';
     import { page } from '$app/state';
     import ThemeSwitcher from './ThemeSwitcher.svelte';
-    import { cardsSearchQuery, openCardsSearch } from '$lib/stores/cardsSearch';
+    import { cardsSearchDialogOpen, cardsSearchQuery, openCardsSearch } from '$lib/stores/cardsSearch';
+    import { goto } from '$app/navigation';
 
     const links = [
         { href: '/', label: 'Inicio' },
@@ -14,9 +15,40 @@
         { href: '/cv', label: 'CV' }
     ];
 
+    let suppressFocus = false;
+
+    $effect(() => {
+        return cardsSearchDialogOpen.subscribe((open) => {
+            if (!open) {
+                suppressFocus = true;
+                setTimeout(() => { suppressFocus = false; }, 300);
+            }
+        });
+    });
+
     let compactHeader = $state(false);
     let menuOpen = $state(false);
     const isCardsRoute = $derived(page.url.pathname.startsWith('/cards'));
+    const isCardsIndex = $derived(page.url.pathname === '/cards' || page.url.pathname === '/cards/');
+
+    async function handleSearchFocus() {
+        if (suppressFocus) return;
+        if (isCardsIndex) {
+            openCardsSearch();
+        } else {
+            await goto('/cards');
+            openCardsSearch();
+        }
+    }
+
+    async function handleSearchInput() {
+        if (isCardsIndex) {
+            openCardsSearch();
+        } else {
+            await goto('/cards');
+            openCardsSearch();
+        }
+    }
 
     function isActive(href: string): boolean {
         const pathname = page.url.pathname;
@@ -65,8 +97,8 @@
                         class={`input input-bordered w-full rounded-full bg-base-100/90 pr-24 transition-[height,box-shadow] duration-300 ease-out ${compactHeader ? 'h-10 shadow-sm' : 'h-11'}`}
                         placeholder="Buscar en todas las tarjetas"
                         type="search"
-                        onfocus={() => { openCardsSearch(); }}
-                        oninput={() => { openCardsSearch(); }}
+                        onfocus={handleSearchFocus}
+                        oninput={handleSearchInput}
                     />
                     <span class="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-xs opacity-50">⌘K</span>
                 </label>

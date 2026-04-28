@@ -21,6 +21,9 @@
 
 	let loading = $state(true);
 	let selectedBook = $state<string | null>(null);
+	let returnToCardId = $state<string | null>(
+		typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('cards:returnTo') : null
+	);
 	let focusedCardId = $state<string | null>(null);
 	let mobileDrawerOpen = $state(false);
 	let cards = $state<CardRecord[]>([]);
@@ -65,7 +68,17 @@
 	const visibleCardIds = new Set<string>();
 	let focusLockCardId: string | null = null;
 	let focusLockTimeout: ReturnType<typeof setTimeout> | null = null;
-	const searchTerms = $derived(tokenizeQuery($cardsSearchQuery));
+	let debouncedQuery = $state('');
+	let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+	$effect(() => {
+		const q = $cardsSearchQuery;
+		if (debounceTimer) clearTimeout(debounceTimer);
+		debounceTimer = setTimeout(() => { debouncedQuery = q; debounceTimer = null; }, 200);
+		return () => { if (debounceTimer) { clearTimeout(debounceTimer); debounceTimer = null; } };
+	});
+
+	const searchTerms = $derived(tokenizeQuery(debouncedQuery));
 
 	const books = $derived.by(() => {
 		const grouped = new Map<string, { key: string; author: string; title: string; count: number }>();
@@ -256,7 +269,17 @@
 				const dataset = (await response.json()) as CardsDataset;
 				cards = dataset.books.flatMap((book) => book.cards);
 			}
-			if (!cancelled) { loading = false; await setupObserver(); }
+			if (!cancelled) {
+				loading = false;
+				await setupObserver();
+				if (returnToCardId) {
+					sessionStorage.removeItem('cards:returnTo');
+					const id = returnToCardId;
+					returnToCardId = null;
+					await tick();
+					await scrollToCard(id);
+				}
+			}
 		})();
 		return () => {
 			cancelled = true;
@@ -274,6 +297,11 @@
 			return;
 		}
 		if (!selectedBook || !books.some((book) => book.key === selectedBook)) {
+			// If restoring a card, pick its book; otherwise default to first book
+			if (returnToCardId) {
+				const target = cards.find((c) => c.id === returnToCardId);
+				if (target) { selectedBook = getBookKey(target); return; }
+			}
 			selectedBook = books[0].key;
 		}
 	});
