@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { SHOW_CV, SHOW_DOCS } from '$lib/config/features';
+	import type { PageData } from './$types';
+
+	let { data }: { data: PageData } = $props();
 </script>
 
 <svelte:head>
@@ -17,6 +20,17 @@
 			Un fichero estático para explorar tarjetas de lectura, ensayos y documentos sobre semiótica,
 			lingüística y filosofía del lenguaje.
 		</p>
+		<div class="mt-10 flex gap-8">
+			<div>
+				<p class="text-3xl font-black tracking-tight text-base-content">{data.totalCards}</p>
+				<p class="mt-1 text-xs font-semibold tracking-[0.2em] text-base-content/50 uppercase">Tarjetas</p>
+			</div>
+			<div class="w-px bg-base-300"></div>
+			<div>
+				<p class="text-3xl font-black tracking-tight text-base-content">{data.totalBooks}</p>
+				<p class="mt-1 text-xs font-semibold tracking-[0.2em] text-base-content/50 uppercase">Obras</p>
+			</div>
+		</div>
 	</section>
 
 	<section class={`mt-8 grid gap-4 md:grid-cols-2 ${SHOW_DOCS || SHOW_CV ? 'xl:grid-cols-4' : 'xl:grid-cols-2'}`}>
@@ -45,4 +59,23 @@
 			</a>
 		{/if}
 	</section>
+
+	{#if data.recentPosts.length > 0}
+		<section class="mt-8">
+			<h2 class="mb-4 text-xs font-semibold tracking-[0.2em] text-base-content/50 uppercase">Últimas entradas</h2>
+			<div class="grid gap-4 md:grid-cols-3">
+				{#each data.recentPosts as post}
+					<a class="group rounded-2xl border border-base-300/70 bg-base-100/80 p-5 transition hover:border-primary/30" href="/blog/{post.slug}">
+						{#if post.coverImage}
+							<img src={post.coverImage} alt={post.title} class="mb-4 h-36 w-full rounded-xl object-cover" />
+						{/if}
+						<h3 class="text-base font-black text-base-content">{post.title}</h3>
+						{#if post.excerpt}
+							<p class="mt-2 text-sm leading-6 text-base-content/60 line-clamp-3">{post.excerpt}</p>
+						{/if}
+					</a>
+				{/each}
+			</div>
+		</section>
+	{/if}
 </div>
