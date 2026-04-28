@@ -18,13 +18,25 @@ function titleFromMarkdown(markdown: string, fallback: string): string {
 	return heading?.[1]?.trim() ?? fallback;
 }
 
+function stripInlineMarkdown(text: string): string {
+	return text
+		.replace(/!\[[^\]]*\]\([^)]*\)/g, '') // remove images
+		.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1') // links → text
+		.replace(/(\*\*|__)(.*?)\1/g, '$2') // bold
+		.replace(/(\*|_)(.*?)\1/g, '$2') // italic
+		.replace(/`([^`]+)`/g, '$1') // inline code
+		.trim();
+}
+
 function excerptFromMarkdown(markdown: string): string {
 	for (const line of markdown.split('\n')) {
 		const trimmed = line.trim();
 		if (!trimmed || trimmed.startsWith('#') || trimmed.startsWith('![') || trimmed.startsWith('>')) {
 			continue;
 		}
-		return trimmed.length > 220 ? `${trimmed.slice(0, 217)}...` : trimmed;
+		const clean = stripInlineMarkdown(trimmed);
+		if (!clean) continue;
+		return clean.length > 220 ? `${clean.slice(0, 217)}...` : clean;
 	}
 	return 'Post available in the Semioteca archive.';
 }
