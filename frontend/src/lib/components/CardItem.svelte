@@ -126,8 +126,7 @@
 			</p>
 		{/if}
 
-		<div class="card-actions items-center justify-between">
-			<span class="text-xs opacity-50">{card.id}</span>
+		<div class="card-actions justify-end">
 			<div class="flex items-center gap-2">
 				<button
 					type="button"

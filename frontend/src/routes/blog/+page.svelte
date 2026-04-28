@@ -16,15 +16,15 @@
 	>
 		<div class="grid gap-5 md:grid-cols-2">
 			{#each data.posts as post}
-				<article class="rounded-2xl border border-surface-300/70 bg-surface-50/85 p-5 shadow-md shadow-surface-950/5">
+				<article class="rounded-2xl border border-base-300/70 bg-base-100/90 p-5 shadow-md shadow-base-content/5">
 					{#if post.coverImage}
 						<img src={post.coverImage} alt={post.title} class="mb-4 h-44 w-full rounded-xl object-cover" />
 					{/if}
-					<h2 class="text-xl font-black text-surface-900">
-						<a class="hover:text-primary-700" href={`/blog/${post.slug}`}>{post.title}</a>
+					<h2 class="text-xl font-black text-base-content">
+						<a class="hover:text-primary" href={`/blog/${post.slug}`}>{post.title}</a>
 					</h2>
-					<p class="mt-3 text-sm leading-7 text-surface-700">{post.excerpt}</p>
-					<a class="btn variant-outline-surface mt-5" href={`/blog/${post.slug}`}>Leer artículo</a>
+					<p class="mt-3 text-sm leading-7 text-base-content/70">{post.excerpt}</p>
+					<a class="btn btn-outline mt-5" href={`/blog/${post.slug}`}>Leer artículo</a>
 				</article>
 			{/each}
 		</div>
