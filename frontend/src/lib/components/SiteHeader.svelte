@@ -63,6 +63,8 @@
         menuOpen = false;
     }
 
+    let headerEl = $state<HTMLElement | null>(null);
+
     onMount(() => {
         const updateCompactHeader = () => {
             compactHeader = window.scrollY > 24;
@@ -72,8 +74,15 @@
         updateCompactHeader();
         window.addEventListener('scroll', updateCompactHeader, { passive: true });
 
+        const ro = new ResizeObserver((entries) => {
+            const h = entries[0]?.borderBoxSize?.[0]?.blockSize ?? (headerEl?.offsetHeight ?? 0);
+            document.documentElement.style.setProperty('--header-height', `${h}px`);
+        });
+        if (headerEl) ro.observe(headerEl);
+
         return () => {
             window.removeEventListener('scroll', updateCompactHeader);
+            ro.disconnect();
         };
     });
 
@@ -83,7 +92,7 @@
     });
 </script>
 
-<header class="sticky top-0 z-50 border-b border-base-200/80 bg-base-100/90 backdrop-blur-md dark:border-base-200/40 dark:bg-base-900/85">
+<header bind:this={headerEl} class="sticky top-0 z-50 border-b border-base-200/80 bg-base-100/90 backdrop-blur-md dark:border-base-200/40 dark:bg-base-900/85">
     <div class="mx-auto w-full max-w-7xl px-5 lg:px-10">
         <div class={`grid items-center gap-3 transition-[padding,grid-template-columns,gap] duration-300 ease-out ${compactHeader ? 'grid-cols-[auto_minmax(0,1fr)_auto] py-2' : 'grid-cols-[auto_minmax(0,1fr)_auto] py-3'}`}>
             <a href="/" class={`text-base-content transition-[font-size,transform] duration-300 ease-out ${compactHeader ? 'text-lg lg:text-xl' : 'text-xl' } font-black tracking-tight`}>

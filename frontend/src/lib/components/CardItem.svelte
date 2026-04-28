@@ -78,7 +78,8 @@
 	bind:this={element}
 	id={`card-${card.id}`}
 	data-card-id={card.id}
-	class={`card bg-base-100 border scroll-mt-28 transition-colors ${focused ? 'border-primary shadow-sm' : 'border-base-300'}`}
+	class={`card bg-base-100 border transition-colors ${focused ? 'border-primary shadow-sm' : 'border-base-300'}`}
+	style="scroll-margin-top: var(--header-height, 7rem)"
 >
 	<div class="card-body p-5">
 		<div class="flex flex-wrap items-center justify-between gap-2">

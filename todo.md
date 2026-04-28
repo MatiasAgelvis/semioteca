@@ -44,6 +44,6 @@
 - [x] **#5 — Footer dark mode** · `bg-base-200` / `text-base-content` are DaisyUI CSS variables that update automatically in dark mode — no manual `dark:` overrides needed. Header's `dark:` classes are only for the custom translucent blur effect, not a correctness requirement.
 - [x] **#6 — Card ID visible to users** · Removed the raw `{card.id}` span from `CardItem` footer.
 - [x] **#7 — Blog post has no back-navigation** · Added "← Volver al blog" button above the article on `/blog/[slug]`.
-- [ ] **#8 — `scroll-mt-28` fixed offset** · Cards use a fixed 7 rem scroll offset but the header height changes dynamically; may under/overshoot.
-- [ ] **#9 — Inconsistent border-radius scale** · Docs rows use `rounded-xl`, cards/blog use `rounded-2xl` / `rounded-[1.75rem]` / `rounded-[2rem]` — no consistent scale.
-- [ ] **#10 — Heading hierarchy** · `PageSection` emits `<h2>` but the cards page has no wrapping `<h1>`; blog post and home page have their own ad-hoc `<h1>` outside the component.
+- [x] **#8 — `scroll-mt-28` fixed offset** · Cards use a fixed 7 rem scroll offset but the header height changes dynamically; may under/overshoot.
+- [x] **#9 — Inconsistent border-radius scale** · Docs rows use `rounded-xl`, cards/blog use `rounded-2xl` / `rounded-[1.75rem]` / `rounded-[2rem]` — no consistent scale.
+- [x] **#10 — Heading hierarchy** · `PageSection` emits `<h2>` but the cards page has no wrapping `<h1>`; blog post and home page have their own ad-hoc `<h1>` outside the component.
