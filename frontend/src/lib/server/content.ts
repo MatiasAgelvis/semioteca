@@ -30,18 +30,36 @@ function excerptFromMarkdown(markdown: string): string {
 }
 
 function coverFromMarkdown(markdown: string, slug: string): string | null {
-	const imageMatch = markdown.match(/!\[[^\]]*\]\(([^)]+)\)/);
-	if (!imageMatch) {
-		return null;
+	// Try inline image first: ![alt](path)
+	const inlineMatch = markdown.match(/!\[[^\]]*\]\(([^)]+)\)/);
+	if (inlineMatch) {
+		const rawPath = inlineMatch[1]?.trim();
+		if (rawPath) {
+			if (rawPath.startsWith('http://') || rawPath.startsWith('https://') || rawPath.startsWith('/')) {
+				return rawPath;
+			}
+			return toPublicUrl('blog', slug, rawPath);
+		}
 	}
-	const rawPath = imageMatch[1]?.trim();
-	if (!rawPath) {
-		return null;
+
+	// Fall back to reference-style image: ![][label] resolved via [label]: path
+	const refImageMatch = markdown.match(/!\[[^\]]*\]\[([^\]]+)\]/);
+	if (refImageMatch) {
+		const label = refImageMatch[1];
+		const defRegex = new RegExp(`^\\[${label}\\]:\\s*(\\S+)`, 'm');
+		const defMatch = markdown.match(defRegex);
+		if (defMatch) {
+			const rawPath = defMatch[1]?.trim();
+			if (rawPath) {
+				if (rawPath.startsWith('http://') || rawPath.startsWith('https://') || rawPath.startsWith('/')) {
+					return rawPath;
+				}
+				return toPublicUrl('blog', slug, rawPath);
+			}
+		}
 	}
-	if (rawPath.startsWith('http://') || rawPath.startsWith('https://') || rawPath.startsWith('/')) {
-		return rawPath;
-	}
-	return toPublicUrl('blog', slug, rawPath);
+
+	return null;
 }
 
 function toPublicUrl(...segments: string[]): string {
@@ -54,6 +72,7 @@ function toPublicUrl(...segments: string[]): string {
 
 function rewriteMarkdownAssetUrls(markdown: string, slug: string): string {
 	return markdown
+		// Inline images: ![alt](path)
 		.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (full, altText: string, assetPath: string) => {
 			const clean = assetPath.trim();
 			if (clean.startsWith('http://') || clean.startsWith('https://') || clean.startsWith('/')) {
@@ -61,6 +80,15 @@ function rewriteMarkdownAssetUrls(markdown: string, slug: string): string {
 			}
 			return `![${altText}](${toPublicUrl('blog', slug, clean)})`;
 		})
+		// Reference-style link/image definitions: [label]: path
+		.replace(/^(\[[^\]]+\]):\s+(\S+)(.*)$/gm, (full, label: string, href: string, rest: string) => {
+			const clean = href.trim();
+			if (clean.startsWith('http://') || clean.startsWith('https://') || clean.startsWith('/') || clean.startsWith('#')) {
+				return full;
+			}
+			return `${label}: ${toPublicUrl('blog', slug, clean)}${rest}`;
+		})
+		// Inline links: [text](href)
 		.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (full, text: string, href: string) => {
 			const clean = href.trim();
 			if (clean.startsWith('http://') || clean.startsWith('https://') || clean.startsWith('/') || clean.startsWith('#')) {
@@ -161,9 +189,11 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
 	}
 
 	const markdown = await readFile(path.join(postDir, markdownFile.name), 'utf-8');
-	const normalizedMarkdown = rewriteMarkdownAssetUrls(markdown, slug);
 	const fallbackTitle = markdownFile.name.replace(/\.md$/i, '');
 	const title = titleFromMarkdown(markdown, fallbackTitle);
+	// Remove the first h1 so it isn't rendered twice (the template already shows the title)
+	const markdownWithoutTitle = markdown.replace(/^#\s+.+\n?/m, '');
+	const normalizedMarkdown = rewriteMarkdownAssetUrls(markdownWithoutTitle, slug);
 
 	return {
 		slug,

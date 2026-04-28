@@ -12,17 +12,38 @@
 - [x] Wire the frontend to static assets and generated JSON output.
 - [x] Ensure the frontend deploys as a static site and can be built from the root.
 - [ ] Prototype automated tag generation / cross-card reference discovery from `cards.json` using an LLM or semantic vectorizer.
-- [ ] Card Images
-  - [ ] Add support for card images in `cards.json` and display them in the UI.
+- [x] Card Images
+  - [x] Add support for card images in `cards.json` and display them in the UI.
+  - [x] Extract images from source documents via backend and sync to static assets.
+  - [x] Render images inline in expand-in-place card view and on the `/cards/[id]` detail page.
   - [ ] Implement image optimization and responsive loading for card images.
 - [ ] Card Metadata
   - [ ] Add support for additional metadata fields in `cards.json` (e.g., tags, categories, related cards).
   - [ ] Implement filtering and sorting of cards based on metadata in the UI.
-- [ ] Card Detail View
-  - [ ] Create a detailed view for each card that displays all relevant information and metadata.
-  - [ ] Add navigation from the card listing to the card detail view.
+- [x] Card Detail View
+  - [x] Create a detailed view for each card that displays all relevant information and metadata.
+  - [x] Add expand-in-place "Ver detalle" in `CardItem` with images and highlighted text.
+  - [x] Add navigation from the card listing to the card detail view (opens in new tab).
+  - [x] Restore scroll position / return-to-card after navigating back from detail page.
 - [x] Search Functionality
   - [x] Implement a search bar that allows users to search for cards by title, content, and metadata.
-  - [x] Add support for advanced search features (e.g., boolean operators, filters).
+  - [x] Add support for advanced search features (author chips, match mode, field toggles).
   - [x] Highlight search terms in the search results for better visibility.
-  
+  - [x] Improve result ranking with coverage bonus and per-field score caps.
+  - [x] Add 200ms debounce on search input to reduce lag.
+  - [x] Full Results Mode — "Ver todos" expands popup results into main card list.
+  - [x] Focus handoff to selected card after closing search popup.
+  - [x] Search bar on `/cards/[id]` navigates back to `/cards` before opening popup.
+
+## Style audit (2026-04-28)
+
+- [x] **#1 — Dual design system** · Home, blog, docs, and CV pages still use Skeleton UI tokens (`variant-filled-primary`, `bg-surface-50/85`, `text-surface-900`, etc.) while cards + shared components use DaisyUI. Dark mode won't work correctly on the Skeleton pages until migrated.
+- [x] **#2 — Home page `<title>`** · Currently reads "Semioteca Frontend" instead of "Semioteca".
+- [x] **#3 — Home page buttons** · `btn variant-filled-primary` / `btn variant-outline-surface` are unmigrated Skeleton classes; should become `btn btn-primary` / `btn btn-outline`.
+- [x] **#4 — Blog `prose` link colour** · Uses `prose-a:text-primary-700` (Skeleton token), may clash with DaisyUI primary in dark mode.
+- [x] **#5 — Footer dark mode** · `bg-base-200` / `text-base-content` are DaisyUI CSS variables that update automatically in dark mode — no manual `dark:` overrides needed. Header's `dark:` classes are only for the custom translucent blur effect, not a correctness requirement.
+- [x] **#6 — Card ID visible to users** · Removed the raw `{card.id}` span from `CardItem` footer.
+- [x] **#7 — Blog post has no back-navigation** · Added "← Volver al blog" button above the article on `/blog/[slug]`.
+- [ ] **#8 — `scroll-mt-28` fixed offset** · Cards use a fixed 7 rem scroll offset but the header height changes dynamically; may under/overshoot.
+- [ ] **#9 — Inconsistent border-radius scale** · Docs rows use `rounded-xl`, cards/blog use `rounded-2xl` / `rounded-[1.75rem]` / `rounded-[2rem]` — no consistent scale.
+- [ ] **#10 — Heading hierarchy** · `PageSection` emits `<h2>` but the cards page has no wrapping `<h1>`; blog post and home page have their own ad-hoc `<h1>` outside the component.
