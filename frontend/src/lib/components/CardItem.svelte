@@ -93,7 +93,7 @@
 					<span class="badge badge-warning badge-sm">{matchCount} coincidencias</span>
 				{/if}
 				{#if hasImages}
-					<span class="badge badge-info badge-sm">{card.images.length} {card.images.length === 1 ? 'imagen' : 'imágenes'}</span>
+					<span class="badge badge-ghost badge-sm opacity-60">{card.images.length} {card.images.length === 1 ? 'imagen' : 'imágenes'}</span>
 				{/if}
 			</div>
 		</div>
