@@ -79,6 +79,13 @@ export function matchesAnyTerm(text: string, terms: string[]): boolean {
 	return terms.some((term) => folded.includes(term));
 }
 
+/** Returns how many distinct terms appear at least once in text. */
+export function countMatchedTerms(text: string, terms: string[]): number {
+	if (terms.length === 0) return 0;
+	const { folded } = buildFoldedIndex(text);
+	return terms.filter((term) => folded.includes(term)).length;
+}
+
 export function getHighlightSegments(text: string, terms: string[]): HighlightSegment[] {
 	if (!text) return [{ text: '', match: false }];
 	if (terms.length === 0) return [{ text, match: false }];

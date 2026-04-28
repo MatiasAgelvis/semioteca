@@ -13,7 +13,7 @@
 		openCardsSearch
 	} from '$lib/stores/cardsSearch';
 	import { getBookKey } from '$lib/utils/books';
-	import { getMatchCount, matchesAllTerms, matchesAnyTerm, tokenizeQuery } from '$lib/utils/search';
+	import { countMatchedTerms, getMatchCount, matchesAllTerms, matchesAnyTerm, tokenizeQuery } from '$lib/utils/search';
 	import type { CardRecord, CardsDataset } from '$lib/types/content';
 	import type { PageData } from './$types';
 
@@ -108,10 +108,18 @@
 			.map(({ card, index, searchableText }) => ({
 				card,
 				index,
-				score:
-					(searchFields.authorBook ? getMatchCount(card.author, terms) * 6 + getMatchCount(card.book, terms) * 5 : 0) +
-					(searchFields.page ? getMatchCount(card.page ?? '', terms) * 4 : 0) +
-					(searchFields.content ? getMatchCount(card.content, terms) : 0)
+				score: (() => {
+					// Coverage bonus: rewards cards that match more distinct terms (0–20 pts)
+					const coverageBonus = terms.length > 0
+						? (countMatchedTerms(searchableText, terms) / terms.length) * 20
+						: 0;
+					// Per-field scores, capped to avoid length bias in long content
+					const authorScore = searchFields.authorBook ? Math.min(getMatchCount(card.author, terms), 3) * 6 : 0;
+					const bookScore = searchFields.authorBook ? Math.min(getMatchCount(card.book, terms), 3) * 5 : 0;
+					const pageScore = searchFields.page ? Math.min(getMatchCount(card.page ?? '', terms), 3) * 4 : 0;
+					const contentScore = searchFields.content ? Math.min(getMatchCount(card.content, terms), 5) : 0;
+					return coverageBonus + authorScore + bookScore + pageScore + contentScore;
+				})()
 			}))
 			.sort((left, right) => {
 				if (right.score !== left.score) return right.score - left.score;
