@@ -13,12 +13,12 @@
 	<PageSection title="Documentos" description="Biblioteca de PDFs publicada como recursos estáticos." headingLevel="h1">
 		<div class="grid gap-3">
 			{#each data.resources as resource}
-				<div class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-base-300/70 bg-base-200/70 px-4 py-3">
-					<div>
-						<p class="font-semibold text-base-content">{resource.title}</p>
+				<div class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-2xl border border-base-300/70 bg-base-200/70 px-4 py-3">
+					<div class="min-w-0">
+						<p class="wrap-break-word font-semibold text-base-content">{resource.title}</p>
 						<p class="text-xs tracking-[0.14em] text-base-content/60 uppercase">Sección: {resource.section}</p>
 					</div>
-					<div class="flex gap-2">
+					<div class="flex shrink-0 justify-self-end gap-2">
 						<a class="btn btn-outline btn-sm" href={resource.url} target="_blank" rel="noreferrer">Ver</a>
 						<a class="btn btn-neutral btn-sm" href={resource.url} download>Descargar</a>
 					</div>
