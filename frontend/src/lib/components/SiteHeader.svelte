@@ -74,7 +74,7 @@
 
             <div class="flex items-center justify-end gap-2">
                 <div class={`hidden overflow-hidden transition-[max-width,opacity,transform,margin] duration-300 ease-out xl:block ${compactHeader ? 'pointer-events-none max-w-0 -translate-y-1 opacity-0' : 'max-w-xl translate-y-0 opacity-100'}`}>
-                    <nav class="flex flex-wrap items-center gap-2 whitespace-nowrap" aria-label="Primary">
+                    <nav class="flex items-center gap-2 whitespace-nowrap" aria-label="Primary">
                         {#each links as link}
                             <a
                                 href={link.href}
