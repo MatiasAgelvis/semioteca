@@ -1,5 +1,6 @@
 <script lang="ts">
 	import HighlightedText from '$lib/components/HighlightedText.svelte';
+	import { showToast } from '$lib/stores/toast';
 	import type { CardImage, CardRecord } from '$lib/types/content';
 	import { buildCardCitationAPA, buildCardFullText, copyTextToClipboard } from '$lib/utils/citation';
 	import { createExcerpt, getHighlightSegments, getMatchCount } from '$lib/utils/search';
@@ -20,8 +21,6 @@
 
 	let element: HTMLElement;
 	let expanded = $state(false);
-	let copyFeedback = $state<string | null>(null);
-	let feedbackTimer: ReturnType<typeof setTimeout> | null = null;
 
 	const searchActive = $derived(searchTerms.length > 0);
 	const hasImages = $derived(card.images.length > 0);
@@ -69,23 +68,14 @@
 		return idx !== -1 ? `/content/${image.path.slice(idx)}` : '';
 	}
 
-	function showFeedback(message: string) {
-		copyFeedback = message;
-		if (feedbackTimer) clearTimeout(feedbackTimer);
-		feedbackTimer = setTimeout(() => {
-			copyFeedback = null;
-			feedbackTimer = null;
-		}, 1800);
-	}
-
 	async function copyCitation() {
 		const copied = await copyTextToClipboard(buildCardCitationAPA(card));
-		showFeedback(copied ? 'Cita copiada' : 'No se pudo copiar');
+		showToast(copied ? 'Cita copiada' : 'No se pudo copiar', copied ? 'success' : 'error');
 	}
 
 	async function copyCardText() {
 		const copied = await copyTextToClipboard(buildCardFullText(card));
-		showFeedback(copied ? 'Texto copiado' : 'No se pudo copiar');
+		showToast(copied ? 'Texto copiado' : 'No se pudo copiar', copied ? 'success' : 'error');
 	}
 
 	$effect(() => {
@@ -95,11 +85,6 @@
 		return () => { onunregister?.(element, id); };
 	});
 
-	$effect(() => {
-		return () => {
-			if (feedbackTimer) clearTimeout(feedbackTimer);
-		};
-	});
 </script>
 
 <article
@@ -181,9 +166,6 @@
 				>
 					{expanded ? 'Cerrar' : 'Ver detalle'}
 				</button>
-				{#if copyFeedback}
-					<span class="text-xs opacity-70">{copyFeedback}</span>
-				{/if}
 			</div>
 		</div>
 	</div>

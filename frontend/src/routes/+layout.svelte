@@ -1,4 +1,5 @@
 <script lang="ts">
+	import GlobalToast from '$lib/components/GlobalToast.svelte';
 	import SiteFooter from '$lib/components/SiteFooter.svelte';
 	import SiteHeader from '$lib/components/SiteHeader.svelte';
 	import './layout.css';
@@ -15,4 +16,5 @@
 	<SiteHeader />
 	<main>{@render children()}</main>
 	<SiteFooter />
+	<GlobalToast />
 </div>
