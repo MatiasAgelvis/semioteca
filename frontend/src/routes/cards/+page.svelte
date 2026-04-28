@@ -5,6 +5,7 @@
 	import BookSidebar from '$lib/components/BookSidebar.svelte';
 	import CardItem from '$lib/components/CardItem.svelte';
 	import CardsToc from '$lib/components/CardsToc.svelte';
+	import SearchResultItem from '$lib/components/SearchResultItem.svelte';
 	import { getBookKey } from '$lib/utils/books';
 	import { getMatchCount, matchesAllTerms, tokenizeQuery } from '$lib/utils/search';
 	import type { CardRecord, CardsDataset } from '$lib/types/content';
@@ -13,18 +14,21 @@
 	let { data }: { data: PageData } = $props();
 
 	let loading = $state(true);
-	let query = $state('');
 	let selectedBook = $state<string | null>(null);
 	let focusedCardId = $state<string | null>(null);
 	let mobileDrawerOpen = $state(false);
 	let cards = $state<CardRecord[]>([]);
+	let searchDialogOpen = $state(false);
+	let searchQuery = $state('');
 
 	let observer: IntersectionObserver | null = null;
+	let searchDialog: HTMLDialogElement;
+	let searchInput: HTMLInputElement;
 	const cardElements = new Map<string, HTMLElement>();
 	const visibleCardIds = new Set<string>();
 	let focusLockCardId: string | null = null;
 	let focusLockTimeout: ReturnType<typeof setTimeout> | null = null;
-	const searchTerms = $derived(tokenizeQuery(query));
+	const searchTerms = $derived(tokenizeQuery(searchQuery));
 
 	const books = $derived.by(() => {
 		const grouped = new Map<string, { key: string; author: string; title: string; count: number }>();
@@ -41,24 +45,20 @@
 	});
 
 	const filteredCards = $derived.by(() => {
+		return cards.filter((card) => !selectedBook || getBookKey(card) === selectedBook);
+	});
+
+	const searchResults = $derived.by(() => {
 		const terms = searchTerms;
-		const matchingCards = cards
+		if (terms.length === 0) return [] as CardRecord[];
+
+		return cards
 			.map((card, index) => ({
 				card,
 				index,
 				searchableText: [card.title, card.author, card.book, card.page ?? '', card.content].join(' ')
 			}))
-			.filter(({ card, searchableText }) => {
-				if (selectedBook && getBookKey(card) !== selectedBook) return false;
-				if (terms.length === 0) return true;
-				return matchesAllTerms(searchableText, terms);
-			});
-
-		if (terms.length === 0) {
-			return matchingCards.map(({ card }) => card);
-		}
-
-		return matchingCards
+			.filter(({ searchableText }) => matchesAllTerms(searchableText, terms))
 			.map(({ card, index, searchableText }) => ({
 				card,
 				index,
@@ -73,6 +73,7 @@
 				if (right.score !== left.score) return right.score - left.score;
 				return left.index - right.index;
 			})
+			.slice(0, 18)
 			.map(({ card }) => card);
 	});
 
@@ -118,6 +119,28 @@
 	function selectBook(key: string) {
 		selectedBook = key;
 		mobileDrawerOpen = false;
+	}
+
+	async function openSearchDialog() {
+		if (!searchDialog) return;
+		searchDialog.showModal();
+		searchDialogOpen = true;
+		await tick();
+		searchInput?.focus();
+		searchInput?.select();
+	}
+
+	function closeSearchDialog() {
+		if (!searchDialog?.open) return;
+		searchDialog.close();
+		searchDialogOpen = false;
+	}
+
+	async function selectSearchResult(card: CardRecord) {
+		selectedBook = getBookKey(card);
+		closeSearchDialog();
+		await tick();
+		await scrollToCard(card.id);
 	}
 
 	function handleTocScroll(id: string) {
@@ -174,6 +197,14 @@
 
 	onMount(() => {
 		let cancelled = false;
+		const handleKeydown = (event: KeyboardEvent) => {
+			if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+				event.preventDefault();
+				void openSearchDialog();
+			}
+		};
+
+		window.addEventListener('keydown', handleKeydown);
 		void (async () => {
 			const response = await fetch('/content/cards.json');
 			if (response.ok && !cancelled) {
@@ -184,6 +215,7 @@
 		})();
 		return () => {
 			cancelled = true;
+			window.removeEventListener('keydown', handleKeydown);
 			observer?.disconnect();
 			if (focusLockTimeout) clearTimeout(focusLockTimeout);
 		};
@@ -203,7 +235,6 @@
 
 	$effect(() => {
 		if (loading) return;
-		query;
 		selectedBook;
 		filteredCards.length;
 		void setupObserver();
@@ -220,28 +251,19 @@
 		description="Búsqueda y navegación por fichas bibliográficas extraídas de los manuscritos fuente."
 	>
 		<div class="grid gap-4 lg:grid-cols-[2fr_1fr]">
-			<label class="space-y-2">
-				<span class="text-sm font-semibold">Buscar en título, libro, autor y contenido</span>
-				<div class="flex gap-2">
-					<input
-						class="input input-bordered w-full"
-						placeholder="Ej: pragmática, Putnam, p. 34"
-						type="search"
-						bind:value={query}
-					/>
-					{#if query.trim()}
-						<button class="btn btn-outline" type="button" onclick={() => { query = ''; }}>
-							Limpiar
-						</button>
-					{/if}
+			<div class="space-y-2">
+				<span class="text-sm font-semibold">Explorar el libro seleccionado</span>
+				<div class="flex flex-wrap gap-2">
+					<button class="btn btn-primary" type="button" onclick={() => { void openSearchDialog(); }}>
+						Buscar en todas las tarjetas
+					</button>
+					<span class="badge badge-ghost h-auto px-3 py-2">⌘K / Ctrl+K</span>
 				</div>
 				<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs opacity-70">
-					<span>{filteredCards.length} resultados</span>
-					{#if searchTerms.length > 0}
-						<span>Búsqueda por términos sin acentos y con resaltado</span>
-					{/if}
+					<span>{filteredCards.length} tarjetas en este libro</span>
+					<span>La búsqueda global abre un popup con vistas previas y resaltado</span>
 				</div>
-			</label>
+			</div>
 		</div>
 
 		<div class="mt-6">
@@ -271,7 +293,7 @@
 						<CardsToc
 							cards={filteredCards}
 							{focusedCardId}
-							{searchTerms}
+							searchTerms={[]}
 							onscrollto={handleTocScroll}
 						/>
 					</div>
@@ -295,7 +317,7 @@
 							<CardItem
 								{card}
 								focused={focusedCardId === card.id}
-								{searchTerms}
+								searchTerms={[]}
 								onregister={registerCard}
 								onunregister={unregisterCard}
 							/>
@@ -310,7 +332,7 @@
 					<CardsToc
 						cards={filteredCards}
 						{focusedCardId}
-						{searchTerms}
+						searchTerms={[]}
 						onscrollto={scrollToCard}
 					/>
 				</div>
@@ -318,3 +340,59 @@
 		</div>
 	</PageSection>
 </div>
+
+<dialog
+	bind:this={searchDialog}
+	class="modal"
+	onclose={() => { searchDialogOpen = false; }}
+>
+	<div class="modal-box max-w-3xl rounded-4xl border border-base-300 bg-base-100 p-0 shadow-2xl">
+		<div class="border-b border-base-200 px-6 py-5">
+			<div class="flex items-center justify-between gap-3">
+				<div>
+					<p class="text-xs font-semibold uppercase tracking-[0.22em] opacity-50">Busqueda global</p>
+					<h3 class="mt-1 text-xl font-black">Buscar en todas las tarjetas</h3>
+				</div>
+				<form method="dialog">
+					<button class="btn btn-ghost btn-sm" type="submit">Cerrar</button>
+				</form>
+			</div>
+			<label class="mt-4 block">
+				<input
+					bind:this={searchInput}
+					bind:value={searchQuery}
+					class="input input-lg input-bordered w-full"
+					placeholder="Busca por autor, libro, página o fragmento"
+					type="search"
+				/>
+			</label>
+			<div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs opacity-70">
+				{#if searchTerms.length === 0}
+					<span>Escribe para buscar en toda la colección</span>
+				{:else}
+					<span>{searchResults.length} resultados visibles</span>
+					<span>Coincidencia sin acentos y con resaltado</span>
+				{/if}
+			</div>
+		</div>
+
+		<div class="max-h-[65vh] space-y-3 overflow-y-auto px-6 py-5">
+			{#if searchTerms.length === 0}
+				<p class="rounded-2xl border border-dashed border-base-300 px-4 py-8 text-center text-sm opacity-70">
+					Busca en autores, libros, páginas y contenido. Al elegir un resultado, se abrirá su libro y se hará scroll a la tarjeta.
+				</p>
+			{:else if searchResults.length === 0}
+				<p class="rounded-2xl border border-dashed border-base-300 px-4 py-8 text-center text-sm opacity-70">
+					No hay coincidencias para esta búsqueda.
+				</p>
+			{:else}
+				{#each searchResults as card (card.id)}
+					<SearchResultItem {card} {searchTerms} onselect={selectSearchResult} />
+				{/each}
+			{/if}
+		</div>
+	</div>
+	<form class="modal-backdrop" method="dialog">
+		<button type="submit">Cerrar</button>
+	</form>
+</dialog>
