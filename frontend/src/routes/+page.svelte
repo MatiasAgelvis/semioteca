@@ -17,13 +17,6 @@
 			Un fichero estático para explorar tarjetas de lectura, ensayos y documentos sobre semiótica,
 			lingüística y filosofía del lenguaje.
 		</p>
-		<div class="mt-8 flex flex-wrap gap-3">
-			<a class="btn btn-primary" href="/cards">Explorar tarjetas</a>
-			<a class="btn btn-outline" href="/blog">Ir al blog</a>
-			{#if SHOW_DOCS}
-				<a class="btn btn-outline" href="/docs">Ver documentos</a>
-			{/if}
-		</div>
 	</section>
 
 	<section class={`mt-8 grid gap-4 md:grid-cols-2 ${SHOW_DOCS || SHOW_CV ? 'xl:grid-cols-4' : 'xl:grid-cols-2'}`}>
@@ -35,7 +28,7 @@
 		<a class="group rounded-2xl border border-base-300/70 bg-base-100/80 p-5 transition hover:border-primary/30" href="/blog">
 			<p class="text-primary text-xs font-semibold tracking-[0.2em] uppercase">Publicaciones</p>
 			<h2 class="mt-2 text-xl font-black text-base-content">Blog</h2>
-			<p class="mt-3 text-sm leading-7 text-base-content/70">Listado de manuscritos con vista de artículo renderizada en HTML.</p>
+			<p class="mt-3 text-sm leading-7 text-base-content/70">Análisis de cine y series desde las ciencias del significado.</p>
 		</a>
 		{#if SHOW_DOCS}
 			<a class="group rounded-2xl border border-base-300/70 bg-base-100/80 p-5 transition hover:border-primary/30" href="/docs">
