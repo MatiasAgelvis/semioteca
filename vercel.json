@@ -1,5 +1,6 @@
 {
   "installCommand": "sh scripts/vercel-install.sh",
   "buildCommand": "sh scripts/vercel-build.sh",
-  "outputDirectory": "frontend/build"
+  "outputDirectory": "frontend/build",
+  "cleanUrls": true
 }
