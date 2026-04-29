@@ -20,7 +20,18 @@
 	} = $props();
 
 	let element: HTMLElement;
+	let detailsEl: HTMLDetailsElement;
 	let expanded = $state(false);
+
+	$effect(() => {
+		function handleClick(e: MouseEvent) {
+			if (detailsEl && !detailsEl.contains(e.target as Node)) {
+				detailsEl.removeAttribute('open');
+			}
+		}
+		document.addEventListener('click', handleClick);
+		return () => document.removeEventListener('click', handleClick);
+	});
 
 	const searchActive = $derived(searchTerms.length > 0);
 	const hasImages = $derived(card.images.length > 0);
@@ -69,11 +80,13 @@
 	}
 
 	async function copyCitation() {
+		detailsEl?.removeAttribute('open');
 		const copied = await copyTextToClipboard(buildCardCitationAPA(card));
 		showToast(copied ? 'Cita copiada' : 'No se pudo copiar', copied ? 'success' : 'error');
 	}
 
 	async function copyCardText() {
+		detailsEl?.removeAttribute('open');
 		const copied = await copyTextToClipboard(buildCardFullText(card));
 		showToast(copied ? 'Texto copiado' : 'No se pudo copiar', copied ? 'success' : 'error');
 	}
@@ -142,7 +155,7 @@
 
 		<div class="card-actions justify-end">
 			<div class="flex flex-wrap items-center justify-end gap-2">
-				<details class="dropdown dropdown-end">
+				<details bind:this={detailsEl} class="dropdown dropdown-end">
 					<summary class="btn btn-sm btn-ghost">Opciones</summary>
 					<ul class="menu dropdown-content z-20 mt-1 w-56 rounded-box border border-base-300 bg-base-100 p-2 shadow">
 						<li>
@@ -151,6 +164,7 @@
 								target="_blank"
 								rel="noopener noreferrer"
 								data-sveltekit-reload
+								onclick={() => detailsEl?.removeAttribute('open')}
 							>
 								Abrir en nueva pestana
 							</a>
