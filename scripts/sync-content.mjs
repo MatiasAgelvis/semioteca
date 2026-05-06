@@ -9,6 +9,7 @@ const rootDir = path.resolve(__dirname, '..');
 const sources = {
 	cardsJson: path.join(rootDir, 'backend', 'cards.json'),
 	cardsImages: path.join(rootDir, 'backend', 'cards_images'),
+	cardTags: path.join(rootDir, 'backend', 'card-tags.json'),
 	blog: path.join(rootDir, 'backend', 'BLOG'),
 	cv: path.join(rootDir, 'backend', 'CV')
 };
@@ -39,6 +40,7 @@ async function main() {
 	await mkdir(targetRoot, { recursive: true });
 
 	await copyIfExists(sources.cardsJson, path.join(targetRoot, 'cards.json'));
+	await copyIfExists(sources.cardTags, path.join(targetRoot, 'card-tags.json'));
 	await copyIfExists(sources.cardsImages, path.join(targetRoot, 'cards_images'));
 	await copyIfExists(sources.blog, path.join(targetRoot, 'blog'));
 	await copyIfExists(sources.cv, path.join(targetRoot, 'cv'));
