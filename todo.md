@@ -12,6 +12,7 @@
 - [x] Wire the frontend to static assets and generated JSON output.
 - [x] Ensure the frontend deploys as a static site and can be built from the root.
 - [ ] Prototype automated tag generation / cross-card reference discovery from `cards.json` using an LLM or semantic vectorizer.
+  - [ ] Review `paraphrase-multilingual-MiniLM-L12-v2` and `embedding-gemma` for card classification by topic and as a search axis.
 - [x] Card Images
   - [x] Add support for card images in `cards.json` and display them in the UI.
   - [x] Extract images from source documents via backend and sync to static assets.
