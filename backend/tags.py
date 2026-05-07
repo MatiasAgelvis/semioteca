@@ -1,16 +1,25 @@
 import json
+from dataclasses import dataclass
 from pathlib import Path
-from typing import TypedDict
 
 TAG_FILE = Path(__file__).resolve().parent / "card-tags.json"
 
 
-class TagDefinition(TypedDict):
+@dataclass(frozen=True)
+class CardTag:
     name: str
     description: str
 
+    @property
+    def to_label(self) -> str:
+        return f"{self.name}: {self.description}"
 
-TAG_DEFINITIONS_LIST: list[TagDefinition]
+    @classmethod
+    def labels_to_name_dict(cls, tags: list["CardTag"]) -> dict[str, str]:
+        return {tag.to_label: tag.name for tag in tags}
+    
+
+CARD_TAGS: list[CardTag]
 CARD_TAG_NAMES: list[str]
 
 try:
@@ -19,26 +28,26 @@ except FileNotFoundError:
     raw_tags = []
 
 
-def _normalize_tags(raw_tags: list[object]) -> list[TagDefinition]:
-    normalized: list[TagDefinition] = []
+def _normalize_tags(raw_tags: list[object]) -> list[CardTag]:
+    normalized: list[CardTag] = []
     for item in raw_tags:
         if isinstance(item, str):
-            normalized.append({"name": item, "description": item})
+            normalized.append(CardTag(name=item, description=item))
             continue
         if isinstance(item, dict):
             name = item.get("name")
             description = item.get("description")
             if isinstance(name, str) and isinstance(description, str):
-                normalized.append({"name": name, "description": description})
+                normalized.append(CardTag(name=name, description=description))
     return normalized
 
 
-TAG_DEFINITIONS_LIST = _normalize_tags(raw_tags)
-CARD_TAG_NAMES = [tag["name"] for tag in TAG_DEFINITIONS_LIST]
+CARD_TAGS = _normalize_tags(raw_tags)
+CARD_TAG_NAMES = [tag.name for tag in CARD_TAGS]
 
 
-def load_tag_definitions() -> list[TagDefinition]:
-    return TAG_DEFINITIONS_LIST
+def load_tag_definitions() -> list[CardTag]:
+    return CARD_TAGS
 
 
 def load_tags() -> list[str]:
