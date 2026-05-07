@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { SHOW_CV, SHOW_DOCS } from '$lib/config/features';
+	import BlogPostCard from '$lib/components/BlogPostCard.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -65,15 +66,7 @@
 			<h2 class="mb-4 text-xs font-semibold tracking-[0.2em] text-base-content/50 uppercase">Últimas entradas</h2>
 			<div class="grid gap-4 md:grid-cols-3">
 				{#each data.recentPosts as post}
-					<a class="group rounded-2xl border border-base-300/70 bg-base-100/80 p-5 transition hover:border-primary/30" href="/blog/{post.slug}">
-						{#if post.coverImage}
-							<img src={post.coverImage} alt={post.title} class="mb-4 h-36 w-full rounded-xl object-cover" />
-						{/if}
-						<h3 class="text-base font-black text-base-content">{post.title}</h3>
-						{#if post.excerpt}
-							<p class="mt-2 text-sm leading-6 text-base-content/60 line-clamp-3">{post.excerpt}</p>
-						{/if}
-					</a>
+					<BlogPostCard {post} variant="landing" />
 				{/each}
 			</div>
 		</section>
