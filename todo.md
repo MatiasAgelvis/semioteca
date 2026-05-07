@@ -65,3 +65,8 @@
   - [ ] Evaluate server-rendered PDF for deterministic pagination.
   - [ ] Add shareable composition links or account-backed saved documents.
   - [ ] Add citation-format presets and bibliography appendix generation.
+
+
+Cards from the same file are being tagged as different because of small name discrepancies,
+probably the best avenue is to extract `Metadata` at the file level once and assing it to all
+cards in the lot, maybe even hand curate as we do for the regex patterns to ensure consistent author names, source titles, and tag sets.
