@@ -126,9 +126,15 @@
                         {#each links as link}
                             <a
                                 href={link.href}
-                                class={`btn btn-ghost ${isActive(link.href) ? 'btn-active' : ''}`}
+                                class={`btn btn-ghost relative ${isActive(link.href) ? 'text-primary' : 'text-base-content/70 hover:text-base-content'}`}
                             >
                                 {link.label}
+                                {#if isActive(link.href)}
+                                    <div 
+                                        class="absolute bottom-1.5 left-4 right-4 h-0.5 rounded-full bg-primary"
+                                        transition:fade={{ duration: 150 }}
+                                    ></div>
+                                {/if}
                             </a>
                         {/each}
                     </nav>
