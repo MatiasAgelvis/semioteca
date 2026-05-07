@@ -146,7 +146,12 @@
 			.filter(({ card, searchableText }) => {
 				if (selectedAuthors.size > 0 && !selectedAuthors.has(card.author)) return false;
 				if (selectedTags.size > 0) {
-					if (!card.tags || !card.tags.some((tag) => selectedTags.has(tag))) return false;
+					const cardTags = card.tags ?? [];
+					if (matchMode === 'all') {
+						if (!Array.from(selectedTags).every((tag) => cardTags.includes(tag))) return false;
+					} else {
+						if (!cardTags.some((tag) => selectedTags.has(tag))) return false;
+					}
 				}
 				if (terms.length === 0) return true;
 				return matchFn(searchableText, terms);
