@@ -17,12 +17,16 @@
     ];
 
     let suppressFocus = false;
+    let searchButtonEl = $state<HTMLButtonElement | null>(null);
 
     $effect(() => {
         return cardsSearchDialogOpen.subscribe((open) => {
             if (!open) {
                 suppressFocus = true;
                 setTimeout(() => { suppressFocus = false; }, 300);
+                // Ensure focus returns to the button and blur it to avoid "ghost" focus state
+                searchButtonEl?.focus();
+                searchButtonEl?.blur();
             }
         });
     });
@@ -32,17 +36,7 @@
     const isCardsRoute = $derived(page.url.pathname.startsWith('/cards'));
     const isCardsIndex = $derived(page.url.pathname === '/cards' || page.url.pathname === '/cards/');
 
-    async function handleSearchFocus() {
-        if (suppressFocus) return;
-        if (isCardsIndex) {
-            openCardsSearch();
-        } else {
-            await goto('/cards');
-            openCardsSearch();
-        }
-    }
-
-    async function handleSearchInput() {
+    async function handleSearchAction() {
         if (isCardsIndex) {
             openCardsSearch();
         } else {
@@ -95,7 +89,7 @@
 
 <header bind:this={headerEl} class="sticky top-0 z-50 border-b border-base-200/80 bg-base-100/90 backdrop-blur-md dark:border-base-200/40 dark:bg-base-900/85">
     <div class="mx-auto w-full max-w-7xl px-5 lg:px-10">
-        <div class={`grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 transition-[padding,grid-template-columns,gap] duration-300 ease-out lg:grid-cols-[auto_minmax(0,1fr)_auto] ${compactHeader ? 'py-2' : 'py-3'}`}>
+        <div class={`grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 transition-[padding,grid-template-columns,gap] duration-300 ease-out ${compactHeader ? 'py-2' : 'py-3'}`}>
             <a href="/" class={`flex min-w-0 items-center gap-2 text-base-content transition-[font-size,transform] duration-300 ease-out ${compactHeader ? 'text-base lg:text-xl' : 'text-lg sm:text-xl' } font-black tracking-tight`}>
                 <span class="inline-flex h-7 w-7 items-center justify-center rounded-full border border-base-300/80 bg-base-300/60" aria-hidden="true">
                     <span
@@ -107,20 +101,22 @@
             </a>
 
             {#if isCardsRoute}
-                <label class={`relative order-3 col-span-2 min-w-0 transition-[transform,opacity] duration-300 ease-out lg:order-0 lg:col-span-1 ${compactHeader ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-100'}`}>
-                    <input
-                        bind:value={$cardsSearchQuery}
-                        class={`input input-bordered w-full rounded-full bg-base-100/90 pr-24 transition-[height,box-shadow] duration-300 ease-out ${compactHeader ? 'h-10 shadow-sm' : 'h-11'}`}
-                        placeholder="Buscar en todas las tarjetas"
-                        type="search"
-                        onfocus={handleSearchFocus}
-                        oninput={handleSearchInput}
-                    />
-                    <span class="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-xs opacity-50">⌘K</span>
-                </label>
+                <div class={`relative flex min-w-0 items-center transition-[transform,opacity] duration-300 ease-out ${compactHeader ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-100'}`}>
+                    <button
+                        bind:this={searchButtonEl}
+                        type="button"
+                        class={`input input-bordered flex w-full items-center justify-between rounded-full bg-base-100/90 gap-2 px-3 sm:px-4 text-left transition-[height,box-shadow] duration-300 ease-out hover:border-primary/50 focus:border-primary focus:outline-hidden ${compactHeader ? 'h-9 min-h-9 sm:h-10 sm:min-h-10 shadow-sm' : 'h-10 min-h-10 sm:h-11 sm:min-h-11'}`}
+                        onclick={handleSearchAction}
+                    >
+                        <span class="truncate text-sm opacity-50">
+                            {$cardsSearchQuery || (compactHeader ? 'Buscar...' : 'Buscar en todas las tarjetas')}
+                        </span>
+                        <span class="hidden text-xs opacity-50 sm:inline">⌘K</span>
+                    </button>
+                </div>
             {/if}
 
-            <div class="col-start-2 row-start-1 flex items-center justify-end gap-2 lg:col-start-auto lg:row-start-auto">
+            <div class="flex items-center justify-end gap-2">
                 <div class={`hidden overflow-hidden transition-[max-width,opacity,transform,margin] duration-300 ease-out xl:block ${compactHeader ? 'pointer-events-none max-w-0 -translate-y-1 opacity-0' : 'max-w-xl translate-y-0 opacity-100'}`}>
                     <nav class="flex items-center gap-2 whitespace-nowrap" aria-label="Primary">
                         {#each links as link}

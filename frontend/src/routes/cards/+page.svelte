@@ -292,19 +292,27 @@
 					}
 					return;
 				}
-				// Pick the topmost visible card among all currently visible ones
-				let topmost: string | null = null;
-				let topmostY = Infinity;
+				// Pick the most centered card among all currently visible ones
+				let bestMatch: string | null = null;
+				let minDistance = Infinity;
+				const viewportCenter = window.innerHeight * 0.4; // Aim for slightly above center
+				
 				for (const id of visibleCardIds) {
 					const el = cardElements.get(id);
 					if (!el) continue;
-					const y = el.getBoundingClientRect().top;
-					if (y < topmostY) { topmostY = y; topmost = id; }
+					const rect = el.getBoundingClientRect();
+					const cardMiddle = rect.top + rect.height / 2;
+					const distance = Math.abs(cardMiddle - viewportCenter);
+					
+					if (distance < minDistance) {
+						minDistance = distance;
+						bestMatch = id;
+					}
 				}
-				if (topmost) focusedCardId = topmost;
-				else if (filteredCards.length > 0) focusedCardId = filteredCards[0].id;
+				if (bestMatch) focusedCardId = bestMatch;
+				else if (displayCards.length > 0) focusedCardId = displayCards[0].id;
 			},
-			{ root: null, rootMargin: '-20% 0px -60% 0px', threshold: [0.05, 0.25, 0.6] }
+			{ root: null, rootMargin: '-25% 0px -40% 0px', threshold: [0, 0.1, 0.5] }
 		);
 		for (const card of displayCards) {
 			const node = cardElements.get(card.id);
@@ -425,8 +433,7 @@
 				<span>{fullResultsCount} resultados globales</span>
 				<button class="btn btn-ghost btn-xs" type="button" onclick={closeFullResultsMode}>Volver al modo libro</button>
 			{:else}
-				<span>{filteredCards.length} tarjetas en este libro</span>
-				<span>Usa la barra fija del encabezado para buscar en toda la colección</span>
+				<span>{filteredCards.length} tarjetas en este libro.</span>
 			{/if}
 		</div>
 
