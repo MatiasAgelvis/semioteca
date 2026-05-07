@@ -57,6 +57,8 @@
 			: 0
 	);
 
+	const visibleTags = $derived(card.tags?.filter((tag) => tag.trim().length > 0) ?? []);
+
 	// Expanded: parse content into alternating text/image parts
 	type ContentPart = { kind: 'text'; text: string } | { kind: 'image'; image: CardImage };
 	const expandedParts = $derived.by<ContentPart[]>(() => {
@@ -153,7 +155,15 @@
 			</p>
 		{/if}
 
-		<div class="card-actions justify-end">
+		<div class="card-actions flex-nowrap items-center justify-between">
+			<div class="flex flex-wrap gap-1">
+				{#each visibleTags as tag}
+					<span class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-60">
+						{tag}
+					</span>
+				{/each}
+			</div>
+
 			<div class="flex flex-wrap items-center justify-end gap-2">
 				<details bind:this={detailsEl} class="dropdown dropdown-end">
 					<summary class="btn btn-sm btn-ghost">Opciones</summary>
