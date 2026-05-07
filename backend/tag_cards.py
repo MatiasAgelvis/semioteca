@@ -85,13 +85,14 @@ def tag_dataset(
 def main():
     # Load cards from JSON file
     base_dir = Path(__file__).resolve().parent
-    dataset = load_dataset(base_dir / "cards.json")
+    source_file = base_dir / "cards.json"
+    dataset = load_dataset(source_file)
 
     # tag the first 3 entries as an example (to avoid long processing time during development)
-    tagged_dataset = tag_dataset(Library(books=dataset.books[0:3]), tags=CARD_TAGS)
+    tagged_dataset = tag_dataset(Library(books=dataset.books), tags=CARD_TAGS)
 
-    # Save the tagged cards to a new JSON file
-    save_dataset(tagged_dataset, base_dir / "tagged_cards.json")
+    # Overwrite the original file with tagged cards
+    save_dataset(tagged_dataset, source_file)
 
 
 if __name__ == "__main__":
