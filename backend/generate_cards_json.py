@@ -22,6 +22,7 @@ from anomalies import (
 
 import mammoth
 import pypandoc
+from tqdm import tqdm
 
 from card_models import BaseMetadata, BookGroupKey, Card, Book, CardSection, ImageRef
 from source_documents import SourceDocumentConfig, find_source_configs
@@ -297,7 +298,7 @@ def main() -> None:
     source_results: list[SourceBuildResult] = []
     total_cards = 0
 
-    for config, source_path in source_configs:
+    for config, source_path in tqdm(source_configs, desc="Processing sources", unit="file"):
         if args.verbose:
             print(f"Processing {source_path}")
         source_result = build_cards_for_source(source_path, config, image_root)
