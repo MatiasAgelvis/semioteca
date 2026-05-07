@@ -9,6 +9,7 @@
 	import {
 		cardsSearchDialogOpen,
 		cardsSearchQuery,
+		cardsSearchInitialTags,
 		closeCardsSearch,
 		openCardsSearch
 	} from '$lib/stores/cardsSearch';
@@ -378,6 +379,14 @@
 		if (!searchDialog) return;
 
 		if ($cardsSearchDialogOpen) {
+			// Handle initial tags if provided
+			if ($cardsSearchInitialTags.length > 0) {
+				const nextTags = new Set(selectedTags);
+				$cardsSearchInitialTags.forEach(tag => nextTags.add(tag));
+				selectedTags = nextTags;
+				cardsSearchInitialTags.set([]); // Consume them
+			}
+
 			if (!searchDialog.open) {
 				searchDialog.showModal();
 			}
