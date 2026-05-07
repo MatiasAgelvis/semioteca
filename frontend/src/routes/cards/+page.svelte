@@ -292,19 +292,27 @@
 					}
 					return;
 				}
-				// Pick the topmost visible card among all currently visible ones
-				let topmost: string | null = null;
-				let topmostY = Infinity;
+				// Pick the most centered card among all currently visible ones
+				let bestMatch: string | null = null;
+				let minDistance = Infinity;
+				const viewportCenter = window.innerHeight * 0.4; // Aim for slightly above center
+				
 				for (const id of visibleCardIds) {
 					const el = cardElements.get(id);
 					if (!el) continue;
-					const y = el.getBoundingClientRect().top;
-					if (y < topmostY) { topmostY = y; topmost = id; }
+					const rect = el.getBoundingClientRect();
+					const cardMiddle = rect.top + rect.height / 2;
+					const distance = Math.abs(cardMiddle - viewportCenter);
+					
+					if (distance < minDistance) {
+						minDistance = distance;
+						bestMatch = id;
+					}
 				}
-				if (topmost) focusedCardId = topmost;
+				if (bestMatch) focusedCardId = bestMatch;
 				else if (displayCards.length > 0) focusedCardId = displayCards[0].id;
 			},
-			{ root: null, rootMargin: '-35% 0px -45% 0px', threshold: [0, 0.25, 0.5] }
+			{ root: null, rootMargin: '-25% 0px -40% 0px', threshold: [0, 0.1, 0.5] }
 		);
 		for (const card of displayCards) {
 			const node = cardElements.get(card.id);
