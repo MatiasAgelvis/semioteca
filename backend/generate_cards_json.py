@@ -302,12 +302,16 @@ def main() -> None:
             print(f"Processing {source_path}")
         source_result = build_cards_for_source(source_path, config, image_root)
         source_results.append(source_result)
+        key = BookGroupKey(config.title, config.author, config.book, config.year)
+        if key not in group_index:
+            group = Book(config.title, config.author, config.book, config.year)
+            books.append(group)
+            group_index[key] = group
         for card in source_result.cards:
-            key = BookGroupKey(card.title, card.author, card.book, card.year)
-            if key not in group_index:
-                group = Book(card.title, card.author, card.book, card.year)
-                books.append(group)
-                group_index[key] = group
+            card.title = config.title
+            card.author = config.author
+            card.book = config.book
+            card.year = config.year
             group_index[key].cards.append(card)
             total_cards += 1
 
