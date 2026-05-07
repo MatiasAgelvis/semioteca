@@ -298,7 +298,7 @@ def main() -> None:
     source_results: list[SourceBuildResult] = []
     total_cards = 0
 
-    for config, source_path in tqdm(source_configs, desc="Processing sources", unit="file"):
+    for config, source_path in tqdm(source_configs, desc="Processing sources", unit="files"):
         if args.verbose:
             print(f"Processing {source_path}")
         source_result = build_cards_for_source(source_path, config, image_root)
