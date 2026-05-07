@@ -302,9 +302,9 @@
 					if (y < topmostY) { topmostY = y; topmost = id; }
 				}
 				if (topmost) focusedCardId = topmost;
-				else if (filteredCards.length > 0) focusedCardId = filteredCards[0].id;
+				else if (displayCards.length > 0) focusedCardId = displayCards[0].id;
 			},
-			{ root: null, rootMargin: '-20% 0px -60% 0px', threshold: [0.05, 0.25, 0.6] }
+			{ root: null, rootMargin: '-35% 0px -45% 0px', threshold: [0, 0.25, 0.5] }
 		);
 		for (const card of displayCards) {
 			const node = cardElements.get(card.id);
