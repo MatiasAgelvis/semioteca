@@ -201,14 +201,6 @@ class SourceDocument(Enum):
         book="Análisis y metafísica",
         year="1997",
     )
-    TED_HONDERICH_2001 = SourceDocumentConfig(
-        filename="Ted Honderich 2001 Enciclopedia Oxford.odt",
-        split_pattern=PARENTHESIS_YEAR_PAGE_PATTERN,
-        title="Enciclopedia Oxford",
-        author="Ted Honderich",
-        book="Enciclopedia Oxford",
-        year="2001",
-    )
     WARNOCK_1989 = SourceDocumentConfig(
         filename="Warnock 1989 J.L. Austin.odt",
         split_pattern=WARNOCK_PAGE_PATTERN,

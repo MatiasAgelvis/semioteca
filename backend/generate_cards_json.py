@@ -22,6 +22,7 @@ from anomalies import (
 
 import mammoth
 import pypandoc
+from tqdm import tqdm
 
 from card_models import BaseMetadata, BookGroupKey, Card, Book, CardSection, ImageRef
 from source_documents import SourceDocumentConfig, find_source_configs
@@ -201,7 +202,7 @@ def build_cards_for_source(source_path: Path, config: SourceDocumentConfig, imag
                 title=config.title,
                 author=config.author,
                 book=config.book,
-                year=section.year or config.year,
+                year=config.year,
                 page=section.page or config.extra.get("page"),
                 raw_marker=section.marker,
                 content=section.content,
@@ -297,17 +298,21 @@ def main() -> None:
     source_results: list[SourceBuildResult] = []
     total_cards = 0
 
-    for config, source_path in source_configs:
+    for config, source_path in tqdm(source_configs, desc="Processing sources", unit="files"):
         if args.verbose:
             print(f"Processing {source_path}")
         source_result = build_cards_for_source(source_path, config, image_root)
         source_results.append(source_result)
+        key = BookGroupKey(config.title, config.author, config.book, config.year)
+        if key not in group_index:
+            group = Book(config.title, config.author, config.book, config.year)
+            books.append(group)
+            group_index[key] = group
         for card in source_result.cards:
-            key = BookGroupKey(card.title, card.author, card.book, card.year)
-            if key not in group_index:
-                group = Book(card.title, card.author, card.book, card.year)
-                books.append(group)
-                group_index[key] = group
+            card.title = config.title
+            card.author = config.author
+            card.book = config.book
+            card.year = config.year
             group_index[key].cards.append(card)
             total_cards += 1
 
