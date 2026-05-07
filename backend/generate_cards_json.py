@@ -201,7 +201,7 @@ def build_cards_for_source(source_path: Path, config: SourceDocumentConfig, imag
                 title=config.title,
                 author=config.author,
                 book=config.book,
-                year=section.year or config.year,
+                year=config.year,
                 page=section.page or config.extra.get("page"),
                 raw_marker=section.marker,
                 content=section.content,
