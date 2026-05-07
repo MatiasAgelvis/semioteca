@@ -154,7 +154,7 @@ ODT/DOCX sources
      ↓
 [tag_cards.py]  →  cards.json (tagged)
      ↓
-(Frontend reads from backend/cards.json)
+(Run ../scripts/sync-content.mjs to update frontend/static/content/cards.json for deploys)
 ```
 
 ## Output Structure
