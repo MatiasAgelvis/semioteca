@@ -9,6 +9,6 @@
     "frontend:dev": "npm --prefix frontend run dev",
     "frontend:check": "npm --prefix frontend run check",
     "frontend:build": "npm --prefix frontend run build",
-    "build": "npm run content:prepare && npm run frontend:build"
+    "build": "npm run frontend:build"
   }
 }

@@ -1,6 +1,6 @@
 {
-  "installCommand": "sh scripts/vercel-install.sh",
-  "buildCommand": "sh scripts/vercel-build.sh",
+  "installCommand": "npm --prefix frontend ci",
+  "buildCommand": "npm run build",
   "outputDirectory": "frontend/build",
   "cleanUrls": true
 }
