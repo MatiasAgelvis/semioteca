@@ -17,7 +17,7 @@
 			Ciencias del significado
 		</h1>
 		<p class="mt-6 max-w-3xl text-lg leading-8 text-base-content/70">
-			Un fichero estático para explorar tarjetas de lectura, ensayos y documentos sobre semiótica,
+			Un fichero estático para explorar tarjetas de lectura, ensayos y documentos sobre semiótica, pragmática,
 			lingüística y filosofía del lenguaje.
 		</p>
 		<div class="mt-10 flex gap-8">
