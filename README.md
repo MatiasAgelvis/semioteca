@@ -10,7 +10,7 @@ A static semiotics archive with bibliographic cards, blog, CV, and documents. Th
 backend/                   Content sources: .odt manuscripts, .md blog posts, images, CV
 scripts/                   Sync and build utilities
 frontend/                  SvelteKit app (source)
-frontend/static/content/   Synced content (generated — do not edit here directly)
+frontend/static/content/   Synced content artifact tracked for deploys
 ```
 
 ---
@@ -48,10 +48,12 @@ npm run content:prepare    # generate + sync in one step
 ### Full build (for deploy)
 
 ```sh
-npm run build   # content:prepare + frontend:build
+npm run build   # frontend:build only
 ```
 
 Static output is written to `frontend/build/`.
+
+Deploys do not regenerate content. Update `frontend/static/content/` locally with `npm run content:sync` or `npm run content:prepare`, then commit the synced files.
 
 ---
 

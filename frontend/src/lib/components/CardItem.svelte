@@ -1,6 +1,8 @@
 <script lang="ts">
 	import HighlightedText from '$lib/components/HighlightedText.svelte';
 	import { showToast } from '$lib/stores/toast';
+	import { openCardsSearch } from '$lib/stores/cardsSearch';
+	import { TAG_DESCRIPTIONS } from '$lib/constants';
 	import type { CardImage, CardRecord } from '$lib/types/content';
 	import { buildCardCitationAPA, buildCardFullText, copyTextToClipboard } from '$lib/utils/citation';
 	import { createExcerpt, getHighlightSegments, getMatchCount } from '$lib/utils/search';
@@ -56,6 +58,8 @@
 			? getMatchCount([card.title, card.author, card.book, card.page ?? '', card.content].join(' '), searchTerms)
 			: 0
 	);
+
+	const visibleTags = $derived(card.tags?.filter((tag) => tag.trim().length > 0) ?? []);
 
 	// Expanded: parse content into alternating text/image parts
 	type ContentPart = { kind: 'text'; text: string } | { kind: 'image'; image: CardImage };
@@ -153,7 +157,24 @@
 			</p>
 		{/if}
 
-		<div class="card-actions justify-end">
+		<div class="card-actions flex-nowrap items-center justify-between">
+			<div class="flex flex-wrap gap-1">
+				{#each visibleTags as tag}
+					<div
+						class="tooltip tooltip-top before:whitespace-normal before:max-w-50"
+						data-tip={TAG_DESCRIPTIONS[tag] ?? 'Sin descripción'}
+					>
+						<button
+							type="button"
+							class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-60 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
+							onclick={() => openCardsSearch([tag])}
+						>
+							{tag}
+						</button>
+					</div>
+				{/each}
+			</div>
+
 			<div class="flex flex-wrap items-center justify-end gap-2">
 				<details bind:this={detailsEl} class="dropdown dropdown-end">
 					<summary class="btn btn-sm btn-ghost">Opciones</summary>
