@@ -32,6 +32,7 @@
 
 	// Advanced search filters
 	let advancedOpen = $state(false);
+	let showSearchHint = $state(true);
 	let selectedAuthors = $state<Set<string>>(new Set());
 	let selectedTags = $state<Set<string>>(new Set());
 	let matchMode = $state<'all' | 'any'>('all');
@@ -593,23 +594,51 @@
 				<div class="mt-4 space-y-5 rounded-2xl border border-base-200 bg-base-50/60 px-5 py-4">
 
 					<div class="space-y-2">
-						<p class="text-xs font-semibold uppercase tracking-widest opacity-50">Modo de búsqueda</p>
+						<div class="flex items-center justify-between">
+							<p class="text-xs font-semibold uppercase tracking-widest opacity-50">Modo de búsqueda y filtrado</p>
+							{#if !showSearchHint}
+								<button 
+									type="button"
+									class="btn btn-ghost btn-xs text-[10px] opacity-40 hover:opacity-100" 
+									onclick={() => showSearchHint = true}
+								>
+									Mostrar ayuda
+								</button>
+							{/if}
+						</div>
 						<div class="flex gap-2">
 							<button
 								type="button"
 								class={`btn btn-sm ${matchMode === 'all' ? 'btn-primary' : 'btn-outline'}`}
 								onclick={() => { matchMode = 'all'; }}
 							>
-								Todos los términos
+								Estricto (Intersección)
 							</button>
 							<button
 								type="button"
 								class={`btn btn-sm ${matchMode === 'any' ? 'btn-primary' : 'btn-outline'}`}
 								onclick={() => { matchMode = 'any'; }}
 							>
-								Algún término
+								Amplio (Unión)
 							</button>
 						</div>
+{#if showSearchHint}
+							<div class="relative rounded-lg bg-base-200/50 p-2 pr-8">
+								<p class="text-[10px] opacity-60 leading-tight">
+									Estricto: requiere que coincidan todos los términos y todas las etiquetas seleccionadas.<br/>
+									Amplio: muestra resultados que coincidan con al menos un término o etiqueta.<br/>
+									<span class="text-primary/70 italic">* Los autores siempre se filtran por unión (se incluyen todos los seleccionados).</span>
+								</p>
+								<button 
+									type="button"
+									class="btn btn-ghost btn-xs btn-circle absolute top-1 right-1 h-6 w-6 min-h-0" 
+									onclick={() => showSearchHint = false}
+									title="Ocultar"
+								>
+									×
+								</button>
+							</div>
+						{/if}
 					</div>
 
 					<div class="space-y-2">
@@ -647,6 +676,7 @@
 						</div>
 						<div class="flex max-h-32 flex-wrap gap-2 overflow-y-auto">
 							{#each tags as tag}
+								<div class="tooltip tooltip-bottom" data-tip={TAG_DESCRIPTIONS[tag] ?? 'Sin descripción'}>
 								<button
 									type="button"
 									class={`btn btn-xs rounded-full ${selectedTags.has(tag) ? 'btn-primary' : 'btn-outline'}`}
@@ -654,6 +684,7 @@
 								>
 									{tag}{selectedTags.has(tag) ? ' ×' : ''}
 								</button>
+								</div>
 							{/each}
 						</div>
 					</div>
