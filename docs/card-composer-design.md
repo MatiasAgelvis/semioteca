@@ -183,6 +183,10 @@ If higher-fidelity pagination is needed:
 - Use virtualized list only if composer editing feels slow at high counts.
 - Defer image decoding in editor view; fully load in print view.
 
+### 6.1 Semantic Features (Draft)
+- **Automatic Classification**: Use `paraphrase-multilingual-MiniLM-L12-v2` or `embedding-gemma` to suggest topics/categories for the composition based on the selected cards.
+- **Search Axis**: Integrate semantic similarity as a second search axis within the Composer to find "related cards" that fit the current document's theme.
+
 ## 7) Accessibility
 
 - All add/remove/reorder actions reachable by keyboard.

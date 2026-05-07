@@ -23,7 +23,7 @@ from anomalies import (
 import mammoth
 import pypandoc
 
-from card_models import BaseMetadata, Card, ImageRef
+from card_models import BaseMetadata, BookGroupKey, Card, Book, CardSection, ImageRef
 from source_documents import SourceDocumentConfig, find_source_configs
 
 SUPPORTED_INPUT_EXTENSIONS = {".odt", ".docx"}
@@ -92,27 +92,6 @@ def normalize_whitespace(text: str) -> str:
     text = text.replace("\u00A0", " ")
     text = text.replace("\u202F", " ")
     return text
-
-
-@dataclass(frozen=True)
-class BookGroupKey:
-    title: Optional[str]
-    author: Optional[str]
-    book: Optional[str]
-    year: Optional[str]
-
-
-@dataclass
-class BookGroup(BaseMetadata):
-    cards: list[Card] = field(default_factory=list)
-
-
-@dataclass
-class CardSection:
-    content: str
-    marker: Optional[str] = None
-    page: Optional[str] = None
-    year: Optional[str] = None
 
 
 def html_to_plain_text(html: str) -> str:
@@ -313,8 +292,8 @@ def main() -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     image_root.mkdir(parents=True, exist_ok=True)
 
-    books: list[BookGroup] = []
-    group_index: dict[BookGroupKey, BookGroup] = {}
+    books: list[Book] = []
+    group_index: dict[BookGroupKey, Book] = {}
     source_results: list[SourceBuildResult] = []
     total_cards = 0
 
@@ -326,7 +305,7 @@ def main() -> None:
         for card in source_result.cards:
             key = BookGroupKey(card.title, card.author, card.book, card.year)
             if key not in group_index:
-                group = BookGroup(card.title, card.author, card.book, card.year)
+                group = Book(card.title, card.author, card.book, card.year)
                 books.append(group)
                 group_index[key] = group
             group_index[key].cards.append(card)

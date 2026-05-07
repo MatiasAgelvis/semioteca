@@ -25,3 +25,16 @@ vite.config.ts.timestamp-*
 # Generated content sync output
 frontend/static/content
 .env*.local
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv
+*.egg-info/
+
+*.log
