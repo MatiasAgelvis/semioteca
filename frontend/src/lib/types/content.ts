@@ -19,6 +19,7 @@ export interface CardRecord {
 	source_path: string;
 	source_format: string;
 	images: CardImage[];
+	tags: string[];
 }
 
 export interface CardBook {
