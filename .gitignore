@@ -22,8 +22,6 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-# Generated content sync output
-frontend/static/content
 .env*.local
 
 # Python
