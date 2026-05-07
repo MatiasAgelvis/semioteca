@@ -1,30 +1,34 @@
 [
   {
     "name": "Semiótica",
-    "description": "Tarjetas cuyo tema principal es la teoría general de los signos, los sistemas de significación, la producción de sentido, los regímenes de interpretación o las relaciones entre prácticas culturales, códigos y significación. Incluye discusiones sobre semiosis, estructuras simbólicas y análisis semiótico en sentido amplio."
+    "description": "Tarjetas sobre marcos generales de producción de sentido: sistemas de signos, códigos culturales, semiosis y modelos globales de interpretación. Úsala cuando el análisis no se concentra en una unidad lingüística particular, sino en la arquitectura del proceso de significación en su conjunto."
   },
   {
     "name": "Pragmática",
-    "description": "Tarjetas cuyo tema principal es el uso del lenguaje en contexto, la interpretación situada, la inferencia conversacional, la implicatura, la deixis, los actos de habla o las condiciones comunicativas que modifican lo dicho. Se aplica cuando el foco está en cómo se comprende un enunciado en una situación concreta de uso."
+    "description": "Tarjetas sobre cómo el contexto de uso modifica o completa lo dicho: implicatura, deixis, actos de habla, presuposición e inferencia conversacional. Úsala cuando la pregunta central es qué se comunica en una situación concreta, más allá del contenido literal."
   },
   {
     "name": "Signo",
-    "description": "Tarjetas cuyo tema principal es el signo como unidad de análisis: su composición, su funcionamiento representacional, la relación entre significante y significado, su referencia, su valor diferencial o sus clases y tipologías. Se aplica cuando el foco está en la estructura o función del signo mismo, no en la teoría general del sistema semiótico."
+    "description": "Tarjetas centradas en el signo como unidad: su estructura interna, clases, función representacional y vínculos entre significante, significado y referente. Úsala cuando el objeto de análisis es el signo mismo, no la teoría general del sistema semiótico."
   },
   {
     "name": "Significado",
-    "description": "Tarjetas cuyo tema principal es qué quiere decir una expresión, cómo se constituye el contenido entendido por un intérprete o cómo se articula el sentido de palabras, enunciados, textos o prácticas. Se usa cuando el foco está en la noción general de significado, su formación, su interpretación o su dependencia conceptual y cultural."
+    "description": "Tarjetas sobre la noción general de significado: qué implica querer decir, cómo se constituye el contenido interpretado y qué factores conceptuales o culturales intervienen. Úsala para discusiones metateóricas amplias sobre el significado, sin compromiso técnico con un modelo semántico específico."
   },
   {
     "name": "Semántica",
-    "description": "Tarjetas cuyo tema principal es el análisis del significado lingüístico en términos más formales o sistemáticos, como referencia, verdad, condiciones de verdad, intensión, extensión, composición del contenido, relaciones léxicas o estructura conceptual del significado. Se aplica cuando el foco está en teorías semánticas o en propiedades semánticas de expresiones y enunciados."
+    "description": "Tarjetas sobre análisis técnico del significado lingüístico: referencia, condiciones de verdad, intensión/extensión, composición y relaciones semánticas entre expresiones. Úsala cuando se trabaja con herramientas o teorías semánticas explícitas, no con reflexiones generales sobre el sentido."
   },
   {
     "name": "Realismo",
-    "description": "Tarjetas cuyo tema principal es la relación entre lenguaje, pensamiento y realidad, especialmente cuando se discuten objetividad, verdad, representación, mundo externo, independencia de lo real respecto del sujeto o debates entre realismo, antirrealismo y posiciones afines. Se aplica cuando la cuestión central es ontológica o epistemológica antes que puramente lingüística."
+    "description": "Tarjetas sobre el estatuto de la realidad y su relación con lenguaje y pensamiento: objetividad, verdad, representación, mundo externo, realismo/antirrealismo. Úsala cuando el núcleo del problema es ontológico o epistemológico, aunque aparezcan ejemplos lingüísticos."
   },
   {
     "name": "Intención",
-    "description": "Tarjetas cuyo tema principal es la intención del hablante, del autor o del agente interpretativo, así como su papel en la comunicación, la acción significativa o la atribución de sentido. Se usa cuando el foco está en querer decir, finalidad comunicativa, intención semántica o intención pragmática como condición para interpretar correctamente un signo o enunciado."
+    "description": "Tarjetas sobre el papel de la intención del agente (hablante, autor, intérprete) en la producción y atribución de sentido. Úsala cuando la interpretación depende de reconstruir la intención comunicativa específica de alguien."
+  },
+  {
+    "name": "Cognición",
+    "description": "Tarjetas sobre procesos mentales generales de conocimiento: percepción, atención, memoria, pensamiento y representación. Úsala cuando el enfoque sea la actividad cognitiva que sustenta la interpretación o la producción de sentido, más que el lenguaje formal o la teoría del signo."
   }
 ]
