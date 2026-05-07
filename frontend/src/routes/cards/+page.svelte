@@ -17,7 +17,7 @@
 	import { countMatchedTerms, getMatchCount, matchesAllTerms, matchesAnyTerm, tokenizeQuery } from '$lib/utils/search';
 	import type { CardRecord, CardsDataset } from '$lib/types/content';
 	import type { PageData } from './$types';
- 
+
 	let { data }: { data: PageData } = $props();
 
 	let loading = $state(true);
@@ -237,6 +237,7 @@
 	}
 
 	function closeSearchDialog() {
+		advancedOpen = false;
 		closeCardsSearch();
 	}
 
@@ -511,10 +512,10 @@
 <dialog
 	bind:this={searchDialog}
 	class="modal"
-	onclose={() => { closeCardsSearch(); }}
+	onclose={() => { advancedOpen = false; closeCardsSearch(); }}
 >
-	<div class="modal-box max-w-3xl rounded-4xl border border-base-300 bg-base-100 p-0 shadow-2xl">
-		<div class="border-b border-base-200 px-6 py-5">
+	<div class="modal-box flex flex-col overflow-visible max-w-3xl rounded-4xl border border-base-300 bg-base-100 p-0 shadow-2xl">
+		<div class="shrink-0 border-b border-base-200 px-6 py-5">
 			<div class="flex items-center justify-between gap-3">
 				<div>
 					<p class="text-xs font-semibold uppercase tracking-[0.22em] opacity-50">Busqueda global</p>
@@ -584,7 +585,11 @@
 					<button
 						type="button"
 						class={`btn btn-xs gap-1 ${advancedOpen ? 'btn-primary' : 'btn-ghost'}`}
-						onclick={() => { advancedOpen = !advancedOpen; }}
+						onclick={(e) => { 
+							e.preventDefault();
+							e.stopPropagation();
+							advancedOpen = !advancedOpen; 
+						}}
 					>
 						Avanzado
 						{#if activeFilterCount > 0}
@@ -596,7 +601,7 @@
 			</div>
 
 			{#if advancedOpen}
-				<div class="mt-4 space-y-5 rounded-2xl border border-base-200 bg-base-50/60 px-5 py-4">
+				<div class="mt-4 shrink-0 space-y-5 rounded-2xl border border-base-200 bg-base-50/60 px-5 py-4">
 
 					<div class="space-y-2">
 						<div class="flex items-center justify-between">
@@ -679,9 +684,8 @@
 								>Limpiar</button>
 							{/if}
 						</div>
-						<div class="flex max-h-32 flex-wrap gap-2 overflow-y-auto">
+						<div class="flex max-h-32 flex-wrap gap-x-2 gap-y-3 overflow-y-auto pt-1">
 							{#each tags as tag}
-								<div class="tooltip tooltip-bottom" data-tip={TAG_DESCRIPTIONS[tag] ?? 'Sin descripción'}>
 								<button
 									type="button"
 									class={`btn btn-xs rounded-full ${selectedTags.has(tag) ? 'btn-primary' : 'btn-outline'}`}
@@ -689,7 +693,6 @@
 								>
 									{tag}{selectedTags.has(tag) ? ' ×' : ''}
 								</button>
-								</div>
 							{/each}
 						</div>
 					</div>
@@ -722,7 +725,7 @@
 			{/if}
 		</div>
 
-		<div class="max-h-[55vh] space-y-3 overflow-y-auto px-6 py-5">
+		<div class="max-h-[55vh] min-h-25 flex-1 space-y-3 overflow-y-auto px-6 py-5">
 			{#if searchTerms.length === 0 && selectedAuthors.size === 0}
 				<p class="rounded-2xl border border-dashed border-base-300 px-4 py-8 text-center text-sm opacity-70">
 					Busca en autores, libros, páginas y contenido. Al elegir un resultado, se abrirá su libro y se hará scroll a la tarjeta.
