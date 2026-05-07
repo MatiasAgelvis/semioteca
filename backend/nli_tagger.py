@@ -4,8 +4,8 @@ from tags import CARD_TAG_NAMES, CARD_TAGS, CardTag
 from tqdm import tqdm
 from transformers import pipeline
 
-MODEL_ID = "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli"
-# MODEL_ID = "Recognai/zeroshot_selectra_medium"
+# MODEL_ID = "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli"
+MODEL_ID = "Recognai/zeroshot_selectra_medium"
 MAX_TAGS = 2
 MIN_CONFIDENCE = 0.7
 HYPOTHESIS_TEMPLATE = "Este texto trata sobre el concepto de {}."
