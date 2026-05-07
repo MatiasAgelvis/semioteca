@@ -69,4 +69,6 @@
 
 Cards from the same file are being tagged as different because of small name discrepancies,
 probably the best avenue is to extract `Metadata` at the file level once and assing it to all
-cards in the lot, maybe even hand curate as we do for the regex patterns to ensure consistent author names, source titles, and tag sets.
+cards in the lot, maybe even hand curate as we do for the regex patterns to ensure consistent author names, source titles, and tag sets. Examples:
+  - Eco 1992, Eco 1994... should all be tagged as "Eco", same book different edition.
+  - Ted Honderich appears as "Honderich", "Ted Honderich", even the same book will be split at the persitence and front layers if the author name isn't consistent.
