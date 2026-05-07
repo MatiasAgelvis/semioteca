@@ -32,8 +32,9 @@
 	// Advanced search filters
 	let advancedOpen = $state(false);
 	let selectedAuthors = $state<Set<string>>(new Set());
+	let selectedTags = $state<Set<string>>(new Set());
 	let matchMode = $state<'all' | 'any'>('all');
-	let searchFields = $state({ content: true, authorBook: true, page: true });
+	let searchFields = $state({ content: true, authorBook: true, page: true, tags: true });
 
 	const authors = $derived.by(() => {
 		const seen = new Set<string>();
@@ -43,10 +44,22 @@
 			.sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
 	});
 
+	const tags = $derived.by(() => {
+		const seen = new Set<string>();
+		for (const card of cards) {
+			if (!card.tags) continue;
+			for (const tag of card.tags) {
+				seen.add(tag);
+			}
+		}
+		return [...seen].sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
+	});
+
 	const activeFilterCount = $derived(
 		selectedAuthors.size +
+		selectedTags.size +
 		(matchMode === 'any' ? 1 : 0) +
-		(!searchFields.content || !searchFields.authorBook || !searchFields.page ? 1 : 0)
+		(!searchFields.content || !searchFields.authorBook || !searchFields.page || !searchFields.tags ? 1 : 0)
 	);
 
 	function toggleAuthor(author: string) {
@@ -56,10 +69,18 @@
 		selectedAuthors = next;
 	}
 
+	function toggleTag(tag: string) {
+		const next = new Set(selectedTags);
+		if (next.has(tag)) next.delete(tag);
+		else next.add(tag);
+		selectedTags = next;
+	}
+
 	function clearAdvancedFilters() {
 		selectedAuthors = new Set();
+		selectedTags = new Set();
 		matchMode = 'all';
-		searchFields = { content: true, authorBook: true, page: true };
+		searchFields = { content: true, authorBook: true, page: true, tags: true };
 	}
 
 	let observer: IntersectionObserver | null = null;
@@ -102,11 +123,11 @@
 		return cards.filter((card) => getBookKey(card) === activeBookKey);
 	});
 
-	const hasSearchCriteria = $derived(searchTerms.length > 0 || selectedAuthors.size > 0);
+	const hasSearchCriteria = $derived(searchTerms.length > 0 || selectedAuthors.size > 0 || selectedTags.size > 0);
 
 	const rankedSearchResults = $derived.by(() => {
 		const terms = searchTerms;
-		const hasFilters = selectedAuthors.size > 0;
+		const hasFilters = selectedAuthors.size > 0 || selectedTags.size > 0;
 		if (terms.length === 0 && !hasFilters) return [] as CardRecord[];
 
 		const matchFn = matchMode === 'all' ? matchesAllTerms : matchesAnyTerm;
@@ -117,10 +138,14 @@
 				if (searchFields.authorBook) parts.push(card.author, card.book);
 				if (searchFields.page) parts.push(card.page ?? '');
 				if (searchFields.content) parts.push(card.content);
+				if (searchFields.tags && card.tags) parts.push(...card.tags);
 				return { card, index, searchableText: parts.join(' ') };
 			})
 			.filter(({ card, searchableText }) => {
 				if (selectedAuthors.size > 0 && !selectedAuthors.has(card.author)) return false;
+				if (selectedTags.size > 0) {
+					if (!card.tags || !card.tags.some((tag) => selectedTags.has(tag))) return false;
+				}
 				if (terms.length === 0) return true;
 				return matchFn(searchableText, terms);
 			})
@@ -136,8 +161,9 @@
 					const authorScore = searchFields.authorBook ? Math.min(getMatchCount(card.author, terms), 3) * 6 : 0;
 					const bookScore = searchFields.authorBook ? Math.min(getMatchCount(card.book, terms), 3) * 5 : 0;
 					const pageScore = searchFields.page ? Math.min(getMatchCount(card.page ?? '', terms), 3) * 4 : 0;
+					const tagScore = (searchFields.tags && card.tags) ? Math.min(card.tags.reduce((sum, t) => sum + getMatchCount(t, terms), 0), 3) * 5 : 0;
 					const contentScore = searchFields.content ? Math.min(getMatchCount(card.content, terms), 5) : 0;
-					return coverageBonus + authorScore + bookScore + pageScore + contentScore;
+					return coverageBonus + authorScore + bookScore + pageScore + tagScore + contentScore;
 				})()
 			}))
 			.sort((left, right) => {
@@ -483,19 +509,47 @@
 					<button class="btn btn-ghost btn-sm" type="submit">Cerrar</button>
 				</form>
 			</div>
-			<label class="mt-4 block">
-				<input
-					bind:this={searchInput}
-					bind:value={$cardsSearchQuery}
-					class="input input-lg input-bordered w-full"
-					placeholder="Busca por autor, libro, página o fragmento"
-					type="search"
-				/>
-			</label>
+			<div class="mt-4 flex flex-col gap-2">
+				<label class="block">
+					<input
+						bind:this={searchInput}
+						bind:value={$cardsSearchQuery}
+						class="input input-lg input-bordered w-full"
+						placeholder="Busca por autor, libro, página, etiquetas o fragmento"
+						type="search"
+					/>
+				</label>
+				{#if selectedTags.size > 0 || selectedAuthors.size > 0}
+					<div class="flex flex-wrap gap-1.5 pt-1">
+						{#each Array.from(selectedTags) as tag}
+							<button 
+								class="badge badge-primary badge-sm gap-1 hover:badge-error"
+								onclick={() => toggleTag(tag)}
+							>
+								{tag} <span>×</span>
+							</button>
+						{/each}
+						{#each Array.from(selectedAuthors) as author}
+							<button 
+								class="badge badge-secondary badge-sm gap-1 hover:badge-error"
+								onclick={() => toggleAuthor(author)}
+							>
+								{author} <span>×</span>
+							</button>
+						{/each}
+						<button 
+							class="text-[10px] uppercase font-bold text-error ml-1 hover:underline"
+							onclick={clearAdvancedFilters}
+						>
+							Limpiar filtros
+						</button>
+					</div>
+				{/if}
+			</div>
 
 			<div class="mt-3 flex items-center justify-between gap-3">
 				<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs opacity-70">
-					{#if searchTerms.length === 0 && selectedAuthors.size === 0}
+					{#if searchTerms.length === 0 && selectedAuthors.size === 0 && selectedTags.size === 0}
 						<span>Escribe para buscar en toda la colección</span>
 					{:else}
 						<span>{fullResultsCount} resultados</span>
@@ -564,6 +618,34 @@
 								<input type="checkbox" class="hidden" bind:checked={searchFields.page} />
 								Página
 							</label>
+							<label class={`btn btn-sm gap-2 ${searchFields.tags ? 'btn-primary' : 'btn-outline'}`}>
+								<input type="checkbox" class="hidden" bind:checked={searchFields.tags} />
+								Etiquetas
+							</label>
+						</div>
+					</div>
+
+					<div class="space-y-2">
+						<div class="flex items-center justify-between">
+							<p class="text-xs font-semibold uppercase tracking-widest opacity-50">Filtrar por etiquetas</p>
+							{#if selectedTags.size > 0}
+								<button
+									type="button"
+									class="text-xs text-primary hover:underline"
+									onclick={() => { selectedTags = new Set(); }}
+								>Limpiar</button>
+							{/if}
+						</div>
+						<div class="flex max-h-32 flex-wrap gap-2 overflow-y-auto">
+							{#each tags as tag}
+								<button
+									type="button"
+									class={`btn btn-xs rounded-full ${selectedTags.has(tag) ? 'btn-primary' : 'btn-outline'}`}
+									onclick={() => toggleTag(tag)}
+								>
+									{tag}{selectedTags.has(tag) ? ' ×' : ''}
+								</button>
+							{/each}
 						</div>
 					</div>
 
