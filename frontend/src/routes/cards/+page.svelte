@@ -425,8 +425,7 @@
 				<span>{fullResultsCount} resultados globales</span>
 				<button class="btn btn-ghost btn-xs" type="button" onclick={closeFullResultsMode}>Volver al modo libro</button>
 			{:else}
-				<span>{filteredCards.length} tarjetas en este libro</span>
-				<span>Usa la barra fija del encabezado para buscar en toda la colección</span>
+				<span>{filteredCards.length} tarjetas en este libro.</span>
 			{/if}
 		</div>
 
