@@ -2,6 +2,7 @@
 	import HighlightedText from '$lib/components/HighlightedText.svelte';
 	import { showToast } from '$lib/stores/toast';
 	import { openCardsSearch } from '$lib/stores/cardsSearch';
+	import { TAG_DESCRIPTIONS } from '$lib/constants';
 	import type { CardImage, CardRecord } from '$lib/types/content';
 	import { buildCardCitationAPA, buildCardFullText, copyTextToClipboard } from '$lib/utils/citation';
 	import { createExcerpt, getHighlightSegments, getMatchCount } from '$lib/utils/search';
@@ -159,13 +160,15 @@
 		<div class="card-actions flex-nowrap items-center justify-between">
 			<div class="flex flex-wrap gap-1">
 				{#each visibleTags as tag}
-					<button
-						type="button"
-						class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-60 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
-						onclick={() => openCardsSearch([tag])}
-					>
-						{tag}
-					</button>
+					<div class="tooltip tooltip-top" data-tip={TAG_DESCRIPTIONS[tag] ?? 'Sin descripción'}>
+						<button
+							type="button"
+							class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-60 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
+							onclick={() => openCardsSearch([tag])}
+						>
+							{tag}
+						</button>
+					</div>
 				{/each}
 			</div>
 
