@@ -80,4 +80,5 @@ Deploys do not regenerate content. Update `frontend/static/content/` locally wit
 
 ## Deploy (Vercel)
 
-The project is configured for Vercel (`vercel.json`). Build root: `frontend`. Build command: `npm run build`. Output directory: `.vercel/output`.
+The project is configured for Vercel (`vercel.json`). Build command: `npm run build`.
+The build is run from the repo root and produces SvelteKit's Vercel artifacts under `frontend/.vercel/output`.

@@ -1,8 +1,8 @@
 {
-  "rootDirectory": "frontend",
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "sveltekit",
-  "installCommand": "npm ci",
+  "installCommand": "npm --prefix frontend ci",
   "buildCommand": "npm run build",
-  "outputDirectory": ".vercel/output",
+  "outputDirectory": "frontend/.vercel/output",
   "cleanUrls": true
 }
