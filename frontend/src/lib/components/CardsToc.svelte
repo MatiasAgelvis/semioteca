@@ -18,7 +18,7 @@
 </script>
 
 <SidebarContainer title="Contenidos">
-	<ul class="menu menu-sm p-0">
+	<ul class="menu menu-sm p-0 w-auto">
 		{#each cards as card}
 			{@const authorSegments = getHighlightSegments(card.author, searchTerms)}
 			{@const bookSegments = getHighlightSegments(card.book, searchTerms)}
