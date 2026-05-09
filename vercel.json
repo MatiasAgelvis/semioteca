@@ -2,6 +2,5 @@
   "framework": "sveltekit",
   "installCommand": "npm --prefix frontend ci",
   "buildCommand": "npm run build",
-  "outputDirectory": "frontend/build",
   "cleanUrls": true
 }
