@@ -80,4 +80,4 @@ Deploys do not regenerate content. Update `frontend/static/content/` locally wit
 
 ## Deploy (Vercel)
 
-The project is configured for Vercel (`vercel.json`). Build command: `npm run build`. Output directory: `frontend/build`.
+The project is configured for Vercel (`vercel.json`). Build root: `frontend`. Build command: `npm run build`. Output directory: `.vercel/output`.

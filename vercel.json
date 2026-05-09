@@ -1,6 +1,8 @@
 {
+  "rootDirectory": "frontend",
   "framework": "sveltekit",
-  "installCommand": "npm --prefix frontend ci",
+  "installCommand": "npm ci",
   "buildCommand": "npm run build",
+  "outputDirectory": ".vercel/output",
   "cleanUrls": true
 }
