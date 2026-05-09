@@ -468,16 +468,16 @@
 							onselect={selectBook}
 						/>
 						<CardsToc
-							cards={filteredCards}
+							cards={displayCards}
 							{focusedCardId}
-							searchTerms={[]}
+							searchTerms={fullResultsMode ? searchTerms : []}
 							onscrollto={handleTocScroll}
 						/>
 					</div>
 				</div>
 			</div>
 
-			<div class={`grid gap-6 ${fullResultsMode ? '' : 'lg:grid-cols-[18rem_minmax(0,1fr)_18rem]'}`}>
+			<div class={`grid gap-6 ${fullResultsMode ? 'lg:grid-cols-[minmax(0,1fr)_18rem]' : 'lg:grid-cols-[18rem_minmax(0,1fr)_18rem]'}`}>
 				{#if !fullResultsMode}
 				<div class="hidden lg:block">
 					<BookSidebar
@@ -507,7 +507,6 @@
 					{/if}
 				</div>
 
-				{#if !fullResultsMode}
 				<div class="hidden lg:block">
 					<CardsToc
 						cards={displayCards}
@@ -516,7 +515,6 @@
 						onscrollto={scrollToCard}
 					/>
 				</div>
-				{/if}
 			</div>
 		</div>
 	</PageSection>
