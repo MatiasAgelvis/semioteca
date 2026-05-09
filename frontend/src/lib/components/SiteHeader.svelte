@@ -12,6 +12,7 @@
         { href: '/', label: 'Inicio' },
         { href: '/cards', label: 'Tarjetas' },
         { href: '/blog', label: 'Blog' },
+        { href: '/contact', label: 'Contacto' },
         ...(SHOW_DOCS ? [{ href: '/docs', label: 'Documentos' }] : []),
         ...(SHOW_CV ? [{ href: '/cv', label: 'CV' }] : [])
     ];
