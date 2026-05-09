@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { STATIC_FORMS_KEY } from '$env/static/public';
+  import { PUBLIC_STATIC_FORMS_KEY } from '$env/static/public';
 
   let status: 'idle' | 'sending' | 'success' | 'error' = $state('idle');
   let errorMessage = $state('');
