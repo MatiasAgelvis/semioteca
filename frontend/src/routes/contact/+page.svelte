@@ -27,8 +27,10 @@
           name="name" 
           id="name" 
           required 
-          class="mt-1 block w-full input"
+          class="mt-1 block w-full input validator"
+          minlength="1"
         />
+        <span class="validator-hint hidden">Requerido</span>
       </div>
       
       <div>
@@ -38,8 +40,9 @@
           name="email" 
           id="email" 
           required 
-          class="mt-1 block w-full input"
+          class="mt-1 block w-full input validator"
         />
+        <div class="validator-hint">Ingrese un correo electrónico válido</div>
       </div>
 
       <div>
@@ -49,8 +52,10 @@
           id="message" 
           required 
           rows="4"
-          class="mt-1 block w-full textarea"
+          class="mt-1 block w-full textarea validator"
+          minlength="1"
         ></textarea>
+        <span class="validator-hint hidden">Requerido</span>
       </div>
 
       <button 
