@@ -1,4 +1,4 @@
 {
-  "outputDirectory": "build",
+  "outputDirectory": "frontend/build",
   "cleanUrls": true
 }
