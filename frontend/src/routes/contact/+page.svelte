@@ -9,7 +9,7 @@
     status = 'sending';
     const formEl = event.target as HTMLFormElement;
     const formData = new FormData(formEl);
-    formData.append('accessKey', STATIC_FORMS_KEY);
+    formData.append('accessKey', PUBLIC_STATIC_FORMS_KEY);
     formData.append('subject', 'Contact Form Submission - Semioteca');
     try {
       const res = await fetch('https://api.staticforms.dev/submit', { method: 'POST', body: formData });
