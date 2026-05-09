@@ -27,7 +27,7 @@
           name="name" 
           id="name" 
           required 
-          class="mt-1 block w-full border border-base-300 dark:border-base-700 bg-base-50 dark:bg-base-900 text-base-900 dark:text-base-50 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+          class="mt-1 block w-full input"
         />
       </div>
       
@@ -38,7 +38,7 @@
           name="email" 
           id="email" 
           required 
-          class="mt-1 block w-full border border-base-300 dark:border-base-700 bg-base-50 dark:bg-base-900 text-base-900 dark:text-base-50 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+          class="mt-1 block w-full input"
         />
       </div>
 
@@ -49,7 +49,7 @@
           id="message" 
           required 
           rows="4"
-          class="mt-1 block w-full border border-base-300 dark:border-base-700 bg-base-50 dark:bg-base-900 text-base-900 dark:text-base-50 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500"
+          class="mt-1 block w-full textarea"
         ></textarea>
       </div>
 
