@@ -104,12 +104,15 @@
 
 	const searchTerms = $derived(tokenizeQuery(debouncedQuery));
 
-	const books = $derived.by(() => {
+	const booksModel = $derived.by(() => {
 		const grouped = new Map<string, { key: string; author: string; title: string; count: number }>();
 		for (const card of cards) {
 			const key = getBookKey(card);
 			const existing = grouped.get(key);
-			if (existing) { existing.count += 1; continue; }
+			if (existing) {
+				existing.count += 1;
+				continue;
+			}
 			grouped.set(key, { key, author: card.author, title: card.book, count: 1 });
 		}
 		return [...grouped.values()].sort((a, b) => {
@@ -361,18 +364,21 @@
 
 	$effect(() => {
 		if (loading) return;
-		books.length;
-		if (books.length === 0) {
+		booksModel.length;
+		if (booksModel.length === 0) {
 			selectedBook = null;
 			return;
 		}
-		if (!selectedBook || !books.some((book) => book.key === selectedBook)) {
+		if (!selectedBook || !booksModel.some((book) => book.key === selectedBook)) {
 			// If restoring a card, pick its book; otherwise default to first book
 			if (returnToCardId) {
 				const target = cards.find((c) => c.id === returnToCardId);
-				if (target) { selectedBook = getBookKey(target); return; }
+				if (target) {
+					selectedBook = getBookKey(target);
+					return;
+				}
 			}
-			selectedBook = books[0].key;
+			selectedBook = booksModel[0].key;
 		}
 	});
 
@@ -457,25 +463,25 @@
 							</button>
 						</div>
 						<BookSidebar
-							{books}
+							books={booksModel}
 							selectedBook={selectedBook ?? ''}
 							onselect={selectBook}
 						/>
 						<CardsToc
-							cards={filteredCards}
+							cards={displayCards}
 							{focusedCardId}
-							searchTerms={[]}
+							searchTerms={fullResultsMode ? searchTerms : []}
 							onscrollto={handleTocScroll}
 						/>
 					</div>
 				</div>
 			</div>
 
-			<div class={`grid gap-6 ${fullResultsMode ? '' : 'lg:grid-cols-[17rem_minmax(0,1fr)_20rem]'}`}>
+			<div class={`grid gap-6 ${fullResultsMode ? 'lg:grid-cols-[minmax(0,1fr)_18rem]' : 'lg:grid-cols-[18rem_minmax(0,1fr)_18rem]'}`}>
 				{#if !fullResultsMode}
 				<div class="hidden lg:block">
 					<BookSidebar
-						{books}
+						books={booksModel}
 						selectedBook={selectedBook ?? ''}
 						onselect={selectBook}
 					/>
@@ -501,7 +507,6 @@
 					{/if}
 				</div>
 
-				{#if !fullResultsMode}
 				<div class="hidden lg:block">
 					<CardsToc
 						cards={displayCards}
@@ -510,7 +515,6 @@
 						onscrollto={scrollToCard}
 					/>
 				</div>
-				{/if}
 			</div>
 		</div>
 	</PageSection>
