@@ -1,14 +1,36 @@
 <script lang="ts">
-  import { enhance } from "$app/forms";
-  import type { ActionData } from "./$types";
+  import { STATIC_FORMS_KEY } from '$env/static/public';
 
-  let { form }: { form: ActionData } = $props();
+  let status: 'idle' | 'sending' | 'success' | 'error' = $state('idle');
+  let errorMessage = $state('');
+
+  async function handleSubmit(event: SubmitEvent) {
+    event.preventDefault();
+    status = 'sending';
+    const formEl = event.target as HTMLFormElement;
+    const formData = new FormData(formEl);
+    formData.append('accessKey', STATIC_FORMS_KEY);
+    formData.append('subject', 'Contact Form Submission - Semioteca');
+    try {
+      const res = await fetch('https://api.staticforms.dev/submit', { method: 'POST', body: formData });
+      const result = await res.json();
+      if (result.success) {
+        status = 'success';
+      } else {
+        status = 'error';
+        errorMessage = result.message || 'Something went wrong.';
+      }
+    } catch {
+      status = 'error';
+      errorMessage = 'Failed to send message. Please try again later.';
+    }
+  }
 </script>
 
 <div class="container mx-auto max-w-2xl p-4">
   <h1 class="text-3xl font-bold mb-6">Contacto</h1>
 
-  {#if form?.success}
+  {#if status === 'success'}
     <div role="alert" class="alert alert-success">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -16,17 +38,17 @@
       <span>¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.</span>
     </div>
   {:else}
-    {#if form?.error}
+    {#if status === 'error'}
       <div role="alert" class="alert alert-error">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
         <span>¡Error! No se pudo enviar el mensaje.</span>
-        <span class="text-xs opacity-80 ml-8">{form.error}</span>
+        <span class="text-xs opacity-80 ml-8">{errorMessage}</span>
       </div>
     {/if}
 
-    <form method="POST" use:enhance class="space-y-4">
+    <form onsubmit={handleSubmit} class="space-y-4">
       <div>
         <label
           for="name"
