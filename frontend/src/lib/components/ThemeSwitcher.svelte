@@ -7,7 +7,7 @@
     function setTheme(value: string) {
         theme = value;
         if (browser) {
-            document.documentElement.dataset.theme = theme;
+            document.documentElement.setAttribute("data-theme", theme);
             localStorage.setItem("theme", theme);
         }
     }
@@ -22,13 +22,13 @@
         const stored = localStorage.getItem("theme");
         if (stored === "dark" || stored === "light") {
             theme = stored;
-            document.documentElement.dataset.theme = theme;
+            document.documentElement.setAttribute("data-theme", theme);
             return;
         }
 
         const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
         theme = prefersDark ? "dark" : "light";
-        document.documentElement.dataset.theme = theme;
+        document.documentElement.setAttribute("data-theme", theme);
     });
 </script>
 

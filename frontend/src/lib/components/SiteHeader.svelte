@@ -7,6 +7,7 @@
     import { cardsSearchDialogOpen, cardsSearchQuery, openCardsSearch } from '$lib/stores/cardsSearch';
     import { SHOW_CV, SHOW_DOCS } from '$lib/config/features';
     import { goto } from '$app/navigation';
+    import Logo from './Logo.svelte';
 
     const links = [
         { href: '/', label: 'Inicio' },
@@ -92,12 +93,7 @@
     <div class="mx-auto w-full max-w-7xl px-5 lg:px-10">
         <div class={`grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 transition-[padding,grid-template-columns,gap] duration-300 ease-out ${compactHeader ? 'py-2' : 'py-3'}`}>
             <a href="/" class={`flex min-w-0 items-center gap-2 text-base-content transition-[font-size,transform] duration-300 ease-out ${compactHeader ? 'text-base lg:text-xl' : 'text-lg sm:text-xl' } font-black tracking-tight`}>
-                <span class="inline-flex h-7 w-7 items-center justify-center rounded-full border border-base-300/80 bg-base-300/60" aria-hidden="true">
-                    <span
-                        class="h-4 w-4 bg-base-content"
-                        style="mask: url('/favicon.svg') center / contain no-repeat; -webkit-mask: url('/favicon.svg') center / contain no-repeat;"
-                    ></span>
-                </span>
+                <Logo size={compactHeader ? 4 : 7} />
                 <span class="hidden truncate sm:inline">Significado Total</span>
             </a>
 
