@@ -93,7 +93,7 @@
     <div class="mx-auto w-full max-w-7xl px-5 lg:px-10">
         <div class={`grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 transition-[padding,grid-template-columns,gap] duration-300 ease-out ${compactHeader ? 'py-2' : 'py-3'}`}>
             <a href="/" class={`flex min-w-0 items-center gap-2 text-base-content transition-[font-size,transform] duration-300 ease-out ${compactHeader ? 'text-base lg:text-xl' : 'text-lg sm:text-xl' } font-black tracking-tight`}>
-                <Logo size={compactHeader ? 4 : 7} />
+                <Logo size={compactHeader ? 6 : 7} className="transition-[width,height] duration-300 ease-out" />
                 <span class="hidden truncate sm:inline">Significado Total</span>
             </a>
 
