@@ -14,12 +14,15 @@
         lightSrc = '/favicon/favicon_light.svg',
         darkSrc = '/favicon/favicon_dark.svg',
         size = 6,
-        className = `h-${size} w-${size}`
+        className = ''
     }: Props = $props();
+
+    let dimension = $derived(`${size * 0.25}rem`);
 </script>
 
 <img
     src={$theme === 'dark' ? darkSrc : lightSrc}
     alt={alt}
     class={className}
+    style={`width: ${dimension}; height: ${dimension};`}
 />
