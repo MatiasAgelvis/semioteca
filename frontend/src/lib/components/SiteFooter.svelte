@@ -1,6 +1,6 @@
 <script lang="ts">
     import { SHOW_CV, SHOW_DOCS } from '$lib/config/features';
-    import Logo from './Logo.svelte';
+    import Logo from '$lib/components/Logo.svelte';
 
     const navLinks = [
         { label: 'Inicio', href: '/' },

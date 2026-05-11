@@ -7,7 +7,7 @@
     import { cardsSearchDialogOpen, cardsSearchQuery, openCardsSearch } from '$lib/stores/cardsSearch';
     import { SHOW_CV, SHOW_DOCS } from '$lib/config/features';
     import { goto } from '$app/navigation';
-    import Logo from './Logo.svelte';
+    import Logo from '$lib/components/Logo.svelte';
 
     const links = [
         { href: '/', label: 'Inicio' },
