@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { SHOW_CV, SHOW_DOCS } from '$lib/config/features';
+	import { SITE_AUTHOR } from '$lib/config/site';
 	import BlogPostCard from '$lib/components/BlogPostCard.svelte';
 	import type { PageData } from './$types';
 
@@ -8,7 +9,9 @@
 
 <svelte:head>
 	<title>Significado Total</title>
-	<meta name="description" content="Fichero de ciencias del significado: tarjetas, ensayos y documentos sobre semiótica, lingüística y filosofía del lenguaje." />
+	<meta name="description" content={
+		`Fichero de ciencias del significado: tarjetas, ensayos y documentos sobre semiótica, pragmática, lingüística y filosofía del lenguaje escritos por ${SITE_AUTHOR}.`
+	} />
 </svelte:head>
 
 <div class="mx-auto w-full max-w-7xl px-5 py-10 lg:px-10">
@@ -19,7 +22,7 @@
 		</h1>
 		<p class="mt-6 max-w-3xl text-lg leading-8 text-base-content/70">
 			Un fichero estático para explorar tarjetas de lectura, ensayos y documentos sobre semiótica, pragmática,
-			lingüística y filosofía del lenguaje.
+			lingüística y filosofía del lenguaje escritos por {SITE_AUTHOR}.
 		</p>
 		<div class="mt-10 flex gap-8">
 			<div>

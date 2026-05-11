@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SidebarContainer from '$lib/components/SidebarContainer.svelte';
+	import { SITE_AUTHOR } from '$lib/config/site';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -19,35 +19,21 @@
 		</a>
 	</div>
 
-	<div class="grid gap-8 lg:grid-cols-[1fr_20rem]">
-		<article class="rounded-2xl border border-base-300/70 bg-base-100/90 p-6 shadow-lg shadow-base-content/5 lg:p-10">
-			<p class="mb-4 text-sm font-semibold tracking-[0.2em] text-base-content/60 uppercase">Blog Significado Total</p>
-			<h1 class="text-3xl font-black tracking-tight text-base-content lg:text-4xl">{data.post.title}</h1>
-			<div class="prose prose-slate mt-8 max-w-none prose-headings:font-black prose-a:text-primary prose-img:rounded-xl">
+	<div class="flex flex-col items-center">
+		<article class="w-full max-w-4xl rounded-2xl border border-base-300/70 bg-base-100/90 p-6 shadow-lg shadow-base-content/5 lg:p-10 mb-10">
+			<header class="mb-8">
+				<p class="mb-4 text-sm font-semibold tracking-[0.2em] text-base-content/60 uppercase">Blog Significado Total</p>
+				<h1 class="text-3xl font-black tracking-tight text-base-content lg:text-4xl">{data.post.title}</h1>
+				<div class="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm uppercase tracking-[0.1em] text-base-content/60">
+					<p>Por {SITE_AUTHOR}</p>
+					<p>{new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+				</div>
+			</header>
+			
+			<div class="prose prose-slate max-w-none prose-headings:font-black prose-a:text-primary prose-img:rounded-xl prose-img:max-w-full prose-pre:overflow-x-auto wrap-break-word">
 				{@html data.post.html}
 			</div>
 		</article>
-
-		<div class="hidden lg:block">
-			<SidebarContainer title="Información">
-				<div class="p-2 space-y-4">
-					<div>
-						<p class="text-xs font-bold opacity-40 uppercase tracking-widest mb-1">Publicado</p>
-						<p class="text-sm">{new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-					</div>
-					<!-- {#if data.post.tags}
-						<div>
-							<p class="text-xs font-bold opacity-40 uppercase tracking-widest mb-2">Etiquetas</p>
-							<div class="flex flex-wrap gap-2">
-								{#each data.post.tags as tag}
-									<span class="badge badge-outline badge-sm">{tag}</span>
-								{/each}
-							</div>
-						</div>
-					{/if} -->
-				</div>
-			</SidebarContainer>
-		</div>
 	</div>
 </div>
 

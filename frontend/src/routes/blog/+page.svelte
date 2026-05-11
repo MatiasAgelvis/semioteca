@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { SITE_AUTHOR } from '$lib/config/site';
 	import PageSection from '$lib/components/PageSection.svelte';
 	import BlogPostCard from '$lib/components/BlogPostCard.svelte';
 	import type { PageData } from './$types';
@@ -13,7 +14,7 @@
 <div class="mx-auto flex w-full max-w-7xl flex-col gap-8 px-5 py-10 lg:px-10">
 	<PageSection
 		title="Blog"
-		description="Ensayos y notas críticas generadas desde el repositorio de manuscritos."
+		description={`Ensayos y notas críticas generadas desde el repositorio de manuscritos por ${SITE_AUTHOR}.`}
 		headingLevel="h1"
 	>
 		<div class="grid gap-5 md:grid-cols-2">
