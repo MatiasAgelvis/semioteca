@@ -1,28 +1,20 @@
 import { browser } from "$app/environment";
+import { writable } from "svelte/store";
 
-export const theme = {
-    subscribe(run: (value: string) => void) {
-        if (!browser) {
-            run("light");
-            return () => {};
-        }
+const createTheme = () => {
+    const { subscribe, set } = writable<string>(
+        browser ? (document.documentElement.getAttribute("data-theme") || "light") : "light"
+    );
 
-        const update = () => {
-            const currentTheme = document.documentElement.getAttribute("data-theme") || "light";
-            run(currentTheme);
-        };
-
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.attributeName === "data-theme") {
-                    update();
-                }
-            });
+    if (browser) {
+        const observer = new MutationObserver(() => {
+            set(document.documentElement.getAttribute("data-theme") || "light");
         });
 
-        observer.observe(document.documentElement, { attributes: true });
-        update();
-
-        return () => observer.disconnect();
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     }
+
+    return { subscribe };
 };
+
+export const theme = createTheme();
