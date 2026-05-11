@@ -474,10 +474,10 @@
 
 <dialog
 	bind:this={searchDialog}
-	class="modal"
+	class="modal modal-bottom sm:modal-middle"
 	onclose={() => { advancedOpen = false; closeCardsSearch(); }}
 >
-	<div class="modal-box flex flex-col overflow-visible max-w-3xl rounded-4xl border border-base-300 bg-base-100 p-0 shadow-2xl">
+	<div class="modal-box flex flex-col overflow-visible w-full h-full sm:h-auto sm:max-w-3xl rounded-none sm:rounded-4xl border border-base-300 bg-base-100 p-0 shadow-2xl">
 		<div class="shrink-0 border-b border-base-200 px-6 py-5">
 			<div class="flex items-center justify-between gap-3">
 				<div>
