@@ -119,13 +119,13 @@
 				<HighlightedText segments={bookSegments} />
 			</p>
 			<div class="flex items-center gap-2">
-				<span class="badge badge-ghost badge-sm">p. <HighlightedText segments={pageSegments} /></span>
 				{#if searchActive}
-					<span class="badge badge-warning badge-sm">{matchCount} coincidencias</span>
+				<span class="badge badge-warning badge-sm">{matchCount} coincidencias</span>
 				{/if}
 				{#if hasImages}
-					<span class="badge badge-ghost badge-sm opacity-60">{card.images.length} {card.images.length === 1 ? 'imagen' : 'imágenes'}</span>
+				<span class="badge badge-ghost badge-sm opacity-60">{card.images.length} {card.images.length === 1 ? 'imagen' : 'imágenes'}</span>
 				{/if}
+				<span class="badge badge-ghost badge-sm">p. <HighlightedText segments={pageSegments} /></span>
 			</div>
 		</div>
 
