@@ -40,7 +40,7 @@
 				p. <HighlightedText segments={pageSegments} />
 			</span>
 		</div>
-		<p class="mt-2 line-clamp-3 text-sm leading-6 opacity-80 overflow-hidden">
+		<p class="mt-2 line-clamp-3 text-sm min-w-0 leading-6 opacity-80 overflow-hidden">
 			<HighlightedText segments={previewSegments} />
 		</p>
 	</div>
