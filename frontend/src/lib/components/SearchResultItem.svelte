@@ -25,20 +25,22 @@
 	class="w-full rounded-2xl border border-base-300 bg-base-100 px-4 py-3 text-left transition hover:border-primary/50 hover:bg-base-200/60"
 	onclick={() => onselect(card)}
 >
-	<div class="grid gap-3 grid-cols-4">
-		<p class="text-sm font-semibold col-span-3 flex flex-wrap gap-1 min-w-0 overflow-hidden">
-			<span class="inline-block min-w-0 truncate whitespace-nowrap">
-				<HighlightedText segments={authorSegments} />
+	<div class="contain-layout">
+		<div class="flex items-start gap-3">
+			<p class="text-sm font-semibold flex-1 flex flex-wrap gap-1 min-w-0 overflow-hidden">
+				<span class="inline-block min-w-0 truncate whitespace-nowrap">
+					<HighlightedText segments={authorSegments} />
+				</span>
+				<span class="inline-block truncate">—</span>
+				<span class="inline-block min-w-0 truncate whitespace-nowrap">
+					<HighlightedText segments={bookSegments} />
+				</span>
+			</p>
+			<span class="badge badge-ghost badge-sm whitespace-nowrap self-start">
+				p. <HighlightedText segments={pageSegments} />
 			</span>
-			<span class="inline-block truncate">—</span>
-			<span class="inline-block min-w-0 truncate whitespace-nowrap">
-				<HighlightedText segments={bookSegments} />
-			</span>
-		</p>
-		<span class="badge badge-ghost badge-sm justify-self-end self-start col-span-1 whitespace-nowrap">
-			p. <HighlightedText segments={pageSegments} />
-		</span>
-		<p class="mt-2 line-clamp-3 text-sm leading-6 opacity-80 col-span-4">
+		</div>
+		<p class="mt-2 line-clamp-3 text-sm leading-6 opacity-80 overflow-hidden">
 			<HighlightedText segments={previewSegments} />
 		</p>
 	</div>
