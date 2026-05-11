@@ -35,7 +35,7 @@
 						<p class="text-xs font-bold opacity-40 uppercase tracking-widest mb-1">Publicado</p>
 						<p class="text-sm">{new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
 					</div>
-					{#if data.post.tags}
+					<!-- {#if data.post.tags}
 						<div>
 							<p class="text-xs font-bold opacity-40 uppercase tracking-widest mb-2">Etiquetas</p>
 							<div class="flex flex-wrap gap-2">
@@ -44,7 +44,7 @@
 								{/each}
 							</div>
 						</div>
-					{/if}
+					{/if} -->
 				</div>
 			</SidebarContainer>
 		</div>

@@ -1,0 +1,2 @@
+[data-theme='dark'] .theme-logo { content: url('/favicon/favicon_dark.svg'); }
+[data-theme='light'] .theme-logo { content: url('/favicon/favicon_light.svg'); }

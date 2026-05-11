@@ -1,13 +1,14 @@
 <script lang="ts">
     import { browser } from "$app/environment";
     import { onMount } from "svelte";
+    import { theme as themeStore } from "$lib/stores/theme";
 
     let theme = $state("light");
 
     function setTheme(value: string) {
         theme = value;
         if (browser) {
-            document.documentElement.dataset.theme = theme;
+            document.documentElement.setAttribute("data-theme", theme);
             localStorage.setItem("theme", theme);
         }
     }
@@ -19,16 +20,12 @@
     onMount(() => {
         if (!browser) return;
 
-        const stored = localStorage.getItem("theme");
-        if (stored === "dark" || stored === "light") {
-            theme = stored;
-            document.documentElement.dataset.theme = theme;
-            return;
-        }
+        // Sync local state with store/DOM
+        const unsubscribe = themeStore.subscribe(v => {
+            theme = v;
+        });
 
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        theme = prefersDark ? "dark" : "light";
-        document.documentElement.dataset.theme = theme;
+        return unsubscribe;
     });
 </script>
 
