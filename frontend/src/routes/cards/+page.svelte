@@ -14,7 +14,8 @@
 		openCardsSearch
 	} from '$lib/stores/cardsSearch';
 	import { getBookKey } from '$lib/utils/books';
-	import { countMatchedTerms, getMatchCount, matchesAllTerms, matchesAnyTerm, tokenizeQuery } from '$lib/utils/search';
+	import { tokenizeQuery } from '$lib/utils/search';
+	import { getRankedSearchResults } from '$lib/utils/cardsSearch';
 	import type { CardRecord, CardsDataset } from '$lib/types/content';
 	import type { PageData } from './$types';
 
@@ -130,58 +131,9 @@
 
 	const hasSearchCriteria = $derived(searchTerms.length > 0 || selectedAuthors.size > 0 || selectedTags.size > 0);
 
-	const rankedSearchResults = $derived.by(() => {
-		const terms = searchTerms;
-		const hasFilters = selectedAuthors.size > 0 || selectedTags.size > 0;
-		if (terms.length === 0 && !hasFilters) return [] as CardRecord[];
-
-		const matchFn = matchMode === 'all' ? matchesAllTerms : matchesAnyTerm;
-
-		return cards
-			.map((card, index) => {
-				const parts: string[] = [];
-				if (searchFields.authorBook) parts.push(card.author, card.book);
-				if (searchFields.page) parts.push(card.page ?? '');
-				if (searchFields.content) parts.push(card.content);
-				if (searchFields.tags && card.tags) parts.push(...card.tags);
-				return { card, index, searchableText: parts.join(' ') };
-			})
-			.filter(({ card, searchableText }) => {
-				if (selectedAuthors.size > 0 && !selectedAuthors.has(card.author)) return false;
-				if (selectedTags.size > 0) {
-					const cardTags = card.tags ?? [];
-					if (matchMode === 'all') {
-						if (!Array.from(selectedTags).every((tag) => cardTags.includes(tag))) return false;
-					} else {
-						if (!cardTags.some((tag) => selectedTags.has(tag))) return false;
-					}
-				}
-				if (terms.length === 0) return true;
-				return matchFn(searchableText, terms);
-			})
-			.map(({ card, index, searchableText }) => ({
-				card,
-				index,
-				score: (() => {
-					// Coverage bonus: rewards cards that match more distinct terms (0–20 pts)
-					const coverageBonus = terms.length > 0
-						? (countMatchedTerms(searchableText, terms) / terms.length) * 20
-							: 0;
-					// Per-field scores, capped to avoid length bias in long content
-					const authorScore = searchFields.authorBook ? Math.min(getMatchCount(card.author, terms), 3) * 6 : 0;
-					const bookScore = searchFields.authorBook ? Math.min(getMatchCount(card.book, terms), 3) * 5 : 0;
-					const pageScore = searchFields.page ? Math.min(getMatchCount(card.page ?? '', terms), 3) * 4 : 0;
-					const tagScore = (searchFields.tags && card.tags) ? Math.min(card.tags.reduce((sum, t) => sum + getMatchCount(t, terms), 0), 3) * 5 : 0;
-					const contentScore = searchFields.content ? Math.min(getMatchCount(card.content, terms), 5) : 0;
-					return coverageBonus + authorScore + bookScore + pageScore + tagScore + contentScore;
-				})()
-			}))
-			.sort((left, right) => {
-				if (right.score !== left.score) return right.score - left.score;
-				return left.index - right.index;
-			})
-			.map(({ card }) => card);
-	});
+	const rankedSearchResults = $derived.by(() =>
+		getRankedSearchResults(cards, searchTerms, selectedAuthors, selectedTags, searchFields, matchMode)
+	);
 
 	const searchResults = $derived(rankedSearchResults.slice(0, 24));
 	const fullResultsCount = $derived(rankedSearchResults.length);
