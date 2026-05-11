@@ -17,7 +17,7 @@
         className = ''
     }: Props = $props();
 
-    const dimension = $derived(() => `${size * 0.25}rem`);
+    let dimension = $derived(`${size * 0.25}rem`);
 </script>
 
 <img
