@@ -750,7 +750,7 @@
 			{/if}
 		</div>
 
-		<div class="max-h-[55vh] min-h-25 flex-1 space-y-3 overflow-y-auto px-6 py-5">
+		<div class="sm:max-h-[55vh] min-h-25 flex-1 space-y-3 overflow-y-auto px-6 py-5">
 			{#if !hasSearchCriteria}
 				<p class="rounded-2xl border border-dashed border-base-300 px-4 py-8 text-center text-sm opacity-70">
 					Busca en autores, libros, páginas y contenido. Al elegir un resultado, se abrirá su libro y se hará scroll a la tarjeta.
