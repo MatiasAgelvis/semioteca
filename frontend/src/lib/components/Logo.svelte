@@ -23,6 +23,6 @@
 <img
     src={$theme === 'dark' ? darkSrc : lightSrc}
     alt={alt}
-    class={className}
+    class="{className} theme-logo"
     style={`width: ${dimension}; height: ${dimension};`}
 />
