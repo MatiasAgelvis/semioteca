@@ -22,7 +22,7 @@
                     <p class="font-bold text-sm">Significado Total</p>
                     <p class="text-xs opacity-60">© {currentYear}</p>
                 </div>
-                <p class="text-xs opacity-60">Por <a class="link link-primary no-underline hover:underline" href="https://matiasagelvis.com" target="_blank" rel="noopener">Matías Agelvis</a></p>
+                <p class="text-xs opacity-60">Por Valmore Agelvis y <a class="link link-primary no-underline hover:underline" href="https://matiasagelvis.com" target="_blank" rel="noopener">Matías Agelvis</a></p>
             </div>
         </aside>
 
