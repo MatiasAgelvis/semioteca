@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { SITE_AUTHOR } from '$lib/config/site';
 	import SidebarContainer from '$lib/components/SidebarContainer.svelte';
 	import type { PageData } from './$types';
 
@@ -23,6 +24,7 @@
 		<article class="rounded-2xl border border-base-300/70 bg-base-100/90 p-6 shadow-lg shadow-base-content/5 lg:p-10">
 			<p class="mb-4 text-sm font-semibold tracking-[0.2em] text-base-content/60 uppercase">Blog Significado Total</p>
 			<h1 class="text-3xl font-black tracking-tight text-base-content lg:text-4xl">{data.post.title}</h1>
+			<p class="mt-2 text-sm uppercase tracking-[0.2em] text-base-content/60">Por {SITE_AUTHOR}</p>
 			<div class="prose prose-slate mt-8 max-w-none prose-headings:font-black prose-a:text-primary prose-img:rounded-xl">
 				{@html data.post.html}
 			</div>
