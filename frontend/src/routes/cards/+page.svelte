@@ -540,7 +540,7 @@
 					<input
 						bind:this={searchInput}
 						bind:value={$cardsSearchQuery}
-						class="input input-lg input-bordered w-full"
+						class="input input-lg input-bordered w-full truncate"
 						placeholder="Busca por autor, libro, página, etiquetas o fragmento"
 						type="search"
 					/>
