@@ -32,7 +32,7 @@
 
 	// Advanced search filters
 	let advancedOpen = $state(false);
-	let showSearchHint = $state(true);
+	let showSearchHint = $state(false);
 	let selectedAuthors = $state<Set<string>>(new Set());
 	let selectedTags = $state<Set<string>>(new Set());
 	let matchMode = $state<'all' | 'any'>('all');
@@ -59,8 +59,8 @@
 
 	const activeFilterCount = $derived(
 		selectedAuthors.size +
-		selectedTags.size +
-		(matchMode === 'any' ? 1 : 0) +
+			selectedTags.size +
+			(matchMode === 'any' ? 1 : 0) +
 		(!searchFields.content || !searchFields.authorBook || !searchFields.page || !searchFields.tags ? 1 : 0)
 	);
 
@@ -166,7 +166,7 @@
 					// Coverage bonus: rewards cards that match more distinct terms (0–20 pts)
 					const coverageBonus = terms.length > 0
 						? (countMatchedTerms(searchableText, terms) / terms.length) * 20
-						: 0;
+							: 0;
 					// Per-field scores, capped to avoid length bias in long content
 					const authorScore = searchFields.authorBook ? Math.min(getMatchCount(card.author, terms), 3) * 6 : 0;
 					const bookScore = searchFields.authorBook ? Math.min(getMatchCount(card.book, terms), 3) * 5 : 0;
@@ -299,14 +299,14 @@
 				let bestMatch: string | null = null;
 				let minDistance = Infinity;
 				const viewportCenter = window.innerHeight * 0.4; // Aim for slightly above center
-				
+
 				for (const id of visibleCardIds) {
 					const el = cardElements.get(id);
 					if (!el) continue;
 					const rect = el.getBoundingClientRect();
 					const cardMiddle = rect.top + rect.height / 2;
 					const distance = Math.abs(cardMiddle - viewportCenter);
-					
+
 					if (distance < minDistance) {
 						minDistance = distance;
 						bestMatch = id;
@@ -479,13 +479,13 @@
 
 			<div class={`grid gap-6 ${fullResultsMode ? 'lg:grid-cols-[minmax(0,1fr)_18rem]' : 'lg:grid-cols-[18rem_minmax(0,1fr)_18rem]'}`}>
 				{#if !fullResultsMode}
-				<div class="hidden lg:block">
-					<BookSidebar
-						books={booksModel}
+					<div class="hidden lg:block">
+						<BookSidebar
+							books={booksModel}
 						selectedBook={selectedBook ?? ''}
-						onselect={selectBook}
-					/>
-				</div>
+							onselect={selectBook}
+						/>
+					</div>
 				{/if}
 
 				<div class="space-y-5">
@@ -529,7 +529,6 @@
 		<div class="shrink-0 border-b border-base-200 px-6 py-5">
 			<div class="flex items-center justify-between gap-3">
 				<div>
-					<p class="text-xs font-semibold uppercase tracking-[0.22em] opacity-50">Busqueda global</p>
 					<h3 class="mt-1 text-xl font-black">Buscar en todas las tarjetas</h3>
 				</div>
 				<form method="dialog">
@@ -549,7 +548,7 @@
 				{#if selectedTags.size > 0 || selectedAuthors.size > 0}
 					<div class="flex flex-wrap gap-1.5 pt-1">
 						{#each Array.from(selectedTags) as tag}
-							<button 
+							<button
 								class="badge badge-primary badge-sm gap-1 hover:badge-error"
 								onclick={() => toggleTag(tag)}
 							>
@@ -557,14 +556,14 @@
 							</button>
 						{/each}
 						{#each Array.from(selectedAuthors) as author}
-							<button 
+							<button
 								class="badge badge-secondary badge-sm gap-1 hover:badge-error"
 								onclick={() => toggleAuthor(author)}
 							>
 								{author} <span>×</span>
 							</button>
 						{/each}
-						<button 
+						<button
 							class="text-[10px] uppercase font-bold text-error ml-1 hover:underline"
 							onclick={clearAdvancedFilters}
 						>
@@ -575,59 +574,68 @@
 			</div>
 
 			<div class="mt-3 flex items-center justify-between gap-3">
-				<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs opacity-70">
+				<div
+					class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs"
+				>
 					{#if searchTerms.length === 0 && selectedAuthors.size === 0 && selectedTags.size === 0}
 						<span>Escribe para buscar en toda la colección</span>
-					{:else}
-						<span>{fullResultsCount} resultados</span>
-						{#if activeFilterCount > 0}
-							<button class="text-primary hover:underline" type="button" onclick={clearAdvancedFilters}>
-								{activeFilterCount} {activeFilterCount === 1 ? 'filtro activo' : 'filtros activos'} ×
-							</button>
-						{/if}
-					{/if}
-				</div>
-				<div class="flex items-center gap-2">
-					{#if hasSearchCriteria && fullResultsCount > 0}
-						<button type="button" class="btn btn-xs btn-primary" onclick={openFullResultsMode}>
+					{:else if hasSearchCriteria}
+						<button
+							type="button"
+							class="btn btn-xs btn-primary"
+							disabled={fullResultsCount === 0}
+							onclick={openFullResultsMode}
+						>
 							Ver todos ({fullResultsCount})
 						</button>
 					{/if}
+				</div>
+				<div class="flex items-center justify-end gap-2">
 					<button
 						type="button"
-						class={`btn btn-xs gap-1 ${advancedOpen ? 'btn-primary' : 'btn-ghost'}`}
-						onclick={(e) => { 
+						class={`btn btn-xs gap-1 ${advancedOpen ? "btn-primary" : "btn-ghost"}`}
+						onclick={(e) => {
 							e.preventDefault();
 							e.stopPropagation();
-							advancedOpen = !advancedOpen; 
+							advancedOpen = !advancedOpen;
 						}}
 					>
 						Avanzado
 						{#if activeFilterCount > 0}
-							<span class="badge badge-xs badge-warning">{activeFilterCount}</span>
+							<span class="badge badge-xs badge-warning"
+								>{activeFilterCount}</span
+							>
 						{/if}
-						<span class={`text-xs transition-transform duration-200 ${advancedOpen ? 'rotate-180' : ''}`}>▾</span>
+						<span
+							class={`text-xs transition-transform duration-200 ${advancedOpen ? "rotate-180" : ""}`}
+							>▾</span
+						>
 					</button>
 				</div>
 			</div>
 
 			{#if advancedOpen}
-				<div class="mt-4 shrink-0 space-y-5 rounded-2xl border border-base-200 bg-base-50/60 px-5 py-4">
-
+				<div
+					class="mt-4 max-h-[40vh] overflow-y-auto overflow-scroll space-y-5 rounded-2xl border border-base-200 bg-base-50/60 px-5 py-4"
+				>
 					<div class="space-y-2">
 						<div class="flex items-center justify-between">
-							<p class="text-xs font-semibold uppercase tracking-widest opacity-50">Modo de búsqueda y filtrado</p>
+							<p
+								class="text-xs font-semibold uppercase tracking-widest opacity-50"
+							>
+								Modo de búsqueda y filtrado
+							</p>
 							{#if !showSearchHint}
-								<button 
+								<button
 									type="button"
-									class="btn btn-ghost btn-xs text-[10px] opacity-40 hover:opacity-100" 
-									onclick={() => showSearchHint = true}
+									class="btn btn-ghost btn-xs text-[10px] opacity-40 hover:opacity-100"
+									onclick={() => (showSearchHint = true)}
 								>
 									Mostrar ayuda
 								</button>
 							{/if}
 						</div>
-						<div class="flex gap-2">
+						<div class="flex flex-wrap gap-2">
 							<button
 								type="button"
 								class={`btn btn-sm ${matchMode === 'all' ? 'btn-primary' : 'btn-outline'}`}
@@ -637,23 +645,34 @@
 							</button>
 							<button
 								type="button"
-								class={`btn btn-sm ${matchMode === 'any' ? 'btn-primary' : 'btn-outline'}`}
-								onclick={() => { matchMode = 'any'; }}
+								class={`btn btn-sm ${matchMode === "any" ? "btn-primary" : "btn-outline"}`}
+								onclick={() => {
+									matchMode = "any";
+								}}
 							>
 								Amplio (Unión)
 							</button>
 						</div>
-{#if showSearchHint}
-							<div class="relative rounded-lg bg-base-200/50 p-2 pr-8">
+						{#if showSearchHint}
+							<div
+								class="relative rounded-lg bg-base-200/50 p-2 pr-8"
+							>
 								<p class="text-[10px] opacity-60 leading-tight">
-									Estricto: requiere que coincidan todos los términos y todas las etiquetas seleccionadas.<br/>
-									Amplio: muestra resultados que coincidan con al menos un término o etiqueta.<br/>
-									<span class="text-primary/70 italic">* Los autores siempre se filtran por unión (se incluyen todos los seleccionados).</span>
+									Estricto: requiere que coincidan todos los
+									términos y todas las etiquetas
+									seleccionadas.<br />
+									Amplio: muestra resultados que coincidan con
+									al menos un término o etiqueta.<br />
+									<span class="text-primary/70 italic"
+										>* Los autores siempre se filtran por
+										unión (se incluyen todos los
+										seleccionados).</span
+									>
 								</p>
-								<button 
+								<button
 									type="button"
-									class="btn btn-ghost btn-xs btn-circle absolute top-1 right-1 h-6 w-6 min-h-0" 
-									onclick={() => showSearchHint = false}
+									class="btn btn-ghost btn-xs btn-circle absolute top-1 right-1 h-6 w-6 min-h-0"
+									onclick={() => (showSearchHint = false)}
 									title="Ocultar"
 								>
 									×
@@ -663,22 +682,50 @@
 					</div>
 
 					<div class="space-y-2">
-						<p class="text-xs font-semibold uppercase tracking-widest opacity-50">Buscar en</p>
+						<p
+							class="text-xs font-semibold uppercase tracking-widest opacity-50"
+						>
+							Buscar en
+						</p>
 						<div class="flex flex-wrap gap-2">
-							<label class={`btn btn-sm gap-2 ${searchFields.content ? 'btn-primary' : 'btn-outline'}`}>
-								<input type="checkbox" class="hidden" bind:checked={searchFields.content} />
+							<label
+								class={`btn btn-sm gap-2 ${searchFields.content ? "btn-primary" : "btn-outline"}`}
+							>
+								<input
+									type="checkbox"
+									class="hidden"
+									bind:checked={searchFields.content}
+								/>
 								Contenido
 							</label>
-							<label class={`btn btn-sm gap-2 ${searchFields.authorBook ? 'btn-primary' : 'btn-outline'}`}>
-								<input type="checkbox" class="hidden" bind:checked={searchFields.authorBook} />
+							<label
+								class={`btn btn-sm gap-2 ${searchFields.authorBook ? "btn-primary" : "btn-outline"}`}
+							>
+								<input
+									type="checkbox"
+									class="hidden"
+									bind:checked={searchFields.authorBook}
+								/>
 								Autor / libro
 							</label>
-							<label class={`btn btn-sm gap-2 ${searchFields.page ? 'btn-primary' : 'btn-outline'}`}>
-								<input type="checkbox" class="hidden" bind:checked={searchFields.page} />
+							<label
+								class={`btn btn-sm gap-2 ${searchFields.page ? "btn-primary" : "btn-outline"}`}
+							>
+								<input
+									type="checkbox"
+									class="hidden"
+									bind:checked={searchFields.page}
+								/>
 								Página
 							</label>
-							<label class={`btn btn-sm gap-2 ${searchFields.tags ? 'btn-primary' : 'btn-outline'}`}>
-								<input type="checkbox" class="hidden" bind:checked={searchFields.tags} />
+							<label
+								class={`btn btn-sm gap-2 ${searchFields.tags ? "btn-primary" : "btn-outline"}`}
+							>
+								<input
+									type="checkbox"
+									class="hidden"
+									bind:checked={searchFields.tags}
+								/>
 								Etiquetas
 							</label>
 						</div>
@@ -686,23 +733,31 @@
 
 					<div class="space-y-2">
 						<div class="flex items-center justify-between">
-							<p class="text-xs font-semibold uppercase tracking-widest opacity-50">Filtrar por etiquetas</p>
+							<p
+								class="text-xs font-semibold uppercase tracking-widest opacity-50"
+							>
+								Filtrar por etiquetas
+							</p>
 							{#if selectedTags.size > 0}
 								<button
 									type="button"
 									class="text-xs text-primary hover:underline"
-									onclick={() => { selectedTags = new Set(); }}
-								>Limpiar</button>
+									onclick={() => {
+										selectedTags = new Set();
+									}}>Limpiar</button
+								>
 							{/if}
 						</div>
-						<div class="flex max-h-32 flex-wrap gap-x-2 gap-y-3 overflow-y-auto pt-1">
+						<div
+							class="flex flex-wrap gap-x-2 gap-y-3 overflow-y-auto pt-1"
+						>
 							{#each tags as tag}
 								<button
 									type="button"
-									class={`btn btn-xs rounded-full ${selectedTags.has(tag) ? 'btn-primary' : 'btn-outline'}`}
+									class={`btn btn-xs rounded-full ${selectedTags.has(tag) ? "btn-primary" : "btn-outline"}`}
 									onclick={() => toggleTag(tag)}
 								>
-									{tag}{selectedTags.has(tag) ? ' ×' : ''}
+									{tag}{selectedTags.has(tag) ? " ×" : ""}
 								</button>
 							{/each}
 						</div>
@@ -710,16 +765,24 @@
 
 					<div class="space-y-2">
 						<div class="flex items-center justify-between">
-							<p class="text-xs font-semibold uppercase tracking-widest opacity-50">Filtrar por autor</p>
+							<p
+								class="text-xs font-semibold uppercase tracking-widest opacity-50"
+							>
+								Filtrar por autor
+							</p>
 							{#if selectedAuthors.size > 0}
 								<button
 									type="button"
 									class="text-xs text-primary hover:underline"
-									onclick={() => { selectedAuthors = new Set(); }}
-								>Limpiar</button>
+									onclick={() => {
+										selectedAuthors = new Set();
+									}}>Limpiar</button
+								>
 							{/if}
 						</div>
-						<div class="flex max-h-32 flex-wrap gap-2 overflow-y-auto">
+						<div
+							class="flex flex-wrap gap-2 overflow-y-auto"
+						>
 							{#each authors as author}
 								<button
 									type="button"
@@ -731,7 +794,6 @@
 							{/each}
 						</div>
 					</div>
-
 				</div>
 			{/if}
 		</div>
