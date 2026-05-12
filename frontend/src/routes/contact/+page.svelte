@@ -27,7 +27,7 @@
   }
 </script>
 
-<div class="container mx-auto max-w-2xl p-4">
+<div class="container mx-auto max-w-2xl m-8 rounded-2xl sm:border sm:border-base-300/70 bg-base-100/90 p-8 sm:shadow-xl sm:shadow-base-content/5 lg:p-12">
   <h1 class="text-3xl font-bold mb-6">Contacto</h1>
 
   {#if status === 'success'}
