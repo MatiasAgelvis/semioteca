@@ -14,24 +14,34 @@
     const currentYear = new Date().getFullYear();
 </script>
 
-<footer class="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
-    <aside class="flex items-center gap-4">
-        <Logo size={10} />
-        <div class="flex flex-col justify-start gap-1">
-                <div class="flex flex-row items-center gap-1">
-                    <p class="font-bold text-sm">Significado Total</p>
-                    <p class="text-xs opacity-60">© {currentYear}</p>
-                </div>
-                <p class="text-xs opacity-60">Por Valmore Agelvis y <a class="link link-primary no-underline hover:underline" href="https://matiasagelvis.com" target="_blank" rel="noopener">Matías Agelvis</a></p>
-            </div>
-        </aside>
+<footer class="footer flex flex-col-reverse items-center gap-12 bg-base-200 p-10 text-base-content md:flex-row md:justify-between md:items-start">
+	<aside class="flex items-center gap-4 text-center sm:text-left whitespace-nowrap">
+		<Logo size={10} />
+		<div class="flex flex-col justify-start gap-1">
+			<div class="flex flex-row items-center justify-center gap-1 sm:justify-start">
+				<p class="text-sm font-bold">Significado Total</p>
+				<p class="text-xs opacity-60">© {currentYear}</p>
+			</div>
+			<p class="text-xs opacity-60">
+				Por Valmore Agelvis y <a
+					class="link link-primary no-underline hover:underline"
+					href="https://matiasagelvis.com"
+					target="_blank"
+					rel="noopener">Matías Agelvis</a
+				>
+			</p>
+		</div>
+	</aside>
 
-        <nav>
-        <div class="grid grid-flow-col gap-6">
-            {#each navLinks as link}
-                <a href={link.href} class="link link-hover text-xs font-semibold uppercase tracking-wider opacity-70 hover:opacity-100">{link.label}</a>
-            {/each}
-            <!-- <a href="https://github.com/matiasagelvis/semioteca" target="_blank" rel="noopener" class="link link-hover text-xs font-semibold uppercase tracking-wider opacity-70 hover:opacity-100">GitHub</a> -->
-        </div>
-        </nav>
+	<nav>
+		<div class="flex flex-wrap justify-center gap-6 sm:grid sm:grid-flow-col">
+			{#each navLinks as link}
+				<a
+					href={link.href}
+					class="link link-hover text-xs font-semibold uppercase tracking-wider opacity-70 hover:opacity-100"
+					>{link.label}</a
+				>
+			{/each}
+		</div>
+	</nav>
 </footer>
