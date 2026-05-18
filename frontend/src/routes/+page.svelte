@@ -20,11 +20,13 @@
 		<h1 class="mt-3 max-w-4xl text-5xl font-black tracking-tight text-base-content sm:text-6xl">
 			Ciencias del significado
 		</h1>
-		<p class="mt-6 max-w-3xl text-lg leading-8 text-base-content/70">
-			Un fichero textual para explorar tarjetas de lectura, ensayos y documentos sobre semiótica, pragmática,
-			semántica y filosofía del lenguaje.
+		<p class="mt-6 max-w-2xl text-base leading-7 text-base-content/70">
+			Un fichero textual de diversos libros sobre semántica, pragmática, lingüística, semiótica 
+			y filosofía del lenguaje elaborado con fines didácticos,  para apoyar la formación de alumnos y tesistas. 
+			Además se incluyen diversos artículos y ensayos en estas materias, 
+			escritos por el profesor Valmore Agelvis como ejemplos de la aplicación de estos ficheros.
 		</p>
-		<div class="mt-10 flex gap-8">
+		<div class="mt-8 flex gap-8">
 			<div>
 				<p class="text-3xl font-black tracking-tight text-base-content">{data.totalCards}</p>
 				<p class="mt-1 text-xs font-semibold tracking-[0.2em] text-base-content/50 uppercase">Tarjetas</p>
