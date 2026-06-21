@@ -5,10 +5,12 @@
         relations,
         show = false,
         onclose,
+        onselect,
     }: {
         relations: RelatedCard[];
         show: boolean;
         onclose: () => void;
+        onselect?: (cardId: string) => void;
     } = $props();
 
     let dialogEl: HTMLDialogElement;
@@ -58,6 +60,12 @@
                 <a
                     href="/cards/{rel.id}"
                     class="block rounded-xl border border-base-200 bg-base-100 p-4 transition-colors hover:border-primary/40 hover:bg-base-200/50"
+                    onclick={onselect
+                        ? (e: MouseEvent) => {
+                              e.preventDefault();
+                              onselect(rel.id);
+                          }
+                        : undefined}
                 >
                     <div class="flex items-center justify-between gap-3">
                         <div class="min-w-0">
