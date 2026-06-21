@@ -37,3 +37,7 @@ venv/
 *.egg-info/
 
 *.log
+
+# Generated data
+backend/cache/
+backend/card-relations.json
