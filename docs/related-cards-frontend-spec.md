@@ -42,7 +42,7 @@ export interface CardRelationEntry {
 /** Full relation: resolved with display metadata. */
 export interface RelatedCard {
   id: string;
-  title: string;    // book title (same as CardRecord.book)
+  title: string; // book title (same as CardRecord.book)
   author: string;
   book: string;
   year: string;
@@ -81,11 +81,9 @@ export async function buildRelatedCards(cardId: string): Promise<RelatedCard[]> 
   if (!entries?.length) return [];
 
   const dataset = await readCardsDataset();
-  const cardMap = new Map(
-    dataset.books.flatMap(book => book.cards).map(c => [c.id, c])
-  );
+  const cardMap = new Map(dataset.books.flatMap((book) => book.cards).map((c) => [c.id, c]));
 
-  return entries.map(entry => {
+  return entries.map((entry) => {
     const card = cardMap.get(entry.id);
     return {
       id: entry.id,
@@ -176,23 +174,23 @@ STATE 1: Closed (sticky bar)                    STATE 2: Open (slide-up sheet)
 
 ### Behavior
 
-| Event | Action |
-|---|---|
-| Click sticky bar | Open sheet, animate slide-up |
-| Click relation row | Navigate to `/cards/{id}`, close sheet |
-| Click backdrop | Close sheet |
-| Click ✕ button | Close sheet |
-| Press Escape | Close sheet |
-| Relations count = 0 | Hide sticky bar entirely |
-| Build-time data missing | Hide sticky bar entirely |
+| Event                   | Action                                 |
+| ----------------------- | -------------------------------------- |
+| Click sticky bar        | Open sheet, animate slide-up           |
+| Click relation row      | Navigate to `/cards/{id}`, close sheet |
+| Click backdrop          | Close sheet                            |
+| Click ✕ button          | Close sheet                            |
+| Press Escape            | Close sheet                            |
+| Relations count = 0     | Hide sticky bar entirely               |
+| Build-time data missing | Hide sticky bar entirely               |
 
 ### States
 
-| State | UI |
-|---|---|
-| **Normal** | Sticky bar visible, sheet closed |
-| **Open** | Sheet visible, backdrop active |
-| **Empty** | Sticky bar hidden |
+| State            | UI                                       |
+| ---------------- | ---------------------------------------- |
+| **Normal**       | Sticky bar visible, sheet closed         |
+| **Open**         | Sheet visible, backdrop active           |
+| **Empty**        | Sticky bar hidden                        |
 | **Missing file** | Sticky bar hidden (graceful degradation) |
 
 ### Edge cases
@@ -205,12 +203,15 @@ STATE 1: Closed (sticky bar)                    STATE 2: Open (slide-up sheet)
 ## Implementation steps
 
 ### Step 1 — Types
+
 - Add `CardRelationEntry` and `RelatedCard` to `content.ts`
 
 ### Step 2 — Server functions
+
 - Add `readCardRelations()` and `buildRelatedCards()` to `content.ts`
 
 ### Step 3 — Page loader
+
 - Update `+page.server.ts` to load relations alongside card
 
 ### Step 4 — UI components
@@ -225,6 +226,7 @@ STATE 1: Closed (sticky bar)                    STATE 2: Open (slide-up sheet)
 - Wire both into `+page.svelte`
 
 ### Step 5 — Verify
+
 - Build + browse a few cards with relations
 - Spot-check cross-book vs intra-book quality
 - Verify no runtime errors
@@ -233,14 +235,14 @@ STATE 1: Closed (sticky bar)                    STATE 2: Open (slide-up sheet)
 
 ## Design decisions
 
-| Decision | Choice | Rationale |
-|---|---|---|
-| Presentation | Bottom bar → slide-up sheet | Secondary hierarchy, non-intrusive, desktop-first (75% users) |
-| Trigger visibility | Sticky bar, hidden when empty | Discoverable but not in-your-face |
-| List vs grid | Vertical list | Card titles are long (academic books), grid wraps awkwardly |
-| Score format | Percentage (`93%`) | More intuitive than raw 0.73 |
-| Page display | `p. {page}` | Matches existing badge pattern |
-| Navigation | Same tab | Detail → detail feels like browsing, not opening tabs |
-| Sort order | Descending by score | Data already sorted, defensive sort |
-| Max displayed | All 10 | Compact list — no truncation needed |
-| Missing relations | Hide bar entirely | Graceful degradation, no dead UI |
+| Decision           | Choice                        | Rationale                                                     |
+| ------------------ | ----------------------------- | ------------------------------------------------------------- |
+| Presentation       | Bottom bar → slide-up sheet   | Secondary hierarchy, non-intrusive, desktop-first (75% users) |
+| Trigger visibility | Sticky bar, hidden when empty | Discoverable but not in-your-face                             |
+| List vs grid       | Vertical list                 | Card titles are long (academic books), grid wraps awkwardly   |
+| Score format       | Percentage (`93%`)            | More intuitive than raw 0.73                                  |
+| Page display       | `p. {page}`                   | Matches existing badge pattern                                |
+| Navigation         | Same tab                      | Detail → detail feels like browsing, not opening tabs         |
+| Sort order         | Descending by score           | Data already sorted, defensive sort                           |
+| Max displayed      | All 10                        | Compact list — no truncation needed                           |
+| Missing relations  | Hide bar entirely             | Graceful degradation, no dead UI                              |

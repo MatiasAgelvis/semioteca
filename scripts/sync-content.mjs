@@ -12,7 +12,7 @@ const sources = {
   cardsImages: path.join(rootDir, 'backend', 'cards_images'),
   cardTags: path.join(rootDir, 'backend', 'card-tags.json'),
   blog: path.join(rootDir, 'backend', 'BLOG'),
-  cv: path.join(rootDir, 'backend', 'CV')
+  cv: path.join(rootDir, 'backend', 'CV'),
 };
 
 const targetRoot = path.join(rootDir, 'frontend', 'static', 'content');
@@ -33,7 +33,9 @@ async function copyIfExists(source, destination) {
   }
 
   await cp(source, destination, { recursive: true, force: true });
-  console.log(`[sync-content] Copied ${path.relative(rootDir, source)} -> ${path.relative(rootDir, destination)}`);
+  console.log(
+    `[sync-content] Copied ${path.relative(rootDir, source)} -> ${path.relative(rootDir, destination)}`,
+  );
 }
 
 async function main() {

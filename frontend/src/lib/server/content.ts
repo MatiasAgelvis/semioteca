@@ -1,7 +1,14 @@
 import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { marked } from 'marked';
-import type { BlogPost, BlogPostMeta, CardRelationEntry, CardsDataset, PdfResource, RelatedCard } from '$lib/types/content';
+import type {
+  BlogPost,
+  BlogPostMeta,
+  CardRelationEntry,
+  CardsDataset,
+  PdfResource,
+  RelatedCard,
+} from '$lib/types/content';
 
 const CONTENT_ROOT = path.resolve(process.cwd(), 'static', 'content');
 const BLOG_ROOT = path.join(CONTENT_ROOT, 'blog');
@@ -11,7 +18,7 @@ const RELATIONS_PATH = path.join(CONTENT_ROOT, 'card-relations.json');
 
 marked.setOptions({
   gfm: true,
-  breaks: true
+  breaks: true,
 });
 
 function titleFromMarkdown(markdown: string, fallback: string): string {
@@ -32,7 +39,12 @@ function stripInlineMarkdown(text: string): string {
 function excerptFromMarkdown(markdown: string): string {
   for (const line of markdown.split('\n')) {
     const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith('#') || trimmed.startsWith('![') || trimmed.startsWith('>')) {
+    if (
+      !trimmed ||
+      trimmed.startsWith('#') ||
+      trimmed.startsWith('![') ||
+      trimmed.startsWith('>')
+    ) {
       continue;
     }
     const clean = stripInlineMarkdown(trimmed);
@@ -48,7 +60,11 @@ function coverFromMarkdown(markdown: string, slug: string): string | null {
   if (inlineMatch) {
     const rawPath = inlineMatch[1]?.trim();
     if (rawPath) {
-      if (rawPath.startsWith('http://') || rawPath.startsWith('https://') || rawPath.startsWith('/')) {
+      if (
+        rawPath.startsWith('http://') ||
+        rawPath.startsWith('https://') ||
+        rawPath.startsWith('/')
+      ) {
         return rawPath;
       }
       return toPublicUrl('blog', slug, rawPath);
@@ -64,7 +80,11 @@ function coverFromMarkdown(markdown: string, slug: string): string | null {
     if (defMatch) {
       const rawPath = defMatch[1]?.trim();
       if (rawPath) {
-        if (rawPath.startsWith('http://') || rawPath.startsWith('https://') || rawPath.startsWith('/')) {
+        if (
+          rawPath.startsWith('http://') ||
+          rawPath.startsWith('https://') ||
+          rawPath.startsWith('/')
+        ) {
           return rawPath;
         }
         return toPublicUrl('blog', slug, rawPath);
@@ -84,31 +104,46 @@ function toPublicUrl(...segments: string[]): string {
 }
 
 function rewriteMarkdownAssetUrls(markdown: string, slug: string): string {
-  return markdown
-    // Inline images: ![alt](path)
-    .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (full, altText: string, assetPath: string) => {
-      const clean = assetPath.trim();
-      if (clean.startsWith('http://') || clean.startsWith('https://') || clean.startsWith('/')) {
-        return full;
-      }
-      return `![${altText}](${toPublicUrl('blog', slug, clean)})`;
-    })
-    // Reference-style link/image definitions: [label]: path
-    .replace(/^(\[[^\]]+\]):\s+(\S+)(.*)$/gm, (full, label: string, href: string, rest: string) => {
-      const clean = href.trim();
-      if (clean.startsWith('http://') || clean.startsWith('https://') || clean.startsWith('/') || clean.startsWith('#')) {
-        return full;
-      }
-      return `${label}: ${toPublicUrl('blog', slug, clean)}${rest}`;
-    })
-    // Inline links: [text](href)
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (full, text: string, href: string) => {
-      const clean = href.trim();
-      if (clean.startsWith('http://') || clean.startsWith('https://') || clean.startsWith('/') || clean.startsWith('#')) {
-        return full;
-      }
-      return `[${text}](${toPublicUrl('blog', slug, clean)})`;
-    });
+  return (
+    markdown
+      // Inline images: ![alt](path)
+      .replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (full, altText: string, assetPath: string) => {
+        const clean = assetPath.trim();
+        if (clean.startsWith('http://') || clean.startsWith('https://') || clean.startsWith('/')) {
+          return full;
+        }
+        return `![${altText}](${toPublicUrl('blog', slug, clean)})`;
+      })
+      // Reference-style link/image definitions: [label]: path
+      .replace(
+        /^(\[[^\]]+\]):\s+(\S+)(.*)$/gm,
+        (full, label: string, href: string, rest: string) => {
+          const clean = href.trim();
+          if (
+            clean.startsWith('http://') ||
+            clean.startsWith('https://') ||
+            clean.startsWith('/') ||
+            clean.startsWith('#')
+          ) {
+            return full;
+          }
+          return `${label}: ${toPublicUrl('blog', slug, clean)}${rest}`;
+        },
+      )
+      // Inline links: [text](href)
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (full, text: string, href: string) => {
+        const clean = href.trim();
+        if (
+          clean.startsWith('http://') ||
+          clean.startsWith('https://') ||
+          clean.startsWith('/') ||
+          clean.startsWith('#')
+        ) {
+          return full;
+        }
+        return `[${text}](${toPublicUrl('blog', slug, clean)})`;
+      })
+  );
 }
 
 async function exists(targetPath: string): Promise<boolean> {
@@ -177,9 +212,7 @@ export async function buildRelatedCards(cardId: string): Promise<RelatedCard[]> 
   if (!entries?.length) return [];
 
   const dataset = await readCardsDataset();
-  const cardMap = new Map(
-    dataset.books.flatMap((book) => book.cards).map((c) => [c.id, c]),
-  );
+  const cardMap = new Map(dataset.books.flatMap((book) => book.cards).map((c) => [c.id, c]));
 
   return entries
     .map((entry) => {
@@ -212,7 +245,9 @@ export async function listBlogPosts(): Promise<BlogPostMeta[]> {
   for (const slug of postDirs) {
     const dirPath = path.join(BLOG_ROOT, slug);
     const files = await readdir(dirPath, { withFileTypes: true });
-    const markdownFile = files.find((entry) => entry.isFile() && entry.name.toLowerCase().endsWith('.md'));
+    const markdownFile = files.find(
+      (entry) => entry.isFile() && entry.name.toLowerCase().endsWith('.md'),
+    );
     if (!markdownFile) {
       continue;
     }
@@ -223,7 +258,7 @@ export async function listBlogPosts(): Promise<BlogPostMeta[]> {
       slug,
       title: titleFromMarkdown(markdown, fallbackTitle),
       excerpt: excerptFromMarkdown(markdown),
-      coverImage: coverFromMarkdown(markdown, slug)
+      coverImage: coverFromMarkdown(markdown, slug),
     });
   }
 
@@ -237,7 +272,9 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
   }
 
   const files = await readdir(postDir, { withFileTypes: true });
-  const markdownFile = files.find((entry) => entry.isFile() && entry.name.toLowerCase().endsWith('.md'));
+  const markdownFile = files.find(
+    (entry) => entry.isFile() && entry.name.toLowerCase().endsWith('.md'),
+  );
   if (!markdownFile) {
     return null;
   }
@@ -255,7 +292,7 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
     excerpt: excerptFromMarkdown(markdown),
     coverImage: coverFromMarkdown(markdown, slug),
     markdown: normalizedMarkdown,
-    html: marked.parse(normalizedMarkdown) as string
+    html: marked.parse(normalizedMarkdown) as string,
   };
 }
 
@@ -271,7 +308,7 @@ export async function listPdfResources(): Promise<PdfResource[]> {
       return {
         title: filename,
         section,
-        url: toPublicUrl('cv', normalizedRelative)
+        url: toPublicUrl('cv', normalizedRelative),
       };
     })
     .sort((a, b) => a.title.localeCompare(b.title));

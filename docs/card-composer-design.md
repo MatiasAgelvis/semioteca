@@ -8,6 +8,7 @@ Status: Draft proposal
 Let users build a custom document from selected cards, control the order, and export it as a PDF.
 
 Core user flow:
+
 1. Browse/search cards.
 2. Add cards to a composition.
 3. Reorder cards in a table/list.
@@ -46,6 +47,7 @@ Core user flow:
 ### 3.2 Composer screen
 
 Main sections:
+
 - Document header form:
   - Title (required)
   - Subtitle (optional)
@@ -74,11 +76,13 @@ Main sections:
 ### 3.4 Export behavior
 
 MVP export strategy:
+
 - Open a print-friendly composition view (`/cards/compose/print` or print mode flag).
 - Use print CSS (`@media print`) and call `window.print()`.
 - User selects "Save as PDF" from browser dialog.
 
 Why this first:
+
 - Works with static hosting.
 - No server PDF renderer required.
 - Fast to ship and easy to maintain.
@@ -88,6 +92,7 @@ Why this first:
 ### 4.1 Frontend modules
 
 Suggested new files:
+
 - `frontend/src/lib/stores/cardComposer.ts`
 - `frontend/src/lib/types/composer.ts`
 - `frontend/src/lib/components/ComposerTray.svelte`
@@ -119,6 +124,7 @@ export interface ComposerDocument {
 ```
 
 Notes:
+
 - Store only card ids + lightweight item metadata.
 - Resolve full card content from `cards.json` at render/export time.
 - Keep `version` for future migrations.
@@ -146,18 +152,21 @@ Notes:
 ### 5.1 Print layout
 
 Print template order:
+
 1. Cover block (title, subtitle, compiler, date)
 2. Optional intro
 3. Table of contents (auto from card order)
 4. Card sections
 
 Each card section:
+
 - Heading: author - book - page
 - Body: card text
 - Images (if available), scaled for print
 - Optional user note under card
 
 Print CSS requirements:
+
 - `@page` size A4 and Letter fallback guidance.
 - Avoid orphan/widow lines where practical.
 - Use `break-before` / `break-inside` to avoid ugly splits.
@@ -166,6 +175,7 @@ Print CSS requirements:
 ### 5.2 Metadata and filename
 
 Suggested filename pattern:
+
 - `semioteca-{slugified-title}-{yyyy-mm-dd}.pdf`
 
 Include export timestamp in footer.
@@ -173,6 +183,7 @@ Include export timestamp in footer.
 ### 5.3 Future server-rendered PDF (Phase 2)
 
 If higher-fidelity pagination is needed:
+
 - Add a server endpoint (Vercel function) that renders HTML to PDF (Playwright/Chromium).
 - Return a downloadable binary PDF.
 - Keep print-view HTML shared with client print flow to avoid duplication.
@@ -184,6 +195,7 @@ If higher-fidelity pagination is needed:
 - Defer image decoding in editor view; fully load in print view.
 
 ### 6.1 Semantic Features (Draft)
+
 - **Automatic Classification**: Use `paraphrase-multilingual-MiniLM-L12-v2` or `embedding-gemma` to suggest topics/categories for the composition based on the selected cards.
 - **Search Axis**: Integrate semantic similarity as a second search axis within the Composer to find "related cards" that fit the current document's theme.
 
@@ -212,6 +224,7 @@ If higher-fidelity pagination is needed:
 ## 10) Analytics (optional)
 
 Track:
+
 - Cards added to composer.
 - Export initiated/completed.
 - Average cards per export.
@@ -227,6 +240,7 @@ Track:
 - Local persistence.
 
 Acceptance criteria:
+
 - User can create composition from cards.
 - User can reorder cards and see updated numbering.
 - PDF export works in major desktop browsers.

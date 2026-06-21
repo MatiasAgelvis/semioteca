@@ -11,5 +11,10 @@
     "frontend:check": "npm --prefix frontend run check",
     "frontend:build": "npm --prefix frontend run build",
     "build": "npm run frontend:build"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.4",
+    "prettier-plugin-svelte": "^4.1.1",
+    "prettier-plugin-tailwindcss": "^0.8.0"
   }
 }
