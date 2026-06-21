@@ -4,8 +4,9 @@
   "version": "0.1.0",
   "scripts": {
     "content:generate": "cd backend && sh ../scripts/venv-python.sh generate_cards_json.py --report-anomalies",
+    "content:relations": "cd backend && sh ../scripts/venv-python.sh generate_card_relations.py",
     "content:sync": "node ./scripts/sync-content.mjs",
-    "content:prepare": "npm run content:generate && npm run content:sync",
+    "content:prepare": "npm run content:generate && npm run content:relations && npm run content:sync",
     "frontend:dev": "npm --prefix frontend run dev",
     "frontend:check": "npm --prefix frontend run check",
     "frontend:build": "npm --prefix frontend run build",
