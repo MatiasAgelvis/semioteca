@@ -5,11 +5,11 @@ export const cardsSearchQuery = writable('');
 export const cardsSearchInitialTags = writable<string[]>([]);
 
 export function openCardsSearch(initialTags: string[] = []) {
-	cardsSearchInitialTags.set(initialTags);
-	cardsSearchDialogOpen.set(true);
+  cardsSearchInitialTags.set(initialTags);
+  cardsSearchDialogOpen.set(true);
 }
 
 export function closeCardsSearch() {
-	cardsSearchDialogOpen.set(false);
-	cardsSearchInitialTags.set([]);
+  cardsSearchDialogOpen.set(false);
+  cardsSearchInitialTags.set([]);
 }

@@ -4,11 +4,11 @@ import { listPdfResources } from '$lib/server/content';
 export const prerender = true;
 
 export async function load() {
-	if (!SHOW_DOCS) {
-		return { resources: [] };
-	}
+  if (!SHOW_DOCS) {
+    return { resources: [] };
+  }
 
-	return {
-		resources: await listPdfResources()
-	};
+  return {
+    resources: await listPdfResources(),
+  };
 }

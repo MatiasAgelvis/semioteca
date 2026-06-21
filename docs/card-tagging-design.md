@@ -3,6 +3,7 @@
 TL;DR - Tags are card-level, assigned automatically via embeddings+clustering (paraphrase-multilingual-MiniLM-L12-v2), implemented as a standalone post-processing script that enriches an existing `cards.json` in place on demand.
 
 **Decisions**
+
 - Card-level tags (each card gets its own set)
 - Embeddings + clustering: `paraphrase-multilingual-MiniLM-L12-v2` for multilingual content
 - Separate script `backend/tag_cards.py` — does NOT run as part of `generate_cards_json.py`
@@ -52,6 +53,7 @@ TL;DR - Tags are card-level, assigned automatically via embeddings+clustering (p
 ---
 
 **Relevant files**
+
 - `backend/card_models.py` — add `tags` field
 - `backend/generate_cards_json.py` — initialize `tags=[]` at card creation
 - `backend/cards.json` — output; regenerate after model change
@@ -62,6 +64,7 @@ TL;DR - Tags are card-level, assigned automatically via embeddings+clustering (p
 - `frontend/src/routes/cards/+page.svelte` — search integration
 
 **Verification**
+
 1. `python generate_cards_json.py` produces cards with `"tags": []`.
 2. `python tag_cards.py --dry-run` prints proposed cluster labels without writing.
 3. `python tag_cards.py` writes tags back; manually inspect a few cards for label quality.
