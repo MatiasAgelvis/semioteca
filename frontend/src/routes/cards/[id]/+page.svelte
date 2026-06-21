@@ -44,9 +44,15 @@
     <article
         class="card bg-base-100 border border-base-300 p-6 shadow-sm lg:p-10"
     >
-        <a class="btn btn-outline mb-5 w-fit" href="/cards"
-            >← Volver al repositorio</a
-        >
+        <div class="mb-5 flex items-start justify-between gap-4">
+            <a class="btn btn-outline w-fit shrink-0" href="/cards"
+                >← Volver al repositorio</a
+            >
+            <RelatedCardsBar
+                count={data.relations.length}
+                onopen={() => (sheetOpen = true)}
+            />
+        </div>
         <h1 class="text-3xl font-black lg:text-4xl">{data.card.book}</h1>
         <p class="mt-2 opacity-70">
             {data.card.author} ({data.card.year}) — página {data.card.page ??
@@ -82,11 +88,6 @@
         <p class="mt-5 text-xs opacity-40">Fuente: {data.card.source_path}</p>
     </article>
 </div>
-
-<RelatedCardsBar
-    count={data.relations.length}
-    onopen={() => (sheetOpen = true)}
-/>
 
 <RelatedCardsSheet
     relations={data.relations}
