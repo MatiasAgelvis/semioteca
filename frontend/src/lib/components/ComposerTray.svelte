@@ -44,18 +44,25 @@
   >
     {#if expanded}
       <div class="mx-auto max-w-7xl px-5 py-3 lg:px-10">
-        <div class="mb-2 flex items-center justify-between">
-          <span class="text-sm font-semibold">
-            {$composer.title || 'Documento'} &middot; {$selectedCount} de {CARD_LIMIT} tarjetas
-          </span>
+        <div class="mb-2 flex items-center justify-between gap-2">
           <button
             type="button"
-            class="btn btn-ghost btn-xs"
+            class="flex items-center gap-2 text-sm font-semibold btn-ghost rounded px-2 py-1 hover:bg-base-200"
             onclick={() => (expanded = false)}
             aria-label="Colapsar constructor"
           >
-            &uarr;
+            {$selectedCount} <span class="text-[10px] opacity-30">/ {CARD_LIMIT}</span> tarjetas
+            <span class="text-xs opacity-40">&uarr;</span>
           </button>
+          <div class="flex items-center gap-2">
+            <button type="button" class="btn btn-ghost btn-sm text-error" onclick={handleClear}>
+              Vaciar
+            </button>
+            <a href="/cards/compose" class="btn btn-soft btn-sm">Abrir compositor &rarr;</a>
+            <button type="button" class="btn btn-primary btn-sm" onclick={handleExportPdf}>
+              Exportar PDF
+            </button>
+          </div>
         </div>
 
         <div class="max-h-64 overflow-y-auto rounded-lg border border-base-200">
@@ -70,7 +77,8 @@
                 {' '}
                 <span class="font-medium">{cardLabel(item.cardId)}</span>
                 {#if cardPage(item.cardId)}
-                  <span class="text-xs opacity-50">p. {cardPage(item.cardId)}</span>
+                  <span class="text-xs opacity-30">&vert;</span>
+                  <span class="badge badge-ghost badge-sm text-xs">p. {cardPage(item.cardId)}</span>
                 {/if}
               </span>
               <div class="flex shrink-0 items-center gap-1">
@@ -104,18 +112,6 @@
             </div>
           {/each}
         </div>
-
-        <div class="mt-3 flex flex-wrap items-center justify-between gap-2">
-          <button type="button" class="btn btn-ghost btn-sm text-error" onclick={handleClear}>
-            Vaciar
-          </button>
-          <div class="flex items-center gap-2">
-            <a href="/cards/compose" class="btn btn-soft btn-sm">Abrir compositor &rarr;</a>
-            <button type="button" class="btn btn-primary btn-sm" onclick={handleExportPdf}>
-              Exportar PDF
-            </button>
-          </div>
-        </div>
       </div>
     {:else}
       <div class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 py-2 lg:px-10">
@@ -125,7 +121,7 @@
           onclick={() => (expanded = true)}
           aria-label="Expandir constructor de documento"
         >
-          {$selectedCount} de {CARD_LIMIT} tarjetas
+          {$selectedCount} <span class="text-[10px] opacity-30">/ {CARD_LIMIT}</span> tarjetas
           <span class="text-xs opacity-40">&darr;</span>
         </button>
         <div class="flex items-center gap-2">
