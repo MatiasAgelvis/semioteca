@@ -2,6 +2,7 @@
   import HighlightedText from '$lib/components/HighlightedText.svelte';
   import { showToast } from '$lib/stores/toast';
   import { openCardsSearch } from '$lib/stores/cardsSearch';
+  import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
   import { TAG_DESCRIPTIONS } from '$lib/constants';
   import type { CardImage, CardRecord } from '$lib/types/content';
   import {
@@ -106,6 +107,17 @@
     showToast(copied ? 'Texto copiado' : 'No se pudo copiar', copied ? 'success' : 'error');
   }
 
+  const inDocument = $derived($selectedCardIds.includes(card.id));
+  const addDisabled = $derived(!inDocument && $isAtLimit);
+
+  function toggleDocument() {
+    if (inDocument) {
+      composer.removeCard(card.id);
+    } else if (!$isAtLimit) {
+      composer.addCard(card.id);
+    }
+  }
+
   $effect(() => {
     if (!element) return;
     const id = card.id;
@@ -120,7 +132,7 @@
   bind:this={element}
   id={`card-${card.id}`}
   data-card-id={card.id}
-  class={`card bg-base-100 border transition-colors ${focused ? 'border-primary shadow-sm' : 'border-base-300'}`}
+  class={`card bg-base-100 border transition-colors ${inDocument ? 'border-l-4 border-l-success' : ''} ${focused ? 'border-primary shadow-sm' : 'border-base-300'}`}
   style="scroll-margin-top: var(--header-height, 7rem)"
 >
   <div class="card-body p-5">
@@ -205,6 +217,22 @@
       </div>
 
       <div class="flex flex-wrap items-center justify-end gap-2">
+        <button
+          type="button"
+          class="btn btn-sm transition-all"
+          class:btn-soft={inDocument}
+          class:btn-success={inDocument}
+          class:btn-ghost={!inDocument}
+          disabled={addDisabled}
+          onclick={toggleDocument}
+          title={addDisabled ? 'Límite de 50 tarjetas alcanzado' : inDocument ? 'Quitar del documento' : 'Añadir al documento'}
+        >
+          {#if inDocument}
+            ✓ Añadido
+          {:else}
+            + Añadir
+          {/if}
+        </button>
         <details bind:this={detailsEl} class="dropdown dropdown-end">
           <summary class="btn btn-sm btn-ghost">Opciones</summary>
           <ul

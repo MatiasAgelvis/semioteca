@@ -17,6 +17,7 @@
   import { tokenizeQuery } from '$lib/utils/search';
   import { getRankedSearchResults } from '$lib/utils/cardsSearch';
   import RelatedCardsSheet from '$lib/components/RelatedCardsSheet.svelte';
+  import ComposerTray from '$lib/components/ComposerTray.svelte';
   import type {
     CardRecord,
     CardRelationEntry,
@@ -36,6 +37,7 @@
   let focusedCardId = $state<string | null>(null);
   let mobileDrawerOpen = $state(false);
   let cards = $state<CardRecord[]>([]);
+  const cardMap = $derived(new Map(cards.map((c): [string, CardRecord] => [c.id, c])));
 
   // Advanced search filters
   let advancedOpen = $state(false);
@@ -607,6 +609,8 @@
     </div>
   </PageSection>
 </div>
+
+<ComposerTray {cardMap} />
 
 <dialog
   bind:this={searchDialog}

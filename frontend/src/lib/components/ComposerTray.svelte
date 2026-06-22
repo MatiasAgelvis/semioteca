@@ -1,0 +1,157 @@
+<script lang="ts">
+  import { composer, selectedCount } from '$lib/stores/composer';
+  import { CARD_LIMIT } from '$lib/types/composer';
+  import { buildDocumentMarkdown } from '$lib/utils/composer-markdown';
+  import { downloadPdf, downloadMarkdown } from '$lib/utils/composer-pdf';
+  import { showToast } from '$lib/stores/toast';
+  import type { CardRecord } from '$lib/types/content';
+
+  let {
+    cardMap = new Map<string, CardRecord>(),
+  }: {
+    cardMap?: Map<string, CardRecord>;
+  } = $props();
+
+  let expanded = $state(false);
+
+  function handleExportPdf() {
+    if ($selectedCount === 0) return;
+
+    const markdown = buildDocumentMarkdown($composer, cardMap);
+    const title = $composer.title || 'Documento sin título';
+
+    downloadPdf(markdown, title, () => {
+      showToast('Permite ventanas emergentes para exportar el PDF', 'error');
+    });
+  }
+
+  function handleDownloadMd() {
+    if ($selectedCount === 0) return;
+
+    const markdown = buildDocumentMarkdown($composer, cardMap);
+    const title = $composer.title || 'Documento sin título';
+
+    downloadMarkdown(markdown, title);
+    showToast('Documento Markdown descargado', 'success');
+  }
+
+  function handleClear() {
+    composer.clearDocument();
+    expanded = false;
+    showToast('Documento vaciado', 'info');
+  }
+
+  function cardLabel(cardId: string): string {
+    const card = cardMap.get(cardId);
+    if (!card) return '(Tarjeta no encontrada)';
+    return `${card.author} — ${card.book}`;
+  }
+
+  function cardPage(cardId: string): string {
+    const card = cardMap.get(cardId);
+    return card?.page ? `, p. ${card.page}` : '';
+  }
+</script>
+
+{#if $selectedCount > 0}
+  <div
+    class="sticky bottom-0 z-40 border-t border-base-300 bg-base-100 shadow-lg"
+    role="region"
+    aria-label="Constructor de documento"
+  >
+    {#if expanded}
+      <!-- Expanded list -->
+      <div class="mx-auto max-w-7xl px-5 py-3 lg:px-10">
+        <div class="mb-2 flex items-center justify-between">
+          <span class="text-sm font-semibold">
+            📄 {$composer.title || 'Documento'} · {$selectedCount} de {CARD_LIMIT} tarjetas
+          </span>
+          <button
+            type="button"
+            class="btn btn-ghost btn-xs"
+            onclick={() => (expanded = false)}
+            aria-label="Colapsar constructor"
+          >
+            ▲
+          </button>
+        </div>
+
+        <div class="max-h-64 overflow-y-auto rounded-lg border border-base-200">
+          {#each [...$composer.items].sort((a, b) => a.order - b.order) as item, index (item.cardId)}
+            <div
+              class="flex items-center justify-between gap-3 px-3 py-2 transition-colors hover:bg-base-200"
+              class:border-b={index < $selectedCount - 1}
+              class:border-base-200={index < $selectedCount - 1}
+            >
+              <span class="min-w-0 flex-1 truncate text-sm">
+                <span class="font-mono text-xs opacity-40">#{item.order}</span>
+                {' '}
+                <span class="font-medium">{cardLabel(item.cardId)}</span>
+                <span class="text-xs opacity-50">{cardPage(item.cardId)}</span>
+              </span>
+              <div class="flex shrink-0 items-center gap-1">
+                <button
+                  type="button"
+                  class="btn btn-ghost btn-xs"
+                  disabled={index === 0}
+                  onclick={() => composer.moveCard(item.cardId, 'up')}
+                  aria-label="Mover arriba"
+                >
+                  ▲
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-ghost btn-xs"
+                  disabled={index === $selectedCount - 1}
+                  onclick={() => composer.moveCard(item.cardId, 'down')}
+                  aria-label="Mover abajo"
+                >
+                  ▼
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-ghost btn-xs text-error"
+                  onclick={() => composer.removeCard(item.cardId)}
+                  aria-label="Quitar del documento"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+          {/each}
+        </div>
+
+        <div class="mt-3 flex flex-wrap items-center justify-between gap-2">
+          <button type="button" class="btn btn-ghost btn-sm text-error" onclick={handleClear}>
+            🗑 Vaciar
+          </button>
+          <div class="flex items-center gap-2">
+            <a href="/cards/compose" class="btn btn-soft btn-sm">Abrir compositor →</a>
+            <button type="button" class="btn btn-primary btn-sm" onclick={handleExportPdf}>
+              🖨 PDF
+            </button>
+          </div>
+        </div>
+      </div>
+    {:else}
+      <!-- Collapsed bar -->
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 py-2 lg:px-10">
+        <button
+          type="button"
+          class="flex items-center gap-2 text-sm font-semibold btn-ghost rounded px-2 py-1 hover:bg-base-200"
+          onclick={() => (expanded = true)}
+          aria-label="Expandir constructor de documento"
+        >
+          📄 {$selectedCount} de {CARD_LIMIT} tarjetas
+          <span class="text-xs opacity-40">▼</span>
+        </button>
+        <div class="flex items-center gap-2">
+          <a href="/cards/compose" class="btn btn-ghost btn-sm">Abrir compositor →</a>
+          <button type="button" class="btn btn-primary btn-sm" onclick={handleExportPdf}>
+            🖨 PDF
+          </button>
+        </div>
+      </div>
+    {/if}
+  </div>
+{/if}
