@@ -117,7 +117,7 @@
         <span class="validator-hint hidden">Requerido</span>
       </div>
 
-      <button type="submit" class="btn btn-primary transition-colors"> Enviar </button>
+      <div class="flex justify-end"><button type="submit" class="btn btn-primary transition-colors">Enviar</button></div>
     </form>
   {/if}
 </div>
