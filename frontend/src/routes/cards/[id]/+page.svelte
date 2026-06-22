@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import type { CardImage } from '$lib/types/content';
   import type { PageData } from './$types';
   import RelatedCardsBar from '$lib/components/RelatedCardsBar.svelte';
@@ -28,6 +29,11 @@
   function imageUrl(image: CardImage): string {
     const idx = image.path.indexOf('cards_images/');
     return idx !== -1 ? `/content/${image.path.slice(idx)}` : '';
+  }
+
+  function handleSelectRelation(cardId: string) {
+    sheetOpen = false;
+    goto(`/cards/${cardId}`);
   }
 </script>
 
@@ -76,4 +82,5 @@
   relations={data.relations}
   show={sheetOpen}
   onclose={() => (sheetOpen = false)}
+  onselect={handleSelectRelation}
 />
