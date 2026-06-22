@@ -150,7 +150,7 @@
     <div class="mt-8">
       <div class="flex items-center justify-between">
         <h2 class="text-xs font-semibold uppercase tracking-widest opacity-40">
-          Tarjetas &middot; {$selectedCount} de {CARD_LIMIT}
+          Tarjetas &middot; {$selectedCount} <span class="text-[10px] opacity-30">/ {CARD_LIMIT}</span>
         </h2>
         {#if $selectedCount > 0}
           <button type="button" class="btn btn-ghost btn-sm text-error" onclick={handleClear}>
