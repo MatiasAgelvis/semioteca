@@ -2,7 +2,6 @@
   import { goto } from '$app/navigation';
   import type { CardImage } from '$lib/types/content';
   import type { PageData } from './$types';
-  import RelatedCardsBar from '$lib/components/RelatedCardsBar.svelte';
   import RelatedCardsSheet from '$lib/components/RelatedCardsSheet.svelte';
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
   import { showToast } from '$lib/stores/toast';
@@ -89,22 +88,28 @@
 
 <div class="mx-auto w-full max-w-5xl px-5 py-10 lg:px-10">
   <article class="card bg-base-100 border border-base-300 p-6 shadow-sm lg:p-10">
-    <div class="mb-5 flex items-start justify-between gap-4">
-      <a class="btn btn-outline w-fit shrink-0" href="/cards">← Volver al repositorio</a>
-      <div class="flex items-center gap-2">
-        <RelatedCardsBar
-          count={data.relations.length}
-          onopen={() => (sheetOpen = true)}
-        />
-        {#if data.relations.length > 0}
-          <a
-            href="/cards/graph?origin={data.card.id}"
-            class="btn btn-soft"
-          >
-            Explorar
-          </a>
-        {/if}
-      </div>
+    <div class="mb-5 flex flex-wrap items-start justify-between gap-4">
+          <a class="btn btn-outline w-fit shrink-0" href="/cards">← Volver al repositorio</a>
+          <div class="flex flex-wrap items-center gap-2">
+            {#if data.relations.length > 0}
+              <div class="join join-vertical md:join-horizontal">
+                <button
+                  class="btn btn-outline join-item"
+                  type="button"
+                  onclick={() => (sheetOpen = true)}
+                >
+                  {data.relations.length}
+                  {data.relations.length === 1 ? 'tarjeta relacionada' : 'tarjetas relacionadas'}
+                </button>
+                <a
+                  href="/cards/graph?origin={data.card.id}"
+                  class="btn btn-outline join-item"
+                >
+                  Explorar
+                </a>
+              </div>
+            {/if}
+          </div>
     </div>
 
     <h1 class="text-3xl font-black lg:text-4xl">{data.card.book}</h1>
