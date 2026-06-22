@@ -12,9 +12,9 @@
   <link rel="icon" href={favicon} />
 </svelte:head>
 
-<div class="min-h-screen">
+<div class="min-h-screen flex flex-col">
   <SiteHeader />
-  <main>{@render children()}</main>
+  <main class="flex-1">{@render children()}</main>
   <SiteFooter />
   <GlobalToast />
 </div>
