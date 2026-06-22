@@ -26,10 +26,6 @@
   function handleClose() {
     onclose();
   }
-
-  function scorePercent(score: number): string {
-    return `${Math.round(score * 100)}%`;
-  }
 </script>
 
 <dialog bind:this={dialogEl} class="modal" onclose={handleClose}>
@@ -58,25 +54,13 @@
               }
             : undefined}
         >
-          <div class="flex items-center justify-between gap-3">
-            <div class="min-w-0">
-              <p class="truncate font-semibold">
-                {rel.author} — {rel.book}
-              </p>
-              <p class="mt-1 text-sm opacity-60">
-                {rel.author} ({rel.year}){rel.page ? ` · p. ${rel.page}` : ''}
-              </p>
-            </div>
-            <span class="shrink-0 font-mono text-xs tabular-nums opacity-50"
-              >{scorePercent(rel.score)}</span
-            >
-          </div>
-          <!-- Score bar -->
-          <div class="mt-2 h-1 w-full overflow-hidden rounded-full bg-base-200">
-            <div
-              class="h-full rounded-full bg-primary/40 transition-all"
-              style="width: {scorePercent(rel.score)}"
-            ></div>
+          <div class="min-w-0">
+            <p class="truncate font-semibold">
+              {rel.author} — {rel.book}
+            </p>
+            <p class="mt-1 text-sm opacity-60">
+              {rel.author} ({rel.year}){rel.page ? ` · p. ${rel.page}` : ''}
+            </p>
           </div>
         </a>
       {/each}
