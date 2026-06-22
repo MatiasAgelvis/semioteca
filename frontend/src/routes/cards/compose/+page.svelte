@@ -62,7 +62,7 @@
 </svelte:head>
 
 <div class="mx-auto w-full max-w-3xl px-5 py-10 lg:px-10">
-  <a href="/cards" class="btn btn-ghost btn-sm mb-6">Volver a tarjetas</a>
+  <a href="/cards" class="btn btn-ghost btn-sm mb-6">← Volver al repositorio</a>
 
   <h1 class="text-2xl font-black">Compositor de documento</h1>
   <p class="mt-1 text-sm opacity-60">
