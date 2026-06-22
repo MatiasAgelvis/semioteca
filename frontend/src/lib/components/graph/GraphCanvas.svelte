@@ -8,24 +8,24 @@
   let {
     graphData,
     authorColors,
-    onrefocus,
+    onnavigate,
     onhover,
   }: {
     graphData: GraphData;
     authorColors: Map<string, string>;
-    onrefocus: (cardId: string) => void;
+    onnavigate: (cardId: string) => void;
     onhover: (node: GraphNode | null, pos?: { x: number; y: number }) => void;
   } = $props();
 
   let svgEl: SVGSVGElement;
   let zoomTransform = $state('translate(0,0) scale(1)');
 
+  // Local reactive copy that D3 mutates — decoupled from the prop
+  let layoutNodes = $state<GraphNode[]>([]);
+
   let hoverTimer: ReturnType<typeof setTimeout> | null = null;
 
-  function handleNodeEnter(
-    node: GraphNode,
-    e: MouseEvent,
-  ) {
+  function handleNodeEnter(node: GraphNode, e: MouseEvent) {
     if (hoverTimer) clearTimeout(hoverTimer);
     hoverTimer = setTimeout(() => {
       onhover(node, { x: e.clientX, y: e.clientY });
@@ -38,18 +38,20 @@
   }
 
   function handleNodeClick(node: GraphNode) {
-    if (!node.isOrigin) {
-      onrefocus(node.id);
-    }
+    onnavigate(node.id);
   }
 
-  // Run the force simulation
+  // Run force simulation on the local layoutNodes copy
   $effect(() => {
-    const nodes = [...graphData.nodes];
-    const links = graphData.links.map((l) => ({
-      ...l,
+    // Clone so D3 can mutate freely without touching the prop
+    const nodes: GraphNode[] = graphData.nodes.map((n) => ({ ...n }));
+    const links = graphData.links.map((l) => ({ ...l }));
+
+    // Resolve source/target to actual node objects (required by d3-force)
+    const d3Links = links.map((l) => ({
       source: nodes.find((n) => n.id === l.source) ?? l.source,
       target: nodes.find((n) => n.id === l.target) ?? l.target,
+      score: l.score,
     }));
 
     // Pin origin to center
@@ -63,7 +65,7 @@
     const sim = forceSimulation(nodes as any)
       .force(
         'link',
-        forceLink(links)
+        forceLink(d3Links)
           .id((d: any) => d.id)
           .distance((l: any) => 100 + (1 - (l.score ?? 0)) * 200)
           .strength((l: any) => 0.2 + (l.score ?? 0) * 0.5),
@@ -79,8 +81,13 @@
       .alphaDecay(0.02)
       .velocityDecay(0.3)
       .on('tick', () => {
-        // Trigger Svelte reactivity by reassigning
-        graphData.nodes = graphData.nodes;
+        // D3 mutates node.x / node.y on the cloned objects.
+        // Copy back to $state so Svelte detects changes and re-renders.
+        layoutNodes = nodes.map((n) => ({ ...n }));
+      })
+      .on('end', () => {
+        // Final positions — one last copy
+        layoutNodes = nodes.map((n) => ({ ...n }));
       });
 
     return () => {
@@ -122,8 +129,8 @@
     <!-- edges -->
     {#each graphData.links as link}
       {@const style = edgeStyle(link.score)}
-      {@const source = graphData.nodes.find((n) => n.id === link.source)}
-      {@const target = graphData.nodes.find((n) => n.id === link.target)}
+      {@const source = layoutNodes.find((n) => n.id === link.source)}
+      {@const target = layoutNodes.find((n) => n.id === link.target)}
       {#if source && target}
         <line
           x1={source.x}
@@ -139,7 +146,7 @@
     {/each}
 
     <!-- nodes -->
-    {#each graphData.nodes as node}
+    {#each layoutNodes as node (node.id)}
       {@const style = nodeStyle(node, authorColors)}
       <g
         class="cursor-pointer transition-opacity duration-300"

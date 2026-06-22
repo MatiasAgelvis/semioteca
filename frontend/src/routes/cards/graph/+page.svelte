@@ -6,7 +6,7 @@
   import GraphLegend from '$lib/components/graph/GraphLegend.svelte';
   import GraphToolbar from '$lib/components/graph/GraphToolbar.svelte';
   import GraphTooltip from '$lib/components/graph/GraphTooltip.svelte';
-  import type { CardsDataset } from '$lib/types/content';
+  import type { CardRelationEntry, CardsDataset, CardRecord } from '$lib/types/content';
   import type { GraphData, GraphNode, GraphDepth } from '$lib/types/graph';
   import { buildCardMap, buildGraph, buildAuthorColors } from '$lib/utils/graph';
 
@@ -18,10 +18,18 @@
   let hoveredNode = $state<GraphNode | null>(null);
   let tooltipPos = $state({ x: 0, y: 0 });
 
+  // Cached data — fetched once
+  let cachedRelations = $state<Record<string, CardRelationEntry[]> | null>(null);
+  let cardMap = $state<Map<string, CardRecord>>(new Map());
+
+  // Parse initial values from URL
   const origin = $derived($page.url.searchParams.get('origin') ?? '');
-  const depth = $derived(
+  const initialDepth = $derived(
     (Number($page.url.searchParams.get('depth')) || 1) as GraphDepth,
   );
+
+  // Local depth state — mutable, synced to URL without navigation
+  let depth = $state<GraphDepth>(1);
 
   onMount(async () => {
     try {
@@ -37,8 +45,8 @@
       }
 
       const dataset = (await cardsRes.json()) as CardsDataset;
-      const relations = await relationsRes.json();
-      const cardMap = buildCardMap(dataset);
+      cachedRelations = await relationsRes.json();
+      cardMap = buildCardMap(dataset);
 
       if (!origin || !cardMap.has(origin)) {
         error = 'Tarjeta no encontrada.';
@@ -46,28 +54,33 @@
         return;
       }
 
-      const data = buildGraph(origin, depth, relations, cardMap);
-      graphData = data;
-      authorColors = buildAuthorColors(data.nodes);
+      // Set depth from URL on initial load
+      depth = initialDepth;
     } catch (e) {
       error = 'Error al cargar los datos.';
       console.error(e);
-    } finally {
-      loading = false;
     }
   });
 
+  // Rebuild graph whenever depth or origin changes
+  $effect(() => {
+    if (!cachedRelations || !origin || !cardMap.has(origin)) return;
+    const data = buildGraph(origin, depth, cachedRelations, cardMap);
+    graphData = data;
+    authorColors = buildAuthorColors(data.nodes);
+    loading = false;
+  });
+
   function handleDepthChange(d: GraphDepth) {
-    const params = new URLSearchParams($page.url.searchParams);
-    params.set('depth', String(d));
-    goto(`/cards/graph?${params.toString()}`, { replaceState: true });
+    depth = d;
+    // Sync URL without triggering navigation
+    const url = new URL($page.url);
+    url.searchParams.set('depth', String(d));
+    history.replaceState(history.state, '', url.toString());
   }
 
-  function handleRefocus(cardId: string) {
-    const params = new URLSearchParams();
-    params.set('origin', cardId);
-    params.set('depth', '1');
-    goto(`/cards/graph?${params.toString()}`);
+  function handleNavigate(cardId: string) {
+    goto(`/cards/${cardId}`);
   }
 
   function handleHover(
@@ -111,9 +124,9 @@
 
     <div class="relative min-h-0 flex-1 overflow-hidden rounded-xl border border-base-300 bg-base-200/50">
       <GraphCanvas
-        graphData={graphData}
-        authorColors={authorColors}
-        onrefocus={handleRefocus}
+        {graphData}
+        {authorColors}
+        onnavigate={handleNavigate}
         onhover={handleHover}
       />
       {#if hoveredNode}

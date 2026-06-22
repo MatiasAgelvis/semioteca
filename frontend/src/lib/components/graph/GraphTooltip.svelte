@@ -11,7 +11,7 @@
 </script>
 
 <div
-  class="pointer-events-none absolute z-50 rounded-lg border border-base-300 bg-base-100 p-2 text-sm shadow-md"
+  class="pointer-events-none fixed z-50 rounded-lg border border-base-300 bg-base-100 p-2 text-sm shadow-md"
   style="left: {position.x + 12}px; top: {position.y + 12}px"
 >
   <p class="font-semibold">
