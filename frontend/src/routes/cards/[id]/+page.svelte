@@ -53,7 +53,7 @@
         {#if data.relations.length > 0}
           <a
             href="/cards/graph?origin={data.card.id}"
-            class="btn btn-outline btn"
+            class="btn btn-soft"
           >
             Explorar
           </a>
