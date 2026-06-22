@@ -38,7 +38,7 @@
 
 {#if $selectedCount > 0}
   <div
-    class="sticky bottom-0 z-40 border-t border-base-300 bg-base-100 shadow-lg"
+    class="sticky bottom-0 z-40 border-t border-base-300 bg-base-100"
     role="region"
     aria-label="Constructor de documento"
   >
