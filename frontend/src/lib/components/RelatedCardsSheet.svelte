@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import type { RelatedCard } from '$lib/types/content';
 
   let {
@@ -6,11 +7,13 @@
     show = false,
     onclose,
     onselect,
+    currentCardId = '',
   }: {
     relations: RelatedCard[];
     show: boolean;
     onclose: () => void;
     onselect?: (cardId: string) => void;
+    currentCardId?: string;
   } = $props();
 
   let dialogEl: HTMLDialogElement;
@@ -64,6 +67,20 @@
           </div>
         </a>
       {/each}
+
+      {#if currentCardId}
+        <div class="mt-4 border-t border-base-200 pt-3">
+          <button
+            class="btn btn-ghost btn-sm w-full"
+            onclick={() => {
+              onclose();
+              goto(`/cards/graph?origin=${currentCardId}`);
+            }}
+          >
+            📊 Explorar conexiones en grafo →  ({relations.length} tarjetas)
+          </button>
+        </div>
+      {/if}
 
       {#if relations.length === 0}
         <p class="py-8 text-center text-sm opacity-50">

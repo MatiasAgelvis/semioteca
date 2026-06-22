@@ -45,7 +45,21 @@
   <article class="card bg-base-100 border border-base-300 p-6 shadow-sm lg:p-10">
     <div class="mb-5 flex items-start justify-between gap-4">
       <a class="btn btn-outline w-fit shrink-0" href="/cards">← Volver al repositorio</a>
-      <RelatedCardsBar count={data.relations.length} onopen={() => (sheetOpen = true)} />
+      <div class="flex items-center gap-2">
+        <RelatedCardsBar
+          count={data.relations.length}
+          onopen={() => (sheetOpen = true)}
+        />
+        {#if data.relations.length > 0}
+          <a
+            href="/cards/graph?origin={data.card.id}"
+            class="btn btn-ghost btn-sm"
+            title="Explorar en grafo"
+          >
+            🔗
+          </a>
+        {/if}
+      </div>
     </div>
     <h1 class="text-3xl font-black lg:text-4xl">{data.card.book}</h1>
     <p class="mt-2 opacity-70">
@@ -83,4 +97,5 @@
   show={sheetOpen}
   onclose={() => (sheetOpen = false)}
   onselect={handleSelectRelation}
+  currentCardId={data.card.id}
 />
