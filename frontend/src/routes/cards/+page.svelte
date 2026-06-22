@@ -120,6 +120,7 @@
   let relationsMap = $state<Record<string, CardRelationEntry[]> | null>(null);
   let relatedRelations = $state<RelatedCard[]>([]);
   let relatedSheetOpen = $state(false);
+  let currentSheetCardId = $state('');
 
   const relationCounts = $derived.by(() => {
     if (!relationsMap) return new Map<string, number>();
@@ -153,6 +154,7 @@
         };
       })
       .filter((r): r is RelatedCard => r !== null);
+    currentSheetCardId = cardId;
     relatedSheetOpen = true;
   }
 
@@ -883,4 +885,5 @@
   show={relatedSheetOpen}
   onclose={() => (relatedSheetOpen = false)}
   onselect={handleSelectRelation}
+  currentCardId={currentSheetCardId}
 />
