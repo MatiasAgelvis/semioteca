@@ -45,7 +45,6 @@
   });
 
   const searchActive = $derived(searchTerms.length > 0);
-  const hasImages = $derived(card.images.length > 0);
 
   const authorSegments = $derived(getHighlightSegments(card.author, searchTerms));
   const bookSegments = $derived(getHighlightSegments(card.book, searchTerms));
@@ -126,155 +125,143 @@
   });
 </script>
 
-<div class="indicator w-full">
-  {#if inDocument}
-    <span class="indicator-item indicator-start badge badge-success badge-sm gap-1">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-3">
-        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
-      </svg>
-      En documento
-    </span>
-  {/if}
-  <article
-    bind:this={element}
-    id={`card-${card.id}`}
-    data-card-id={card.id}
-    class={`card bg-base-100 border transition-colors ${focused ? 'border-primary shadow-sm' : 'border-base-300'}`}
-    style="scroll-margin-top: var(--header-height, 7rem)"
-  >
-    <div class="card-body p-5">
-      <div class="flex flex-wrap items-center justify-between gap-2">
-        <p class="font-bold">
-          <HighlightedText segments={authorSegments} />
-          <span> — </span>
-          <HighlightedText segments={bookSegments} />
-        </p>
-        <div class="flex items-center gap-2">
-          {#if searchActive}
-            <span class="badge badge-warning badge-sm">{matchCount} coincidencias</span>
-          {/if}
-          {#if hasImages}
-            <span class="badge badge-ghost badge-sm opacity-60"
-              >{card.images.length}
-              {card.images.length === 1 ? 'imagen' : 'imágenes'}</span
-            >
-          {/if}
-          <span class="badge badge-ghost badge-sm"
-            >p. <HighlightedText segments={pageSegments} /></span
-          >
-          <button
-            type="button"
-            class="btn btn-xs transition-all"
-            class:btn-soft={inDocument}
-            class:btn-success={inDocument}
-            class:btn-ghost={!inDocument}
-            disabled={addDisabled}
-            onclick={toggleDocument}
-            title={addDisabled ? 'Límite de 50 tarjetas alcanzado' : inDocument ? 'Quitar del documento' : 'Añadir al documento'}
-          >
-            {#if inDocument}
-              &check; Añadido
-            {:else}
-              + Añadir
-            {/if}
-          </button>
-        </div>
+<article
+  bind:this={element}
+  id={`card-${card.id}`}
+  data-card-id={card.id}
+  class={`card bg-base-100 border transition-colors ${focused ? 'border-primary shadow-sm' : 'border-base-300'}`}
+  style="scroll-margin-top: var(--header-height, 7rem)"
+>
+  <div class="card-body p-5">
+    <!-- Header: author + book on left, page on right -->
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <p class="font-bold min-w-0 truncate">
+        <HighlightedText segments={authorSegments} />
+        <span> &mdash; </span>
+        <HighlightedText segments={bookSegments} />
+      </p>
+      <div class="flex items-center gap-2 shrink-0">
+        {#if searchActive}
+          <span class="badge badge-warning badge-sm text-xs">{matchCount} coinc.</span>
+        {/if}
+        <span class="badge badge-ghost badge-sm text-xs opacity-50">
+          p. <HighlightedText segments={pageSegments} />
+        </span>
       </div>
+    </div>
 
-      {#if expanded}
-        <div class="mt-1 space-y-3">
-          {#each expandedParts as part}
-            {#if part.kind === 'text'}
-              <p class="whitespace-pre-wrap text-sm leading-7 opacity-80">
-                <HighlightedText segments={getHighlightSegments(part.text, searchTerms)} />
-              </p>
-            {:else}
-              <figure class="my-2">
-                <img
-                  src={imageUrl(part.image)}
-                  alt={part.image.alt_text ?? part.image.caption ?? ''}
-                  loading="lazy"
-                  class="max-w-full rounded-lg border border-base-200"
-                />
-                {#if part.image.caption}
-                  <figcaption class="mt-1 text-xs opacity-50">
-                    {part.image.caption}
-                  </figcaption>
-                {/if}
-              </figure>
-            {/if}
-          {/each}
-        </div>
-      {:else}
-        <p class="whitespace-pre-wrap text-sm leading-7 opacity-80">
-          <HighlightedText segments={contentSegments} />
-        </p>
-      {/if}
+    <!-- Content: preview or expanded -->
+    {#if expanded}
+      <div class="mt-1 space-y-3">
+        {#each expandedParts as part}
+          {#if part.kind === 'text'}
+            <p class="whitespace-pre-wrap text-sm leading-7 opacity-80">
+              <HighlightedText segments={getHighlightSegments(part.text, searchTerms)} />
+            </p>
+          {:else}
+            <figure class="my-2">
+              <img
+                src={imageUrl(part.image)}
+                alt={part.image.alt_text ?? part.image.caption ?? ''}
+                loading="lazy"
+                class="max-w-full rounded-lg border border-base-200"
+              />
+              {#if part.image.caption}
+                <figcaption class="mt-1 text-xs opacity-50">
+                  {part.image.caption}
+                </figcaption>
+              {/if}
+            </figure>
+          {/if}
+        {/each}
+      </div>
+    {:else}
+      <p class="whitespace-pre-wrap text-sm leading-7 opacity-80">
+        <HighlightedText segments={contentSegments} />
+      </p>
+    {/if}
 
-      <div class="card-actions flex-nowrap items-center justify-between">
-        <div class="flex flex-wrap gap-1 items-end">
-          {#each visibleTags as tag}
-            <div
-              class="tooltip tooltip-top before:whitespace-normal before:max-w-50"
-              data-tip={TAG_DESCRIPTIONS[tag] ?? 'Sin descripción'}
-            >
-              <button
-                type="button"
-                class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-60 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
-                onclick={() => openCardsSearch([tag])}
-              >
-                {tag}
-              </button>
-            </div>
-          {/each}
-          {#if relationCount > 0}
+    <!-- Full-width toggle bar -->
+    <button
+      type="button"
+      class="btn btn-ghost btn-sm w-full mt-2 text-xs opacity-60"
+      onclick={() => (expanded = !expanded)}
+    >
+      {expanded ? 'Ocultar contenido' : 'Mostrar contenido'}
+      <span class="ml-1">{expanded ? '\u2191' : '\u2193'}</span>
+    </button>
+
+    <!-- Controls bar: tags left, actions right -->
+    <div class="card-actions flex-nowrap items-center justify-between mt-1">
+      <div class="flex flex-wrap gap-1 items-end">
+        {#each visibleTags as tag}
+          <div
+            class="tooltip tooltip-top before:whitespace-normal before:max-w-50"
+            data-tip={TAG_DESCRIPTIONS[tag] ?? 'Sin descripción'}
+          >
             <button
               type="button"
               class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-60 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
-              onclick={() => onopenrelations?.(card.id)}
+              onclick={() => openCardsSearch([tag])}
             >
-              {relationCount}
-              {relationCount === 1 ? ' relacionada' : ' relacionadas'}
+              {tag}
             </button>
-          {/if}
-        </div>
-
-        <div class="flex flex-wrap items-center justify-end gap-2">
-          <details bind:this={detailsEl} class="dropdown dropdown-end">
-            <summary class="btn btn-sm btn-ghost">Opciones</summary>
-            <ul
-              class="menu dropdown-content z-20 mt-1 w-56 rounded-box border border-base-300 bg-base-100 p-2 shadow"
-            >
-              <li>
-                <a
-                  href={`/cards/${card.id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-sveltekit-reload
-                  onclick={() => detailsEl?.removeAttribute('open')}
-                >
-                  Abrir en nueva pestana
-                </a>
-              </li>
-              <li>
-                <button type="button" onclick={copyCitation}>Copiar cita</button>
-              </li>
-              <li>
-                <button type="button" onclick={copyCardText}>Copiar texto</button>
-              </li>
-            </ul>
-          </details>
+          </div>
+        {/each}
+        {#if relationCount > 0}
           <button
             type="button"
-            class="btn btn-sm btn-outline"
-            onclick={() => {
-              expanded = !expanded;
-            }}
+            class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-60 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
+            onclick={() => onopenrelations?.(card.id)}
           >
-            {expanded ? 'Cerrar' : 'Ver detalle'}
+            {relationCount}
+            {relationCount === 1 ? ' relacionada' : ' relacionadas'}
           </button>
-        </div>
+        {/if}
+      </div>
+
+      <div class="flex flex-wrap items-center justify-end gap-2">
+        <button
+          type="button"
+          class="btn btn-sm transition-all"
+          class:btn-soft={inDocument}
+          class:btn-success={inDocument}
+          class:btn-ghost={!inDocument}
+          disabled={addDisabled}
+          onclick={toggleDocument}
+          title={addDisabled ? 'Límite de 50 tarjetas alcanzado' : inDocument ? 'Quitar del documento' : 'Añadir al documento'}
+        >
+          {#if inDocument}
+            &check; Añadido
+          {:else}
+            + Añadir
+          {/if}
+        </button>
+        <details bind:this={detailsEl} class="dropdown dropdown-end">
+          <summary class="btn btn-sm btn-ghost">Opciones</summary>
+          <ul
+            class="menu dropdown-content z-20 mt-1 w-56 rounded-box border border-base-300 bg-base-100 p-2 shadow"
+          >
+            <li>
+              <a
+                href={`/cards/${card.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-sveltekit-reload
+                onclick={() => detailsEl?.removeAttribute('open')}
+              >
+                Abrir en nueva pestana
+              </a>
+            </li>
+            <li>
+              <button type="button" onclick={copyCitation}>Copiar cita</button>
+            </li>
+            <li>
+              <button type="button" onclick={copyCardText}>Copiar texto</button>
+            </li>
+          </ul>
+        </details>
       </div>
     </div>
-  </article>
-</div>
+  </div>
+</article>
