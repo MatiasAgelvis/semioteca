@@ -69,9 +69,9 @@
       {/each}
 
       {#if currentCardId}
-        <div class="mt-4 border-t border-base-200 pt-3">
+        <div class="mt-4 mb-6 border-t border-base-200 pt-3">
           <button
-            class="btn btn-ghost btn-sm w-full"
+            class="btn btn-primary w-full"
             onclick={() => {
               onclose();
               goto(`/cards/graph?origin=${currentCardId}`);
