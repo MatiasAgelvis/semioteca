@@ -14,6 +14,7 @@
   let subtitle = $state($composer.subtitle ?? '');
   let compiler = $state($composer.compiler ?? '');
   let intro = $state($composer.intro ?? '');
+  let metadataOpen = $state($composer.title === '');
 
   $effect(() => {
     composer.updateMeta({
@@ -61,150 +62,161 @@
   <title>Compositor de documento | Significado Total</title>
 </svelte:head>
 
-<div class="mx-auto w-full max-w-3xl px-5 py-10 lg:px-10">
+<div class="mx-auto w-full max-w-2xl px-5 py-10 lg:px-10">
   <a href="/cards" class="btn btn-ghost btn-sm mb-6">← Volver al repositorio</a>
 
-  <h1 class="text-2xl font-black">Compositor de documento</h1>
-  <p class="mt-1 text-sm opacity-60">
-    Organiza las tarjetas seleccionadas, edita los metadatos y exporta el documento.
-  </p>
 
-  <section class="mt-8 space-y-4">
-    <h2 class="text-sm font-semibold uppercase tracking-wider opacity-50">Metadatos del documento</h2>
+    <h1 class="text-3xl font-bold mb-6">Compositor de documento</h1>
 
-    <label class="form-control w-full">
-      <span class="label">
-        <span class="label-text">Título del documento</span>
-      </span>
-      <input
-        type="text"
-        class="input input-bordered w-full"
-        placeholder="Ej: Compendio de semiótica contemporánea"
-        bind:value={title}
-      />
-    </label>
+    <!-- Metadata accordion -->
+    <div class="collapse collapse-arrow border border-base-300/70 rounded-box mb-6" class:collapse-open={metadataOpen}>
+      <input type="checkbox" bind:checked={metadataOpen} />
+      <div class="collapse-title text-sm font-medium opacity-60">
+        Metadatos
+        {#if title}
+          <span class="font-normal opacity-40"> &mdash; {title}</span>
+        {/if}
+      </div>
+      <div class="collapse-content">
+        <div class="space-y-4 pt-1">
 
-    <label class="form-control w-full">
-      <span class="label">
-        <span class="label-text">Subtítulo</span>
-        <span class="label-text-alt">Opcional</span>
-      </span>
-      <input
-        type="text"
-        class="input input-bordered w-full"
-        placeholder="Ej: Una selección de fichas bibliográficas"
-        bind:value={subtitle}
-      />
-    </label>
+          <div>
+            <label for="doc-title" class="block text-sm font-medium opacity-60">Título del documento</label>
+            <input
+              id="doc-title"
+              type="text"
+              class="mt-1 block w-full input input-bordered"
+              placeholder="Compendio de semiótica contemporánea"
+              bind:value={title}
+            />
+          </div>
 
-    <label class="form-control w-full">
-      <span class="label">
-        <span class="label-text">Compilador</span>
-        <span class="label-text-alt">Opcional</span>
-      </span>
-      <input
-        type="text"
-        class="input input-bordered w-full"
-        placeholder="Tu nombre"
-        bind:value={compiler}
-      />
-    </label>
+          <div>
+            <label for="doc-subtitle" class="block text-sm font-medium opacity-60"
+              >Subtítulo <span class="opacity-40 font-normal">— opcional</span></label
+            >
+            <input
+              id="doc-subtitle"
+              type="text"
+              class="mt-1 block w-full input input-bordered"
+              placeholder="Una selección de fichas bibliográficas"
+              bind:value={subtitle}
+            />
+          </div>
 
-    <label class="form-control w-full">
-      <span class="label">
-        <span class="label-text">Nota introductoria</span>
-        <span class="label-text-alt">Opcional</span>
-      </span>
-      <textarea
-        class="textarea textarea-bordered w-full"
-        rows={4}
-        placeholder="Una breve introducción al documento..."
-        bind:value={intro}
-      ></textarea>
-    </label>
-  </section>
+          <div>
+            <label for="doc-compiler" class="block text-sm font-medium opacity-60"
+              >Compilador <span class="opacity-40 font-normal">— opcional</span></label
+            >
+            <input
+              id="doc-compiler"
+              type="text"
+              class="mt-1 block w-full input input-bordered"
+              placeholder="Tu nombre"
+              bind:value={compiler}
+            />
+          </div>
 
-  <section class="mt-8">
-    <div class="flex items-center justify-between">
-      <h2 class="text-sm font-semibold uppercase tracking-wider opacity-50">
-        Tarjetas &middot; {$selectedCount} de {CARD_LIMIT}
-      </h2>
-      {#if $selectedCount > 0}
-        <button type="button" class="btn btn-ghost btn-sm text-error" onclick={handleClear}>
-          Vaciar
-        </button>
+          <div>
+            <label for="doc-intro" class="block text-sm font-medium opacity-60"
+              >Nota introductoria <span class="opacity-40 font-normal">— opcional</span></label
+            >
+            <textarea
+              id="doc-intro"
+              class="mt-1 block w-full textarea textarea-bordered"
+              rows={4}
+              placeholder="Una breve introducción al documento..."
+              bind:value={intro}
+            ></textarea>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Card list -->
+    <div class="mt-8">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xs font-semibold uppercase tracking-widest opacity-40">
+          Tarjetas &middot; {$selectedCount} de {CARD_LIMIT}
+        </h2>
+        {#if $selectedCount > 0}
+          <button type="button" class="btn btn-ghost btn-sm text-error" onclick={handleClear}>
+            Vaciar
+          </button>
+        {/if}
+      </div>
+
+      {#if $selectedCount === 0}
+        <div class="mt-4 rounded-lg border border-dashed border-base-300 p-8 text-center">
+          <p class="text-sm opacity-50">
+            No hay tarjetas seleccionadas. Ve al{' '}
+            <a href="/cards" class="link link-primary">repositorio</a> y añade tarjetas al documento.
+          </p>
+        </div>
+      {:else}
+        <div class="mt-4 overflow-hidden rounded-lg border border-base-200">
+          {#each sortedItems as item, index (item.cardId)}
+            <div
+              class="flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-base-200"
+              class:border-b={index < $selectedCount - 1}
+              class:border-base-200={index < $selectedCount - 1}
+            >
+              <div class="flex min-w-0 items-center gap-3">
+                <span class="font-mono text-xs opacity-40 shrink-0">#{item.order}</span>
+                <span class="truncate text-sm">{cardLabel(item.cardId)}</span>
+              </div>
+              <div class="flex shrink-0 items-center gap-1">
+                <button
+                  type="button"
+                  class="btn btn-ghost btn-xs"
+                  disabled={index === 0}
+                  onclick={() => composer.moveCard(item.cardId, 'up')}
+                  aria-label="Mover arriba"
+                >
+                  &uarr;
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-ghost btn-xs"
+                  disabled={index === $selectedCount - 1}
+                  onclick={() => composer.moveCard(item.cardId, 'down')}
+                  aria-label="Mover abajo"
+                >
+                  &darr;
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-ghost btn-xs text-error"
+                  onclick={() => composer.removeCard(item.cardId)}
+                  aria-label="Quitar del documento"
+                >
+                  &times;
+                </button>
+              </div>
+            </div>
+          {/each}
+        </div>
       {/if}
     </div>
 
-    {#if $selectedCount === 0}
-      <div class="mt-4 rounded-lg border border-dashed border-base-300 p-8 text-center">
-        <p class="text-sm opacity-50">
-          No hay tarjetas seleccionadas. Ve al{' '}
-          <a href="/cards" class="link link-primary">repositorio</a> y añade tarjetas al documento.
-        </p>
-      </div>
-    {:else}
-      <div class="mt-4 overflow-hidden rounded-lg border border-base-200">
-        {#each sortedItems as item, index (item.cardId)}
-          <div
-            class="flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-base-200"
-            class:border-b={index < $selectedCount - 1}
-            class:border-base-200={index < $selectedCount - 1}
-          >
-            <div class="flex min-w-0 items-center gap-3">
-              <span class="font-mono text-xs opacity-40 shrink-0">#{item.order}</span>
-              <span class="truncate text-sm">{cardLabel(item.cardId)}</span>
-            </div>
-            <div class="flex shrink-0 items-center gap-1">
-              <button
-                type="button"
-                class="btn btn-ghost btn-xs"
-                disabled={index === 0}
-                onclick={() => composer.moveCard(item.cardId, 'up')}
-                aria-label="Mover arriba"
-              >
-                &uarr;
-              </button>
-              <button
-                type="button"
-                class="btn btn-ghost btn-xs"
-                disabled={index === $selectedCount - 1}
-                onclick={() => composer.moveCard(item.cardId, 'down')}
-                aria-label="Mover abajo"
-              >
-                &darr;
-              </button>
-              <button
-                type="button"
-                class="btn btn-ghost btn-xs text-error"
-                onclick={() => composer.removeCard(item.cardId)}
-                aria-label="Quitar del documento"
-              >
-                &times;
-              </button>
-            </div>
-          </div>
-        {/each}
-      </div>
-    {/if}
-  </section>
-
-  <section class="mt-8 flex flex-wrap items-center justify-end gap-3">
-    <button
-      type="button"
-      class="btn btn-outline"
-      disabled={$selectedCount === 0}
-      onclick={handleDownloadMd}
-    >
-      Descargar MD
-    </button>
-    <button
-      type="button"
-      class="btn btn-primary"
-      disabled={$selectedCount === 0}
-      onclick={handleExportPdf}
-    >
-      Exportar PDF
-    </button>
-  </section>
-</div>
+    <!-- Export actions -->
+    <div class="mt-8 flex flex-wrap items-center justify-end gap-3">
+      <button
+        type="button"
+        class="btn btn-outline"
+        disabled={$selectedCount === 0}
+        onclick={handleDownloadMd}
+      >
+        Descargar MD
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        disabled={$selectedCount === 0}
+        onclick={handleExportPdf}
+      >
+        Exportar PDF
+      </button>
+    </div>
+  </div>
