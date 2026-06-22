@@ -4,6 +4,7 @@
   import type { PageData } from './$types';
   import RelatedCardsBar from '$lib/components/RelatedCardsBar.svelte';
   import RelatedCardsSheet from '$lib/components/RelatedCardsSheet.svelte';
+  import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
 
   let { data }: { data: PageData } = $props();
 
@@ -35,6 +36,17 @@
     sheetOpen = false;
     goto(`/cards/${cardId}`);
   }
+
+  const inDocument = $derived($selectedCardIds.includes(data.card.id));
+  const addDisabled = $derived(!inDocument && $isAtLimit);
+
+  function toggleDocument() {
+    if (inDocument) {
+      composer.removeCard(data.card.id);
+    } else if (!$isAtLimit) {
+      composer.addCard(data.card.id);
+    }
+  }
 </script>
 
 <svelte:head>
@@ -46,6 +58,22 @@
     <div class="mb-5 flex items-start justify-between gap-4">
       <a class="btn btn-outline w-fit shrink-0" href="/cards">← Volver al repositorio</a>
       <div class="flex items-center gap-2">
+        <button
+          type="button"
+          class="btn btn-sm transition-all"
+          class:btn-soft={inDocument}
+          class:btn-success={inDocument}
+          class:btn-ghost={!inDocument}
+          disabled={addDisabled}
+          onclick={toggleDocument}
+          title={addDisabled ? 'Límite de 50 tarjetas alcanzado' : inDocument ? 'Quitar del documento' : 'Añadir al documento'}
+        >
+          {#if inDocument}
+            ✓ Añadido
+          {:else}
+            + Añadir
+          {/if}
+        </button>
         <RelatedCardsBar
           count={data.relations.length}
           onopen={() => (sheetOpen = true)}
