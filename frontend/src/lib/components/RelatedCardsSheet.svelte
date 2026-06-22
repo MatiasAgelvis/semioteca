@@ -33,7 +33,7 @@
 
 <dialog bind:this={dialogEl} class="modal" onclose={handleClose}>
   <div class="modal-box max-w-2xl max-h-[calc(100vh-4rem)] !overflow-hidden flex flex-col !p-0">
-    <!-- Header -- doesn't scroll -->
+    <!-- Header -->
     <div class="flex shrink-0 items-center justify-between border-b border-base-200 px-6 py-4">
       <h2 class="text-lg font-bold">Tarjetas relacionadas</h2>
       <button class="btn btn-ghost btn-sm" type="button" aria-label="Cerrar" onclick={handleClose}>
@@ -41,10 +41,10 @@
       </button>
     </div>
 
-    <!-- Body -- scrolls with fade edges -->
+    <!-- Scrollable body with fade -->
     <div
       class="min-h-0 flex-1 space-y-2 overflow-y-auto px-6 py-4"
-      style="mask-image: linear-gradient(to bottom, black 92%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 92%, transparent 100%)"
+      style="mask-image: linear-gradient(to bottom, black 95%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 92%, transparent 100%)"
     >
       {#each relations as rel (rel.id)}
         <a
@@ -68,26 +68,27 @@
         </a>
       {/each}
 
-      {#if currentCardId}
-        <div class="mt-4 mb-6 border-t border-base-200 pt-3">
-          <button
-            class="btn btn-primary w-full"
-            onclick={() => {
-              onclose();
-              goto(`/cards/graph?origin=${currentCardId}`);
-            }}
-          >
-            Explorar conexiones en grafo →  ({relations.length} tarjetas)
-          </button>
-        </div>
-      {/if}
-
       {#if relations.length === 0}
         <p class="py-8 text-center text-sm opacity-50">
           No hay tarjetas relacionadas para mostrar.
         </p>
       {/if}
     </div>
+
+    <!-- Fixed footer — always visible, no fade -->
+    {#if currentCardId}
+      <div class="shrink-0 border-t border-base-200 px-6 py-4">
+        <button
+          class="btn btn-soft w-full"
+          onclick={() => {
+            onclose();
+            goto(`/cards/graph?origin=${currentCardId}`);
+          }}
+        >
+          Explorar conexiones en grafo →  ({relations.length} tarjetas)
+        </button>
+      </div>
+    {/if}
   </div>
 
   <form method="dialog" class="modal-backdrop">
