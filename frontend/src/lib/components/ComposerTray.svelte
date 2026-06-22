@@ -32,7 +32,7 @@
 
   function cardPage(cardId: string): string {
     const card = cardMap.get(cardId);
-    return card?.page ? `, p. ${card.page}` : '';
+    return card?.page ?? '';
   }
 </script>
 
@@ -69,7 +69,9 @@
                 <span class="font-mono text-xs opacity-40">#{item.order}</span>
                 {' '}
                 <span class="font-medium">{cardLabel(item.cardId)}</span>
-                <span class="text-xs opacity-50">{cardPage(item.cardId)}</span>
+                {#if cardPage(item.cardId)}
+                  <span class="text-xs opacity-50">p. {cardPage(item.cardId)}</span>
+                {/if}
               </span>
               <div class="flex shrink-0 items-center gap-1">
                 <button
