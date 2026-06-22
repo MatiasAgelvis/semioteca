@@ -2,6 +2,7 @@
   import HighlightedText from '$lib/components/HighlightedText.svelte';
   import { showToast } from '$lib/stores/toast';
   import { openCardsSearch } from '$lib/stores/cardsSearch';
+  import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
   import { TAG_DESCRIPTIONS } from '$lib/constants';
   import type { CardImage, CardRecord } from '$lib/types/content';
   import {
@@ -44,13 +45,11 @@
   });
 
   const searchActive = $derived(searchTerms.length > 0);
-  const hasImages = $derived(card.images.length > 0);
 
   const authorSegments = $derived(getHighlightSegments(card.author, searchTerms));
   const bookSegments = $derived(getHighlightSegments(card.book, searchTerms));
   const pageSegments = $derived(getHighlightSegments(card.page ?? 's/p', searchTerms));
 
-  // Compact preview: excerpt when searching, otherwise first ~350 chars (no image placeholders)
   const compactText = $derived(
     searchActive
       ? createExcerpt(card.content, searchTerms)
@@ -72,7 +71,6 @@
 
   const visibleTags = $derived(card.tags?.filter((tag) => tag.trim().length > 0) ?? []);
 
-  // Expanded: parse content into alternating text/image parts
   type ContentPart = { kind: 'text'; text: string } | { kind: 'image'; image: CardImage };
   const expandedParts = $derived.by<ContentPart[]>(() => {
     const imageMap = new Map(card.images.map((img) => [img.placeholder_id, img]));
@@ -106,6 +104,17 @@
     showToast(copied ? 'Texto copiado' : 'No se pudo copiar', copied ? 'success' : 'error');
   }
 
+  const inDocument = $derived($selectedCardIds.includes(card.id));
+  const addDisabled = $derived(!inDocument && $isAtLimit);
+
+  function toggleDocument() {
+    if (inDocument) {
+      composer.removeCard(card.id);
+    } else if (!$isAtLimit) {
+      composer.addCard(card.id);
+    }
+  }
+
   $effect(() => {
     if (!element) return;
     const id = card.id;
@@ -124,28 +133,24 @@
   style="scroll-margin-top: var(--header-height, 7rem)"
 >
   <div class="card-body p-5">
+    <!-- Header: author + book on left, page on right -->
     <div class="flex flex-wrap items-center justify-between gap-2">
-      <p class="font-bold">
+      <p class="font-bold min-w-0 truncate">
         <HighlightedText segments={authorSegments} />
-        <span> — </span>
+        <span> &mdash; </span>
         <HighlightedText segments={bookSegments} />
       </p>
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2 shrink-0">
         {#if searchActive}
-          <span class="badge badge-warning badge-sm">{matchCount} coincidencias</span>
+          <span class="badge badge-warning badge-sm text-xs">{matchCount} coinc.</span>
         {/if}
-        {#if hasImages}
-          <span class="badge badge-ghost badge-sm opacity-60"
-            >{card.images.length}
-            {card.images.length === 1 ? 'imagen' : 'imágenes'}</span
-          >
-        {/if}
-        <span class="badge badge-ghost badge-sm"
-          >p. <HighlightedText segments={pageSegments} /></span
-        >
+        <span class="badge badge-ghost badge-sm text-xs opacity-50">
+          p. <HighlightedText segments={pageSegments} />
+        </span>
       </div>
     </div>
 
+    <!-- Content: preview or expanded -->
     {#if expanded}
       <div class="mt-1 space-y-3">
         {#each expandedParts as part}
@@ -176,7 +181,18 @@
       </p>
     {/if}
 
-    <div class="card-actions flex-nowrap items-center justify-between">
+    <!-- Full-width toggle bar -->
+    <button
+      type="button"
+      class="btn btn-ghost btn-sm w-full mt-2 text-xs opacity-60"
+      onclick={() => (expanded = !expanded)}
+    >
+      {expanded ? 'Ocultar contenido' : 'Mostrar contenido'}
+      <span class="ml-1">{expanded ? '\u2191' : '\u2193'}</span>
+    </button>
+
+    <!-- Controls bar: tags left, actions right -->
+    <div class="card-actions flex-nowrap items-center justify-between mt-1">
       <div class="flex flex-wrap gap-1 items-end">
         {#each visibleTags as tag}
           <div
@@ -205,6 +221,22 @@
       </div>
 
       <div class="flex flex-wrap items-center justify-end gap-2">
+        <button
+          type="button"
+          class="btn btn-sm transition-all"
+          class:btn-soft={inDocument}
+          class:btn-success={inDocument}
+          class:btn-ghost={!inDocument}
+          disabled={addDisabled}
+          onclick={toggleDocument}
+          title={addDisabled ? 'Límite de 50 tarjetas alcanzado' : inDocument ? 'Quitar del documento' : 'Añadir al documento'}
+        >
+          {#if inDocument}
+            &check; Añadido
+          {:else}
+            + Añadir
+          {/if}
+        </button>
         <details bind:this={detailsEl} class="dropdown dropdown-end">
           <summary class="btn btn-sm btn-ghost">Opciones</summary>
           <ul
@@ -229,15 +261,6 @@
             </li>
           </ul>
         </details>
-        <button
-          type="button"
-          class="btn btn-sm btn-outline"
-          onclick={() => {
-            expanded = !expanded;
-          }}
-        >
-          {expanded ? 'Cerrar' : 'Ver detalle'}
-        </button>
       </div>
     </div>
   </div>

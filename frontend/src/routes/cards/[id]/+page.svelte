@@ -4,10 +4,30 @@
   import type { PageData } from './$types';
   import RelatedCardsBar from '$lib/components/RelatedCardsBar.svelte';
   import RelatedCardsSheet from '$lib/components/RelatedCardsSheet.svelte';
+  import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
+  import { showToast } from '$lib/stores/toast';
+  import { openCardsSearch } from '$lib/stores/cardsSearch';
+  import { TAG_DESCRIPTIONS } from '$lib/constants';
+  import {
+    buildCardCitationAPA,
+    buildCardFullText,
+    copyTextToClipboard,
+  } from '$lib/utils/citation';
 
   let { data }: { data: PageData } = $props();
 
   let sheetOpen = $state(false);
+  let detailsEl: HTMLDetailsElement;
+
+  $effect(() => {
+    function handleClick(e: MouseEvent) {
+      if (detailsEl && !detailsEl.contains(e.target as Node)) {
+        detailsEl.removeAttribute('open');
+      }
+    }
+    document.addEventListener('click', handleClick);
+    return () => document.removeEventListener('click', handleClick);
+  });
 
   type ContentPart = { kind: 'text'; text: string } | { kind: 'image'; image: CardImage };
 
@@ -35,6 +55,32 @@
     sheetOpen = false;
     goto(`/cards/${cardId}`);
   }
+
+  async function copyCitation() {
+    detailsEl?.removeAttribute('open');
+    const copied = await copyTextToClipboard(buildCardCitationAPA(data.card));
+    showToast(copied ? 'Cita copiada' : 'No se pudo copiar', copied ? 'success' : 'error');
+  }
+
+  async function copyCardText() {
+    detailsEl?.removeAttribute('open');
+    const copied = await copyTextToClipboard(buildCardFullText(data.card));
+    showToast(copied ? 'Texto copiado' : 'No se pudo copiar', copied ? 'success' : 'error');
+  }
+
+  const inDocument = $derived($selectedCardIds.includes(data.card.id));
+  const addDisabled = $derived(!inDocument && $isAtLimit);
+
+  function toggleDocument() {
+    if (inDocument) {
+      composer.removeCard(data.card.id);
+    } else if (!$isAtLimit) {
+      composer.addCard(data.card.id);
+    }
+  }
+
+  const visibleTags = $derived(data.card.tags?.filter((tag) => tag.trim().length > 0) ?? []);
+  const relationCount = $derived(data.relations.length);
 </script>
 
 <svelte:head>
@@ -60,10 +106,12 @@
         {/if}
       </div>
     </div>
+
     <h1 class="text-3xl font-black lg:text-4xl">{data.card.book}</h1>
     <p class="mt-2 opacity-70">
-      {data.card.author} ({data.card.year}) — página {data.card.page ?? 's/p'}
+      {data.card.author} ({data.card.year}) &mdash; página {data.card.page ?? 's/p'}
     </p>
+
     <div class="mt-7 space-y-4 rounded-xl border border-base-200 bg-base-200/40 p-5">
       {#each contentParts as part}
         {#if part.kind === 'text'}
@@ -87,6 +135,69 @@
         {/if}
       {/each}
     </div>
+
+    <!-- Controls bar: tags left, actions right -->
+    <div class="card-actions flex-nowrap items-center justify-between mt-5">
+      <div class="flex flex-wrap gap-1 items-end">
+        {#each visibleTags as tag}
+          <div
+            class="tooltip tooltip-top before:whitespace-normal before:max-w-50"
+            data-tip={TAG_DESCRIPTIONS[tag] ?? 'Sin descripción'}
+          >
+            <button
+              type="button"
+              class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-60 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
+              onclick={() => openCardsSearch([tag])}
+            >
+              {tag}
+            </button>
+          </div>
+        {/each}
+        {#if relationCount > 0}
+          <button
+            type="button"
+            class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-60 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
+            onclick={() => (sheetOpen = true)}
+          >
+            {relationCount}
+            {relationCount === 1 ? ' relacionada' : ' relacionadas'}
+          </button>
+        {/if}
+      </div>
+
+      <div class="flex flex-wrap items-center justify-end gap-2">
+        <button
+          type="button"
+          class="btn btn-sm transition-all"
+          class:btn-soft={inDocument}
+          class:btn-success={inDocument}
+          class:btn-ghost={!inDocument}
+          disabled={addDisabled}
+          onclick={toggleDocument}
+          title={addDisabled ? 'Límite de 50 tarjetas alcanzado' : inDocument ? 'Quitar del documento' : 'Añadir al documento'}
+        >
+          {#if inDocument}
+            &check; Añadido
+          {:else}
+            + Añadir
+          {/if}
+        </button>
+        <details bind:this={detailsEl} class="dropdown dropdown-end">
+          <summary class="btn btn-sm btn-ghost">Opciones</summary>
+          <ul
+            class="menu dropdown-content z-20 mt-1 w-56 rounded-box border border-base-300 bg-base-100 p-2 shadow"
+          >
+            <li>
+              <button type="button" onclick={copyCitation}>Copiar cita</button>
+            </li>
+            <li>
+              <button type="button" onclick={copyCardText}>Copiar texto</button>
+            </li>
+          </ul>
+        </details>
+      </div>
+    </div>
+
     <p class="mt-5 text-xs opacity-40">Fuente: {data.card.source_path}</p>
   </article>
 </div>
