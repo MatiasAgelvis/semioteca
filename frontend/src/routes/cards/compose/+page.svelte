@@ -15,6 +15,7 @@
   let compiler = $state($composer.compiler ?? '');
   let intro = $state($composer.intro ?? '');
   let metadataOpen = $state($composer.title === '');
+  let previewedCardId = $state<string | null>(null);
 
   $effect(() => {
     composer.updateMeta({
@@ -47,6 +48,17 @@
     compiler = '';
     intro = '';
     showToast('Documento vaciado', 'info');
+  }
+
+  function cardPreview(cardId: string): string {
+    const card = cardMap.get(cardId);
+    if (!card) return '';
+    const stripped = card.content.replace(/\[\[IMAGE:\d+\]\]\n?/g, '');
+    return stripped.length > 200 ? stripped.slice(0, 200).trimEnd() + '…' : stripped;
+  }
+
+  function togglePreview(cardId: string) {
+    previewedCardId = previewedCardId === cardId ? null : cardId;
   }
 
   function cardLabel(cardId: string): string {
@@ -164,7 +176,7 @@
             >
               <div class="flex min-w-0 items-center gap-3">
                 <span class="font-mono text-xs opacity-40 shrink-0">#{item.order}</span>
-                <span class="truncate text-sm">{cardLabel(item.cardId)}</span>
+                <button type="button" class="truncate text-sm text-left hover:underline cursor-pointer" onclick={() => togglePreview(item.cardId)}>{cardLabel(item.cardId)}</button>
               </div>
               <div class="flex shrink-0 items-center gap-1">
                 <button
@@ -195,6 +207,13 @@
                 </button>
               </div>
             </div>
+            {#if previewedCardId === item.cardId}
+              <div class="px-4 pb-3">
+                <p class="text-sm leading-relaxed opacity-70 pl-7 border-l-2 border-base-300 ml-2 whitespace-pre-wrap">
+                  {cardPreview(item.cardId)}
+                </p>
+              </div>
+            {/if}
           {/each}
         </div>
       {/if}
