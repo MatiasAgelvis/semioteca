@@ -20,7 +20,7 @@
   let svgEl: SVGSVGElement;
   let zoomTransform = $state('translate(0,0) scale(1)');
 
-  // Local reactive copy that D3 mutates — decoupled from the prop
+  // Local reactive copy — one assignment after simulation settles
   let layoutNodes = $state<GraphNode[]>([]);
 
   let hoverTimer: ReturnType<typeof setTimeout> | null = null;
@@ -41,19 +41,18 @@
     onnavigate(node.id);
   }
 
-  // Run force simulation off-screen, then snap to final positions
+  // Run force simulation off-screen, then snap to final positions.
+  // CSS transitions on <g transform> animate the snap.
   $effect(() => {
     const nodes: GraphNode[] = graphData.nodes.map((n) => ({ ...n }));
     const links = graphData.links.map((l) => ({ ...l }));
 
-    // Resolve source/target to actual node objects (required by d3-force)
     const d3Links = links.map((l) => ({
       source: nodes.find((n) => n.id === l.source) ?? l.source,
       target: nodes.find((n) => n.id === l.target) ?? l.target,
       score: l.score,
     }));
 
-    // Pin origin to center
     for (const n of nodes) {
       if (n.isOrigin) {
         n.fx = 0;
@@ -79,15 +78,15 @@
       )
       .alphaDecay(0.02)
       .velocityDecay(0.3)
-      .stop(); // Don't auto-start — run synchronously
+      .stop();
 
-    // Run simulation to completion synchronously (sub-50ms for <200 nodes)
+    // Run to completion synchronously
     const maxTicks = 300;
     for (let i = 0; i < maxTicks && sim.alpha() > sim.alphaMin(); i++) {
       sim.tick();
     }
 
-    // Snap to final positions in one shot
+    // Single assignment triggers CSS transitions
     layoutNodes = nodes.map((n) => ({ ...n }));
   });
 
@@ -136,7 +135,7 @@
           stroke="currentColor"
           stroke-width={style.strokeWidth}
           opacity={style.opacity}
-          class="text-base-content/30"
+          class="text-base-content/30 transition-all duration-500 ease-out"
         />
       {/if}
     {/each}
@@ -145,7 +144,8 @@
     {#each layoutNodes as node (node.id)}
       {@const style = nodeStyle(node, authorColors)}
       <g
-        class="cursor-pointer"
+        transform="translate({node.x}, {node.y})"
+        class="cursor-pointer transition-transform duration-500 ease-out"
         role="button"
         tabindex="0"
         onclick={() => handleNodeClick(node)}
@@ -156,8 +156,8 @@
         }}
       >
         <circle
-          cx={node.x}
-          cy={node.y}
+          cx="0"
+          cy="0"
           r={style.r}
           fill={style.fill}
           opacity={style.opacity}
@@ -166,8 +166,8 @@
         />
         {#if node.isOrigin}
           <text
-            x={node.x}
-            y={node.y - style.r - 8}
+            x="0"
+            y={-style.r - 8}
             text-anchor="middle"
             class="fill-base-content text-xs font-semibold"
           >
