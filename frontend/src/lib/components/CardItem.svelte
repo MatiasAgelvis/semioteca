@@ -51,7 +51,6 @@
   const bookSegments = $derived(getHighlightSegments(card.book, searchTerms));
   const pageSegments = $derived(getHighlightSegments(card.page ?? 's/p', searchTerms));
 
-  // Compact preview: excerpt when searching, otherwise first ~350 chars (no image placeholders)
   const compactText = $derived(
     searchActive
       ? createExcerpt(card.content, searchTerms)
@@ -73,7 +72,6 @@
 
   const visibleTags = $derived(card.tags?.filter((tag) => tag.trim().length > 0) ?? []);
 
-  // Expanded: parse content into alternating text/image parts
   type ContentPart = { kind: 'text'; text: string } | { kind: 'image'; image: CardImage };
   const expandedParts = $derived.by<ContentPart[]>(() => {
     const imageMap = new Map(card.images.map((img) => [img.placeholder_id, img]));
@@ -132,7 +130,7 @@
   bind:this={element}
   id={`card-${card.id}`}
   data-card-id={card.id}
-  class={`card bg-base-100 border transition-colors ${inDocument ? 'border-l-4 border-l-success' : ''} ${focused ? 'border-primary shadow-sm' : 'border-base-300'}`}
+  class={`card bg-base-100 border transition-colors border-l-4 ${inDocument ? 'border-l-success' : 'border-l-transparent'} ${focused ? 'border-primary shadow-sm' : 'border-base-300'}`}
   style="scroll-margin-top: var(--header-height, 7rem)"
 >
   <div class="card-body p-5">
@@ -155,6 +153,22 @@
         <span class="badge badge-ghost badge-sm"
           >p. <HighlightedText segments={pageSegments} /></span
         >
+        <button
+          type="button"
+          class="btn btn-xs transition-all"
+          class:btn-soft={inDocument}
+          class:btn-success={inDocument}
+          class:btn-ghost={!inDocument}
+          disabled={addDisabled}
+          onclick={toggleDocument}
+          title={addDisabled ? 'Límite de 50 tarjetas alcanzado' : inDocument ? 'Quitar del documento' : 'Añadir al documento'}
+        >
+          {#if inDocument}
+            ✓ Añadido
+          {:else}
+            + Añadir
+          {/if}
+        </button>
       </div>
     </div>
 
@@ -217,22 +231,6 @@
       </div>
 
       <div class="flex flex-wrap items-center justify-end gap-2">
-        <button
-          type="button"
-          class="btn btn-sm transition-all"
-          class:btn-soft={inDocument}
-          class:btn-success={inDocument}
-          class:btn-ghost={!inDocument}
-          disabled={addDisabled}
-          onclick={toggleDocument}
-          title={addDisabled ? 'Límite de 50 tarjetas alcanzado' : inDocument ? 'Quitar del documento' : 'Añadir al documento'}
-        >
-          {#if inDocument}
-            ✓ Añadido
-          {:else}
-            + Añadir
-          {/if}
-        </button>
         <details bind:this={detailsEl} class="dropdown dropdown-end">
           <summary class="btn btn-sm btn-ghost">Opciones</summary>
           <ul
