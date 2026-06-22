@@ -1,139 +1,253 @@
-import { marked } from 'marked';
+import type { TDocumentDefinitions, Content, ContentText, ContentImage } from 'pdfmake/interfaces';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import type { CardRecord, CardImage } from '$lib/types/content';
+import type { ComposerDocument } from '$lib/types/composer';
 
-/**
- * Wraps rendered HTML in a full print-ready document with print CSS.
- */
-export function buildPrintDocument(html: string, title: string): string {
-  const safeTitle = escapeHtml(title || 'Documento sin título');
+// Initialize pdfmake with bundled fonts (Roboto)
+(pdfMake as any).vfs = pdfFonts;
 
-  return `<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${safeTitle}</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
+function normalizeSpace(text: string): string {
+  return text.replace(/\s+/g, ' ').trim();
+}
 
-    body {
-      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      font-size: 11pt;
-      line-height: 1.7;
-      color: #1a1a1a;
-      max-width: 42rem;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-    }
+function resolveImageUrl(image: CardImage): string {
+  const idx = image.path.indexOf('cards_images/');
+  if (idx === -1) return '';
+  const relative = `/content/${image.path.slice(idx)}`;
+  // pdfmake needs absolute URLs for remote images
+  if (typeof window !== 'undefined') {
+    return new URL(relative, window.location.origin).href;
+  }
+  return relative;
+}
 
-    h1 {
-      font-size: 1.6rem;
-      margin-top: 0;
-      margin-bottom: 0.3rem;
-    }
+function cardToContent(
+  card: CardRecord,
+  index: number,
+): Content[] {
+  const content: Content[] = [];
 
-    h2 {
-      font-size: 1.15rem;
-      margin-top: 0;
-      margin-bottom: 0.5rem;
-      page-break-before: always;
-    }
+  const author = normalizeSpace(card.author || 'Autor desconocido');
+  const book = normalizeSpace(card.book || 'Sin título');
+  const year = normalizeSpace(card.year || 's.f.');
+  const page = normalizeSpace(card.page || 's.p.');
 
-    h2:first-of-type { page-break-before: auto; }
+  // Card heading with page break before (except first card)
+  content.push({
+    text: `${index + 1}. ${author} — ${book} (${year}), p. ${page}`,
+    style: 'cardHeading',
+    pageBreak: index === 0 ? undefined : 'before',
+  } as ContentText);
 
-    p { margin: 0 0 0.8rem; orphans: 3; widows: 3; }
+  // Tags
+  const tags = card.tags?.filter((t) => t.trim().length > 0) ?? [];
+  if (tags.length > 0) {
+    content.push({
+      text: `Tags: ${tags.join(', ')}`,
+      style: 'tags',
+      margin: [0, 4, 0, 4],
+    } as ContentText);
+  }
 
-    blockquote {
-      margin: 0 0 1rem;
-      padding: 0.3rem 0 0.3rem 1rem;
-      border-left: 3px solid #ccc;
-      color: #555;
-      font-size: 0.9rem;
-      font-style: italic;
-    }
+  // Parse card content: split into text chunks and image placeholders
+  const imageMap = new Map(card.images.map((img) => [img.placeholder_id, img]));
+  const chunks = card.content.split(/\[\[IMAGE:(\d+)\]\]/g);
 
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 1rem 0;
-      page-break-inside: avoid;
-    }
-
-    em { font-style: italic; }
-
-    hr {
-      border: none;
-      border-top: 1px solid #ddd;
-      margin: 2rem 0;
-    }
-
-    @page {
-      size: A4;
-      margin: 15mm;
-      @bottom-center {
-        content: counter(page);
-        font-size: 0.8rem;
-        color: #999;
+  for (let i = 0; i < chunks.length; i++) {
+    if (i % 2 === 0) {
+      // Text chunk
+      const trimmed = chunks[i].trim();
+      if (trimmed) {
+        content.push({
+          text: trimmed,
+          style: 'body',
+          margin: [0, 0, 0, 8],
+        } as ContentText);
+      }
+    } else {
+      // Image placeholder
+      const img = imageMap.get(Number(chunks[i]));
+      if (img) {
+        const url = resolveImageUrl(img);
+        if (url) {
+          content.push({
+            image: url,
+            width: 400,
+            margin: [0, 4, 0, 8],
+          } as ContentImage);
+        }
+        if (img.caption) {
+          content.push({
+            text: img.caption,
+            style: 'caption',
+            margin: [0, 0, 0, 8],
+          } as ContentText);
+        }
       }
     }
+  }
 
-    @media print {
-      body { padding: 0; }
+  return content;
+}
+
+function buildDocumentDefinition(
+  doc: ComposerDocument,
+  cardMap: Map<string, CardRecord>,
+): TDocumentDefinitions {
+  const title = normalizeSpace(doc.title) || 'Documento sin título';
+  const sorted = [...doc.items].sort((a, b) => a.order - b.order);
+
+  const content: Content[] = [];
+
+  // Title page
+  content.push({ text: title, style: 'title', margin: [0, 0, 0, 8] } as ContentText);
+
+  if (doc.subtitle) {
+    content.push({
+      text: normalizeSpace(doc.subtitle),
+      style: 'subtitle',
+      margin: [0, 0, 0, 4],
+    } as ContentText);
+  }
+
+  if (doc.compiler) {
+    content.push({
+      text: `Compilado por ${normalizeSpace(doc.compiler)}`,
+      style: 'compiler',
+      margin: [0, 0, 0, 4],
+    } as ContentText);
+  }
+
+  if (doc.intro) {
+    content.push({
+      text: normalizeSpace(doc.intro),
+      style: 'intro',
+      margin: [0, 16, 0, 8],
+    } as ContentText);
+  }
+
+  // Card sections
+  for (let i = 0; i < sorted.length; i++) {
+    const card = cardMap.get(sorted[i].cardId);
+    if (card) {
+      content.push(...cardToContent(card, i));
+    } else {
+      content.push({
+        text: `[Tarjeta no encontrada: ${sorted[i].cardId}]`,
+        style: 'body',
+        pageBreak: i === 0 ? undefined : 'before',
+      } as ContentText);
     }
-  </style>
-</head>
-<body>
-${html}
-</body>
-</html>`;
+  }
+
+  // Footer: export timestamp
+  const now = new Date().toLocaleDateString('es-MX', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  return {
+    content,
+    defaultStyle: {
+      font: 'Roboto',
+      fontSize: 11,
+      lineHeight: 1.5,
+    },
+    styles: {
+      title: {
+        fontSize: 22,
+        bold: true,
+        alignment: 'center',
+        margin: [0, 40, 0, 8],
+      },
+      subtitle: {
+        fontSize: 14,
+        alignment: 'center',
+        color: '#555555',
+      },
+      compiler: {
+        fontSize: 10,
+        alignment: 'center',
+        color: '#777777',
+        italics: true,
+      },
+      intro: {
+        fontSize: 10,
+        color: '#444444',
+        alignment: 'justify',
+      },
+      cardHeading: {
+        fontSize: 13,
+        bold: true,
+        margin: [0, 8, 0, 4],
+      },
+      tags: {
+        fontSize: 9,
+        color: '#888888',
+        italics: true,
+      },
+      body: {
+        fontSize: 11,
+        alignment: 'justify',
+      },
+      caption: {
+        fontSize: 9,
+        color: '#888888',
+        italics: true,
+        alignment: 'center',
+      },
+    },
+    pageSize: 'A4',
+    pageMargins: [40, 40, 40, 50],
+    footer: (currentPage: number, pageCount: number) => ({
+      text: `${currentPage} / ${pageCount}`,
+      alignment: 'center',
+      fontSize: 8,
+      color: '#999999',
+      margin: [0, 0, 0, 16],
+    }),
+    info: {
+      title,
+      author: doc.compiler || '',
+      creationDate: new Date(),
+    },
+  };
+}
+
+function slugify(text: string): string {
+  return (text || 'documento')
+    .toLowerCase()
+    .replace(/[^a-z0-9áéíóúñ]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 80);
 }
 
 /**
- * Opens a print window with the rendered document and triggers the print dialog.
- * Falls back to showing a toast if popups are blocked.
+ * Generates and downloads a PDF using pdfmake.
+ * One click — no print dialog, real PDF file.
  */
 export async function downloadPdf(
-  markdown: string,
-  docTitle: string,
-  onPopupBlocked?: () => void,
+  doc: ComposerDocument,
+  cardMap: Map<string, CardRecord>,
 ): Promise<void> {
-  const html = marked.parse(markdown) as string;
-  const printDoc = buildPrintDocument(html, docTitle);
+  const def = buildDocumentDefinition(doc, cardMap);
 
-  const win = window.open('', '_blank');
-  if (!win) {
-    onPopupBlocked?.();
-    return;
-  }
+  return new Promise((resolve) => {
+    const date = new Date().toISOString().slice(0, 10);
+    const filename = `semioteca-${slugify(doc.title)}-${date}.pdf`;
 
-  win.document.write(printDoc);
-  win.document.close();
-
-  await waitForImages(win);
-  win.print();
-
-  // Auto-close after print dialog is dismissed.
-  // Some browsers fire this; on others the user closes manually.
-  win.onafterprint = () => {
-    try {
-      win.close();
-    } catch {
-      // Window may already be closed
-    }
-  };
+    pdfMake.createPdf(def).download(filename); resolve();
+  });
 }
 
 /**
  * Triggers a download of the raw Markdown file.
  */
 export function downloadMarkdown(markdown: string, docTitle: string): void {
-  const slug = (docTitle || 'documento')
-    .toLowerCase()
-    .replace(/[^a-z0-9áéíóúñ]+/g, '-')
-    .replace(/^-|-$/g, '')
-    .slice(0, 80);
   const date = new Date().toISOString().slice(0, 10);
-  const filename = `semioteca-${slug}-${date}.md`;
+  const filename = `semioteca-${slugify(docTitle)}-${date}.md`;
 
   const blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' });
   const url = URL.createObjectURL(blob);
@@ -145,31 +259,4 @@ export function downloadMarkdown(markdown: string, docTitle: string): void {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-}
-
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-function waitForImages(win: Window): Promise<void> {
-  const images = win.document.querySelectorAll('img');
-  if (images.length === 0) return Promise.resolve();
-
-  const promises = Array.from(images).map(
-    (img) =>
-      new Promise<void>((resolve) => {
-        if (img.complete) {
-          resolve();
-        } else {
-          img.onload = () => resolve();
-          img.onerror = () => resolve(); // Don't block on broken images
-        }
-      }),
-  );
-
-  return Promise.all(promises).then(() => undefined);
 }

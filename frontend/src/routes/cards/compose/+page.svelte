@@ -15,7 +15,6 @@
   let compiler = $state($composer.compiler ?? '');
   let intro = $state($composer.intro ?? '');
 
-  // Sync local state -> store on change
   $effect(() => {
     composer.updateMeta({
       title,
@@ -27,13 +26,7 @@
 
   function handleExportPdf() {
     if ($selectedCount === 0) return;
-
-    const markdown = buildDocumentMarkdown($composer, cardMap);
-    const docTitle = title || 'Documento sin título';
-
-    downloadPdf(markdown, docTitle, () => {
-      showToast('Permite ventanas emergentes para exportar el PDF', 'error');
-    });
+    downloadPdf($composer, cardMap);
   }
 
   function handleDownloadMd() {
@@ -58,7 +51,7 @@
   function cardLabel(cardId: string): string {
     const card = cardMap.get(cardId);
     if (!card) return '(Tarjeta no encontrada)';
-    return `${card.author} — ${card.book}, p. ${card.page ?? 's.p.'}`;
+    return `${card.author} \u2014 ${card.book}, p. ${card.page ?? 's.p.'}`;
   }
 
   const sortedItems = $derived([...$composer.items].sort((a, b) => a.order - b.order));
@@ -76,7 +69,6 @@
     Organiza las tarjetas seleccionadas, edita los metadatos y exporta el documento.
   </p>
 
-  <!-- Metadata form -->
   <section class="mt-8 space-y-4">
     <h2 class="text-sm font-semibold uppercase tracking-wider opacity-50">Metadatos del documento</h2>
 
@@ -132,7 +124,6 @@
     </label>
   </section>
 
-  <!-- Card list -->
   <section class="mt-8">
     <div class="flex items-center justify-between">
       <h2 class="text-sm font-semibold uppercase tracking-wider opacity-50">
@@ -198,7 +189,6 @@
     {/if}
   </section>
 
-  <!-- Export actions -->
   <section class="mt-8 flex flex-wrap items-center justify-end gap-3">
     <button
       type="button"

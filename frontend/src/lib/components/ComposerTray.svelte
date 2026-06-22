@@ -1,7 +1,6 @@
 <script lang="ts">
   import { composer, selectedCount } from '$lib/stores/composer';
   import { CARD_LIMIT } from '$lib/types/composer';
-  import { buildDocumentMarkdown } from '$lib/utils/composer-markdown';
   import { downloadPdf } from '$lib/utils/composer-pdf';
   import { showToast } from '$lib/stores/toast';
   import type { CardRecord } from '$lib/types/content';
@@ -16,13 +15,7 @@
 
   function handleExportPdf() {
     if ($selectedCount === 0) return;
-
-    const markdown = buildDocumentMarkdown($composer, cardMap);
-    const title = $composer.title || 'Documento sin título';
-
-    downloadPdf(markdown, title, () => {
-      showToast('Permite ventanas emergentes para exportar el PDF', 'error');
-    });
+    downloadPdf($composer, cardMap);
   }
 
   function handleClear() {
@@ -34,7 +27,7 @@
   function cardLabel(cardId: string): string {
     const card = cardMap.get(cardId);
     if (!card) return '(Tarjeta no encontrada)';
-    return `${card.author} — ${card.book}`;
+    return `${card.author} \u2014 ${card.book}`;
   }
 
   function cardPage(cardId: string): string {
@@ -50,7 +43,6 @@
     aria-label="Constructor de documento"
   >
     {#if expanded}
-      <!-- Expanded list -->
       <div class="mx-auto max-w-7xl px-5 py-3 lg:px-10">
         <div class="mb-2 flex items-center justify-between">
           <span class="text-sm font-semibold">
@@ -124,7 +116,6 @@
         </div>
       </div>
     {:else}
-      <!-- Collapsed bar -->
       <div class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 py-2 lg:px-10">
         <button
           type="button"
