@@ -53,10 +53,12 @@
         {#if data.relations.length > 0}
           <a
             href="/cards/graph?origin={data.card.id}"
-            class="btn btn-ghost btn-sm"
+            class="btn btn-ghost btn-xs"
             title="Explorar en grafo"
           >
-            🔗
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="size-4">
+              <path fill-rule="evenodd" d="M4.5 2.25a.75.75 0 0 0 0 1.5h1.585L3.22 7.61a.75.75 0 0 0 1.06 1.06L7.145 4.815v1.585a.75.75 0 0 0 1.5 0V2.25h-4ZM6.75 9a.75.75 0 0 0 0 1.5h1.585L3.22 15.11a.75.75 0 0 0 1.06 1.06l4.115-4.115v1.585a.75.75 0 0 0 1.5 0V9h-4Zm3-4a.75.75 0 0 1 .75-.75h.75v-.75a.75.75 0 0 1 1.5 0v.75h.75a.75.75 0 0 1 0 1.5h-.75v.75a.75.75 0 0 1-1.5 0V6h-.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+            </svg>
           </a>
         {/if}
       </div>

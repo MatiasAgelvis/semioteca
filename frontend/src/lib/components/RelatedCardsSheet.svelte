@@ -33,7 +33,7 @@
 
 <dialog bind:this={dialogEl} class="modal" onclose={handleClose}>
   <div class="modal-box max-w-2xl max-h-[calc(100vh-4rem)] !overflow-hidden flex flex-col !p-0">
-    <!-- Header — doesn't scroll -->
+    <!-- Header -- doesn't scroll -->
     <div class="flex shrink-0 items-center justify-between border-b border-base-200 px-6 py-4">
       <h2 class="text-lg font-bold">Tarjetas relacionadas</h2>
       <button class="btn btn-ghost btn-sm" type="button" aria-label="Cerrar" onclick={handleClose}>
@@ -41,7 +41,7 @@
       </button>
     </div>
 
-    <!-- Body — scrolls with fade edges -->
+    <!-- Body -- scrolls with fade edges -->
     <div
       class="min-h-0 flex-1 space-y-2 overflow-y-auto px-6 py-4"
       style="mask-image: linear-gradient(to bottom, black 92%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 92%, transparent 100%)"
@@ -77,7 +77,7 @@
               goto(`/cards/graph?origin=${currentCardId}`);
             }}
           >
-            📊 Explorar conexiones en grafo →  ({relations.length} tarjetas)
+            Explorar conexiones en grafo →  ({relations.length} tarjetas)
           </button>
         </div>
       {/if}
