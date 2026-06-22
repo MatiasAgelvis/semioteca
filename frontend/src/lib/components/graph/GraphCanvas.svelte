@@ -41,9 +41,8 @@
     onnavigate(node.id);
   }
 
-  // Run force simulation on the local layoutNodes copy
+  // Run force simulation off-screen, then snap to final positions
   $effect(() => {
-    // Clone so D3 can mutate freely without touching the prop
     const nodes: GraphNode[] = graphData.nodes.map((n) => ({ ...n }));
     const links = graphData.links.map((l) => ({ ...l }));
 
@@ -80,19 +79,16 @@
       )
       .alphaDecay(0.02)
       .velocityDecay(0.3)
-      .on('tick', () => {
-        // D3 mutates node.x / node.y on the cloned objects.
-        // Copy back to $state so Svelte detects changes and re-renders.
-        layoutNodes = nodes.map((n) => ({ ...n }));
-      })
-      .on('end', () => {
-        // Final positions — one last copy
-        layoutNodes = nodes.map((n) => ({ ...n }));
-      });
+      .stop(); // Don't auto-start — run synchronously
 
-    return () => {
-      sim.stop();
-    };
+    // Run simulation to completion synchronously (sub-50ms for <200 nodes)
+    const maxTicks = 300;
+    for (let i = 0; i < maxTicks && sim.alpha() > sim.alphaMin(); i++) {
+      sim.tick();
+    }
+
+    // Snap to final positions in one shot
+    layoutNodes = nodes.map((n) => ({ ...n }));
   });
 
   // Attach zoom behavior
@@ -149,7 +145,7 @@
     {#each layoutNodes as node (node.id)}
       {@const style = nodeStyle(node, authorColors)}
       <g
-        class="cursor-pointer transition-opacity duration-300"
+        class="cursor-pointer"
         role="button"
         tabindex="0"
         onclick={() => handleNodeClick(node)}
