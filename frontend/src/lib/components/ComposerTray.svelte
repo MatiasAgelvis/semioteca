@@ -2,7 +2,7 @@
   import { composer, selectedCount } from '$lib/stores/composer';
   import { CARD_LIMIT } from '$lib/types/composer';
   import { buildDocumentMarkdown } from '$lib/utils/composer-markdown';
-  import { downloadPdf, downloadMarkdown } from '$lib/utils/composer-pdf';
+  import { downloadPdf } from '$lib/utils/composer-pdf';
   import { showToast } from '$lib/stores/toast';
   import type { CardRecord } from '$lib/types/content';
 
@@ -23,16 +23,6 @@
     downloadPdf(markdown, title, () => {
       showToast('Permite ventanas emergentes para exportar el PDF', 'error');
     });
-  }
-
-  function handleDownloadMd() {
-    if ($selectedCount === 0) return;
-
-    const markdown = buildDocumentMarkdown($composer, cardMap);
-    const title = $composer.title || 'Documento sin título';
-
-    downloadMarkdown(markdown, title);
-    showToast('Documento Markdown descargado', 'success');
   }
 
   function handleClear() {
@@ -64,7 +54,7 @@
       <div class="mx-auto max-w-7xl px-5 py-3 lg:px-10">
         <div class="mb-2 flex items-center justify-between">
           <span class="text-sm font-semibold">
-            📄 {$composer.title || 'Documento'} · {$selectedCount} de {CARD_LIMIT} tarjetas
+            {$composer.title || 'Documento'} &middot; {$selectedCount} de {CARD_LIMIT} tarjetas
           </span>
           <button
             type="button"
@@ -72,7 +62,7 @@
             onclick={() => (expanded = false)}
             aria-label="Colapsar constructor"
           >
-            ▲
+            &uarr;
           </button>
         </div>
 
@@ -97,7 +87,7 @@
                   onclick={() => composer.moveCard(item.cardId, 'up')}
                   aria-label="Mover arriba"
                 >
-                  ▲
+                  &uarr;
                 </button>
                 <button
                   type="button"
@@ -106,7 +96,7 @@
                   onclick={() => composer.moveCard(item.cardId, 'down')}
                   aria-label="Mover abajo"
                 >
-                  ▼
+                  &darr;
                 </button>
                 <button
                   type="button"
@@ -114,7 +104,7 @@
                   onclick={() => composer.removeCard(item.cardId)}
                   aria-label="Quitar del documento"
                 >
-                  ✕
+                  &times;
                 </button>
               </div>
             </div>
@@ -123,12 +113,12 @@
 
         <div class="mt-3 flex flex-wrap items-center justify-between gap-2">
           <button type="button" class="btn btn-ghost btn-sm text-error" onclick={handleClear}>
-            🗑 Vaciar
+            Vaciar
           </button>
           <div class="flex items-center gap-2">
-            <a href="/cards/compose" class="btn btn-soft btn-sm">Abrir compositor →</a>
+            <a href="/cards/compose" class="btn btn-soft btn-sm">Abrir compositor &rarr;</a>
             <button type="button" class="btn btn-primary btn-sm" onclick={handleExportPdf}>
-              🖨 PDF
+              Exportar PDF
             </button>
           </div>
         </div>
@@ -142,13 +132,13 @@
           onclick={() => (expanded = true)}
           aria-label="Expandir constructor de documento"
         >
-          📄 {$selectedCount} de {CARD_LIMIT} tarjetas
-          <span class="text-xs opacity-40">▼</span>
+          {$selectedCount} de {CARD_LIMIT} tarjetas
+          <span class="text-xs opacity-40">&darr;</span>
         </button>
         <div class="flex items-center gap-2">
-          <a href="/cards/compose" class="btn btn-ghost btn-sm">Abrir compositor →</a>
+          <a href="/cards/compose" class="btn btn-ghost btn-sm">Abrir compositor &rarr;</a>
           <button type="button" class="btn btn-primary btn-sm" onclick={handleExportPdf}>
-            🖨 PDF
+            Exportar PDF
           </button>
         </div>
       </div>

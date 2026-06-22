@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { composer, selectedCount, isAtLimit } from '$lib/stores/composer';
+  import { composer, selectedCount } from '$lib/stores/composer';
   import { CARD_LIMIT } from '$lib/types/composer';
   import { buildDocumentMarkdown } from '$lib/utils/composer-markdown';
   import { downloadPdf, downloadMarkdown } from '$lib/utils/composer-pdf';
   import { showToast } from '$lib/stores/toast';
-  import type { CardRecord } from '$lib/types/content';
   import type { PageData } from './$types';
 
   let { data }: { data: PageData } = $props();
@@ -16,7 +15,7 @@
   let compiler = $state($composer.compiler ?? '');
   let intro = $state($composer.intro ?? '');
 
-  // Sync local state → store on change
+  // Sync local state -> store on change
   $effect(() => {
     composer.updateMeta({
       title,
@@ -70,7 +69,7 @@
 </svelte:head>
 
 <div class="mx-auto w-full max-w-3xl px-5 py-10 lg:px-10">
-  <a href="/cards" class="btn btn-ghost btn-sm mb-6">← Volver a tarjetas</a>
+  <a href="/cards" class="btn btn-ghost btn-sm mb-6">Volver a tarjetas</a>
 
   <h1 class="text-2xl font-black">Compositor de documento</h1>
   <p class="mt-1 text-sm opacity-60">
@@ -137,11 +136,11 @@
   <section class="mt-8">
     <div class="flex items-center justify-between">
       <h2 class="text-sm font-semibold uppercase tracking-wider opacity-50">
-        Tarjetas · {$selectedCount} de {CARD_LIMIT}
+        Tarjetas &middot; {$selectedCount} de {CARD_LIMIT}
       </h2>
       {#if $selectedCount > 0}
         <button type="button" class="btn btn-ghost btn-sm text-error" onclick={handleClear}>
-          🗑 Vaciar
+          Vaciar
         </button>
       {/if}
     </div>
@@ -173,7 +172,7 @@
                 onclick={() => composer.moveCard(item.cardId, 'up')}
                 aria-label="Mover arriba"
               >
-                ▲
+                &uarr;
               </button>
               <button
                 type="button"
@@ -182,7 +181,7 @@
                 onclick={() => composer.moveCard(item.cardId, 'down')}
                 aria-label="Mover abajo"
               >
-                ▼
+                &darr;
               </button>
               <button
                 type="button"
@@ -190,7 +189,7 @@
                 onclick={() => composer.removeCard(item.cardId)}
                 aria-label="Quitar del documento"
               >
-                ✕
+                &times;
               </button>
             </div>
           </div>
@@ -207,7 +206,7 @@
       disabled={$selectedCount === 0}
       onclick={handleDownloadMd}
     >
-      📄 Descargar MD
+      Descargar MD
     </button>
     <button
       type="button"
@@ -215,7 +214,7 @@
       disabled={$selectedCount === 0}
       onclick={handleExportPdf}
     >
-      🖨 Exportar PDF
+      Exportar PDF
     </button>
   </section>
 </div>
