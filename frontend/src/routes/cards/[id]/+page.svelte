@@ -4,7 +4,6 @@
   import type { PageData } from './$types';
   import RelatedCardsBar from '$lib/components/RelatedCardsBar.svelte';
   import RelatedCardsSheet from '$lib/components/RelatedCardsSheet.svelte';
-  import { composer, selectedCardIds, selectedCount, isAtLimit } from '$lib/stores/composer';
 
   let { data }: { data: PageData } = $props();
 
@@ -36,17 +35,6 @@
     sheetOpen = false;
     goto(`/cards/${cardId}`);
   }
-
-  const inDocument = $derived($selectedCardIds.includes(data.card.id));
-  const addDisabled = $derived(!inDocument && $isAtLimit);
-
-  function toggleDocument() {
-    if (inDocument) {
-      composer.removeCard(data.card.id);
-    } else if (!$isAtLimit) {
-      composer.addCard(data.card.id);
-    }
-  }
 </script>
 
 <svelte:head>
@@ -74,35 +62,9 @@
     </div>
 
     <h1 class="text-3xl font-black lg:text-4xl">{data.card.book}</h1>
-
-    <div class="mt-2 flex flex-wrap items-center justify-between gap-3">
-      <p class="opacity-70">
-        {data.card.author} ({data.card.year}) &mdash; página {data.card.page ?? 's/p'}
-      </p>
-      <div class="flex items-center gap-2">
-        <button
-          type="button"
-          class="btn btn-sm transition-all"
-          class:btn-soft={inDocument}
-          class:btn-success={inDocument}
-          class:btn-ghost={!inDocument}
-          disabled={addDisabled}
-          onclick={toggleDocument}
-          title={addDisabled ? 'Límite de 50 tarjetas alcanzado' : inDocument ? 'Quitar del documento' : 'Añadir al documento'}
-        >
-          {#if inDocument}
-            ✓ Añadido
-          {:else}
-            + Añadir
-          {/if}
-        </button>
-        {#if $selectedCount > 0}
-          <a href="/cards/compose" class="btn btn-ghost btn-sm text-xs opacity-60">
-            {$selectedCount} {$selectedCount === 1 ? 'tarjeta' : 'tarjetas'} en documento &rarr;
-          </a>
-        {/if}
-      </div>
-    </div>
+    <p class="mt-2 opacity-70">
+      {data.card.author} ({data.card.year}) &mdash; página {data.card.page ?? 's/p'}
+    </p>
 
     <div class="mt-7 space-y-4 rounded-xl border border-base-200 bg-base-200/40 p-5">
       {#each contentParts as part}
