@@ -79,7 +79,6 @@
   }
 
   const visibleTags = $derived(data.card.tags?.filter((tag) => tag.trim().length > 0) ?? []);
-  const relationCount = $derived(data.relations.length);
 </script>
 
 <svelte:head>
@@ -164,16 +163,6 @@
             </button>
           </div>
         {/each}
-        {#if relationCount > 0}
-          <button
-            type="button"
-            class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-60 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
-            onclick={() => (sheetOpen = true)}
-          >
-            {relationCount}
-            {relationCount === 1 ? ' relacionada' : ' relacionadas'}
-          </button>
-        {/if}
       </div>
 
       <div class="flex flex-wrap items-center justify-end gap-2">
