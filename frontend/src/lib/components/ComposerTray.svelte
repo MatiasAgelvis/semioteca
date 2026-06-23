@@ -52,7 +52,7 @@
             aria-label="Colapsar constructor"
           >
             {$selectedCount} <span class="text-[10px] opacity-30">/ {CARD_LIMIT}</span> tarjetas
-            <span class="text-xs opacity-40">&uarr;</span>
+            <span class="text-xs opacity-40">&darr;</span>
           </button>
           <div class="flex items-center gap-2">
             <button type="button" class="btn btn-ghost btn-sm text-error" onclick={handleClear}>
@@ -122,7 +122,7 @@
           aria-label="Expandir constructor de documento"
         >
           {$selectedCount} <span class="text-[10px] opacity-30">/ {CARD_LIMIT}</span> tarjetas
-          <span class="text-xs opacity-40">&darr;</span>
+          <span class="text-xs opacity-40">&uarr;</span>
         </button>
         <div class="flex items-center gap-2">
           <a href="/cards/compose" class="btn btn-ghost btn-sm">Abrir compositor &rarr;</a>
