@@ -11,7 +11,7 @@
 </script>
 
 <div
-  class="pointer-events-none fixed z-50 rounded-lg border border-base-300 bg-base-100 p-2 text-sm shadow-md"
+  class="pointer-events-none fixed z-50 max-w-xs rounded-lg border border-base-300 bg-base-100 p-3 text-sm shadow-md"
   style="left: {position.x + 12}px; top: {position.y + 12}px"
 >
   <p class="font-semibold">
@@ -20,4 +20,9 @@
   <p class="text-xs opacity-60">
     {node.year}{node.page ? ` · p. ${node.page}` : ''}
   </p>
+  {#if node.contentPreview}
+    <p class="mt-1.5 line-clamp-3 text-xs leading-relaxed opacity-70">
+      {node.contentPreview}
+    </p>
+  {/if}
 </div>

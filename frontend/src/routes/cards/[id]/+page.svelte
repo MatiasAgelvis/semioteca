@@ -79,7 +79,6 @@
   }
 
   const visibleTags = $derived(data.card.tags?.filter((tag) => tag.trim().length > 0) ?? []);
-  const relationCount = $derived(data.relations.length);
 </script>
 
 <svelte:head>
@@ -89,7 +88,13 @@
 <div class="mx-auto w-full max-w-5xl px-5 py-10 lg:px-10">
   <article class="card bg-base-100 border border-base-300 p-6 shadow-sm lg:p-10">
     <div class="mb-5 flex flex-wrap items-start justify-between gap-4">
-          <a class="btn btn-outline w-fit shrink-0" href="/cards">← Volver al repositorio</a>
+          {#if data.fromGraph && data.graphOrigin}
+            <a class="btn btn-outline w-fit shrink-0" href="/cards/graph?origin={encodeURIComponent(data.graphOrigin)}">
+              ← Volver a la red
+            </a>
+          {:else}
+            <a class="btn btn-outline w-fit shrink-0" href="/cards">← Volver al repositorio</a>
+          {/if}
           <div class="flex flex-wrap items-center gap-2">
             {#if data.relations.length > 0}
               <div class="join join-vertical md:join-horizontal">
@@ -158,16 +163,6 @@
             </button>
           </div>
         {/each}
-        {#if relationCount > 0}
-          <button
-            type="button"
-            class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-60 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
-            onclick={() => (sheetOpen = true)}
-          >
-            {relationCount}
-            {relationCount === 1 ? ' relacionada' : ' relacionadas'}
-          </button>
-        {/if}
       </div>
 
       <div class="flex flex-wrap items-center justify-end gap-2">

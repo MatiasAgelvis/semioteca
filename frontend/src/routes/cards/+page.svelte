@@ -124,15 +124,6 @@
   let relatedSheetOpen = $state(false);
   let currentSheetCardId = $state('');
 
-  const relationCounts = $derived.by(() => {
-    if (!relationsMap) return new Map<string, number>();
-    const counts = new Map<string, number>();
-    for (const [id, entries] of Object.entries(relationsMap)) {
-      counts.set(id, entries.length);
-    }
-    return counts;
-  });
-
   function handleOpenRelations(cardId: string) {
     const entries = relationsMap?.[cardId];
     if (!entries?.length) {
@@ -145,6 +136,11 @@
       .map((entry) => {
         const card = cardMap.get(entry.id);
         if (!card) return null;
+        const rawContent = card.content ?? '';
+        const cleanContent = rawContent.replace(/\[\[IMAGE:\d+\]\]/g, '').replace(/\s+/g, ' ').trim();
+        const contentPreview = cleanContent.length > 160
+          ? cleanContent.slice(0, 160) + '…'
+          : cleanContent;
         return {
           id: entry.id,
           title: card.book ?? entry.id,
@@ -153,6 +149,8 @@
           year: card.year ?? '',
           page: card.page ?? null,
           score: entry.score,
+          contentPreview,
+          tags: card.tags ?? [],
         };
       })
       .filter((r): r is RelatedCard => r !== null);
@@ -586,7 +584,6 @@
                 onregister={registerCard}
                 onunregister={unregisterCard}
                 onopenrelations={handleOpenRelations}
-                relationCount={relationCounts.get(card.id) ?? 0}
               />
             {/each}
             {#if displayCards.length === 0}

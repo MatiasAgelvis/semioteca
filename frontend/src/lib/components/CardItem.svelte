@@ -1,5 +1,6 @@
 <script lang="ts">
   import HighlightedText from '$lib/components/HighlightedText.svelte';
+  import { goto } from '$app/navigation';
   import { showToast } from '$lib/stores/toast';
   import { openCardsSearch } from '$lib/stores/cardsSearch';
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
@@ -19,7 +20,6 @@
     onregister,
     onunregister,
     onopenrelations,
-    relationCount = 0,
   }: {
     card: CardRecord;
     focused: boolean;
@@ -27,7 +27,6 @@
     onregister?: (el: HTMLElement, id: string) => void;
     onunregister?: (el: HTMLElement, id: string) => void;
     onopenrelations?: (cardId: string) => void;
-    relationCount?: number;
   } = $props();
 
   let element: HTMLElement;
@@ -147,6 +146,13 @@
         <span class="badge badge-ghost badge-sm text-xs opacity-50">
           p. <HighlightedText segments={pageSegments} />
         </span>
+        <a
+          href="/cards/{card.id}"
+          class="btn btn-ghost btn-xs btn-square"
+          title="Ver tarjeta"
+        >
+          →
+        </a>
       </div>
     </div>
 
@@ -208,16 +214,6 @@
             </button>
           </div>
         {/each}
-        {#if relationCount > 0}
-          <button
-            type="button"
-            class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-60 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
-            onclick={() => onopenrelations?.(card.id)}
-          >
-            {relationCount}
-            {relationCount === 1 ? ' relacionada' : ' relacionadas'}
-          </button>
-        {/if}
       </div>
 
       <div class="flex flex-wrap items-center justify-end gap-2">
@@ -258,6 +254,29 @@
             </li>
             <li>
               <button type="button" onclick={copyCardText}>Copiar texto</button>
+            </li>
+            <li class="menu-title">Relaciones</li>
+            <li>
+              <button
+                type="button"
+                onclick={() => {
+                  detailsEl?.removeAttribute('open');
+                  onopenrelations?.(card.id);
+                }}
+              >
+                Ver relaciones
+              </button>
+            </li>
+            <li>
+              <button
+                type="button"
+                onclick={() => {
+                  detailsEl?.removeAttribute('open');
+                  goto(`/cards/graph?origin=${encodeURIComponent(card.id)}`);
+                }}
+              >
+                Explorar en red
+              </button>
             </li>
           </ul>
         </details>

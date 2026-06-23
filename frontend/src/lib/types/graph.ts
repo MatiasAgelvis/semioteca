@@ -6,6 +6,9 @@ export interface GraphNode {
   page: string | null;
   degree: number; // total connections in the loaded subgraph
   isOrigin: boolean;
+  content: string; // full card text (image placeholders stripped)
+  contentPreview: string; // first ~300 chars for hover tooltip
+  tags: string[];
   // Layout (populated by D3 force simulation)
   x: number;
   y: number;

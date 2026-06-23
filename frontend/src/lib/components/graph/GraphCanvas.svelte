@@ -8,13 +8,17 @@
   let {
     graphData,
     authorColors,
+    selectedNodeId = null,
     onnavigate,
     onhover,
+    onselect,
   }: {
     graphData: GraphData;
     authorColors: Map<string, string>;
+    selectedNodeId?: string | null;
     onnavigate: (cardId: string) => void;
     onhover: (node: GraphNode | null, pos?: { x: number; y: number }) => void;
+    onselect: (node: GraphNode | null) => void;
   } = $props();
 
   let svgEl: SVGSVGElement;
@@ -37,8 +41,34 @@
     onhover(null);
   }
 
-  function handleNodeClick(node: GraphNode) {
-    onnavigate(node.id);
+  function selectOrNavigate(node: GraphNode) {
+    if (selectedNodeId === node.id) {
+      // Clicking the same node twice → navigate to full card
+      onnavigate(node.id);
+    } else {
+      onselect(node);
+    }
+  }
+
+  function handleNodeClick(node: GraphNode, e: MouseEvent) {
+    e.stopPropagation();
+    selectOrNavigate(node);
+  }
+
+  function handleNodeKeydown(node: GraphNode, e: KeyboardEvent) {
+    if (e.key === 'Enter') {
+      e.stopPropagation();
+      selectOrNavigate(node);
+    } else if (e.key === 'Escape') {
+      onselect(null);
+    }
+  }
+
+  function handleSvgClick(e: MouseEvent) {
+    // Only deselect if clicking directly on the SVG background, not a node
+    if (e.target === svgEl || (e.target as Element).tagName === 'svg') {
+      onselect(null);
+    }
   }
 
   // Run force simulation off-screen, then snap to final positions.
@@ -119,6 +149,10 @@
   preserveAspectRatio="xMidYMid meet"
   role="application"
   ondblclick={handleDblClick}
+  onclick={handleSvgClick}
+  onkeydown={(e) => {
+    if (e.key === 'Escape') onselect(null);
+  }}
 >
   <g transform={zoomTransform}>
     <!-- edges -->
@@ -143,18 +177,29 @@
     <!-- nodes -->
     {#each layoutNodes as node (node.id)}
       {@const style = nodeStyle(node, authorColors)}
+      {@const isSelected = selectedNodeId === node.id}
       <g
         transform="translate({node.x}, {node.y})"
         class="cursor-pointer transition-transform duration-500 ease-out"
         role="button"
         tabindex="0"
-        onclick={() => handleNodeClick(node)}
+        onclick={(e) => handleNodeClick(node, e)}
         onmouseenter={(e) => handleNodeEnter(node, e)}
         onmouseleave={handleNodeLeave}
-        onkeydown={(e) => {
-          if (e.key === 'Enter') handleNodeClick(node);
-        }}
+        onkeydown={(e) => handleNodeKeydown(node, e)}
       >
+        {#if isSelected}
+          <circle
+            cx="0"
+            cy="0"
+            r={style.r + 6}
+            fill="none"
+            stroke={style.fill}
+            stroke-width="2.5"
+            opacity="0.6"
+            class="animate-pulse"
+          />
+        {/if}
         <circle
           cx="0"
           cy="0"
