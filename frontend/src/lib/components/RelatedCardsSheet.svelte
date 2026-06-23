@@ -85,7 +85,7 @@
             goto(`/cards/graph?origin=${currentCardId}`);
           }}
         >
-          Explorar conexiones en grafo →  ({relations.length} tarjetas)
+          Explorar conexiones en red →  ({relations.length} tarjetas)
         </button>
       </div>
     {/if}
