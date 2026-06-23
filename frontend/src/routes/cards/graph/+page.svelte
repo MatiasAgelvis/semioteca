@@ -6,6 +6,7 @@
   import GraphLegend from '$lib/components/graph/GraphLegend.svelte';
   import GraphToolbar from '$lib/components/graph/GraphToolbar.svelte';
   import GraphTooltip from '$lib/components/graph/GraphTooltip.svelte';
+  import GraphPanel from '$lib/components/graph/GraphPanel.svelte';
   import type { CardRelationEntry, CardsDataset, CardRecord } from '$lib/types/content';
   import type { GraphData, GraphNode, GraphDepth } from '$lib/types/graph';
   import { buildCardMap, buildGraph, buildAuthorColors } from '$lib/utils/graph';
@@ -17,6 +18,7 @@
   let legendOpen = $state(false);
   let hoveredNode = $state<GraphNode | null>(null);
   let tooltipPos = $state({ x: 0, y: 0 });
+  let selectedNode = $state<GraphNode | null>(null);
 
   // Cached data — fetched once
   let cachedRelations = $state<Record<string, CardRelationEntry[]> | null>(null);
@@ -80,7 +82,12 @@
   }
 
   function handleNavigate(cardId: string) {
-    goto(`/cards/${cardId}`);
+    goto(`/cards/${cardId}?from=graph&origin=${encodeURIComponent(origin)}`);
+  }
+
+  function handleSelect(node: GraphNode | null) {
+    selectedNode = node;
+    hoveredNode = null;
   }
 
   function handleHover(
@@ -93,7 +100,7 @@
 </script>
 
 <svelte:head>
-  <title>{origin ? `Grafo de relaciones` : 'Grafo'} | Significado Total</title>
+  <title>{origin ? `Red de relaciones` : 'Red'} | Significado Total</title>
 </svelte:head>
 
 <div class="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 py-6 lg:px-10" style="min-height: calc(100dvh - 12rem)">
@@ -126,10 +133,12 @@
       <GraphCanvas
         {graphData}
         {authorColors}
+        selectedNodeId={selectedNode?.id ?? null}
         onnavigate={handleNavigate}
         onhover={handleHover}
+        onselect={handleSelect}
       />
-      {#if hoveredNode}
+      {#if hoveredNode && !selectedNode}
         <GraphTooltip node={hoveredNode} position={tooltipPos} />
       {/if}
       {#if legendOpen}
@@ -139,5 +148,11 @@
         />
       {/if}
     </div>
+
+    <GraphPanel
+      node={selectedNode}
+      origin={origin}
+      onclose={() => (selectedNode = null)}
+    />
   {/if}
 </div>

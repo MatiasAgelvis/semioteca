@@ -46,6 +46,12 @@ export function buildGraph(
 
   const nodes: GraphNode[] = Array.from(visited).map((id) => {
     const card = cardMap.get(id);
+    const rawContent = card?.content ?? '';
+    // Strip image placeholders for clean text display
+    const cleanContent = rawContent.replace(/\[\[IMAGE:\d+\]\]/g, '').trim();
+    const contentPreview = cleanContent.length > 300
+      ? cleanContent.slice(0, 300) + '…'
+      : cleanContent;
     return {
       id,
       author: card?.author ?? '',
@@ -54,6 +60,9 @@ export function buildGraph(
       page: card?.page ?? null,
       degree: 0,
       isOrigin: id === originId,
+      content: cleanContent,
+      contentPreview,
+      tags: card?.tags ?? [],
       x: 0,
       y: 0,
       fx: id === originId ? 0 : null,

@@ -9,7 +9,7 @@ export async function entries() {
   return dataset.books.flatMap((book) => book.cards.map((card) => ({ id: card.id })));
 }
 
-export async function load({ params }) {
+export async function load({ params, url }) {
   const [dataset, relations] = await Promise.all([
     readCardsDataset(),
     buildRelatedCards(params.id),
@@ -19,5 +19,14 @@ export async function load({ params }) {
     error(404, 'Card not found');
   }
 
-  return { card, relations };
+  let fromGraph = false;
+  let graphOrigin = '';
+  try {
+    fromGraph = url.searchParams.get('from') === 'graph';
+    graphOrigin = url.searchParams.get('origin') ?? '';
+  } catch {
+    // query params unavailable during prerendering — both stay false/empty
+  }
+
+  return { card, relations, fromGraph, graphOrigin };
 }

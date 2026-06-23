@@ -89,7 +89,13 @@
 <div class="mx-auto w-full max-w-5xl px-5 py-10 lg:px-10">
   <article class="card bg-base-100 border border-base-300 p-6 shadow-sm lg:p-10">
     <div class="mb-5 flex flex-wrap items-start justify-between gap-4">
-          <a class="btn btn-outline w-fit shrink-0" href="/cards">← Volver al repositorio</a>
+          {#if data.fromGraph && data.graphOrigin}
+            <a class="btn btn-outline w-fit shrink-0" href="/cards/graph?origin={encodeURIComponent(data.graphOrigin)}">
+              ← Volver a la red
+            </a>
+          {:else}
+            <a class="btn btn-outline w-fit shrink-0" href="/cards">← Volver al repositorio</a>
+          {/if}
           <div class="flex flex-wrap items-center gap-2">
             {#if data.relations.length > 0}
               <div class="join join-vertical md:join-horizontal">
