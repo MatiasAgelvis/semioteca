@@ -67,4 +67,6 @@ export interface RelatedCard {
   year: string;
   page: string | null;
   score: number;
+  contentPreview: string;
+  tags: string[];
 }
