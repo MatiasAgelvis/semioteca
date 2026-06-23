@@ -124,15 +124,6 @@
   let relatedSheetOpen = $state(false);
   let currentSheetCardId = $state('');
 
-  const relationCounts = $derived.by(() => {
-    if (!relationsMap) return new Map<string, number>();
-    const counts = new Map<string, number>();
-    for (const [id, entries] of Object.entries(relationsMap)) {
-      counts.set(id, entries.length);
-    }
-    return counts;
-  });
-
   function handleOpenRelations(cardId: string) {
     const entries = relationsMap?.[cardId];
     if (!entries?.length) {
@@ -586,7 +577,6 @@
                 onregister={registerCard}
                 onunregister={unregisterCard}
                 onopenrelations={handleOpenRelations}
-                relationCount={relationCounts.get(card.id) ?? 0}
               />
             {/each}
             {#if displayCards.length === 0}
