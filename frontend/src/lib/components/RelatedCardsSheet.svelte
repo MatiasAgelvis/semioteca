@@ -73,14 +73,6 @@
                 {rel.author} ({rel.year}){rel.page ? ` · p. ${rel.page}` : ''}
               </p>
             </div>
-            {#if rel.score > 0}
-              <span
-                class="badge badge-xs shrink-0 opacity-40"
-                title={`Puntaje de similitud: ${Math.round(rel.score * 100)}%`}
-              >
-                {Math.round(rel.score * 100)}%
-              </span>
-            {/if}
           </div>
 
           {#if tags.length > 0}
