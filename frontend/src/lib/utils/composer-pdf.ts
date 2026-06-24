@@ -15,17 +15,56 @@ function resolveImageUrl(image: CardImage): string {
   const idx = image.path.indexOf('cards_images/');
   if (idx === -1) return '';
   const relative = `/content/${image.path.slice(idx)}`;
-  // pdfmake needs absolute URLs for remote images
   if (typeof window !== 'undefined') {
     return new URL(relative, window.location.origin).href;
   }
   return relative;
 }
 
-function cardToContent(
+/**
+ * Fetches an image and returns it as a base64 data URI.
+ * Uses canvas to flatten alpha channel (pdfmake struggles with RGBA PNG).
+ */
+async function fetchAsBase64(url: string): Promise<string | null> {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) return null;
+    const blob = await res.blob();
+    // For PNG, draw onto a canvas first to strip alpha if needed
+    if (blob.type === 'image/png') {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          const ctx = canvas.getContext('2d')!;
+          // Fill with white background first (flattens transparency)
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0);
+          resolve(canvas.toDataURL('image/png'));
+        };
+        img.onerror = () => resolve(null);
+        img.src = URL.createObjectURL(blob);
+      });
+    }
+    // JPEG and others: read directly
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = () => resolve(null);
+      reader.readAsDataURL(blob);
+    });
+  } catch {
+    return null;
+  }
+}
+
+async function cardToContent(
   card: CardRecord,
   index: number,
-): Content[] {
+): Promise<Content[]> {
   const content: Content[] = [];
 
   const author = normalizeSpace(card.author || 'Autor desconocido');
@@ -70,9 +109,10 @@ function cardToContent(
       const img = imageMap.get(Number(chunks[i]));
       if (img) {
         const url = resolveImageUrl(img);
-        if (url) {
+        const base64 = url ? await fetchAsBase64(url) : null;
+        if (base64) {
           content.push({
-            image: url,
+            image: base64,
             width: 400,
             margin: [0, 4, 0, 8],
           } as ContentImage);
@@ -91,10 +131,10 @@ function cardToContent(
   return content;
 }
 
-function buildDocumentDefinition(
+async function buildDocumentDefinition(
   doc: ComposerDocument,
   cardMap: Map<string, CardRecord>,
-): TDocumentDefinitions {
+): Promise<TDocumentDefinitions> {
   const title = normalizeSpace(doc.title) || 'Documento sin título';
   const sorted = [...doc.items].sort((a, b) => a.order - b.order);
 
@@ -131,7 +171,7 @@ function buildDocumentDefinition(
   for (let i = 0; i < sorted.length; i++) {
     const card = cardMap.get(sorted[i].cardId);
     if (card) {
-      content.push(...cardToContent(card, i));
+      content.push(...await cardToContent(card, i));
     } else {
       content.push({
         text: `[Tarjeta no encontrada: ${sorted[i].cardId}]`,
@@ -232,13 +272,14 @@ export async function downloadPdf(
   doc: ComposerDocument,
   cardMap: Map<string, CardRecord>,
 ): Promise<void> {
-  const def = buildDocumentDefinition(doc, cardMap);
+  const def = await buildDocumentDefinition(doc, cardMap);
 
   return new Promise((resolve) => {
     const date = new Date().toISOString().slice(0, 10);
     const filename = `semioteca-${slugify(doc.title)}-${date}.pdf`;
 
-    pdfMake.createPdf(def).download(filename); resolve();
+    pdfMake.createPdf(def).download(filename);
+    resolve();
   });
 }
 
