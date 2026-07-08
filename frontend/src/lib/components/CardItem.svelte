@@ -133,13 +133,13 @@
 >
   <div class="card-body p-5">
     <!-- Header: author + book on left, page on right -->
-    <div class="flex flex-wrap items-center justify-between gap-2">
-      <p class="font-bold min-w-0 truncate">
+    <div class="flex flex-wrap items-center gap-2">
+      <p class="font-bold min-w-0 flex-1">
         <HighlightedText segments={authorSegments} />
         <span> &mdash; </span>
         <HighlightedText segments={bookSegments} />
       </p>
-      <div class="flex items-center gap-2 shrink-0">
+      <div class="flex items-center gap-2 shrink-0 ml-auto">
         {#if searchActive}
           <span class="badge badge-warning badge-sm text-xs">{matchCount} coinc.</span>
         {/if}
