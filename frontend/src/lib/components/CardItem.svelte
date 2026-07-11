@@ -1,6 +1,5 @@
 <script lang="ts">
   import HighlightedText from '$lib/components/HighlightedText.svelte';
-  import { goto } from '$app/navigation';
   import { showToast } from '$lib/stores/toast';
   import { openCardsSearch } from '$lib/stores/cardsSearch';
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
@@ -219,7 +218,20 @@
       <div class="flex flex-wrap items-center justify-end gap-2">
         <button
           type="button"
-          class="btn btn-sm transition-all"
+          class="btn btn-xs md:btn-sm btn-ghost transition-all"
+          onclick={() => onopenrelations?.(card.id)}
+          title="Ver tarjetas relacionadas"
+        >
+          <span aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1em" height="1em" fill="currentColor">
+              <path d="M418.4 157.9c35.3-8.3 61.6-40 61.6-77.9c0-44.2-35.8-80-80-80c-43.4 0-78.7 34.5-80 77.5L136.2 151.1C121.7 136.8 101.9 128 80 128c-44.2 0-80 35.8-80 80s35.8 80 80 80c12.2 0 23.8-2.7 34.1-7.6L259.7 407.8c-2.4 7.6-3.7 15.8-3.7 24.2c0 44.2 35.8 80 80 80s80-35.8 80-80c0-27.7-14-52.1-35.4-66.4l37.8-207.7zM156.3 232.2c2.2-6.9 3.5-14.2 3.7-21.7l183.8-73.5c3.6 3.5 7.4 6.7 11.6 9.5L317.6 354.1c-5.5 1.3-10.8 3.1-15.8 5.5L156.3 232.2z"/>
+            </svg>
+          </span>
+          <span class="hidden md:inline">Red</span>
+        </button>
+        <button
+          type="button"
+          class="btn btn-xs md:btn-sm transition-all"
           class:btn-soft={inDocument}
           class:btn-success={inDocument}
           class:btn-ghost={!inDocument}
@@ -228,13 +240,18 @@
           title={addDisabled ? 'Límite de 50 tarjetas alcanzado' : inDocument ? 'Quitar del documento' : 'Añadir al documento'}
         >
           {#if inDocument}
-            &check; Añadido
+            <span aria-hidden="true">✓</span>
+            <span class="hidden md:inline">Añadido</span>
           {:else}
-            + Añadir
+            <span aria-hidden="true">+</span>
+            <span class="hidden md:inline">Añadir</span>
           {/if}
         </button>
         <details bind:this={detailsEl} class="dropdown dropdown-end">
-          <summary class="btn btn-sm btn-ghost">Opciones</summary>
+          <summary class="btn btn-xs md:btn-sm btn-ghost">
+            <span aria-hidden="true">⋯</span>
+            <span class="hidden md:inline">Opciones</span>
+          </summary>
           <ul
             class="menu dropdown-content z-20 mt-1 w-56 rounded-box border border-base-300 bg-base-100 p-2 shadow"
           >
@@ -254,29 +271,6 @@
             </li>
             <li>
               <button type="button" onclick={copyCardText}>Copiar texto</button>
-            </li>
-            <li class="menu-title">Relaciones</li>
-            <li>
-              <button
-                type="button"
-                onclick={() => {
-                  detailsEl?.removeAttribute('open');
-                  onopenrelations?.(card.id);
-                }}
-              >
-                Ver relaciones
-              </button>
-            </li>
-            <li>
-              <button
-                type="button"
-                onclick={() => {
-                  detailsEl?.removeAttribute('open');
-                  goto(`/cards/graph?origin=${encodeURIComponent(card.id)}`);
-                }}
-              >
-                Explorar en red
-              </button>
             </li>
           </ul>
         </details>
