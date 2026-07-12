@@ -16,17 +16,6 @@
   let { data }: { data: PageData } = $props();
 
   let sheetOpen = $state(false);
-  let detailsEl: HTMLDetailsElement;
-
-  $effect(() => {
-    function handleClick(e: MouseEvent) {
-      if (detailsEl && !detailsEl.contains(e.target as Node)) {
-        detailsEl.removeAttribute('open');
-      }
-    }
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
-  });
 
   type ContentPart = { kind: 'text'; text: string } | { kind: 'image'; image: CardImage };
 
@@ -56,13 +45,11 @@
   }
 
   async function copyCitation() {
-    detailsEl?.removeAttribute('open');
     const copied = await copyTextToClipboard(buildCardCitationAPA(data.card));
     showToast(copied ? 'Cita copiada' : 'No se pudo copiar', copied ? 'success' : 'error');
   }
 
   async function copyCardText() {
-    detailsEl?.removeAttribute('open');
     const copied = await copyTextToClipboard(buildCardFullText(data.card));
     showToast(copied ? 'Texto copiado' : 'No se pudo copiar', copied ? 'success' : 'error');
   }
@@ -183,28 +170,21 @@
           title={addDisabled ? 'Límite de 50 tarjetas alcanzado' : inDocument ? 'Quitar del documento' : 'Añadir al documento'}
         >
           {#if inDocument}
-            &check; Añadido
+            <span aria-hidden="true">✓</span>
+            <span class="hidden md:inline">Añadido</span>
           {:else}
-            + Añadir
+            <span aria-hidden="true">+</span>
+            <span class="hidden md:inline">Añadir</span>
           {/if}
         </button>
-        <details bind:this={detailsEl} class="dropdown dropdown-end">
-          <summary class="btn btn-sm btn-ghost">Opciones</summary>
-          <ul
-            class="menu dropdown-content z-20 mt-1 w-56 rounded-box border border-base-300 bg-base-100 p-2 shadow"
-          >
-            <li>
-              <button type="button" onclick={copyCitation}>Copiar cita</button>
-            </li>
-            <li>
-              <button type="button" onclick={copyCardText}>Copiar texto</button>
-            </li>
-          </ul>
-        </details>
       </div>
     </div>
 
-    <p class="mt-5 text-xs opacity-40">Fuente: {data.card.source_path}</p>
+    <p class="mt-5 text-xs opacity-40">
+      Fuente: {data.card.source_path}
+      · <button type="button" class="link link-hover" onclick={copyCitation}>Copiar cita</button>
+      · <button type="button" class="link link-hover" onclick={copyCardText}>Copiar texto</button>
+    </p>
   </article>
 </div>
 
