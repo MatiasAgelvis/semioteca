@@ -29,18 +29,7 @@
   } = $props();
 
   let element: HTMLElement;
-  let detailsEl: HTMLDetailsElement;
   let expanded = $state(false);
-
-  $effect(() => {
-    function handleClick(e: MouseEvent) {
-      if (detailsEl && !detailsEl.contains(e.target as Node)) {
-        detailsEl.removeAttribute('open');
-      }
-    }
-    document.addEventListener('click', handleClick);
-    return () => document.removeEventListener('click', handleClick);
-  });
 
   const searchActive = $derived(searchTerms.length > 0);
 
@@ -91,13 +80,11 @@
   }
 
   async function copyCitation() {
-    detailsEl?.removeAttribute('open');
     const copied = await copyTextToClipboard(buildCardCitationAPA(card));
     showToast(copied ? 'Cita copiada' : 'No se pudo copiar', copied ? 'success' : 'error');
   }
 
   async function copyCardText() {
-    detailsEl?.removeAttribute('open');
     const copied = await copyTextToClipboard(buildCardFullText(card));
     showToast(copied ? 'Texto copiado' : 'No se pudo copiar', copied ? 'success' : 'error');
   }
@@ -179,6 +166,10 @@
             </figure>
           {/if}
         {/each}
+          <p class="text-xs opacity-40">
+            <button type="button" class="link link-hover" onclick={copyCitation}>Copiar cita</button>
+            · <button type="button" class="link link-hover" onclick={copyCardText}>Copiar texto</button>
+          </p>
       </div>
     {:else}
       <p class="whitespace-pre-wrap text-sm leading-7 opacity-80">
@@ -247,33 +238,6 @@
             <span class="hidden md:inline">Añadir</span>
           {/if}
         </button>
-        <details bind:this={detailsEl} class="dropdown dropdown-end">
-          <summary class="btn btn-xs md:btn-sm btn-ghost">
-            <span aria-hidden="true">⋯</span>
-            <span class="hidden md:inline">Opciones</span>
-          </summary>
-          <ul
-            class="menu dropdown-content z-20 mt-1 w-56 rounded-box border border-base-300 bg-base-100 p-2 shadow"
-          >
-            <li>
-              <a
-                href={`/cards/${card.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-sveltekit-reload
-                onclick={() => detailsEl?.removeAttribute('open')}
-              >
-                Abrir en nueva pestana
-              </a>
-            </li>
-            <li>
-              <button type="button" onclick={copyCitation}>Copiar cita</button>
-            </li>
-            <li>
-              <button type="button" onclick={copyCardText}>Copiar texto</button>
-            </li>
-          </ul>
-        </details>
       </div>
     </div>
   </div>
