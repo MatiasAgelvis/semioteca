@@ -519,7 +519,7 @@
           mobileDrawerOpen = true;
         }}
       >
-        Filtros y TOC
+        Índice
       </button>
       <div class="drawer drawer-end lg:hidden">
         <input
