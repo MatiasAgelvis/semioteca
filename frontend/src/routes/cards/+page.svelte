@@ -544,11 +544,13 @@
                 Cerrar
               </button>
             </div>
-            <BookSidebar
-              books={booksModel}
-              selectedBook={selectedBook ?? ''}
-              onselect={selectBook}
-            />
+            {#if !fullResultsMode}
+              <BookSidebar
+                books={booksModel}
+                selectedBook={selectedBook ?? ''}
+                onselect={selectBook}
+              />
+            {/if}
             <CardsToc
               cards={displayCards}
               {focusedCardId}
