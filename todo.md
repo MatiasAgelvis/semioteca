@@ -76,5 +76,11 @@ cards in the lot, maybe even hand curate as we do for the regex patterns to ensu
 
 ## UI/UX & Bug Checklist
 
-- [ ] **TOC hidden behind navbar on mobile** · The Table of Contents anchor doesn't account for the fixed top navigation bar height. Add `scroll-margin-top` or equivalent so the heading isn't obscured when navigating.
-- [ ] **TOC doesn't update after search** · After performing a search, the Table of Contents continues showing the full corpus instead of filtering to the current result set.
+- [x] **TOC hidden behind navbar on mobile** · Fixed — mobile drawer now has header-height padding.
+- [x] **TOC doesn't update after search** · Fixed — TOC now reflects filtered results in full results mode; BookSidebar hidden during search.
+
+## Shareable search URLs
+
+- [ ] Sync search state (query, tags, authors, match mode) to URL on committed search (Enter / "Ver todos").
+  - [ ] On page load with URL params, enter full results mode pre-populated.
+  - [ ] Consider Esc vs Enter UX: popup for browsing, Enter commits to full results.
