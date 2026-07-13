@@ -106,7 +106,7 @@
     >
       <a
         href="/"
-        class={`flex min-w-0 items-center gap-2 text-base-content transition-[font-size,transform] duration-300 ease-out ${compactHeader ? 'text-base lg:text-xl' : 'text-lg sm:text-xl'} font-black tracking-tight`}
+        class={`flex min-w-0 items-center gap-2 text-base-content transition-[font-size,transform] duration-300 ease-out ${compactHeader ? 'text-base lg:text-xl' : 'text-lg sm:text-xl'} font-black tracking-tight mr-2 lg:mr-3`}
       >
         <Logo
           size={compactHeader ? 6 : 7}

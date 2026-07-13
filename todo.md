@@ -73,3 +73,8 @@ probably the best avenue is to extract `Metadata` at the file level once and ass
 cards in the lot, maybe even hand curate as we do for the regex patterns to ensure consistent author names, source titles, and tag sets. Examples:
   - Eco 1992, Eco 1994... should all be tagged as "Eco", same book different edition.
   - Ted Honderich appears as "Honderich", "Ted Honderich", even the same book will be split at the persitence and front layers if the author name isn't consistent.
+
+## UI/UX & Bug Checklist
+
+- [ ] **TOC hidden behind navbar on mobile** · The Table of Contents anchor doesn't account for the fixed top navigation bar height. Add `scroll-margin-top` or equivalent so the heading isn't obscured when navigating.
+- [ ] **TOC doesn't update after search** · After performing a search, the Table of Contents continues showing the full corpus instead of filtering to the current result set.

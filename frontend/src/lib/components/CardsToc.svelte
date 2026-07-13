@@ -17,7 +17,7 @@
   } = $props();
 </script>
 
-<SidebarContainer title="Contenidos">
+<SidebarContainer title="Contenido">
   <ul class="menu menu-sm p-0 w-auto">
     {#each cards as card}
       {@const authorSegments = getHighlightSegments(card.author, searchTerms)}
