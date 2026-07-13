@@ -532,7 +532,7 @@
         <div class="drawer-side z-40">
           <label for="cards-mobile-drawer" class="drawer-overlay" aria-label="Cerrar panel lateral"
           ></label>
-          <div class="min-h-full w-80 max-w-[85vw] space-y-4 bg-base-200 p-4">
+          <div class="min-h-full w-80 max-w-[85vw] space-y-4 bg-base-200 px-4 pb-4 pt-[calc(var(--header-height,7rem)+0.75rem)]">
             <div class="flex items-center justify-between">
               <p class="text-sm font-semibold">Navegacion</p>
               <button
