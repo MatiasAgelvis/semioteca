@@ -18,9 +18,9 @@
   - [x] Extract images from source documents via backend and sync to static assets.
   - [x] Render images inline in expand-in-place card view and on the `/cards/[id]` detail page.
   - [ ] Implement image optimization and responsive loading for card images.
-- [ ] Card Metadata
-  - [ ] Add support for additional metadata fields in `cards.json` (e.g., tags, categories, related cards).
-  - [ ] Implement filtering and sorting of cards based on metadata in the UI.
+- [x] Card Metadata
+  - [x] Add support for additional metadata fields in `cards.json` (e.g., tags, categories, related cards).
+  - [x] Implement filtering and sorting of cards based on metadata in the UI.
 - [x] Card Detail View
   - [x] Create a detailed view for each card that displays all relevant information and metadata.
   - [x] Add expand-in-place "Ver detalle" in `CardItem` with images and highlighted text.
@@ -51,13 +51,13 @@
 
 ## Card Composer (2026-04-28)
 
-- [ ] MVP: Let users compose a custom document from selected cards.
-  - [ ] Add a composer store with local persistence (`semioteca:composer:v1`).
-  - [ ] Add "Add to document" action in card list and card detail views.
-  - [ ] Build `/cards/compose` page with ordered card table/list and remove actions.
-  - [ ] Support reorder via drag-and-drop and keyboard move up/down controls.
-  - [ ] Add document metadata fields (title required, subtitle/compiler/intro optional).
-  - [ ] Add export flow using print-friendly route and browser "Save as PDF".
+- [x] MVP: Let users compose a custom document from selected cards.
+  - [x] Add a composer store with local persistence (`semioteca:composer:v1`).
+  - [x] Add "Add to document" action in card list and card detail views.
+  - [x] Build `/cards/compose` page with ordered card table/list and remove actions.
+  - [x] Support reorder via move up/down controls.
+  - [x] Add document metadata fields (title required, subtitle/compiler/intro optional).
+  - [x] Add export flow — Markdown and PDF download.
 - [ ] Phase 2: Improve export quality and scale.
   - [ ] Tune print CSS (A4/Letter, page-break controls, readable grayscale output).
   - [ ] Add optional per-card notes in composed documents.
@@ -76,5 +76,11 @@ cards in the lot, maybe even hand curate as we do for the regex patterns to ensu
 
 ## UI/UX & Bug Checklist
 
-- [ ] **TOC hidden behind navbar on mobile** · The Table of Contents anchor doesn't account for the fixed top navigation bar height. Add `scroll-margin-top` or equivalent so the heading isn't obscured when navigating.
-- [ ] **TOC doesn't update after search** · After performing a search, the Table of Contents continues showing the full corpus instead of filtering to the current result set.
+- [x] **TOC hidden behind navbar on mobile** · Fixed — mobile drawer now has header-height padding.
+- [x] **TOC doesn't update after search** · Fixed — TOC now reflects filtered results in full results mode; BookSidebar hidden during search.
+
+## Shareable search URLs
+
+- [ ] Sync search state (query, tags, authors, match mode) to URL on committed search (Enter / "Ver todos").
+  - [ ] On page load with URL params, enter full results mode pre-populated.
+  - [ ] Consider Esc vs Enter UX: popup for browsing, Enter commits to full results.
