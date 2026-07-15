@@ -18,9 +18,9 @@
   - [x] Extract images from source documents via backend and sync to static assets.
   - [x] Render images inline in expand-in-place card view and on the `/cards/[id]` detail page.
   - [ ] Implement image optimization and responsive loading for card images.
-- [ ] Card Metadata
-  - [ ] Add support for additional metadata fields in `cards.json` (e.g., tags, categories, related cards).
-  - [ ] Implement filtering and sorting of cards based on metadata in the UI.
+- [x] Card Metadata
+  - [x] Add support for additional metadata fields in `cards.json` (e.g., tags, categories, related cards).
+  - [x] Implement filtering and sorting of cards based on metadata in the UI.
 - [x] Card Detail View
   - [x] Create a detailed view for each card that displays all relevant information and metadata.
   - [x] Add expand-in-place "Ver detalle" in `CardItem` with images and highlighted text.
@@ -51,13 +51,13 @@
 
 ## Card Composer (2026-04-28)
 
-- [ ] MVP: Let users compose a custom document from selected cards.
-  - [ ] Add a composer store with local persistence (`semioteca:composer:v1`).
-  - [ ] Add "Add to document" action in card list and card detail views.
-  - [ ] Build `/cards/compose` page with ordered card table/list and remove actions.
-  - [ ] Support reorder via drag-and-drop and keyboard move up/down controls.
-  - [ ] Add document metadata fields (title required, subtitle/compiler/intro optional).
-  - [ ] Add export flow using print-friendly route and browser "Save as PDF".
+- [x] MVP: Let users compose a custom document from selected cards.
+  - [x] Add a composer store with local persistence (`semioteca:composer:v1`).
+  - [x] Add "Add to document" action in card list and card detail views.
+  - [x] Build `/cards/compose` page with ordered card table/list and remove actions.
+  - [x] Support reorder via move up/down controls.
+  - [x] Add document metadata fields (title required, subtitle/compiler/intro optional).
+  - [x] Add export flow — Markdown and PDF download.
 - [ ] Phase 2: Improve export quality and scale.
   - [ ] Tune print CSS (A4/Letter, page-break controls, readable grayscale output).
   - [ ] Add optional per-card notes in composed documents.
