@@ -151,13 +151,17 @@
               <HighlightedText segments={getHighlightSegments(part.text, searchTerms)} />
             </p>
           {:else}
-            <figure class="my-2">
-              <img
-                src={imageUrl(part.image)}
-                alt={part.image.alt_text ?? part.image.caption ?? ''}
-                loading="lazy"
-                class="max-w-full rounded-lg border border-base-200"
-              />
+            <figure class="my-2 overflow-hidden rounded-lg border border-base-200">
+              <div class="aspect-3/4 bg-base-200/30">
+                <img
+                  src={imageUrl(part.image)}
+                  alt={part.image.alt_text ?? part.image.caption ?? ''}
+                  loading="lazy"
+                  decoding="async"
+                  fetchpriority="low"
+                  class="size-full object-contain"
+                />
+              </div>
               {#if part.image.caption}
                 <figcaption class="mt-1 text-xs opacity-50">
                   {part.image.caption}
