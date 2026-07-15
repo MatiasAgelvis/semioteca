@@ -1,6 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import type { CardImage } from '$lib/types/content';
+  import CardImage from '$lib/components/CardImage.svelte';
+  import type { CardImage as CardImageType } from '$lib/types/content';
   import type { PageData } from './$types';
   import RelatedCardsSheet from '$lib/components/RelatedCardsSheet.svelte';
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
@@ -17,7 +18,7 @@
 
   let sheetOpen = $state(false);
 
-  type ContentPart = { kind: 'text'; text: string } | { kind: 'image'; image: CardImage };
+  type ContentPart = { kind: 'text'; text: string } | { kind: 'image'; image: CardImageType };
 
   const contentParts = $derived.by<ContentPart[]>(() => {
     const imageMap = new Map(data.card.images.map((img) => [img.placeholder_id, img]));
@@ -34,10 +35,6 @@
     return parts;
   });
 
-  function imageUrl(image: CardImage): string {
-    const idx = image.path.indexOf('cards_images/');
-    return idx !== -1 ? `/content/${image.path.slice(idx)}` : '';
-  }
 
   function handleSelectRelation(cardId: string) {
     sheetOpen = false;
@@ -109,23 +106,7 @@
             {part.text}
           </p>
         {:else}
-          <figure class="my-2 overflow-hidden rounded-lg border border-base-200">
-            <div class="aspect-3/4 bg-base-200/30">
-              <img
-                src={imageUrl(part.image)}
-                alt={part.image.alt_text ?? part.image.caption ?? ''}
-                loading="lazy"
-                decoding="async"
-                fetchpriority="low"
-                class="size-full object-contain"
-              />
-            </div>
-            {#if part.image.caption}
-              <figcaption class="mt-1 text-xs opacity-50">
-                {part.image.caption}
-              </figcaption>
-            {/if}
-          </figure>
+          <CardImage image={part.image} />
         {/if}
       {/each}
     </div>
