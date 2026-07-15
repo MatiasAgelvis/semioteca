@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
+  import { goto } from '$app/navigation';
 
   import PageSection from '$lib/components/PageSection.svelte';
   import BookSidebar from '$lib/components/BookSidebar.svelte';
@@ -16,6 +17,7 @@
   import { getBookKey } from '$lib/utils/books';
   import { tokenizeQuery } from '$lib/utils/search';
   import { getRankedSearchResults } from '$lib/utils/cardsSearch';
+  import { parseSearchUrl, buildSearchParams } from '$lib/utils/searchUrl';
   import RelatedCardsSheet from '$lib/components/RelatedCardsSheet.svelte';
   import ComposerTray from '$lib/components/ComposerTray.svelte';
   import type {
@@ -31,6 +33,7 @@
   let loading = $state(true);
   let selectedBook = $state<string | null>(null);
   let fullResultsMode = $state(false);
+  let initializedFromUrl = $state(false);
   let returnToCardId = $state<string | null>(
     typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('cards:returnTo') : null,
   );
@@ -119,10 +122,26 @@
   let focusLockTimeout: ReturnType<typeof setTimeout> | null = null;
   let debouncedQuery = $state('');
   let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+  let shareCopied = $state(false);
+  let shareTimeout: ReturnType<typeof setTimeout> | null = null;
   let relationsMap = $state<Record<string, CardRelationEntry[]> | null>(null);
   let relatedRelations = $state<RelatedCard[]>([]);
   let relatedSheetOpen = $state(false);
   let currentSheetCardId = $state('');
+
+  async function copyShareUrl() {
+    try {
+      await navigator.clipboard.writeText(location.href);
+      shareCopied = true;
+      if (shareTimeout) clearTimeout(shareTimeout);
+      shareTimeout = setTimeout(() => {
+        shareCopied = false;
+        shareTimeout = null;
+      }, 2000);
+    } catch {
+      // Clipboard API not available — silently ignore
+    }
+  }
 
   function handleOpenRelations(cardId: string) {
     const entries = relationsMap?.[cardId];
@@ -137,10 +156,12 @@
         const card = cardMap.get(entry.id);
         if (!card) return null;
         const rawContent = card.content ?? '';
-        const cleanContent = rawContent.replace(/\[\[IMAGE:\d+\]\]/g, '').replace(/\s+/g, ' ').trim();
-        const contentPreview = cleanContent.length > 160
-          ? cleanContent.slice(0, 160) + '…'
-          : cleanContent;
+        const cleanContent = rawContent
+          .replace(/\[\[IMAGE:\d+\]\]/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+        const contentPreview =
+          cleanContent.length > 160 ? cleanContent.slice(0, 160) + '…' : cleanContent;
         return {
           id: entry.id,
           title: card.book ?? entry.id,
@@ -309,15 +330,29 @@
 
   async function openFullResultsMode() {
     if (!hasSearchCriteria) return;
+
     fullResultsMode = true;
     closeSearchDialog();
     mobileDrawerOpen = false;
+
+    // Sync search state to URL
+    const params = buildSearchParams({
+      q: $cardsSearchQuery,
+      tags: Array.from(selectedTags),
+      authors: Array.from(selectedAuthors),
+      mode: matchMode,
+    });
+    const qs = params.toString();
+    const url = qs ? `/cards?${qs}` : '/cards';
+    await goto(url, { replaceState: true, noScroll: true, keepFocus: true });
+
     await tick();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function closeFullResultsMode() {
     fullResultsMode = false;
+    goto('/cards', { replaceState: true, noScroll: true, keepFocus: true });
   }
 
   function handleTocScroll(id: string) {
@@ -396,6 +431,16 @@
       }
     };
 
+    // Restore search state from URL params (runs once on page load)
+    const urlParams = parseSearchUrl(new URL(window.location.href).searchParams);
+    const hasUrlParams = Object.keys(urlParams).length > 0;
+    if (hasUrlParams) {
+      if (urlParams.q) $cardsSearchQuery = urlParams.q;
+      if (urlParams.tags) selectedTags = new Set(urlParams.tags);
+      if (urlParams.authors) selectedAuthors = new Set(urlParams.authors);
+      if (urlParams.mode) matchMode = urlParams.mode;
+    }
+
     window.addEventListener('keydown', handleKeydown);
     void (async () => {
       const [cardsRes, relationsRes] = await Promise.all([
@@ -410,6 +455,10 @@
         relationsMap = await relationsRes.json();
       }
       if (!cancelled) {
+        if (hasUrlParams) {
+          fullResultsMode = true;
+          initializedFromUrl = true;
+        }
         loading = false;
         await setupObserver();
         if (returnToCardId) {
@@ -507,6 +556,27 @@
         <button class="btn btn-ghost btn-xs" type="button" onclick={closeFullResultsMode}
           >Volver al modo libro</button
         >
+        <button
+          class="btn btn-ghost btn-xs shrink-0 gap-1"
+          type="button"
+          onclick={copyShareUrl}
+          aria-label="Copiar enlace"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            class="size-4"
+          >
+            <path
+              d="M12.232 4.232a2.5 2.5 0 0 1 3.536 3.536l-1.225 1.225a.75.75 0 0 0 1.061 1.06l1.224-1.224a4 4 0 0 0-5.656-5.656l-3 3a4 4 0 0 0 .225 5.865.75.75 0 0 0 .977-1.138 2.5 2.5 0 0 1-.142-3.667l3-3Z"
+            />
+            <path
+              d="M11.603 7.963a.75.75 0 0 0-.977 1.138 2.5 2.5 0 0 1 .142 3.667l-3 3a2.5 2.5 0 0 1-3.536-3.536l1.225-1.225a.75.75 0 0 0-1.061-1.06l-1.224 1.224a4 4 0 1 0 5.656 5.656l3-3a4 4 0 0 0-.225-5.865Z"
+            />
+          </svg>
+          <span class="hidden md:inline">Copiar enlace</span>
+        </button>
       {:else}
         <span>{filteredCards.length} tarjetas en este libro.</span>
       {/if}
@@ -532,7 +602,9 @@
         <div class="drawer-side z-40">
           <label for="cards-mobile-drawer" class="drawer-overlay" aria-label="Cerrar panel lateral"
           ></label>
-          <div class="min-h-full w-80 max-w-[85vw] space-y-4 bg-base-200 px-4 pb-4 pt-[calc(var(--header-height,7rem)+0.75rem)]">
+          <div
+            class="min-h-full w-80 max-w-[85vw] space-y-4 bg-base-200 px-4 pb-4 pt-[calc(var(--header-height,7rem)+0.75rem)]"
+          >
             <div class="flex items-center justify-between">
               <p class="text-sm font-semibold">Navegacion</p>
               <button
@@ -611,6 +683,14 @@
 
 <ComposerTray {cardMap} />
 
+{#if shareCopied}
+  <div class="toast toast-bottom toast-end z-50">
+    <div class="alert alert-success py-2 text-sm shadow-lg">
+      <span>Enlace copiado</span>
+    </div>
+  </div>
+{/if}
+
 <dialog
   bind:this={searchDialog}
   class="modal modal-bottom sm:modal-middle"
@@ -639,6 +719,12 @@
             class="input input-lg input-bordered w-full truncate"
             placeholder="Busca por autor, libro, página, etiquetas o fragmento"
             type="search"
+            onkeydown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                openFullResultsMode();
+              }
+            }}
           />
         </label>
         {#if selectedTags.size > 0 || selectedAuthors.size > 0}
