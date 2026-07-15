@@ -1,10 +1,11 @@
 <script lang="ts">
   import HighlightedText from '$lib/components/HighlightedText.svelte';
+  import CardImage from '$lib/components/CardImage.svelte';
   import { showToast } from '$lib/stores/toast';
   import { openCardsSearch } from '$lib/stores/cardsSearch';
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
   import { TAG_DESCRIPTIONS } from '$lib/constants';
-  import type { CardImage, CardRecord } from '$lib/types/content';
+  import type { CardImage as CardImageType, CardRecord } from '$lib/types/content';
   import {
     buildCardCitationAPA,
     buildCardFullText,
@@ -58,7 +59,7 @@
 
   const visibleTags = $derived(card.tags?.filter((tag) => tag.trim().length > 0) ?? []);
 
-  type ContentPart = { kind: 'text'; text: string } | { kind: 'image'; image: CardImage };
+  type ContentPart = { kind: 'text'; text: string } | { kind: 'image'; image: CardImageType };
   const expandedParts = $derived.by<ContentPart[]>(() => {
     const imageMap = new Map(card.images.map((img) => [img.placeholder_id, img]));
     const chunks = card.content.split(/\[\[IMAGE:(\d+)\]\]/g);
@@ -73,11 +74,6 @@
     }
     return parts;
   });
-
-  function imageUrl(image: CardImage): string {
-    const idx = image.path.indexOf('cards_images/');
-    return idx !== -1 ? `/content/${image.path.slice(idx)}` : '';
-  }
 
   async function copyCitation() {
     const copied = await copyTextToClipboard(buildCardCitationAPA(card));
@@ -151,19 +147,7 @@
               <HighlightedText segments={getHighlightSegments(part.text, searchTerms)} />
             </p>
           {:else}
-            <figure class="my-2">
-              <img
-                src={imageUrl(part.image)}
-                alt={part.image.alt_text ?? part.image.caption ?? ''}
-                loading="lazy"
-                class="max-w-full rounded-lg border border-base-200"
-              />
-              {#if part.image.caption}
-                <figcaption class="mt-1 text-xs opacity-50">
-                  {part.image.caption}
-                </figcaption>
-              {/if}
-            </figure>
+            <CardImage image={part.image} />
           {/if}
         {/each}
           <p class="text-xs opacity-40">
