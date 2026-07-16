@@ -134,6 +134,7 @@
         bind:this={graphCanvas}
         {graphData}
         {authorColors}
+        {origin}
         selectedNodeId={selectedNode?.id ?? null}
         onnavigate={handleNavigate}
         onhover={handleHover}

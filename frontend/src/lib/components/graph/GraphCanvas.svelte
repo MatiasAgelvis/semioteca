@@ -1,6 +1,6 @@
 <script lang="ts">
   import { select } from 'd3-selection';
-  import { zoom as d3Zoom } from 'd3-zoom';
+  import { zoom as d3Zoom, zoomIdentity } from 'd3-zoom';
   import { forceSimulation, forceLink, forceManyBody, forceCollide } from 'd3-force';
   import type { GraphData, GraphNode } from '$lib/types/graph';
   import { nodeStyle, edgeStyle } from '$lib/utils/graph';
@@ -8,6 +8,7 @@
   let {
     graphData,
     authorColors,
+    origin = '',
     selectedNodeId = null,
     onnavigate,
     onhover,
@@ -15,6 +16,7 @@
   }: {
     graphData: GraphData;
     authorColors: Map<string, string>;
+    origin?: string;
     selectedNodeId?: string | null;
     onnavigate: (cardId: string) => void;
     onhover: (node: GraphNode | null, pos?: { x: number; y: number }) => void;
@@ -23,6 +25,8 @@
 
   let svgEl: SVGSVGElement;
   let zoomTransform = $state('translate(0,0) scale(1)');
+  let zoomBehavior: ReturnType<typeof d3Zoom<SVGSVGElement, unknown>> | null = null;
+  let lastOrigin = '';
 
   // Local reactive copy — one assignment after simulation settles
   let layoutNodes = $state<GraphNode[]>([]);
@@ -124,7 +128,7 @@
   $effect(() => {
     if (!svgEl) return;
 
-    const zoomBehavior = d3Zoom<SVGSVGElement, unknown>()
+    zoomBehavior = d3Zoom<SVGSVGElement, unknown>()
       .scaleExtent([0.3, 5])
       .on('zoom', (event) => {
         zoomTransform = event.transform.toString();
@@ -141,8 +145,19 @@
     recenter();
   }
 
+  // Recenter when navigating to a new origin from the panel
+  $effect(() => {
+    if (origin && lastOrigin && origin !== lastOrigin) {
+      recenter();
+    }
+    lastOrigin = origin;
+  });
+
   export function recenter() {
     zoomTransform = 'translate(0,0) scale(1)';
+    if (svgEl && zoomBehavior) {
+      select(svgEl).call(zoomBehavior.transform, zoomIdentity);
+    }
   }
 </script>
 
