@@ -68,13 +68,13 @@ routes/cards/graph/+page.svelte          (page shell)
 
 ### Component responsibilities
 
-| Component | Responsibility |
-|---|---|
-| `+page.svelte` | Load data, parse `?origin=`, manage depth/focus state, wire props |
-| `GraphToolbar` | Depth slider (1/2/3), legend toggle, "← Volver" link, origin card name |
-| `GraphCanvas` | D3-force simulation, SVG rendering, pan/zoom, click-to-refocus, hover detection |
-| `GraphLegend` | Explains node color (by author/book), node size (connection count), edge opacity (score) |
-| `GraphTooltip` | Shows `Author — Book (Year) · p. X` on hover |
+| Component      | Responsibility                                                                           |
+| -------------- | ---------------------------------------------------------------------------------------- |
+| `+page.svelte` | Load data, parse `?origin=`, manage depth/focus state, wire props                        |
+| `GraphToolbar` | Depth slider (1/2/3), legend toggle, "← Volver" link, origin card name                   |
+| `GraphCanvas`  | D3-force simulation, SVG rendering, pan/zoom, click-to-refocus, hover detection          |
+| `GraphLegend`  | Explains node color (by author/book), node size (connection count), edge opacity (score) |
+| `GraphTooltip` | Shows `Author — Book (Year) · p. X` on hover                                             |
 
 ---
 
@@ -84,11 +84,11 @@ routes/cards/graph/+page.svelte          (page shell)
 
 A segmented control: `1 · 2 · 3`
 
-| Depth | Nodes (approx) | UX |
-|---|---|---|
-| 1 | ~10 | Familiar: the sheet, visualized. Origin at center. |
-| 2 | ~30–60 | Sweet spot. Clusters emerge, cross-book bridges visible. |
-| 3 | ~80–150 | Busy but explorable with pan/zoom. Fade weaker edges. |
+| Depth | Nodes (approx) | UX                                                       |
+| ----- | -------------- | -------------------------------------------------------- |
+| 1     | ~10            | Familiar: the sheet, visualized. Origin at center.       |
+| 2     | ~30–60         | Sweet spot. Clusters emerge, cross-book bridges visible. |
+| 3     | ~80–150        | Busy but explorable with pan/zoom. Fade weaker edges.    |
 
 The graph rebuilds when depth changes via a CSS transition or layout animation to avoid jarring jumps.
 
@@ -113,14 +113,14 @@ The graph rebuilds when depth changes via a CSS transition or layout animation t
 
 ## Visual encoding
 
-| Property | Encodes | Rationale |
-|---|---|---|
-| **Node size** | Connection count (degree) | Hub cards pop visually — high-degree nodes are conceptually central |
-| **Node color** | Group by author or book (toggleable) | Surfaces clusters and bridges between books/authors |
-| **Node opacity** | 1.0 for origin, 0.85 for others | Origin stands out without being gaudy |
-| **Edge thickness** | Score (0.5px–2px) | Stronger connections draw the eye |
-| **Edge opacity** | Score (0.15–0.4) | Weak connections recede, strong ones dominate |
-| **Origin node** | Filled, larger, bolder border, labeled prominently | User always knows where they are |
+| Property           | Encodes                                            | Rationale                                                           |
+| ------------------ | -------------------------------------------------- | ------------------------------------------------------------------- |
+| **Node size**      | Connection count (degree)                          | Hub cards pop visually — high-degree nodes are conceptually central |
+| **Node color**     | Group by author or book (toggleable)               | Surfaces clusters and bridges between books/authors                 |
+| **Node opacity**   | 1.0 for origin, 0.85 for others                    | Origin stands out without being gaudy                               |
+| **Edge thickness** | Score (0.5px–2px)                                  | Stronger connections draw the eye                                   |
+| **Edge opacity**   | Score (0.15–0.4)                                   | Weak connections recede, strong ones dominate                       |
+| **Origin node**    | Filled, larger, bolder border, labeled prominently | User always knows where they are                                    |
 
 ---
 
@@ -157,8 +157,8 @@ Both `card-relations.json` and `cards.json` are loaded client-side via `fetch()`
 
 ```ts
 const [cardsData, relationsData] = await Promise.all([
-  fetch('/content/cards.json').then(r => r.json()),
-  fetch('/content/card-relations.json').then(r => r.json()),
+  fetch('/content/cards.json').then((r) => r.json()),
+  fetch('/content/card-relations.json').then((r) => r.json()),
 ]);
 ```
 
@@ -183,19 +183,19 @@ export interface GraphNode {
   book: string;
   year: string;
   page: string | null;
-  degree: number;        // total connections in the loaded subgraph
+  degree: number; // total connections in the loaded subgraph
   isOrigin: boolean;
   // Layout (populated by D3)
   x: number;
   y: number;
-  fx: number | null;     // fixed position for origin node
+  fx: number | null; // fixed position for origin node
   fy: number | null;
 }
 
 export interface GraphLink {
-  source: string;         // node ID
-  target: string;         // node ID
-  score: number;          // 0–1
+  source: string; // node ID
+  target: string; // node ID
+  score: number; // 0–1
 }
 
 export interface GraphData {
@@ -259,10 +259,11 @@ function buildGraph(
       book: card?.book ?? '',
       year: card?.year ?? '',
       page: card?.page ?? null,
-      degree: 0,           // computed below
+      degree: 0, // computed below
       isOrigin: id === originId,
-      x: 0, y: 0,
-      fx: id === originId ? 0 : null,  // pin origin to center
+      x: 0,
+      y: 0,
+      fx: id === originId ? 0 : null, // pin origin to center
       fy: id === originId ? 0 : null,
     };
   });
@@ -280,8 +281,9 @@ function buildGraph(
 ```
 
 **Key decisions**:
+
 - Origin node is pinned (`fx/fy`) to the SVG center so it doesn't drift during simulation
-- Degree is computed from the *loaded subgraph*, not the full `card-relations.json` — this makes hub detection relative to what's visible
+- Degree is computed from the _loaded subgraph_, not the full `card-relations.json` — this makes hub detection relative to what's visible
 - BFS respects `depth`: links at `depth` are included as edges but their targets don't spawn further traversal
 
 ---
@@ -295,36 +297,39 @@ import { forceSimulation, forceLink, forceManyBody, forceCollide } from 'd3-forc
 
 function createSimulation(nodes: GraphNode[], links: GraphLink[]) {
   return forceSimulation(nodes)
-    .force('link', forceLink(links)
-      .id((d: any) => d.id)
-      .distance((l: any) => 100 + (1 - l.score) * 200)  // 100–300px based on score
-      .strength((l: any) => 0.2 + l.score * 0.5)          // 0.2–0.7
+    .force(
+      'link',
+      forceLink(links)
+        .id((d: any) => d.id)
+        .distance((l: any) => 100 + (1 - l.score) * 200) // 100–300px based on score
+        .strength((l: any) => 0.2 + l.score * 0.5), // 0.2–0.7
     )
     .force('charge', forceManyBody().strength(-300))
-    .force('collide', forceCollide()
-      .radius((d: any) => nodeRadius(d.degree) + 4)       // prevent overlap
+    .force(
+      'collide',
+      forceCollide().radius((d: any) => nodeRadius(d.degree) + 4), // prevent overlap
     )
-    .alphaDecay(0.02)      // slow cool-down for stable layout
-    .velocityDecay(0.3);    // damped movement
+    .alphaDecay(0.02) // slow cool-down for stable layout
+    .velocityDecay(0.3); // damped movement
 }
 ```
 
 ### Force rationale
 
-| Force | Value | Why |
-|---|---|---|
-| `link.distance` | 100–300 (inverse of score) | Stronger relations pull nodes closer |
-| `link.strength` | 0.2–0.7 (proportional to score) | Strong edges resist being stretched |
-| `charge` | -300 | Repulsion keeps nodes from overlapping; tuned for 10–150 nodes |
-| `collide.radius` | `nodeRadius(degree) + 4` | Prevents circle overlap, scales with node size |
-| `alphaDecay` | 0.02 | Slower decay lets the layout settle gradually |
-| `velocityDecay` | 0.3 | Dampens oscillations for a calmer graph |
+| Force            | Value                           | Why                                                            |
+| ---------------- | ------------------------------- | -------------------------------------------------------------- |
+| `link.distance`  | 100–300 (inverse of score)      | Stronger relations pull nodes closer                           |
+| `link.strength`  | 0.2–0.7 (proportional to score) | Strong edges resist being stretched                            |
+| `charge`         | -300                            | Repulsion keeps nodes from overlapping; tuned for 10–150 nodes |
+| `collide.radius` | `nodeRadius(degree) + 4`        | Prevents circle overlap, scales with node size                 |
+| `alphaDecay`     | 0.02                            | Slower decay lets the layout settle gradually                  |
+| `velocityDecay`  | 0.3                             | Dampens oscillations for a calmer graph                        |
 
 ### Node radius function
 
 ```ts
 function nodeRadius(degree: number): number {
-  return 6 + Math.min(degree * 3, 18);  // climbs from 6 to 24
+  return 6 + Math.min(degree * 3, 18); // climbs from 6 to 24
 }
 ```
 
@@ -347,7 +352,10 @@ let svgEl: SVGSVGElement;
 
 $effect(() => {
   const sim = forceSimulation(nodes)
-    .force('link', forceLink(links).id(d => d.id))
+    .force(
+      'link',
+      forceLink(links).id((d) => d.id),
+    )
     // ... other forces
     .on('tick', () => {
       // Mutate in place to trigger reactivity
@@ -359,11 +367,15 @@ $effect(() => {
 
 $effect(() => {
   if (!svgEl) return;
-  const zoom = d3Zoom().scaleExtent([0.3, 5]).on('zoom', (e) => {
-    // update transform state
-  });
+  const zoom = d3Zoom()
+    .scaleExtent([0.3, 5])
+    .on('zoom', (e) => {
+      // update transform state
+    });
   select(svgEl).call(zoom);
-  return () => { select(svgEl).on('.zoom', null); };
+  return () => {
+    select(svgEl).on('.zoom', null);
+  };
 });
 ```
 
@@ -451,7 +463,18 @@ export function buildCardMap(dataset: CardsDataset): Map<string, CardRecord> {
 export function buildAuthorColors(nodes: GraphNode[]): Map<string, string> {
   const authors = [...new Set(nodes.map((n) => n.author))].sort();
   const colors = new Map<string, string>();
-  const palette = ['#6366f1', '#f59e0b', '#10b981', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4', '#f97316', '#84cc16', '#3b82f6'];
+  const palette = [
+    '#6366f1',
+    '#f59e0b',
+    '#10b981',
+    '#ef4444',
+    '#8b5cf6',
+    '#ec4899',
+    '#06b6d4',
+    '#f97316',
+    '#84cc16',
+    '#3b82f6',
+  ];
   authors.forEach((a, i) => colors.set(a, palette[i % palette.length]));
   return colors;
 }
@@ -470,8 +493,8 @@ export function nodeStyle(node: GraphNode, authorColors: Map<string, string>) {
 /** Maps edge score to visual properties */
 export function edgeStyle(score: number) {
   return {
-    strokeWidth: 0.5 + score * 1.5,     // 0.5–2.0
-    opacity: 0.15 + score * 0.25,       // 0.15–0.40
+    strokeWidth: 0.5 + score * 1.5, // 0.5–2.0
+    opacity: 0.15 + score * 0.25, // 0.15–0.40
   };
 }
 ```
@@ -481,6 +504,7 @@ export function edgeStyle(score: number) {
 ### Step 4 — Page shell (`routes/cards/graph/+page.svelte`)
 
 **What it does**:
+
 - Parses `origin` and `depth` from `$page.url.searchParams`
 - Fetches `cards.json` and `card-relations.json` on mount
 - Calls `buildGraph(origin, depth, relations, cardMap)` to produce `GraphData`
@@ -532,7 +556,7 @@ let tooltipPos = $state({ x: 0, y: 0 });
 function handleRefocus(cardId: string) {
   const params = new URLSearchParams($page.url.searchParams);
   params.set('origin', cardId);
-  params.set('depth', '1');  // reset to depth 1 on refocus
+  params.set('depth', '1'); // reset to depth 1 on refocus
   goto(`/cards/graph?${params.toString()}`, { replaceState: false });
 }
 ```
@@ -544,7 +568,12 @@ function handleRefocus(cardId: string) {
 **Props**:
 
 ```ts
-let { graphData, authorColors, onrefocus, onhover }: {
+let {
+  graphData,
+  authorColors,
+  onrefocus,
+  onhover,
+}: {
   graphData: GraphData;
   authorColors: Map<string, string>;
   onrefocus: (cardId: string) => void;
@@ -574,12 +603,14 @@ let { graphData, authorColors, onrefocus, onhover }: {
     <!-- edges -->
     {#each graphData.links as link}
       {@const style = edgeStyle(link.score)}
-      {@const source = graphData.nodes.find(n => n.id === link.source)}
-      {@const target = graphData.nodes.find(n => n.id === link.target)}
+      {@const source = graphData.nodes.find((n) => n.id === link.source)}
+      {@const target = graphData.nodes.find((n) => n.id === link.target)}
       {#if source && target}
         <line
-          x1={source.x} y1={source.y}
-          x2={target.x} y2={target.y}
+          x1={source.x}
+          y1={source.y}
+          x2={target.x}
+          y2={target.y}
           stroke="currentColor"
           stroke-width={style.strokeWidth}
           opacity={style.opacity}
@@ -599,7 +630,8 @@ let { graphData, authorColors, onrefocus, onhover }: {
         onmouseleave={() => onhover(null)}
       >
         <circle
-          cx={node.x} cy={node.y}
+          cx={node.x}
+          cy={node.y}
           r={style.r}
           fill={style.fill}
           opacity={style.opacity}
@@ -608,7 +640,8 @@ let { graphData, authorColors, onrefocus, onhover }: {
         />
         {#if node.isOrigin}
           <text
-            x={node.x} y={node.y - style.r - 8}
+            x={node.x}
+            y={node.y - style.r - 8}
             text-anchor="middle"
             class="fill-base-content text-xs"
           >
@@ -628,7 +661,13 @@ let { graphData, authorColors, onrefocus, onhover }: {
 **Props**:
 
 ```ts
-let { origin, depth, legendOpen, onDepthChange, onLegendToggle }: {
+let {
+  origin,
+  depth,
+  legendOpen,
+  onDepthChange,
+  onLegendToggle,
+}: {
   origin: string;
   depth: number;
   legendOpen: boolean;
@@ -657,6 +696,7 @@ let { origin, depth, legendOpen, onDepthChange, onLegendToggle }: {
 **Props**: `node: GraphNode`, `position: { x: number; y: number }`
 
 **Behavior**:
+
 - Absolutely positioned via `style="left: {pos.x + 12}px; top: {pos.y + 12}px"`
 - Shows: `Author — Book (Year) · p. X`
 - Styled as a small card: `bg-base-100 border border-base-300 rounded-lg p-2 text-sm shadow-md pointer-events-none`
@@ -669,6 +709,7 @@ let { origin, depth, legendOpen, onDepthChange, onLegendToggle }: {
 **Props**: `authorColors: Map<string, string>`, `onclose: () => void`
 
 **Structure**:
+
 - A floating panel (right side or bottom of SVG, via `absolute right-4 top-4`)
 - Lists each author with a small colored circle + author name
 - Shows size legend: small circle (6px) = "Few connections" → large circle (24px) = "Many connections"
@@ -703,7 +744,7 @@ Import `goto` and add a button at the bottom of the scrollable body (before the 
         goto(`/cards/graph?origin=${currentCardId}`);
       }}
     >
-      📊 Explorar conexiones en grafo →  ({relations.length} tarjetas)
+      📊 Explorar conexiones en grafo → ({relations.length} tarjetas)
     </button>
   </div>
 {/if}
@@ -712,6 +753,7 @@ Import `goto` and add a button at the bottom of the scrollable body (before the 
 Uses a `<button>` (not `<a>`) to cleanly close the sheet and navigate — avoids entanglement with the `onselect` callback used by the list page.
 
 **Callers updated**:
+
 - `[id]/+page.svelte` — pass `currentCardId={data.card.id}`
 - `+page.svelte` (list view) — pass `currentCardId={cardId}` (the card that opened the sheet)
 
@@ -723,10 +765,7 @@ Add a subtle icon link next to the `RelatedCardsBar`:
 <div class="mb-5 flex items-start justify-between gap-4">
   <a class="btn btn-outline w-fit shrink-0" href="/cards">← Volver al repositorio</a>
   <div class="flex items-center gap-2">
-    <RelatedCardsBar
-      count={data.relations.length}
-      onopen={() => (sheetOpen = true)}
-    />
+    <RelatedCardsBar count={data.relations.length} onopen={() => (sheetOpen = true)} />
     {#if data.relations.length > 0}
       <a
         href="/cards/graph?origin={data.card.id}"
@@ -744,18 +783,18 @@ Add a subtle icon link next to the `RelatedCardsBar`:
 
 ### Step 10 — Polish & edge cases
 
-| Concern | How to handle |
-|---|---|
-| **Loading state** | Full-page centered spinner while fetching JSON; skeleton on graph rebuild |
-| **Empty state** | If `origin` has no relations: show message "Esta tarjeta no tiene relaciones." with a link back to the card detail |
-| **Invalid origin** | If `origin` is not found in `cards.json`: show error with link back to `/cards` |
-| **Missing origin** | If no `origin` param: show search input to select a card (future), or link back to `/cards` |
-| **Depth transition** | Animate node opacity from 0→1 over 300ms via CSS transition on `opacity`; keep old nodes at 0 for one tick so layout doesn't jump |
-| **Simulation stuck** | If `alpha < 0.01` and no movement in 200ms, stop the simulation and let nodes settle |
-| **Mobile** | Toolbar stacks vertically below the graph; graph takes full height minus toolbar; touch drag works via d3-zoom |
-| **Keyboard** | Tab through nodes, Enter to refocus; Escape closes legend |
-| **Performance** | For depth 3 (>100 nodes): use `will-change: transform` on SVG group, limit force iterations to avoid jank |
-| **404 page** | Since this page is not prerendered, SvelteKit's `adapter-static` will 404 on direct URL access in production — set `export const prerender = false;` in `+page.ts` |
+| Concern              | How to handle                                                                                                                                                      |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Loading state**    | Full-page centered spinner while fetching JSON; skeleton on graph rebuild                                                                                          |
+| **Empty state**      | If `origin` has no relations: show message "Esta tarjeta no tiene relaciones." with a link back to the card detail                                                 |
+| **Invalid origin**   | If `origin` is not found in `cards.json`: show error with link back to `/cards`                                                                                    |
+| **Missing origin**   | If no `origin` param: show search input to select a card (future), or link back to `/cards`                                                                        |
+| **Depth transition** | Animate node opacity from 0→1 over 300ms via CSS transition on `opacity`; keep old nodes at 0 for one tick so layout doesn't jump                                  |
+| **Simulation stuck** | If `alpha < 0.01` and no movement in 200ms, stop the simulation and let nodes settle                                                                               |
+| **Mobile**           | Toolbar stacks vertically below the graph; graph takes full height minus toolbar; touch drag works via d3-zoom                                                     |
+| **Keyboard**         | Tab through nodes, Enter to refocus; Escape closes legend                                                                                                          |
+| **Performance**      | For depth 3 (>100 nodes): use `will-change: transform` on SVG group, limit force iterations to avoid jank                                                          |
+| **404 page**         | Since this page is not prerendered, SvelteKit's `adapter-static` will 404 on direct URL access in production — set `export const prerender = false;` in `+page.ts` |
 
 For the static adapter, add a `+page.ts` alongside `+page.svelte`:
 

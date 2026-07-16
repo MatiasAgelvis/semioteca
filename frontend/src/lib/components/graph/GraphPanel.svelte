@@ -23,12 +23,7 @@
 {#if node}
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div
-    class="fixed inset-0 z-40"
-    onclick={onclose}
-    onkeydown={() => {}}
-    role="presentation"
-  ></div>
+  <div class="fixed inset-0 z-40" onclick={onclose} onkeydown={() => {}} role="presentation"></div>
   <div
     class="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-base-300 bg-base-100 shadow-2xl transition-transform duration-300 ease-out"
     role="dialog"
@@ -57,7 +52,9 @@
       {#if visibleTags.length > 0}
         <div class="mb-4 flex flex-wrap gap-1">
           {#each visibleTags as tag}
-            <span class="badge badge-outline badge-xs text-[10px] uppercase tracking-wider opacity-50">
+            <span
+              class="badge badge-outline badge-xs text-[10px] uppercase tracking-wider opacity-50"
+            >
               {tag}
             </span>
           {/each}

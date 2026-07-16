@@ -10,16 +10,12 @@
   const entries = $derived([...authorColors.entries()]);
 </script>
 
-<div class="absolute right-3 top-3 z-40 w-56 rounded-xl border border-base-300 bg-base-100 p-4 shadow-lg">
+<div
+  class="absolute right-3 top-3 z-40 w-56 rounded-xl border border-base-300 bg-base-100 p-4 shadow-lg"
+>
   <div class="mb-3 flex items-center justify-between">
     <span class="text-sm font-semibold">Leyenda</span>
-    <button
-      class="btn btn-ghost btn-xs"
-      onclick={onclose}
-      aria-label="Cerrar leyenda"
-    >
-      ✕
-    </button>
+    <button class="btn btn-ghost btn-xs" onclick={onclose} aria-label="Cerrar leyenda"> ✕ </button>
   </div>
 
   <!-- Author colors -->
@@ -27,9 +23,7 @@
     <p class="text-xs font-semibold opacity-50">Autores</p>
     {#each entries as [author, color]}
       <div class="flex items-center gap-2">
-        <span
-          class="inline-block h-3 w-3 shrink-0 rounded-full"
-          style="background-color: {color}"
+        <span class="inline-block h-3 w-3 shrink-0 rounded-full" style="background-color: {color}"
         ></span>
         <span class="truncate text-xs">{author}</span>
       </div>

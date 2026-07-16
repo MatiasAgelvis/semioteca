@@ -23,9 +23,7 @@
 </script>
 
 <div class="flex flex-wrap items-center justify-between gap-3">
-  <a class="btn btn-outline btn-sm shrink-0" href="/cards/{origin}">
-    ← Volver a la tarjeta
-  </a>
+  <a class="btn btn-outline btn-sm shrink-0" href="/cards/{origin}"> ← Volver a la tarjeta </a>
 
   <div class="flex items-center gap-3">
     <!-- Depth selector -->
@@ -46,11 +44,7 @@
     </div>
 
     <!-- Legend toggle -->
-    <button
-      class="btn btn-ghost btn-sm"
-      class:btn-active={legendOpen}
-      onclick={onLegendToggle}
-    >
+    <button class="btn btn-ghost btn-sm" class:btn-active={legendOpen} onclick={onLegendToggle}>
       ◎ Leyenda
     </button>
   </div>

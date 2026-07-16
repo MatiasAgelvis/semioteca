@@ -24,7 +24,8 @@ export function buildSearchParams(params: SearchUrlParams): URLSearchParams {
   const sp = new URLSearchParams();
   if (params.q) sp.set('q', params.q);
   if (params.tags.length > 0) sp.set('tags', params.tags.map(encodeURIComponent).join(','));
-  if (params.authors.length > 0) sp.set('authors', params.authors.map(encodeURIComponent).join(','));
+  if (params.authors.length > 0)
+    sp.set('authors', params.authors.map(encodeURIComponent).join(','));
   if (params.mode === 'any') sp.set('mode', 'any');
   return sp;
 }
