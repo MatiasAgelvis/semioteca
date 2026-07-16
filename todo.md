@@ -84,3 +84,14 @@ cards in the lot, maybe even hand curate as we do for the regex patterns to ensu
 - [ ] Sync search state (query, tags, authors, match mode) to URL on committed search (Enter / "Ver todos").
   - [ ] On page load with URL params, enter full results mode pre-populated.
   - [ ] Consider Esc vs Enter UX: popup for browsing, Enter commits to full results.
+
+## Onboarding / First-use guidance
+
+- [ ] Design an onboarding experience for new visitors.
+  - What to teach: what cards are, search/filter, graph view, composer.
+  - Options to evaluate:
+    - **Tooltips/popovers** on key elements (DaisyUI tooltips) — low effort, easy to miss.
+    - **Overlay walkthrough** (step-by-step spotlight) — more engaging, more code.
+    - **Dedicated help page** — simple but requires user to navigate to it.
+    - **Empty-state messaging** — already partially done in the search dialog.
+  - Decide on approach and implement.
