@@ -138,6 +138,10 @@
   });
 
   function handleDblClick() {
+    recenter();
+  }
+
+  export function recenter() {
     zoomTransform = 'translate(0,0) scale(1)';
   }
 </script>

@@ -7,12 +7,14 @@
     legendOpen,
     onDepthChange,
     onLegendToggle,
+    onRecenter,
   }: {
     depth: GraphDepth;
     origin: string;
     legendOpen: boolean;
     onDepthChange: (d: GraphDepth) => void;
     onLegendToggle: () => void;
+    onRecenter: () => void;
   } = $props();
 
   const depths: { value: GraphDepth; label: string }[] = [
@@ -46,6 +48,26 @@
     <!-- Legend toggle -->
     <button class="btn btn-ghost btn-sm" class:btn-active={legendOpen} onclick={onLegendToggle}>
       ◎ Leyenda
+    </button>
+
+    <!-- Re-center -->
+    <button class="btn btn-ghost btn-sm" onclick={onRecenter} aria-label="Re-centrar">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="size-4"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="2" x2="12" y2="6" />
+        <line x1="12" y1="18" x2="12" y2="22" />
+        <line x1="2" y1="12" x2="6" y2="12" />
+        <line x1="18" y1="12" x2="22" y2="12" />
+      </svg>
     </button>
   </div>
 </div>

@@ -23,6 +23,7 @@
   // Cached data — fetched once
   let cachedRelations = $state<Record<string, CardRelationEntry[]> | null>(null);
   let cardMap = $state<Map<string, CardRecord>>(new Map());
+  let graphCanvas: { recenter: () => void } = $state() as any;
 
   // Parse initial values from URL
   const origin = $derived($page.url.searchParams.get('origin') ?? '');
@@ -123,12 +124,14 @@
       {legendOpen}
       onDepthChange={handleDepthChange}
       onLegendToggle={() => (legendOpen = !legendOpen)}
+      onRecenter={() => graphCanvas?.recenter()}
     />
 
     <div
       class="relative min-h-0 flex-1 overflow-hidden rounded-xl border border-base-300 bg-base-200/50"
     >
       <GraphCanvas
+        bind:this={graphCanvas}
         {graphData}
         {authorColors}
         selectedNodeId={selectedNode?.id ?? null}
