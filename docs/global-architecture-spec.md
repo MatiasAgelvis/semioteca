@@ -27,17 +27,17 @@ Semioteca is a static site for cataloguing and exploring textual citations extra
 
 ### Route details
 
-| Route | Prerendered | Data source | View type |
-|---|---|---|---|
-| `/` | yes | `cards.json`, `blog/*.md` | Static (build-time) |
-| `/blog` | yes | `static/content/blog/*.md` | Static (build-time) |
-| `/blog/[slug]` | yes | `static/content/blog/[slug].md` | Static (build-time) |
-| `/cards` | yes | `static/content/cards.json` | Static (build-time) |
-| `/cards/[id]` | yes | `static/content/cards.json`, `card-relations.json` | Static (build-time) |
-| `/cards/graph` | no | `cards.json`, `card-relations.json` (client-side fetch) | Client-side |
-| `/contact` | yes | — (client-side form submission) | Static |
-| `/cv` | yes | `static/content/cv/*.pdf` | Static (build-time) |
-| `/docs` | yes | `static/content/cv/*.pdf` (shared with cv/) | Static (build-time) |
+| Route          | Prerendered | Data source                                             | View type           |
+| -------------- | ----------- | ------------------------------------------------------- | ------------------- |
+| `/`            | yes         | `cards.json`, `blog/*.md`                               | Static (build-time) |
+| `/blog`        | yes         | `static/content/blog/*.md`                              | Static (build-time) |
+| `/blog/[slug]` | yes         | `static/content/blog/[slug].md`                         | Static (build-time) |
+| `/cards`       | yes         | `static/content/cards.json`                             | Static (build-time) |
+| `/cards/[id]`  | yes         | `static/content/cards.json`, `card-relations.json`      | Static (build-time) |
+| `/cards/graph` | no          | `cards.json`, `card-relations.json` (client-side fetch) | Client-side         |
+| `/contact`     | yes         | — (client-side form submission)                         | Static              |
+| `/cv`          | yes         | `static/content/cv/*.pdf`                               | Static (build-time) |
+| `/docs`        | yes         | `static/content/cv/*.pdf` (shared with cv/)             | Static (build-time) |
 
 The graph page (`/cards/graph`) is the only route that is **not** prerendered — it uses `export const prerender = false` and fetches data client-side. All other routes build their full page set at build time.
 
@@ -116,9 +116,7 @@ Each entry contains the top 10 related cards per card, sorted by descending scor
 ### card-tags.json shape
 
 ```json
-[
-  { "name": "tag-slug", "description": "Human-readable description" }
-]
+[{ "name": "tag-slug", "description": "Human-readable description" }]
 ```
 
 ---
@@ -146,33 +144,33 @@ GlobalToast
 
 ### Shared components (`lib/components/`)
 
-| Component | Used in | Purpose |
-|---|---|---|
-| `SiteHeader` | layout | Navigation, theme toggle |
-| `SiteFooter` | layout | Footer with links and credits |
-| `GlobalToast` | layout | Temporary notification messages |
-| `PageSection` | home, blog, cv, docs | Section wrapper with title + description |
-| `BlogPostCard` | home, blog | Blog post preview card |
-| `RelatedCardsBar` | `[id]/+page.svelte` | Bottom bar showing related card count |
-| `RelatedCardsSheet` | `[id]/+page.svelte`, `cards/+page.svelte` | Modal listing related cards |
-| `CardItem` | `cards/+page.svelte` | Single card row in the list view |
-| `BookSidebar` | `cards/+page.svelte` | Sidebar with book grouping |
-| `CardsToc` | `cards/+page.svelte` | Table of contents across cards |
-| `SearchResultItem` | `cards/+page.svelte` | Search result row in the search dialog |
+| Component           | Used in                                   | Purpose                                  |
+| ------------------- | ----------------------------------------- | ---------------------------------------- |
+| `SiteHeader`        | layout                                    | Navigation, theme toggle                 |
+| `SiteFooter`        | layout                                    | Footer with links and credits            |
+| `GlobalToast`       | layout                                    | Temporary notification messages          |
+| `PageSection`       | home, blog, cv, docs                      | Section wrapper with title + description |
+| `BlogPostCard`      | home, blog                                | Blog post preview card                   |
+| `RelatedCardsBar`   | `[id]/+page.svelte`                       | Bottom bar showing related card count    |
+| `RelatedCardsSheet` | `[id]/+page.svelte`, `cards/+page.svelte` | Modal listing related cards              |
+| `CardItem`          | `cards/+page.svelte`                      | Single card row in the list view         |
+| `BookSidebar`       | `cards/+page.svelte`                      | Sidebar with book grouping               |
+| `CardsToc`          | `cards/+page.svelte`                      | Table of contents across cards           |
+| `SearchResultItem`  | `cards/+page.svelte`                      | Search result row in the search dialog   |
 
 ### Graph components (`lib/components/graph/`)
 
-| Component | Purpose |
-|---|---|
-| `GraphCanvas.svelte` | D3 force-directed SVG with simulation, zoom/pan, hover/click |
-| `GraphToolbar.svelte` | Depth slider (1/2/3), legend toggle, back link |
-| `GraphTooltip.svelte` | Floating hover card with author/book/year/page |
-| `GraphLegend.svelte` | Author color + connection size scale |
+| Component             | Purpose                                                      |
+| --------------------- | ------------------------------------------------------------ |
+| `GraphCanvas.svelte`  | D3 force-directed SVG with simulation, zoom/pan, hover/click |
+| `GraphToolbar.svelte` | Depth slider (1/2/3), legend toggle, back link               |
+| `GraphTooltip.svelte` | Floating hover card with author/book/year/page               |
+| `GraphLegend.svelte`  | Author color + connection size scale                         |
 
 ### Stores (`lib/stores/`)
 
-| Store | Purpose |
-|---|---|
+| Store         | Purpose                                                                                               |
+| ------------- | ----------------------------------------------------------------------------------------------------- |
 | `cardsSearch` | Shared search state (query, dialog open, initial tags) — used to coordinate search from blog to cards |
 
 ---
@@ -259,15 +257,15 @@ Vercel deploy
 
 ### npm scripts (from root `package.json`)
 
-| Script | Description |
-|---|---|
-| `npm run content:generate` | Run card extraction from source documents |
-| `npm run content:relations` | Compute related-card scores |
-| `npm run content:sync` | Copy backend outputs to frontend static dir |
-| `npm run content:prepare` | All three above in sequence |
-| `npm run frontend:dev` | Start SvelteKit dev server |
-| `npm run frontend:build` | Production build |
-| `npm run build` | Frontend build only (content assumed ready) |
+| Script                      | Description                                 |
+| --------------------------- | ------------------------------------------- |
+| `npm run content:generate`  | Run card extraction from source documents   |
+| `npm run content:relations` | Compute related-card scores                 |
+| `npm run content:sync`      | Copy backend outputs to frontend static dir |
+| `npm run content:prepare`   | All three above in sequence                 |
+| `npm run frontend:dev`      | Start SvelteKit dev server                  |
+| `npm run frontend:build`    | Production build                            |
+| `npm run build`             | Frontend build only (content assumed ready) |
 
 ### Server data loading (`lib/server/content.ts`)
 
@@ -289,8 +287,8 @@ The graph page loads these same files client-side via `fetch()` since it cannot 
 Defined in `lib/config/features.ts`:
 
 ```ts
-export const SHOW_DOCS = false;  // Toggles /docs route visibility
-export const SHOW_CV = false;    // Toggles /cv route visibility
+export const SHOW_DOCS = false; // Toggles /docs route visibility
+export const SHOW_CV = false; // Toggles /cv route visibility
 ```
 
 These flags control both the route loader output and the nav link visibility in `SiteHeader`.

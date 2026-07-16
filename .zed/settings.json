@@ -1,10 +1,9 @@
 {
-  // Use Prettier as the formatter for all supported languages
-  "formatter": "prettier",
-  // Format automatically when saving
   "format_on_save": "on",
-  // Show indent guides for readability
-  "indent_guides": {
-    "enabled": true
+  "formatter": {
+    "external": {
+      "command": "npx",
+      "arguments": ["prettier", "--stdin-filepath", "{buffer_path}"]
+    }
   }
 }

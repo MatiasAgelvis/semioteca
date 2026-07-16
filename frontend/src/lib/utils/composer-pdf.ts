@@ -61,10 +61,7 @@ async function fetchAsBase64(url: string): Promise<string | null> {
   }
 }
 
-async function cardToContent(
-  card: CardRecord,
-  index: number,
-): Promise<Content[]> {
+async function cardToContent(card: CardRecord, index: number): Promise<Content[]> {
   const content: Content[] = [];
 
   const author = normalizeSpace(card.author || 'Autor desconocido');
@@ -171,7 +168,7 @@ async function buildDocumentDefinition(
   for (let i = 0; i < sorted.length; i++) {
     const card = cardMap.get(sorted[i].cardId);
     if (card) {
-      content.push(...await cardToContent(card, i));
+      content.push(...(await cardToContent(card, i)));
     } else {
       content.push({
         text: `[Tarjeta no encontrada: ${sorted[i].cardId}]`,

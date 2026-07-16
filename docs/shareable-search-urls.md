@@ -42,12 +42,12 @@ cardsSearchInitialTags       selectedBook
 
 ### Key files
 
-| File | Role |
-|------|------|
+| File                                     | Role                                           |
+| ---------------------------------------- | ---------------------------------------------- |
 | `frontend/src/routes/cards/+page.svelte` | Main page: all search logic, dialog, card list |
-| `frontend/src/lib/stores/cardsSearch.ts` | Writable stores for query, dialog state |
-| `frontend/src/lib/utils/search.ts` | `tokenizeQuery()` |
-| `frontend/src/lib/utils/cardsSearch.ts` | `getRankedSearchResults()` |
+| `frontend/src/lib/stores/cardsSearch.ts` | Writable stores for query, dialog state        |
+| `frontend/src/lib/utils/search.ts`       | `tokenizeQuery()`                              |
+| `frontend/src/lib/utils/cardsSearch.ts`  | `getRankedSearchResults()`                     |
 
 ### Constraints
 
@@ -72,12 +72,12 @@ cardsSearchInitialTags       selectedBook
 
 ### Examples
 
-| Scenario | URL |
-|----------|-----|
-| Text search | `/cards?q=filosof%C3%ADa+de+la+mente` |
-| Text + one tag | `/cards?q=conciencia&tags=fenomenolog%C3%ADa` |
+| Scenario                  | URL                                                      |
+| ------------------------- | -------------------------------------------------------- |
+| Text search               | `/cards?q=filosof%C3%ADa+de+la+mente`                    |
+| Text + one tag            | `/cards?q=conciencia&tags=fenomenolog%C3%ADa`            |
 | Tags + authors, any match | `/cards?tags=epistemolog%C3%ADa&authors=Searle&mode=any` |
-| No search (book view) | `/cards` |
+| No search (book view)     | `/cards`                                                 |
 
 ---
 
@@ -185,7 +185,8 @@ export function buildSearchParams(params: SearchUrlParams): URLSearchParams {
   const sp = new URLSearchParams();
   if (params.q) sp.set('q', params.q);
   if (params.tags.length > 0) sp.set('tags', params.tags.map(encodeURIComponent).join(','));
-  if (params.authors.length > 0) sp.set('authors', params.authors.map(encodeURIComponent).join(','));
+  if (params.authors.length > 0)
+    sp.set('authors', params.authors.map(encodeURIComponent).join(','));
   if (params.mode === 'any') sp.set('mode', 'any');
   return sp;
 }
@@ -269,25 +270,25 @@ When the user closes the dialog without committing, the dialog's advanced filter
 
 ### Handled by design
 
-| Case | Behavior |
-|------|----------|
-| Empty URL params | Normal book view |
-| Garbage query string | Search returns zero results (same as typing nonsense) |
-| Special chars | `encodeURIComponent` handles them |
-| `replaceState` | No history pollution from searches |
-| `noScroll` + `keepFocus` | No visual jitter on URL update |
+| Case                                | Behavior                                                 |
+| ----------------------------------- | -------------------------------------------------------- |
+| Empty URL params                    | Normal book view                                         |
+| Garbage query string                | Search returns zero results (same as typing nonsense)    |
+| Special chars                       | `encodeURIComponent` handles them                        |
+| `replaceState`                      | No history pollution from searches                       |
+| `noScroll` + `keepFocus`            | No visual jitter on URL update                           |
 | Dialog open on load with URL params | Dialog stays closed (full results IS the committed view) |
 
 ### Need explicit handling
 
-| Case | Handling |
-|------|----------|
-| URL params but no results match | Full results shows "No hay coincidencias" (existing behavior) |
+| Case                                             | Handling                                                       |
+| ------------------------------------------------ | -------------------------------------------------------------- |
+| URL params but no results match                  | Full results shows "No hay coincidencias" (existing behavior)  |
 | User in book view → opens shared URL with params | Loads into full results. "×" returns to book view (clears URL) |
-| Manual URL edit in address bar | Triggers page navigation → same as page load flow |
-| Browser refresh | State restored from URL |
-| Commas in author/tag names | None observed in current data. Use comma separator for v1 |
-| `searchFields` checkboxes | NOT in URL for v1 — ephemeral dialog state, defaults to all-on |
+| Manual URL edit in address bar                   | Triggers page navigation → same as page load flow              |
+| Browser refresh                                  | State restored from URL                                        |
+| Commas in author/tag names                       | None observed in current data. Use comma separator for v1      |
+| `searchFields` checkboxes                        | NOT in URL for v1 — ephemeral dialog state, defaults to all-on |
 
 ---
 
@@ -321,11 +322,11 @@ When the user closes the dialog without committing, the dialog's advanced filter
 
 ## 9. Files Changed
 
-| File | Change |
-|------|--------|
-| `frontend/src/lib/utils/searchUrl.ts` | **New** — URL parse/build utilities |
+| File                                     | Change                                                                                                                                 |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `frontend/src/lib/utils/searchUrl.ts`    | **New** — URL parse/build utilities                                                                                                    |
 | `frontend/src/routes/cards/+page.svelte` | **Modified** — Add URL sync in onMount, write URL in openFullResultsMode, clear in closeFullResultsMode, Enter handler on search input |
-| `docs/shareable-search-urls.md` | **New** — This document |
+| `docs/shareable-search-urls.md`          | **New** — This document                                                                                                                |
 
 No store changes needed. No API changes.
 

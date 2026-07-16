@@ -20,23 +20,23 @@ Selected Cards ──→ Compose Markdown ──→ Render HTML (marked) ──�
                                           └──→ Download .md (instant)
 ```
 
-| Step | Technology | Rationale |
-|------|-----------|-----------|
-| Cards → Markdown | Plain string composition | No deps, portable intermediate format |
-| Markdown → HTML | `marked` v18 | Already in `package.json` |
-| HTML → PDF | `window.open()` + `window.print()` | Zero deps, native GPU rendering, <1s, correct typography/pagination |
+| Step             | Technology                         | Rationale                                                           |
+| ---------------- | ---------------------------------- | ------------------------------------------------------------------- |
+| Cards → Markdown | Plain string composition           | No deps, portable intermediate format                               |
+| Markdown → HTML  | `marked` v18                       | Already in `package.json`                                           |
+| HTML → PDF       | `window.open()` + `window.print()` | Zero deps, native GPU rendering, <1s, correct typography/pagination |
 
 ### Why Not html2pdf.js
 
 `html2pdf.js` screenshots the DOM to `<canvas>` via `html2canvas`, then embeds rasters into `jsPDF`. For multi-page text documents this is catastrophically slow:
 
-| | `html2pdf.js` | `window.print()` |
-|---|---|---|
-| 50 cards | 25–100s | <1s render + print dialog |
-| Memory | 50–200MB canvas allocations | Minimal (native engine) |
+|              | `html2pdf.js`                          | `window.print()`          |
+| ------------ | -------------------------------------- | ------------------------- |
+| 50 cards     | 25–100s                                | <1s render + print dialog |
+| Memory       | 50–200MB canvas allocations            | Minimal (native engine)   |
 | Text quality | Rasterized, blurry at some zoom levels | Vector, crisp at any zoom |
-| Pagination | Manual `page-break-*` guessing | Automatic, correct |
-| Deps | +200KB | Zero |
+| Pagination   | Manual `page-break-*` guessing         | Automatic, correct        |
+| Deps         | +200KB                                 | Zero                      |
 
 The browser's native print engine is the right tool for this job.
 
@@ -44,12 +44,12 @@ The browser's native print engine is the right tool for this job.
 
 ## 3. Constraints
 
-| Constraint | Value | Reason |
-|-----------|-------|--------|
-| **Max cards per document** | **50** | UX-friendly guardrail; keeps PDF page count manageable |
-| **Max cards UX** | "Add to document" button disabled with tooltip when limit reached | |
-| **Storage** | `localStorage` key `semioteca:composer:v1` | Persists across sessions, no backend |
-| **Documents** | One active document (MVP) | Multiple named drafts out of scope |
+| Constraint                 | Value                                                             | Reason                                                 |
+| -------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------ |
+| **Max cards per document** | **50**                                                            | UX-friendly guardrail; keeps PDF page count manageable |
+| **Max cards UX**           | "Add to document" button disabled with tooltip when limit reached |                                                        |
+| **Storage**                | `localStorage` key `semioteca:composer:v1`                        | Persists across sessions, no backend                   |
+| **Documents**              | One active document (MVP)                                         | Multiple named drafts out of scope                     |
 
 ---
 
@@ -261,37 +261,37 @@ Add an "Añadir al documento" / "Quitar del documento" button near the existing 
 
 ### New Files
 
-| File | Purpose |
-|------|---------|
-| `frontend/src/lib/types/composer.ts` | `ComposerItem`, `ComposerDocument` types |
-| `frontend/src/lib/stores/composer.ts` | Svelte writable store + localStorage persistence |
-| `frontend/src/lib/utils/composer-markdown.ts` | `buildDocumentMarkdown()` |
-| `frontend/src/lib/utils/composer-pdf.ts` | `downloadPdf()`, `downloadMarkdown()`, `buildPrintDocument()` |
-| `frontend/src/lib/components/ComposerTray.svelte` | Floating bottom bar on `/cards` |
-| `frontend/src/routes/cards/compose/+page.svelte` | Composer editor page |
-| `frontend/src/routes/cards/compose/+page.server.ts` | Data loader (cards.json) |
+| File                                                | Purpose                                                       |
+| --------------------------------------------------- | ------------------------------------------------------------- |
+| `frontend/src/lib/types/composer.ts`                | `ComposerItem`, `ComposerDocument` types                      |
+| `frontend/src/lib/stores/composer.ts`               | Svelte writable store + localStorage persistence              |
+| `frontend/src/lib/utils/composer-markdown.ts`       | `buildDocumentMarkdown()`                                     |
+| `frontend/src/lib/utils/composer-pdf.ts`            | `downloadPdf()`, `downloadMarkdown()`, `buildPrintDocument()` |
+| `frontend/src/lib/components/ComposerTray.svelte`   | Floating bottom bar on `/cards`                               |
+| `frontend/src/routes/cards/compose/+page.svelte`    | Composer editor page                                          |
+| `frontend/src/routes/cards/compose/+page.server.ts` | Data loader (cards.json)                                      |
 
 ### Modified Files
 
-| File | Change |
-|------|--------|
-| `frontend/src/lib/components/CardItem.svelte` | "Añadir al documento" button + selected state |
-| `frontend/src/routes/cards/+page.svelte` | Include `ComposerTray`, pass composer state to card items |
-| `frontend/src/routes/cards/[id]/+page.svelte` | Add/remove button in header |
+| File                                          | Change                                                    |
+| --------------------------------------------- | --------------------------------------------------------- |
+| `frontend/src/lib/components/CardItem.svelte` | "Añadir al documento" button + selected state             |
+| `frontend/src/routes/cards/+page.svelte`      | Include `ComposerTray`, pass composer state to card items |
+| `frontend/src/routes/cards/[id]/+page.svelte` | Add/remove button in header                               |
 
 ---
 
 ## 8. Edge Cases & Error Handling
 
-| Case | Behavior |
-|------|----------|
-| **Card removed from dataset** (stale id in composer) | Show placeholder row in composer with warning badge; skip in export |
-| **Corrupted localStorage** | Catch parse errors, reset to empty document, show toast |
-| **Limit reached** | Disable add buttons with tooltip; show badge in tray |
-| **Empty document export** | Disable PDF/MD buttons, show hint |
-| **Popup blocked** | Show toast: "Permite ventanas emergentes para exportar PDF"; user retries after allowing |
-| **Image load failure** | Show broken-image placeholder in print window; log warning |
-| **Mobile viewport** | Tray collapses to a compact bar; composer page stacks vertically |
+| Case                                                 | Behavior                                                                                 |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| **Card removed from dataset** (stale id in composer) | Show placeholder row in composer with warning badge; skip in export                      |
+| **Corrupted localStorage**                           | Catch parse errors, reset to empty document, show toast                                  |
+| **Limit reached**                                    | Disable add buttons with tooltip; show badge in tray                                     |
+| **Empty document export**                            | Disable PDF/MD buttons, show hint                                                        |
+| **Popup blocked**                                    | Show toast: "Permite ventanas emergentes para exportar PDF"; user retries after allowing |
+| **Image load failure**                               | Show broken-image placeholder in print window; log warning                               |
+| **Mobile viewport**                                  | Tray collapses to a compact bar; composer page stacks vertically                         |
 
 ---
 
@@ -306,13 +306,13 @@ Add an "Añadir al documento" / "Quitar del documento" button near the existing 
 
 ## 10. Implementation Order
 
-| Step | Task | Prereqs |
-|------|------|---------|
-| 1 | Create `composer.ts` types + store + localStorage | — |
-| 2 | Create `composer-markdown.ts` utility | 1 |
-| 3 | Create `composer-pdf.ts` utility (print window + MD download) | 2 |
-| 4 | Add add/remove buttons to `CardItem.svelte` | 1 |
-| 5 | Add `ComposerTray.svelte` to `/cards` page | 1, 4 |
-| 6 | Build `/cards/compose` editor page | 1, 3 |
-| 7 | Add add/remove button to card detail page | 1 |
-| 8 | QA: Chrome, Safari, Firefox; popup blocker scenarios; real images; limit behavior |
+| Step | Task                                                                              | Prereqs |
+| ---- | --------------------------------------------------------------------------------- | ------- |
+| 1    | Create `composer.ts` types + store + localStorage                                 | —       |
+| 2    | Create `composer-markdown.ts` utility                                             | 1       |
+| 3    | Create `composer-pdf.ts` utility (print window + MD download)                     | 2       |
+| 4    | Add add/remove buttons to `CardItem.svelte`                                       | 1       |
+| 5    | Add `ComposerTray.svelte` to `/cards` page                                        | 1, 4    |
+| 6    | Build `/cards/compose` editor page                                                | 1, 3    |
+| 7    | Add add/remove button to card detail page                                         | 1       |
+| 8    | QA: Chrome, Safari, Firefox; popup blocker scenarios; real images; limit behavior |

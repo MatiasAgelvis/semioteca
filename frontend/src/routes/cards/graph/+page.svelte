@@ -23,12 +23,11 @@
   // Cached data — fetched once
   let cachedRelations = $state<Record<string, CardRelationEntry[]> | null>(null);
   let cardMap = $state<Map<string, CardRecord>>(new Map());
+  let graphCanvas: { recenter: () => void } = $state() as any;
 
   // Parse initial values from URL
   const origin = $derived($page.url.searchParams.get('origin') ?? '');
-  const initialDepth = $derived(
-    (Number($page.url.searchParams.get('depth')) || 1) as GraphDepth,
-  );
+  const initialDepth = $derived((Number($page.url.searchParams.get('depth')) || 1) as GraphDepth);
 
   // Local depth state — mutable, synced to URL without navigation
   let depth = $state<GraphDepth>(1);
@@ -90,10 +89,7 @@
     hoveredNode = null;
   }
 
-  function handleHover(
-    node: GraphNode | null,
-    pos?: { x: number; y: number },
-  ) {
+  function handleHover(node: GraphNode | null, pos?: { x: number; y: number }) {
     hoveredNode = node;
     if (pos) tooltipPos = pos;
   }
@@ -103,7 +99,10 @@
   <title>{origin ? `Red de relaciones` : 'Red'} | Significado Total</title>
 </svelte:head>
 
-<div class="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 py-6 lg:px-10" style="min-height: calc(100dvh - 12rem)">
+<div
+  class="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 py-6 lg:px-10"
+  style="min-height: calc(100dvh - 12rem)"
+>
   {#if loading}
     <div class="flex flex-1 items-center justify-center">
       <span class="loading loading-spinner loading-lg"></span>
@@ -115,24 +114,28 @@
     </div>
   {:else if graphData.nodes.length === 0}
     <div class="flex flex-1 flex-col items-center justify-center gap-4">
-      <p class="text-lg opacity-70">
-        Esta tarjeta no tiene relaciones para visualizar.
-      </p>
+      <p class="text-lg opacity-70">Esta tarjeta no tiene relaciones para visualizar.</p>
       <a class="btn btn-outline" href="/cards/{origin}">← Volver a la tarjeta</a>
     </div>
   {:else}
     <GraphToolbar
       {depth}
-      origin={origin}
-      legendOpen={legendOpen}
+      {origin}
+      {legendOpen}
       onDepthChange={handleDepthChange}
       onLegendToggle={() => (legendOpen = !legendOpen)}
+      onRecenter={() => graphCanvas?.recenter()}
     />
 
-    <div class="relative min-h-0 flex-1 overflow-hidden rounded-xl border border-base-300 bg-base-200/50">
+    <div
+      class="relative min-h-0 flex-1 overflow-hidden rounded-xl border border-base-300 bg-base-200/50"
+      onwheel={(e) => e.preventDefault()}
+    >
       <GraphCanvas
+        bind:this={graphCanvas}
         {graphData}
         {authorColors}
+        {origin}
         selectedNodeId={selectedNode?.id ?? null}
         onnavigate={handleNavigate}
         onhover={handleHover}
@@ -142,17 +145,16 @@
         <GraphTooltip node={hoveredNode} position={tooltipPos} />
       {/if}
       {#if legendOpen}
-        <GraphLegend
-          authorColors={authorColors}
-          onclose={() => (legendOpen = false)}
-        />
+        <GraphLegend {authorColors} onclose={() => (legendOpen = false)} />
       {/if}
+
+      <div
+        class="pointer-events-none absolute bottom-2 left-2 rounded-lg bg-base-200/80 px-2.5 py-1 text-[11px] text-base-content/40"
+      >
+        Rueda para zoom · Arrastra para mover
+      </div>
     </div>
 
-    <GraphPanel
-      node={selectedNode}
-      origin={origin}
-      onclose={() => (selectedNode = null)}
-    />
+    <GraphPanel node={selectedNode} {origin} onclose={() => (selectedNode = null)} />
   {/if}
 </div>

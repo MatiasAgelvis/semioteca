@@ -67,12 +67,12 @@
   - [ ] Add shareable composition links or account-backed saved documents.
   - [ ] Add citation-format presets and bibliography appendix generation.
 
-
 Cards from the same file are being tagged as different because of small name discrepancies,
 probably the best avenue is to extract `Metadata` at the file level once and assing it to all
 cards in the lot, maybe even hand curate as we do for the regex patterns to ensure consistent author names, source titles, and tag sets. Examples:
-  - Eco 1992, Eco 1994... should all be tagged as "Eco", same book different edition.
-  - Ted Honderich appears as "Honderich", "Ted Honderich", even the same book will be split at the persitence and front layers if the author name isn't consistent.
+
+- Eco 1992, Eco 1994... should all be tagged as "Eco", same book different edition.
+- Ted Honderich appears as "Honderich", "Ted Honderich", even the same book will be split at the persitence and front layers if the author name isn't consistent.
 
 ## UI/UX & Bug Checklist
 
@@ -84,3 +84,14 @@ cards in the lot, maybe even hand curate as we do for the regex patterns to ensu
 - [ ] Sync search state (query, tags, authors, match mode) to URL on committed search (Enter / "Ver todos").
   - [ ] On page load with URL params, enter full results mode pre-populated.
   - [ ] Consider Esc vs Enter UX: popup for browsing, Enter commits to full results.
+
+## Onboarding / First-use guidance
+
+- [ ] Design an onboarding experience for new visitors.
+  - What to teach: what cards are, search/filter, graph view, composer.
+  - Options to evaluate:
+    - **Tooltips/popovers** on key elements (DaisyUI tooltips) — low effort, easy to miss.
+    - **Overlay walkthrough** (step-by-step spotlight) — more engaging, more code.
+    - **Dedicated help page** — simple but requires user to navigate to it.
+    - **Empty-state messaging** — already partially done in the search dialog.
+  - Decide on approach and implement.

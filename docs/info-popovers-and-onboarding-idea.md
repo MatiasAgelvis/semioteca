@@ -11,7 +11,10 @@ Discovered a useful DaisyUI pattern — a small info icon (circle `i` in a ring)
   <div tabindex="0" role="button" class="btn btn-circle btn-ghost btn-xs text-info">
     <svg>…info icon…</svg>
   </div>
-  <div tabindex="0" class="card card-sm dropdown-content bg-base-100 rounded-box z-1 w-64 shadow-sm">
+  <div
+    tabindex="0"
+    class="card card-sm dropdown-content bg-base-100 rounded-box z-1 w-64 shadow-sm"
+  >
     <div tabindex="0" class="card-body">
       <h2 class="card-title">Title</h2>
       <p>Description</p>

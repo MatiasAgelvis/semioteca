@@ -49,9 +49,8 @@ export function buildGraph(
     const rawContent = card?.content ?? '';
     // Strip image placeholders for clean text display
     const cleanContent = rawContent.replace(/\[\[IMAGE:\d+\]\]/g, '').trim();
-    const contentPreview = cleanContent.length > 300
-      ? cleanContent.slice(0, 300) + '…'
-      : cleanContent;
+    const contentPreview =
+      cleanContent.length > 300 ? cleanContent.slice(0, 300) + '…' : cleanContent;
     return {
       id,
       author: card?.author ?? '',

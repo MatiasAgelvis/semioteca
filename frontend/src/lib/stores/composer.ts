@@ -71,8 +71,7 @@ function createComposerStore() {
       if (doc.items.length >= CARD_LIMIT) return doc;
       if (doc.items.some((item) => item.cardId === cardId)) return doc;
 
-      const nextOrder =
-        doc.items.length > 0 ? Math.max(...doc.items.map((i) => i.order)) + 1 : 1;
+      const nextOrder = doc.items.length > 0 ? Math.max(...doc.items.map((i) => i.order)) + 1 : 1;
 
       return {
         ...doc,

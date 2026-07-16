@@ -219,10 +219,12 @@ export async function buildRelatedCards(cardId: string): Promise<RelatedCard[]> 
       const card = cardMap.get(entry.id);
       if (!card) return null;
       const rawContent = card.content ?? '';
-      const cleanContent = rawContent.replace(/\[\[IMAGE:\d+\]\]/g, '').replace(/\s+/g, ' ').trim();
-      const contentPreview = cleanContent.length > 160
-        ? cleanContent.slice(0, 160) + '…'
-        : cleanContent;
+      const cleanContent = rawContent
+        .replace(/\[\[IMAGE:\d+\]\]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      const contentPreview =
+        cleanContent.length > 160 ? cleanContent.slice(0, 160) + '…' : cleanContent;
       return {
         id: entry.id,
         title: card.book ?? entry.id,
