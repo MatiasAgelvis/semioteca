@@ -129,6 +129,7 @@
 
     <div
       class="relative min-h-0 flex-1 overflow-hidden rounded-xl border border-base-300 bg-base-200/50"
+      onwheel={(e) => e.preventDefault()}
     >
       <GraphCanvas
         bind:this={graphCanvas}
@@ -146,6 +147,12 @@
       {#if legendOpen}
         <GraphLegend {authorColors} onclose={() => (legendOpen = false)} />
       {/if}
+
+      <div
+        class="pointer-events-none absolute bottom-2 left-2 rounded-lg bg-base-200/80 px-2.5 py-1 text-[11px] text-base-content/40"
+      >
+        Rueda para zoom · Arrastra para mover
+      </div>
     </div>
 
     <GraphPanel node={selectedNode} {origin} onclose={() => (selectedNode = null)} />

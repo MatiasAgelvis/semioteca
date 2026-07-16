@@ -141,6 +141,10 @@
     };
   });
 
+  function handleSvgKeydown(e: KeyboardEvent) {
+    if (e.key === 'Escape') onselect(null);
+  }
+
   function handleDblClick() {
     recenter();
   }
@@ -161,17 +165,16 @@
   }
 </script>
 
+<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <svg
   bind:this={svgEl}
-  class="h-full w-full"
+  class="h-full w-full cursor-grab active:cursor-grabbing"
   viewBox="-500 -500 1000 1000"
   preserveAspectRatio="xMidYMid meet"
   role="application"
   ondblclick={handleDblClick}
   onclick={handleSvgClick}
-  onkeydown={(e) => {
-    if (e.key === 'Escape') onselect(null);
-  }}
+  onkeydown={handleSvgKeydown}
 >
   <g transform={zoomTransform}>
     <!-- edges -->
