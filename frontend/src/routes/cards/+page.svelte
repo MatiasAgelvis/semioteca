@@ -124,6 +124,7 @@
   let debounceTimer: ReturnType<typeof setTimeout> | null = null;
   let shareCopied = $state(false);
   let shareTimeout: ReturnType<typeof setTimeout> | null = null;
+  const canSystemShare = $derived(typeof navigator !== 'undefined' && !!navigator.share);
   let relationsMap = $state<Record<string, CardRelationEntry[]> | null>(null);
   let relatedRelations = $state<RelatedCard[]>([]);
   let relatedSheetOpen = $state(false);
@@ -140,6 +141,18 @@
       }, 2000);
     } catch {
       // Clipboard API not available — silently ignore
+    }
+  }
+
+  const shareLabel = $derived(
+    fullResultsMode ? 'Compartir resultados' : selectedBook ? 'Compartir libro' : 'Compartir',
+  );
+
+  async function handleSystemShare() {
+    try {
+      await navigator.share({ title: document.title, url: location.href });
+    } catch {
+      /* user cancelled or not supported */
     }
   }
 
@@ -569,30 +582,39 @@
         <button class="btn btn-ghost btn-xs" type="button" onclick={closeFullResultsMode}
           >Volver al modo libro</button
         >
-        <button
-          class="btn btn-ghost btn-xs shrink-0 gap-1"
-          type="button"
-          onclick={copyShareUrl}
-          aria-label="Copiar enlace"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-            class="size-4"
-          >
-            <path
-              d="M12.232 4.232a2.5 2.5 0 0 1 3.536 3.536l-1.225 1.225a.75.75 0 0 0 1.061 1.06l1.224-1.224a4 4 0 0 0-5.656-5.656l-3 3a4 4 0 0 0 .225 5.865.75.75 0 0 0 .977-1.138 2.5 2.5 0 0 1-.142-3.667l3-3Z"
-            />
-            <path
-              d="M11.603 7.963a.75.75 0 0 0-.977 1.138 2.5 2.5 0 0 1 .142 3.667l-3 3a2.5 2.5 0 0 1-3.536-3.536l1.225-1.225a.75.75 0 0 0-1.061-1.06l-1.224 1.224a4 4 0 1 0 5.656 5.656l3-3a4 4 0 0 0-.225-5.865Z"
-            />
-          </svg>
-          <span class="hidden md:inline">Copiar enlace</span>
-        </button>
       {:else}
         <span>{filteredCards.length} tarjetas en este libro.</span>
       {/if}
+
+      <button
+        popovertarget="cards-share"
+        class="btn btn-ghost btn-xs shrink-0 gap-1"
+        aria-label={shareLabel}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="size-4"
+        >
+          <path
+            d="M11.293 2.293a1 1 0 0 1 1.414 0l3 3a1 1 0 0 1-1.414 1.414L13 5.414V15a1 1 0 1 1-2 0V5.414L9.707 6.707a1 1 0 0 1-1.414-1.414zM4 11a2 2 0 0 1 2-2h2a1 1 0 0 1 0 2H6v9h12v-9h-2a1 1 0 1 1 0-2h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"
+          />
+        </svg>
+        <span class="hidden md:inline">{shareLabel}</span>
+      </button>
+      <ul
+        class="dropdown menu menu-sm w-60 rounded-box bg-base-100 p-0 shadow"
+        popover
+        id="cards-share"
+      >
+        <li><button type="button" onclick={copyShareUrl}>Copiar enlace</button></li>
+        {#if canSystemShare}
+          <li>
+            <button type="button" onclick={handleSystemShare}>Compartir con el sistema…</button>
+          </li>
+        {/if}
+      </ul>
     </div>
 
     <div class="mt-6">
