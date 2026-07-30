@@ -79,7 +79,13 @@
           ← Volver a la red
         </a>
       {:else}
-        <a class="btn btn-outline shrink-0" href="/cards">← Volver al repositorio</a>
+        <a
+          class="btn btn-outline shrink-0"
+          href="/cards"
+          onclick={() => sessionStorage.setItem('cards:returnTo', data.card.id)}
+        >
+          ← Volver al repositorio
+        </a>
       {/if}
       {#if data.relations.length > 0}
         <button
