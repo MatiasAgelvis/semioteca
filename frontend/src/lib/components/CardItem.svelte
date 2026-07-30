@@ -128,7 +128,12 @@
         <span class="badge badge-ghost badge-sm text-xs opacity-50">
           p. <HighlightedText segments={pageSegments} />
         </span>
-        <a href="/cards/{card.id}" class="btn btn-ghost btn-xs btn-square" title="Ver tarjeta">
+        <a
+          href="/cards/{card.id}"
+          class="btn btn-ghost btn-xs btn-square"
+          title="Ver tarjeta"
+          onclick={() => sessionStorage.setItem('cards:returnTo', card.id)}
+        >
           →
         </a>
       </div>
