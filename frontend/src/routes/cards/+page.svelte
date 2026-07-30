@@ -352,7 +352,8 @@
 
   function closeFullResultsMode() {
     fullResultsMode = false;
-    goto('/cards', { replaceState: true, noScroll: true, keepFocus: true });
+    const url = selectedBook ? `/cards?book=${encodeURIComponent(selectedBook)}` : '/cards';
+    goto(url, { replaceState: true, noScroll: true, keepFocus: true });
   }
 
   function handleTocScroll(id: string) {
@@ -439,6 +440,7 @@
       if (urlParams.tags) selectedTags = new Set(urlParams.tags);
       if (urlParams.authors) selectedAuthors = new Set(urlParams.authors);
       if (urlParams.mode) matchMode = urlParams.mode;
+      if (urlParams.book) selectedBook = urlParams.book;
     }
 
     window.addEventListener('keydown', handleKeydown);
@@ -510,6 +512,17 @@
     if (fullResultsMode && !hasSearchCriteria) {
       fullResultsMode = false;
     }
+  });
+
+  // Sync selected book to URL (only in browse mode, not full-results)
+  $effect(() => {
+    if (loading || fullResultsMode) return;
+    if (!selectedBook || !booksModel.length) return;
+    const currentUrl = new URL(window.location.href);
+    const currentBook = currentUrl.searchParams.get('book');
+    if (currentBook === selectedBook) return;
+    currentUrl.searchParams.set('book', selectedBook);
+    history.replaceState(history.state, '', currentUrl.toString());
   });
 
   $effect(() => {
