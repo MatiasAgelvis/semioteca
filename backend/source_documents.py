@@ -57,6 +57,14 @@ class SourceDocument(Enum):
         book="Los límites de la interpretación",
         year="1992",
     )
+    FABBRI_2000 = SourceDocumentConfig(
+        filename="Fabbri 2000 El giro semiótico.odt",
+        split_pattern=PAGE_DOT_PATTERN,
+        title="El giro semiótico",
+        author="Fabbri",
+        book="El giro semiótico",
+        year="2000",
+    )
     FONTANILLE_2008 = SourceDocumentConfig(
         filename="Fontanille 2008 SOMA y SEMA.odt",
         split_pattern=PAGE_DOT_PATTERN,
