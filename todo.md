@@ -78,12 +78,22 @@ cards in the lot, maybe even hand curate as we do for the regex patterns to ensu
 
 - [x] **TOC hidden behind navbar on mobile** · Fixed — mobile drawer now has header-height padding.
 - [x] **TOC doesn't update after search** · Fixed — TOC now reflects filtered results in full results mode; BookSidebar hidden during search.
+- [ ] **Lyons 1997 extraction has a weird postfix escaping the regex match** · All or most cards start with `Semántica lingüística. Una introducción. Barcelona: Paidós.` — the file-level regex seems to be matching a trailing postfix for each card; needs investigation/fix in the extraction logic.
+- [ ] **Graph view — 'return to repository' for the companion card** · Investigate adding a way to navigate back to the card repository from the companion card node in the graph view.
+
+## Graph network — entry / landing experience (revisit later)
+
+- [ ] Revisit whether the graph needs a standalone landing / a "Red" nav entry, or should stay contextual (reached from a card), instead of today's random-card starter.
+  - Current state: `/cards/graph` with no `origin` shows a "Elegir una tarjeta al azar" (random) starter + a link back to `/cards`; no nav link; the graph is a card's "explore relationships" view.
+  - Random (and even N random suggestions) feels arbitrary when landing on 1 card among ~2,648 without context; a guided "wizard" (author → book → card, or tag → random) would largely duplicate the `/cards` search/filter.
+  - Possible direction: surface a prominent "Explorar red" action on cards / card list (contextual entry, no landing), and/or thematic starting points based on hub cards (highest in-degree in `card-relations.json`).
+  - Stop point reached: current random + repo fallback is good enough so users who land there don't feel stuck. Revisit the direction later.
 
 ## Shareable search URLs
 
-- [ ] Sync search state (query, tags, authors, match mode) to URL on committed search (Enter / "Ver todos").
-  - [ ] On page load with URL params, enter full results mode pre-populated.
-  - [ ] Consider Esc vs Enter UX: popup for browsing, Enter commits to full results.
+- [x] Sync search state (query, tags, authors, match mode) to URL on committed search (Enter / "Ver todos").
+  - [x] On page load with URL params, enter full results mode pre-populated.
+  - [x] Consider Esc vs Enter UX: popup for browsing, Enter commits to full results.
 
 ## Onboarding / First-use guidance
 

@@ -26,12 +26,13 @@ export function buildGraph(
 ): GraphData {
   const visited = new Set<string>();
   const queue: { id: string; level: number }[] = [{ id: originId, level: 0 }];
+  let head = 0;
   visited.add(originId);
 
   const links: GraphLink[] = [];
 
-  while (queue.length > 0) {
-    const { id, level } = queue.shift()!;
+  while (head < queue.length) {
+    const { id, level } = queue[head++];
     const entries = relations[id];
     if (!entries?.length || level >= depth) continue;
 
@@ -98,6 +99,12 @@ export function buildAuthorColors(nodes: GraphNode[]): Map<string, string> {
     '#f97316',
     '#84cc16',
     '#3b82f6',
+    '#0d9488',
+    '#7c3aed',
+    '#db2777',
+    '#ea580c',
+    '#4f46e5',
+    '#16a34a',
   ];
   authors.forEach((a, i) => colors.set(a, palette[i % palette.length]));
   return colors;
@@ -123,6 +130,10 @@ export function nodeStyle(node: GraphNode, authorColors: Map<string, string>) {
 export function edgeStyle(score: number) {
   return {
     strokeWidth: 0.5 + score * 1.5,
-    opacity: 0.15 + score * 0.25,
+    // Edge strokes use full base-content in the markup; this opacity is the
+    // single opacity control. The 0.3 factor preserves the previous look,
+    // where the stroke color was base-content at 30% alpha and this opacity
+    // was applied on top of it (both combined multiplicatively).
+    opacity: 0.3 * (0.15 + score * 0.25),
   };
 }

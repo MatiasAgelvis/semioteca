@@ -1,6 +1,9 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { fly } from 'svelte/transition';
+  import { cubicOut } from 'svelte/easing';
   import type { GraphNode } from '$lib/types/graph';
+  import CloseIcon from '$lib/components/CloseIcon.svelte';
 
   let {
     node,
@@ -21,13 +24,12 @@
 </script>
 
 {#if node}
-  <!-- svelte-ignore a11y_click_events_have_key_events -->
-  <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div class="fixed inset-0 z-40" onclick={onclose} onkeydown={() => {}} role="presentation"></div>
   <div
-    class="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-base-300 bg-base-100 shadow-2xl transition-transform duration-300 ease-out"
+    transition:fly={{ x: 320, duration: 250, easing: cubicOut }}
+    class="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-base-300 bg-base-100 shadow-2xl lg:static lg:z-auto lg:w-[28rem] lg:max-w-none lg:shrink-0 lg:rounded-xl lg:border lg:border-base-300 lg:bg-base-200/50 lg:shadow-none"
     role="dialog"
     aria-label="Vista previa de la tarjeta"
+    tabindex="-1"
   >
     <!-- Header -->
     <div class="flex items-center justify-between border-b border-base-200 px-5 py-3">
@@ -42,7 +44,7 @@
         onclick={onclose}
         aria-label="Cerrar panel"
       >
-        ✕
+        <CloseIcon />
       </button>
     </div>
 

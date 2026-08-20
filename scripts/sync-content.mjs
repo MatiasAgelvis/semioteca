@@ -1,4 +1,4 @@
-import { cp, mkdir, rm, stat } from 'node:fs/promises';
+import { cp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -38,11 +38,23 @@ async function copyIfExists(source, destination) {
   );
 }
 
+async function writeCardIds() {
+  if (!(await ensureExists(sources.cardsJson))) {
+    console.warn('[sync-content] Missing source for card-ids:', sources.cardsJson);
+    return;
+  }
+  const dataset = JSON.parse(await readFile(sources.cardsJson, 'utf8'));
+  const ids = dataset.books.flatMap((book) => book.cards.map((card) => card.id));
+  await writeFile(path.join(targetRoot, 'card-ids.json'), JSON.stringify(ids), 'utf8');
+  console.log('[sync-content] Wrote card-ids.json');
+}
+
 async function main() {
   await rm(targetRoot, { recursive: true, force: true });
   await mkdir(targetRoot, { recursive: true });
 
   await copyIfExists(sources.cardsJson, path.join(targetRoot, 'cards.json'));
+  await writeCardIds();
   await copyIfExists(sources.cardRelations, path.join(targetRoot, 'card-relations.json'));
   await copyIfExists(sources.cardTags, path.join(targetRoot, 'card-tags.json'));
   await copyIfExists(sources.cardsImages, path.join(targetRoot, 'cards_images'));

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import CloseIcon from '$lib/components/CloseIcon.svelte';
+
   let {
     authorColors,
     onclose,
@@ -15,7 +17,9 @@
 >
   <div class="mb-3 flex items-center justify-between">
     <span class="text-sm font-semibold">Leyenda</span>
-    <button class="btn btn-ghost btn-xs" onclick={onclose} aria-label="Cerrar leyenda"> ✕ </button>
+    <button class="btn btn-ghost btn-xs" onclick={onclose} aria-label="Cerrar leyenda"
+      ><CloseIcon /></button
+    >
   </div>
 
   <!-- Author colors -->

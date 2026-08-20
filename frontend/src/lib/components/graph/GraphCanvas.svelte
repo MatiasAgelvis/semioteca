@@ -8,7 +8,6 @@
   let {
     graphData,
     authorColors,
-    origin = '',
     selectedNodeId = null,
     onnavigate,
     onhover,
@@ -16,7 +15,6 @@
   }: {
     graphData: GraphData;
     authorColors: Map<string, string>;
-    origin?: string;
     selectedNodeId?: string | null;
     onnavigate: (cardId: string) => void;
     onhover: (node: GraphNode | null, pos?: { x: number; y: number }) => void;
@@ -25,24 +23,47 @@
 
   let svgEl: SVGSVGElement;
   let zoomTransform = $state('translate(0,0) scale(1)');
+  let viewBox = $state('-500 -500 1000 1000');
   let zoomBehavior: ReturnType<typeof d3Zoom<SVGSVGElement, unknown>> | null = null;
-  let lastOrigin = '';
 
   // Local reactive copy — one assignment after simulation settles
   let layoutNodes = $state<GraphNode[]>([]);
 
+  // O(1) node lookups when rendering edges, instead of a linear .find() per edge.
+  const nodeById = $derived(new Map(layoutNodes.map((n) => [n.id, n])));
+
   let hoverTimer: ReturnType<typeof setTimeout> | null = null;
+  let hoveredNode: GraphNode | null = null;
+  let mousePos = { x: 0, y: 0 };
 
   function handleNodeEnter(node: GraphNode, e: MouseEvent) {
+    mousePos = { x: e.clientX, y: e.clientY };
+    // Switching to a different node: drop the previous node's tooltip instead of
+    // leaving it stale at its old position while the new hover delay runs.
+    if (hoverTimer === null && hoveredNode && hoveredNode !== node) {
+      onhover(null);
+    }
+    hoveredNode = node;
     if (hoverTimer) clearTimeout(hoverTimer);
     hoverTimer = setTimeout(() => {
-      onhover(node, { x: e.clientX, y: e.clientY });
+      hoverTimer = null;
+      onhover(node, mousePos);
     }, 300);
   }
 
   function handleNodeLeave() {
+    hoveredNode = null;
     if (hoverTimer) clearTimeout(hoverTimer);
     onhover(null);
+  }
+
+  // Track the cursor so the delayed tooltip appears where the mouse actually is
+  // at fire time, and keep it glued to the cursor while a node is hovered.
+  function handleSvgMousemove(e: MouseEvent) {
+    mousePos = { x: e.clientX, y: e.clientY };
+    if (hoverTimer === null && hoveredNode) {
+      onhover(hoveredNode, mousePos);
+    }
   }
 
   function selectOrNavigate(node: GraphNode) {
@@ -63,15 +84,6 @@
     if (e.key === 'Enter') {
       e.stopPropagation();
       selectOrNavigate(node);
-    } else if (e.key === 'Escape') {
-      onselect(null);
-    }
-  }
-
-  function handleSvgClick(e: MouseEvent) {
-    // Only deselect if clicking directly on the SVG background, not a node
-    if (e.target === svgEl || (e.target as Element).tagName === 'svg') {
-      onselect(null);
     }
   }
 
@@ -122,6 +134,33 @@
 
     // Single assignment triggers CSS transitions
     layoutNodes = nodes.map((n) => ({ ...n }));
+
+    // Fit the viewBox to the settled layout so the graph always fills the
+    // viewport, regardless of how wide the force simulation spread the nodes.
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+    for (const n of nodes) {
+      const r = nodeStyle(n, authorColors).r;
+      minX = Math.min(minX, n.x - r);
+      maxX = Math.max(maxX, n.x + r);
+      minY = Math.min(minY, n.y - r);
+      maxY = Math.max(maxY, n.y + r);
+    }
+    const PADDING = 80;
+    const MIN_SPAN = 300; // keep tiny layouts (e.g. single node) from zooming in too far
+    const spanX = Math.max(maxX - minX, MIN_SPAN) + PADDING * 2;
+    const spanY = Math.max(maxY - minY, MIN_SPAN) + PADDING * 2;
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+    viewBox = `${cx - spanX / 2} ${cy - spanY / 2} ${spanX} ${spanY}`;
+
+    // Reset zoom to the fitted view (keeps d3's internal transform in sync)
+    zoomTransform = 'translate(0,0) scale(1)';
+    if (svgEl && zoomBehavior) {
+      select(svgEl).call(zoomBehavior.transform, zoomIdentity);
+    }
   });
 
   // Attach zoom behavior
@@ -141,21 +180,9 @@
     };
   });
 
-  function handleSvgKeydown(e: KeyboardEvent) {
-    if (e.key === 'Escape') onselect(null);
-  }
-
   function handleDblClick() {
     recenter();
   }
-
-  // Recenter when navigating to a new origin from the panel
-  $effect(() => {
-    if (origin && lastOrigin && origin !== lastOrigin) {
-      recenter();
-    }
-    lastOrigin = origin;
-  });
 
   export function recenter() {
     zoomTransform = 'translate(0,0) scale(1)';
@@ -169,19 +196,18 @@
 <svg
   bind:this={svgEl}
   class="h-full w-full cursor-grab active:cursor-grabbing"
-  viewBox="-500 -500 1000 1000"
+  {viewBox}
   preserveAspectRatio="xMidYMid meet"
   role="application"
   ondblclick={handleDblClick}
-  onclick={handleSvgClick}
-  onkeydown={handleSvgKeydown}
+  onmousemove={handleSvgMousemove}
 >
   <g transform={zoomTransform}>
     <!-- edges -->
     {#each graphData.links as link}
       {@const style = edgeStyle(link.score)}
-      {@const source = layoutNodes.find((n) => n.id === link.source)}
-      {@const target = layoutNodes.find((n) => n.id === link.target)}
+      {@const source = nodeById.get(link.source)}
+      {@const target = nodeById.get(link.target)}
       {#if source && target}
         <line
           x1={source.x}
@@ -191,7 +217,7 @@
           stroke="currentColor"
           stroke-width={style.strokeWidth}
           opacity={style.opacity}
-          class="text-base-content/30 transition-all duration-500 ease-out"
+          class="text-base-content transition-all duration-500 ease-out"
         />
       {/if}
     {/each}
@@ -237,6 +263,7 @@
             y={-style.r - 8}
             text-anchor="middle"
             class="fill-base-content text-xs font-semibold"
+            style="paint-order: stroke; stroke: var(--color-base-200); stroke-width: 3px; stroke-linejoin: round;"
           >
             {node.author} — {node.book}
           </text>

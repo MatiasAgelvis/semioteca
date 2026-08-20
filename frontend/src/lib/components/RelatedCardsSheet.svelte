@@ -3,6 +3,7 @@
   import { openCardsSearch } from '$lib/stores/cardsSearch';
   import { TAG_DESCRIPTIONS } from '$lib/constants';
   import type { RelatedCard } from '$lib/types/content';
+  import CloseIcon from '$lib/components/CloseIcon.svelte';
 
   let {
     relations,
@@ -59,7 +60,7 @@
         </span>
       </h2>
       <button class="btn btn-ghost btn-sm" type="button" aria-label="Cerrar" onclick={handleClose}>
-        ✕
+        <CloseIcon />
       </button>
     </div>
 
