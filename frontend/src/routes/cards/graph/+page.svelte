@@ -8,7 +8,7 @@
   import GraphTooltip from '$lib/components/graph/GraphTooltip.svelte';
   import GraphPanel from '$lib/components/graph/GraphPanel.svelte';
   import type { CardRelationEntry, CardsDataset, CardRecord } from '$lib/types/content';
-  import type { GraphData, GraphNode, GraphDepth } from '$lib/types/graph';
+  import { GRAPH_DEPTHS, type GraphData, type GraphNode, type GraphDepth } from '$lib/types/graph';
   import { buildCardMap, buildGraph, buildAuthorColors } from '$lib/utils/graph';
 
   let loading = $state(true);
@@ -27,7 +27,13 @@
 
   // Parse initial values from URL
   const origin = $derived($page.url.searchParams.get('origin') ?? '');
-  const initialDepth = $derived((Number($page.url.searchParams.get('depth')) || 1) as GraphDepth);
+
+  // Clamp the URL depth param to the valid depth range (1–3); anything else
+  // (absent, 0, negative, out-of-range, fractional) defaults to 1.
+  function clampDepth(value: number): GraphDepth {
+    return (GRAPH_DEPTHS as readonly number[]).includes(value) ? (value as GraphDepth) : 1;
+  }
+  const initialDepth = $derived(clampDepth(Number($page.url.searchParams.get('depth') ?? '')));
 
   // Local depth state — mutable, synced to URL without navigation
   let depth = $state<GraphDepth>(1);
@@ -57,6 +63,14 @@
 
       // Set depth from URL on initial load
       depth = initialDepth;
+
+      // If the URL carried an out-of-range depth, rewrite it to the clamped value
+      const rawDepth = $page.url.searchParams.get('depth');
+      if (rawDepth !== null && rawDepth !== String(depth)) {
+        const url = new URL($page.url);
+        url.searchParams.set('depth', String(depth));
+        history.replaceState(history.state, '', url.toString());
+      }
     } catch (e) {
       error = 'Error al cargar los datos.';
       console.error(e);

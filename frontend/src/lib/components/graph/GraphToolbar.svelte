@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { GraphDepth } from '$lib/types/graph';
+  import { GRAPH_DEPTHS, type GraphDepth } from '$lib/types/graph';
 
   let {
     depth,
@@ -17,11 +17,7 @@
     onRecenter: () => void;
   } = $props();
 
-  const depths: { value: GraphDepth; label: string }[] = [
-    { value: 1, label: '1' },
-    { value: 2, label: '2' },
-    { value: 3, label: '3' },
-  ];
+  const depths = GRAPH_DEPTHS.map((value) => ({ value, label: String(value) }));
 </script>
 
 <div class="flex flex-wrap items-center justify-between gap-3">

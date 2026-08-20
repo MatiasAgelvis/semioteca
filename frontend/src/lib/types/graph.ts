@@ -28,3 +28,6 @@ export interface GraphData {
 }
 
 export type GraphDepth = 1 | 2 | 3;
+
+/** Valid depth values exposed by the graph depth selector. */
+export const GRAPH_DEPTHS: GraphDepth[] = [1, 2, 3];
