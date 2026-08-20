@@ -1,5 +1,6 @@
 <script lang="ts">
   import { clearToast, toast } from '$lib/stores/toast';
+  import CloseIcon from '$lib/components/CloseIcon.svelte';
 </script>
 
 {#if $toast}
@@ -17,7 +18,7 @@
           onclick={clearToast}
           aria-label="Cerrar notificacion"
         >
-          ✕
+          <CloseIcon />
         </button>
       </div>
     </div>

@@ -3,6 +3,7 @@
   import { fly } from 'svelte/transition';
   import { cubicOut } from 'svelte/easing';
   import type { GraphNode } from '$lib/types/graph';
+  import CloseIcon from '$lib/components/CloseIcon.svelte';
 
   let {
     node,
@@ -43,7 +44,7 @@
         onclick={onclose}
         aria-label="Cerrar panel"
       >
-        ✕
+        <CloseIcon />
       </button>
     </div>
 
