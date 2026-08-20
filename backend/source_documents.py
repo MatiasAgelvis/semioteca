@@ -146,7 +146,7 @@ class SourceDocument(Enum):
         year="1983",
     )
     PUTNAM_1988 = SourceDocumentConfig(
-        filename="Putnam 1988 Razón, verdad e historia.odt",
+        filename="Putnam 1988 Razon, verdad e historia.odt",
         split_pattern=PARENTHESIS_YEAR_PAGE_PATTERN,
         title="Razón, verdad e historia",
         author="Putnam",
