@@ -123,6 +123,10 @@ export function nodeStyle(node: GraphNode, authorColors: Map<string, string>) {
 export function edgeStyle(score: number) {
   return {
     strokeWidth: 0.5 + score * 1.5,
-    opacity: 0.15 + score * 0.25,
+    // Edge strokes use full base-content in the markup; this opacity is the
+    // single opacity control. The 0.3 factor preserves the previous look,
+    // where the stroke color was base-content at 30% alpha and this opacity
+    // was applied on top of it (both combined multiplicatively).
+    opacity: 0.3 * (0.15 + score * 0.25),
   };
 }

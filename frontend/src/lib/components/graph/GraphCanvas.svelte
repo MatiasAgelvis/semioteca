@@ -219,7 +219,7 @@
           stroke="currentColor"
           stroke-width={style.strokeWidth}
           opacity={style.opacity}
-          class="text-base-content/30 transition-all duration-500 ease-out"
+          class="text-base-content transition-all duration-500 ease-out"
         />
       {/if}
     {/each}
