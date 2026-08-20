@@ -131,6 +131,20 @@ class SourceDocument(Enum):
         book="Semántica lingüística",
         year="1997",
     )
+    # Editorial note preserved from the source file (not part of the book text):
+    # "Archivo incluido en esta plataforma académica con la idea de pensarlo junto al archivo de
+    # Fontanille Sema y soma. La idea consiste en darle mayor apoyo a la idea de lo privado, al
+    # mundo del soma como base de la semiótica de las pasiones; agregar la noción del hemisferio
+    # derecho como precondición de lo sensible y del significado."
+    MCGILCHRIST_2024 = SourceDocumentConfig(
+        filename="McGilchrist 2024 El cerebro dividido.odt",
+        split_pattern=PAGE_DOT_PATTERN,
+        running_header_pattern=r"McGILCHRIST,\s*Iain",
+        title="El cerebro dividido",
+        author="McGilchrist",
+        book="El cerebro dividido",
+        year="2024",
+    )
     MOESCHLER_REBOUL_2000 = SourceDocumentConfig(
         filename="Moeschler y Reboul 2000 Diccionario enciclopedico.odt",
         split_pattern=PARENTHESIS_YEAR_PAGE_PATTERN,
