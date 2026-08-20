@@ -33,17 +33,37 @@
   let layoutNodes = $state<GraphNode[]>([]);
 
   let hoverTimer: ReturnType<typeof setTimeout> | null = null;
+  let hoveredNode: GraphNode | null = null;
+  let mousePos = { x: 0, y: 0 };
 
   function handleNodeEnter(node: GraphNode, e: MouseEvent) {
+    mousePos = { x: e.clientX, y: e.clientY };
+    // Switching to a different node: drop the previous node's tooltip instead of
+    // leaving it stale at its old position while the new hover delay runs.
+    if (hoverTimer === null && hoveredNode && hoveredNode !== node) {
+      onhover(null);
+    }
+    hoveredNode = node;
     if (hoverTimer) clearTimeout(hoverTimer);
     hoverTimer = setTimeout(() => {
-      onhover(node, { x: e.clientX, y: e.clientY });
+      hoverTimer = null;
+      onhover(node, mousePos);
     }, 300);
   }
 
   function handleNodeLeave() {
+    hoveredNode = null;
     if (hoverTimer) clearTimeout(hoverTimer);
     onhover(null);
+  }
+
+  // Track the cursor so the delayed tooltip appears where the mouse actually is
+  // at fire time, and keep it glued to the cursor while a node is hovered.
+  function handleSvgMousemove(e: MouseEvent) {
+    mousePos = { x: e.clientX, y: e.clientY };
+    if (hoverTimer === null && hoveredNode) {
+      onhover(hoveredNode, mousePos);
+    }
   }
 
   function selectOrNavigate(node: GraphNode) {
@@ -203,6 +223,7 @@
   ondblclick={handleDblClick}
   onclick={handleSvgClick}
   onkeydown={handleSvgKeydown}
+  onmousemove={handleSvgMousemove}
 >
   <g transform={zoomTransform}>
     <!-- edges -->
