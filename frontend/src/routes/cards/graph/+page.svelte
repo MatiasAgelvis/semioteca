@@ -13,6 +13,7 @@
 
   let loading = $state(true);
   let error = $state<string | null>(null);
+  let pickCardHint = $state(false);
   let graphData = $state<GraphData>({ nodes: [], links: [] });
   let authorColors = $state<Map<string, string>>(new Map());
   let legendOpen = $state(false);
@@ -39,6 +40,14 @@
   let depth = $state<GraphDepth>(1);
 
   onMount(async () => {
+    // No card chosen: guide the user to the repo without fetching any data.
+    if (!origin) {
+      pickCardHint = true;
+      error = 'Elige una tarjeta para explorar su red de relaciones.';
+      loading = false;
+      return;
+    }
+
     try {
       const [cardsRes, relationsRes] = await Promise.all([
         fetch('/content/cards.json'),
@@ -55,7 +64,7 @@
       cachedRelations = await relationsRes.json();
       cardMap = buildCardMap(dataset);
 
-      if (!origin || !cardMap.has(origin)) {
+      if (!cardMap.has(origin)) {
         error = 'Tarjeta no encontrada.';
         loading = false;
         return;
@@ -123,9 +132,13 @@
       <span class="loading loading-spinner loading-lg"></span>
     </div>
   {:else if error}
-    <div class="flex flex-1 flex-col items-center justify-center gap-4">
+    <div class="flex flex-1 flex-col items-center justify-center gap-4 text-center">
       <p class="text-lg opacity-70">{error}</p>
-      <a class="btn btn-outline" href="/cards">← Volver al repositorio</a>
+      {#if pickCardHint}
+        <a class="btn btn-outline" href="/cards">Explorar el repositorio y elegir una tarjeta</a>
+      {:else}
+        <a class="btn btn-outline" href="/cards">← Volver al repositorio</a>
+      {/if}
     </div>
   {:else if graphData.nodes.length === 0}
     <div class="flex flex-1 flex-col items-center justify-center gap-4">
