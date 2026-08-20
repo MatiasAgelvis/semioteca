@@ -100,7 +100,8 @@
 </svelte:head>
 
 <div
-  class="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 py-6 lg:px-10"
+  class="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 py-6 transition-[padding] duration-300 ease-out lg:px-10"
+  class:lg:pr-[28rem]={selectedNode !== null}
   style="height: max(24rem, calc(100dvh - var(--header-height, 7rem) - 8rem))"
 >
   {#if loading}
