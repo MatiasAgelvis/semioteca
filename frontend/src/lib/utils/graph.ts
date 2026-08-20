@@ -98,6 +98,12 @@ export function buildAuthorColors(nodes: GraphNode[]): Map<string, string> {
     '#f97316',
     '#84cc16',
     '#3b82f6',
+    '#0d9488',
+    '#7c3aed',
+    '#db2777',
+    '#ea580c',
+    '#4f46e5',
+    '#16a34a',
   ];
   authors.forEach((a, i) => colors.set(a, palette[i % palette.length]));
   return colors;
