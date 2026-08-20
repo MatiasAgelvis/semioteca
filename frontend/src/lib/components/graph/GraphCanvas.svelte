@@ -89,13 +89,6 @@
     }
   }
 
-  function handleSvgClick(e: MouseEvent) {
-    // Only deselect if clicking directly on the SVG background, not a node
-    if (e.target === svgEl || (e.target as Element).tagName === 'svg') {
-      onselect(null);
-    }
-  }
-
   // Run force simulation off-screen, then snap to final positions.
   // CSS transitions on <g transform> animate the snap.
   $effect(() => {
@@ -213,7 +206,6 @@
   preserveAspectRatio="xMidYMid meet"
   role="application"
   ondblclick={handleDblClick}
-  onclick={handleSvgClick}
   onkeydown={handleSvgKeydown}
   onmousemove={handleSvgMousemove}
 >
