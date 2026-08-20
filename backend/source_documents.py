@@ -21,6 +21,7 @@ WARNOCK_PAGE_PATTERN = r"^\s*(?:[^\n]{0,80}?\s+)?(?P<marker>[Pp]\.?\s*(?P<page>\
 class SourceDocumentConfig(BaseMetadata):
     filename: str
     split_pattern: str
+    running_header_pattern: str | None = None
     extra: dict[str, str] = field(default_factory=dict)
 
 
@@ -28,6 +29,7 @@ class SourceDocument(Enum):
     AVRANMIDES_2019 = SourceDocumentConfig(
         filename="Avranmides 2019 Knowing Other Minds.odt",
         split_pattern=PAGE_DOT_PATTERN,
+        running_header_pattern=r"AVRAMIDES,\s*Anita",
         title="Knowing Other Minds",
         author="Avramides",
         book="Knowing Other Minds",
