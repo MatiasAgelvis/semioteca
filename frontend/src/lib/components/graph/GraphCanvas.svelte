@@ -278,6 +278,7 @@
             y={-style.r - 8}
             text-anchor="middle"
             class="fill-base-content text-xs font-semibold"
+            style="paint-order: stroke; stroke: var(--color-base-200); stroke-width: 3px; stroke-linejoin: round;"
           >
             {node.author} — {node.book}
           </text>
