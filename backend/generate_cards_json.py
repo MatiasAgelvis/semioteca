@@ -14,18 +14,16 @@ from html.parser import HTMLParser
 from pathlib import Path
 from typing import Optional
 
+import mammoth
+import pypandoc
 from anomalies import (
     SourceBuildResult,
     collect_card_length_anomalies,
     print_card_length_anomalies,
 )
-
-import mammoth
-import pypandoc
-from tqdm import tqdm
-
-from card_models import BaseMetadata, BookGroupKey, Card, Book, CardSection, ImageRef
+from card_models import BaseMetadata, Book, BookGroupKey, Card, CardSection, ImageRef
 from source_documents import SourceDocumentConfig, find_source_configs
+from tqdm import tqdm
 
 SUPPORTED_INPUT_EXTENSIONS = {".odt", ".docx"}
 
@@ -211,6 +209,13 @@ def build_cards_for_source(source_path: Path, config: SourceDocumentConfig, imag
                 images=card_images,
             )
         )
+    if config.running_header_pattern:
+        header_re = re.compile(config.running_header_pattern, re.IGNORECASE)
+        for card in cards:
+            matches = list(header_re.finditer(card.content))
+            if matches:
+                card.content = card.content[: matches[-1].start()].strip()
+
     return SourceBuildResult(source_path=source_path, cards=cards)
 
 
@@ -340,5 +345,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-
