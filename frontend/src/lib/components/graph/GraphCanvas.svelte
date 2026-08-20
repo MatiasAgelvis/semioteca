@@ -25,6 +25,7 @@
 
   let svgEl: SVGSVGElement;
   let zoomTransform = $state('translate(0,0) scale(1)');
+  let viewBox = $state('-500 -500 1000 1000');
   let zoomBehavior: ReturnType<typeof d3Zoom<SVGSVGElement, unknown>> | null = null;
   let lastOrigin = '';
 
@@ -122,6 +123,33 @@
 
     // Single assignment triggers CSS transitions
     layoutNodes = nodes.map((n) => ({ ...n }));
+
+    // Fit the viewBox to the settled layout so the graph always fills the
+    // viewport, regardless of how wide the force simulation spread the nodes.
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+    for (const n of nodes) {
+      const r = nodeStyle(n, authorColors).r;
+      minX = Math.min(minX, n.x - r);
+      maxX = Math.max(maxX, n.x + r);
+      minY = Math.min(minY, n.y - r);
+      maxY = Math.max(maxY, n.y + r);
+    }
+    const PADDING = 80;
+    const MIN_SPAN = 300; // keep tiny layouts (e.g. single node) from zooming in too far
+    const spanX = Math.max(maxX - minX, MIN_SPAN) + PADDING * 2;
+    const spanY = Math.max(maxY - minY, MIN_SPAN) + PADDING * 2;
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+    viewBox = `${cx - spanX / 2} ${cy - spanY / 2} ${spanX} ${spanY}`;
+
+    // Reset zoom to the fitted view (keeps d3's internal transform in sync)
+    zoomTransform = 'translate(0,0) scale(1)';
+    if (svgEl && zoomBehavior) {
+      select(svgEl).call(zoomBehavior.transform, zoomIdentity);
+    }
   });
 
   // Attach zoom behavior
@@ -169,7 +197,7 @@
 <svg
   bind:this={svgEl}
   class="h-full w-full cursor-grab active:cursor-grabbing"
-  viewBox="-500 -500 1000 1000"
+  {viewBox}
   preserveAspectRatio="xMidYMid meet"
   role="application"
   ondblclick={handleDblClick}
