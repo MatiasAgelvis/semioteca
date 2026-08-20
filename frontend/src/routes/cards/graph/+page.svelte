@@ -24,7 +24,7 @@
   // Cached data — fetched once
   let cachedRelations = $state<Record<string, CardRelationEntry[]> | null>(null);
   let cardMap = $state<Map<string, CardRecord>>(new Map());
-  let graphCanvas: { recenter: () => void } = $state() as any;
+  let graphCanvas = $state<ReturnType<typeof GraphCanvas> | undefined>();
 
   // Parse initial values from URL
   const origin = $derived($page.url.searchParams.get('origin') ?? '');
@@ -163,7 +163,6 @@
         bind:this={graphCanvas}
         {graphData}
         {authorColors}
-        {origin}
         selectedNodeId={selectedNode?.id ?? null}
         onnavigate={handleNavigate}
         onhover={handleHover}

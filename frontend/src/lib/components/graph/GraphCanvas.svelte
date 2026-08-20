@@ -8,7 +8,6 @@
   let {
     graphData,
     authorColors,
-    origin = '',
     selectedNodeId = null,
     onnavigate,
     onhover,
@@ -16,7 +15,6 @@
   }: {
     graphData: GraphData;
     authorColors: Map<string, string>;
-    origin?: string;
     selectedNodeId?: string | null;
     onnavigate: (cardId: string) => void;
     onhover: (node: GraphNode | null, pos?: { x: number; y: number }) => void;
@@ -27,7 +25,6 @@
   let zoomTransform = $state('translate(0,0) scale(1)');
   let viewBox = $state('-500 -500 1000 1000');
   let zoomBehavior: ReturnType<typeof d3Zoom<SVGSVGElement, unknown>> | null = null;
-  let lastOrigin = '';
 
   // Local reactive copy — one assignment after simulation settles
   let layoutNodes = $state<GraphNode[]>([]);
@@ -196,14 +193,6 @@
   function handleDblClick() {
     recenter();
   }
-
-  // Recenter when navigating to a new origin from the panel
-  $effect(() => {
-    if (origin && lastOrigin && origin !== lastOrigin) {
-      recenter();
-    }
-    lastOrigin = origin;
-  });
 
   export function recenter() {
     zoomTransform = 'translate(0,0) scale(1)';
