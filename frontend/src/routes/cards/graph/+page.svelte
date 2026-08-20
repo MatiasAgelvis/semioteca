@@ -16,6 +16,7 @@
   let loading = $state(true);
   let error = $state<string | null>(null);
   let pickCardHint = $state(false);
+  let cardIds = $state<string[]>([]);
   let graphData = $state<GraphData>({ nodes: [], links: [] });
   let authorColors = $state<Map<string, string>>(new Map());
   let legendOpen = $state(false);
@@ -42,10 +43,17 @@
   let depth = $state<GraphDepth>(1);
 
   onMount(async () => {
-    // No card chosen: guide the user to the repo without fetching any data.
+    // No card chosen: guide the user to the repo without fetching the full
+    // payload — only load the lightweight id list so we can offer a random seed.
     if (!origin) {
       pickCardHint = true;
       error = 'Elige una tarjeta para explorar su red de relaciones.';
+      try {
+        const res = await fetch('/content/card-ids.json');
+        if (res.ok) cardIds = await res.json();
+      } catch {
+        // Non-critical: the repo link below still works without the id list.
+      }
       loading = false;
       return;
     }
@@ -104,6 +112,12 @@
     goto(`/cards/${cardId}?from=graph&origin=${encodeURIComponent(origin)}`);
   }
 
+  function handleRandomCard() {
+    if (cardIds.length === 0) return;
+    const id = cardIds[Math.floor(Math.random() * cardIds.length)];
+    window.location.assign(`/cards/graph?origin=${encodeURIComponent(id)}&depth=1`);
+  }
+
   function handleSelect(node: GraphNode | null) {
     selectedNode = node;
     hoveredNode = null;
@@ -141,7 +155,16 @@
     <div class="flex flex-1 flex-col items-center justify-center gap-4 text-center">
       <p class="text-lg opacity-70">{error}</p>
       {#if pickCardHint}
-        <a class="btn btn-outline" href="/cards">Explorar el repositorio y elegir una tarjeta</a>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <button
+            class="btn btn-primary"
+            onclick={handleRandomCard}
+            disabled={cardIds.length === 0}
+          >
+            Elegir una tarjeta al azar
+          </button>
+          <a class="btn btn-outline" href="/cards">Explorar el repositorio</a>
+        </div>
       {:else}
         <a class="btn btn-outline" href="/cards">← Volver al repositorio</a>
       {/if}
