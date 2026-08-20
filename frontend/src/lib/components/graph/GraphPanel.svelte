@@ -21,13 +21,14 @@
 </script>
 
 {#if node}
-  <!-- svelte-ignore a11y_click_events_have_key_events -->
-  <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div class="fixed inset-0 z-40" onclick={onclose} onkeydown={() => {}} role="presentation"></div>
   <div
     class="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-base-300 bg-base-100 shadow-2xl transition-transform duration-300 ease-out"
     role="dialog"
     aria-label="Vista previa de la tarjeta"
+    tabindex="-1"
+    onkeydown={(e) => {
+      if (e.key === 'Escape') onclose();
+    }}
   >
     <!-- Header -->
     <div class="flex items-center justify-between border-b border-base-200 px-5 py-3">
