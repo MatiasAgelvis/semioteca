@@ -84,8 +84,6 @@
     if (e.key === 'Enter') {
       e.stopPropagation();
       selectOrNavigate(node);
-    } else if (e.key === 'Escape') {
-      onselect(null);
     }
   }
 
@@ -182,10 +180,6 @@
     };
   });
 
-  function handleSvgKeydown(e: KeyboardEvent) {
-    if (e.key === 'Escape') onselect(null);
-  }
-
   function handleDblClick() {
     recenter();
   }
@@ -206,7 +200,6 @@
   preserveAspectRatio="xMidYMid meet"
   role="application"
   ondblclick={handleDblClick}
-  onkeydown={handleSvgKeydown}
   onmousemove={handleSvgMousemove}
 >
   <g transform={zoomTransform}>

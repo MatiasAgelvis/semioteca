@@ -29,9 +29,6 @@
     role="dialog"
     aria-label="Vista previa de la tarjeta"
     tabindex="-1"
-    onkeydown={(e) => {
-      if (e.key === 'Escape') onclose();
-    }}
   >
     <!-- Header -->
     <div class="flex items-center justify-between border-b border-base-200 px-5 py-3">

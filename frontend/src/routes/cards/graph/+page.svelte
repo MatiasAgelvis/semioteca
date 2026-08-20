@@ -113,6 +113,16 @@
     hoveredNode = node;
     if (pos) tooltipPos = pos;
   }
+
+  // Close the panel with Escape regardless of where focus currently is.
+  $effect(() => {
+    if (!selectedNode) return;
+    const onKeydown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') selectedNode = null;
+    };
+    window.addEventListener('keydown', onKeydown);
+    return () => window.removeEventListener('keydown', onKeydown);
+  });
 </script>
 
 <svelte:head>
