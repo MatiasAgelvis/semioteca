@@ -26,12 +26,13 @@ export function buildGraph(
 ): GraphData {
   const visited = new Set<string>();
   const queue: { id: string; level: number }[] = [{ id: originId, level: 0 }];
+  let head = 0;
   visited.add(originId);
 
   const links: GraphLink[] = [];
 
-  while (queue.length > 0) {
-    const { id, level } = queue.shift()!;
+  while (head < queue.length) {
+    const { id, level } = queue[head++];
     const entries = relations[id];
     if (!entries?.length || level >= depth) continue;
 
