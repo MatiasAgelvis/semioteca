@@ -3,6 +3,7 @@
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import GraphCanvas from '$lib/components/graph/GraphCanvas.svelte';
+  import GraphControls from '$lib/components/graph/GraphControls.svelte';
   import GraphLegend from '$lib/components/graph/GraphLegend.svelte';
   import GraphToolbar from '$lib/components/graph/GraphToolbar.svelte';
   import GraphTooltip from '$lib/components/graph/GraphTooltip.svelte';
@@ -119,8 +120,7 @@
 </svelte:head>
 
 <div
-  class="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 py-6 transition-[padding] duration-300 ease-out lg:px-10"
-  class:lg:pr-[28rem]={selectedNode !== null}
+  class="mx-auto flex w-full max-w-7xl flex-col gap-4 px-5 py-6 lg:px-10"
   style="height: max(24rem, calc(100dvh - var(--header-height, 7rem) - 8rem))"
 >
   {#if loading}
@@ -142,42 +142,44 @@
       <a class="btn btn-outline" href="/cards/{origin}">← Volver a la tarjeta</a>
     </div>
   {:else}
-    <GraphToolbar
-      {depth}
-      {origin}
-      {legendOpen}
-      onDepthChange={handleDepthChange}
-      onLegendToggle={() => (legendOpen = !legendOpen)}
-      onRecenter={() => graphCanvas?.recenter()}
-    />
+    <GraphToolbar {origin} />
 
-    <div
-      class="relative min-h-0 flex-1 overflow-hidden rounded-xl border border-base-300 bg-base-200/50"
-      onwheel={(e) => e.preventDefault()}
-    >
-      <GraphCanvas
-        bind:this={graphCanvas}
-        {graphData}
-        {authorColors}
-        selectedNodeId={selectedNode?.id ?? null}
-        onnavigate={handleNavigate}
-        onhover={handleHover}
-        onselect={handleSelect}
-      />
-      {#if hoveredNode && !selectedNode}
-        <GraphTooltip node={hoveredNode} position={tooltipPos} />
-      {/if}
-      {#if legendOpen}
-        <GraphLegend {authorColors} onclose={() => (legendOpen = false)} />
-      {/if}
-
+    <div class="flex min-h-0 flex-1 gap-4">
       <div
-        class="pointer-events-none absolute bottom-2 left-2 rounded-lg bg-base-200/80 px-2.5 py-1 text-[11px] text-base-content/40"
+        class="relative min-h-0 flex-1 overflow-hidden rounded-xl border border-base-300 bg-base-200/50"
+        onwheel={(e) => e.preventDefault()}
       >
-        Rueda para zoom · Arrastra para mover
-      </div>
-    </div>
+        <GraphCanvas
+          bind:this={graphCanvas}
+          {graphData}
+          {authorColors}
+          selectedNodeId={selectedNode?.id ?? null}
+          onnavigate={handleNavigate}
+          onhover={handleHover}
+          onselect={handleSelect}
+        />
+        <GraphControls
+          {depth}
+          {legendOpen}
+          onDepthChange={handleDepthChange}
+          onLegendToggle={() => (legendOpen = !legendOpen)}
+          onRecenter={() => graphCanvas?.recenter()}
+        />
+        {#if hoveredNode && !selectedNode}
+          <GraphTooltip node={hoveredNode} position={tooltipPos} />
+        {/if}
+        {#if legendOpen}
+          <GraphLegend {authorColors} onclose={() => (legendOpen = false)} />
+        {/if}
 
-    <GraphPanel node={selectedNode} {origin} onclose={() => (selectedNode = null)} />
+        <div
+          class="pointer-events-none absolute bottom-2 left-2 rounded-lg bg-base-200/80 px-2.5 py-1 text-[11px] text-base-content/40"
+        >
+          Rueda para zoom · Arrastra para mover
+        </div>
+      </div>
+
+      <GraphPanel node={selectedNode} {origin} onclose={() => (selectedNode = null)} />
+    </div>
   {/if}
 </div>

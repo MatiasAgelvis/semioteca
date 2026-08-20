@@ -1,5 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { fly } from 'svelte/transition';
+  import { cubicOut } from 'svelte/easing';
   import type { GraphNode } from '$lib/types/graph';
 
   let {
@@ -22,7 +24,8 @@
 
 {#if node}
   <div
-    class="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-base-300 bg-base-100 shadow-2xl transition-transform duration-300 ease-out"
+    transition:fly={{ x: 320, duration: 250, easing: cubicOut }}
+    class="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-base-300 bg-base-100 shadow-2xl lg:static lg:z-auto lg:w-[28rem] lg:max-w-none lg:shrink-0 lg:rounded-xl lg:border lg:border-base-300 lg:bg-base-200/50 lg:shadow-none"
     role="dialog"
     aria-label="Vista previa de la tarjeta"
     tabindex="-1"
