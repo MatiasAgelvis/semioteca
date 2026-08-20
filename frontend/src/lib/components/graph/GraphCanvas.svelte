@@ -29,6 +29,9 @@
   // Local reactive copy — one assignment after simulation settles
   let layoutNodes = $state<GraphNode[]>([]);
 
+  // O(1) node lookups when rendering edges, instead of a linear .find() per edge.
+  const nodeById = $derived(new Map(layoutNodes.map((n) => [n.id, n])));
+
   let hoverTimer: ReturnType<typeof setTimeout> | null = null;
   let hoveredNode: GraphNode | null = null;
   let mousePos = { x: 0, y: 0 };
@@ -218,8 +221,8 @@
     <!-- edges -->
     {#each graphData.links as link}
       {@const style = edgeStyle(link.score)}
-      {@const source = layoutNodes.find((n) => n.id === link.source)}
-      {@const target = layoutNodes.find((n) => n.id === link.target)}
+      {@const source = nodeById.get(link.source)}
+      {@const target = nodeById.get(link.target)}
       {#if source && target}
         <line
           x1={source.x}

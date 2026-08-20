@@ -7,9 +7,10 @@
   import GraphToolbar from '$lib/components/graph/GraphToolbar.svelte';
   import GraphTooltip from '$lib/components/graph/GraphTooltip.svelte';
   import GraphPanel from '$lib/components/graph/GraphPanel.svelte';
-  import type { CardRelationEntry, CardsDataset, CardRecord } from '$lib/types/content';
+  import type { CardRelationEntry, CardRecord } from '$lib/types/content';
   import { GRAPH_DEPTHS, type GraphData, type GraphNode, type GraphDepth } from '$lib/types/graph';
   import { buildCardMap, buildGraph, buildAuthorColors } from '$lib/utils/graph';
+  import { loadGraphData } from '$lib/utils/graph-data';
 
   let loading = $state(true);
   let error = $state<string | null>(null);
@@ -49,20 +50,15 @@
     }
 
     try {
-      const [cardsRes, relationsRes] = await Promise.all([
-        fetch('/content/cards.json'),
-        fetch('/content/card-relations.json'),
-      ]);
-
-      if (!cardsRes.ok || !relationsRes.ok) {
+      const data = await loadGraphData();
+      if (!data) {
         error = 'No se pudieron cargar los datos.';
         loading = false;
         return;
       }
 
-      const dataset = (await cardsRes.json()) as CardsDataset;
-      cachedRelations = await relationsRes.json();
-      cardMap = buildCardMap(dataset);
+      cachedRelations = data.relations;
+      cardMap = buildCardMap(data.dataset);
 
       if (!cardMap.has(origin)) {
         error = 'Tarjeta no encontrada.';
