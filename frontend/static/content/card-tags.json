@@ -25,7 +25,7 @@
   },
   {
     "name": "Intención",
-    "description": "Tarjetas sobre el papel de la intención del agente (hablante, autor, intérprete) en la producción y atribución de sentido. Úsala cuando la interpretación depende de reconstruir la intención comunicativa específica de alguien."
+    "description": "Tarjetas sobre la intención comunicativa como noción técnica de la pragmática: el significado del hablante y su dependencia de que el oyente reconozca la intención del emisor (Grice). Úsala cuando el texto analiza qué quiere decir un hablante con un enunciado concreto, no cuando solo se atribuye una intención general a un autor o a una obra."
   },
   {
     "name": "Cognición",

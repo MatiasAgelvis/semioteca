@@ -22,6 +22,11 @@ from anomalies import (
     print_card_length_anomalies,
 )
 from card_models import BaseMetadata, Book, BookGroupKey, Card, CardSection, ImageRef
+from divider_detection import (
+    detect_split_anomalies,
+    print_split_anomalies,
+    strip_divider,
+)
 from source_documents import SourceDocumentConfig, find_source_configs
 from tqdm import tqdm
 
@@ -185,10 +190,12 @@ def build_cards_for_source(source_path: Path, config: SourceDocumentConfig, imag
     output_image_dir = image_root / slugify(Path(config.filename).stem)
     raw_text, images = extract_text_and_images_from_docx_bytes(docx_bytes, output_image_dir)
     sections = split_text_into_cards(raw_text, config)
+    contents = [section.content or "" for section in sections]
+    stripped_contents, _ = strip_divider(config, contents)
 
     cards: list[Card] = []
     base_id = slugify(Path(config.filename).stem)
-    for index, section in enumerate(sections, start=1):
+    for index, (section, stripped_content) in enumerate(zip(sections, stripped_contents), start=1):
         card_id = base_id if len(sections) == 1 else f"{base_id}-{index}"
         card_images = [
             image for image in images
@@ -203,19 +210,15 @@ def build_cards_for_source(source_path: Path, config: SourceDocumentConfig, imag
                 year=config.year,
                 page=section.page or config.extra.get("page"),
                 raw_marker=section.marker,
-                content=section.content,
+                content=stripped_content,
                 source_path=str(source_path.as_posix()),
                 source_format=source_path.suffix.lower().lstrip("."),
                 images=card_images,
             )
         )
-    if config.running_header_pattern:
-        header_re = re.compile(config.running_header_pattern, re.IGNORECASE)
-        for card in cards:
-            matches = list(header_re.finditer(card.content))
-            if matches:
-                card.content = card.content[: matches[-1].start()].strip()
-
+    # Drop divider-only / blank cards (a page that carried only a running header),
+    # but keep figure-only cards that carry an image.
+    cards = [card for card in cards if card.content.strip() or card.images]
     return SourceBuildResult(source_path=source_path, cards=cards)
 
 
@@ -337,9 +340,15 @@ def main() -> None:
         print(f"Wrote {total_cards} cards to {output_path}")
         print(f"Images stored under {image_root}")
 
+    # Split-health: flag cards where a page marker leaked into the content (missed split).
+    split_anomalies: list = []
+    for (config, _source_path), result in zip(source_configs, source_results):
+        split_anomalies.extend(detect_split_anomalies(config, result.cards))
+
     if args.report_anomalies:
         print_card_length_anomalies(anomalies)
-    elif args.verbose and not anomalies:
+        print_split_anomalies(split_anomalies)
+    elif args.verbose and not anomalies and not split_anomalies:
         print("No card-length anomalies detected.")
 
 

@@ -81,6 +81,12 @@ cards in the lot, maybe even hand curate as we do for the regex patterns to ensu
 - [ ] **Lyons 1997 extraction has a weird postfix escaping the regex match** · All or most cards start with `Semántica lingüística. Una introducción. Barcelona: Paidós.` — the file-level regex seems to be matching a trailing postfix for each card; needs investigation/fix in the extraction logic.
 - [ ] **Graph view — 'return to repository' for the companion card** · Investigate adding a way to navigate back to the card repository from the companion card node in the graph view.
 
+## Themes (2026-08-20)
+
+- [ ] Test new DaisyUI themes — currently using the defaults (light/dark); evaluate `emerald` (light) and `forest` (dark).
+  - [ ] Pick a light + dark pair and enable them.
+  - [ ] Craft custom themes with similar palettes and homogeneous styles across components after settling on base themes.
+
 ## Graph network — entry / landing experience (revisit later)
 
 - [ ] Revisit whether the graph needs a standalone landing / a "Red" nav entry, or should stay contextual (reached from a card), instead of today's random-card starter.
