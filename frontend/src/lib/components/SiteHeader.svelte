@@ -10,13 +10,14 @@
     openCardsSearch,
   } from '$lib/stores/cardsSearch';
   import { selectedCount } from '$lib/stores/composer';
-  import { SHOW_CV, SHOW_DOCS } from '$lib/config/features';
+  import { SHOW_CV, SHOW_DOCS, SHOW_GUIDE } from '$lib/config/features';
   import { goto } from '$app/navigation';
   import Logo from '$lib/components/Logo.svelte';
 
   const links = [
     { href: '/', label: 'Inicio' },
     { href: '/cards', label: 'Tarjetas' },
+    ...(SHOW_GUIDE ? [{ href: '/guia', label: 'Guía' }] : []),
     { href: '/blog', label: 'Blog' },
     { href: '/contact', label: 'Contacto' },
     ...(SHOW_DOCS ? [{ href: '/docs', label: 'Documentos' }] : []),
