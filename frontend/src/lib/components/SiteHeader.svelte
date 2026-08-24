@@ -103,7 +103,7 @@
 >
   <div class="mx-auto w-full max-w-7xl px-5 lg:px-10">
     <div
-      class={`grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 transition-[padding,grid-template-columns,gap] duration-300 ease-out ${compactHeader ? 'py-2' : 'py-3'}`}
+      class={`grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 transition-[padding,gap] duration-300 ease-out ${compactHeader ? 'py-2' : 'py-3'}`}
     >
       <a
         href="/"
@@ -116,14 +116,12 @@
         <span class="hidden truncate sm:inline">Significado Total</span>
       </a>
 
-      {#if isCardsRoute}
-        <div
-          class={`relative flex min-w-0 items-center transition-[transform,opacity] duration-300 ease-out ${compactHeader ? 'translate-y-0 opacity-100' : 'translate-y-0 opacity-100'}`}
-        >
+      <div class="relative flex min-w-0 items-center">
+        {#if isCardsRoute}
           <button
             bind:this={searchButtonEl}
             type="button"
-            class={`input input-bordered flex w-full items-center justify-between rounded-full bg-base-100/90 gap-2 px-3 sm:px-4 text-left transition-[height,box-shadow] duration-300 ease-out hover:border-primary/50 focus:border-primary focus:outline-hidden ${compactHeader ? 'h-9 min-h-9 sm:h-10 sm:min-h-10 shadow-sm' : 'h-10 min-h-10 sm:h-11 sm:min-h-11'}`}
+            class={`input input-bordered flex w-full sm:w-80 lg:w-96 items-center justify-between rounded-full bg-base-100/90 gap-2 px-3 sm:px-4 text-left transition-[height,box-shadow] duration-300 ease-out hover:border-primary/50 focus:border-primary focus:outline-hidden mx-auto ${compactHeader ? 'h-9 min-h-9 sm:h-10 sm:min-h-10 shadow-sm' : 'h-10 min-h-10'}`}
             onclick={handleSearchAction}
           >
             <span class="truncate text-sm opacity-50">
@@ -131,10 +129,10 @@
             </span>
             <span class="hidden text-xs opacity-50 sm:inline">⌘K</span>
           </button>
-        </div>
-      {/if}
+        {/if}
+      </div>
 
-      <div class="flex items-center justify-end gap-2">
+      <div class="flex items-center justify-end gap-2 mr-1">
         <div
           class={`hidden overflow-hidden transition-[max-width,opacity,transform,margin] duration-300 ease-out xl:block ${compactHeader ? 'pointer-events-none max-w-0 -translate-y-1 opacity-0' : 'max-w-xl translate-y-0 opacity-100'}`}
         >
