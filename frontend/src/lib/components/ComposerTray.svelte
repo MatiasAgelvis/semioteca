@@ -44,25 +44,29 @@
   >
     {#if expanded}
       <div class="mx-auto max-w-7xl px-5 py-3 lg:px-10">
-        <div class="mb-2 flex items-center justify-between gap-2">
+        <div class="mb-3 flex flex-wrap items-center justify-end gap-x-2 gap-y-2">
           <button
             type="button"
-            class="flex items-center gap-2 text-sm font-semibold btn-ghost rounded px-2 py-1 hover:bg-base-200"
+            class="flex items-center gap-2 text-sm font-semibold btn-ghost rounded px-2 py-1 hover:bg-base-200 mr-auto shrink-0 order-1"
             onclick={() => (expanded = false)}
             aria-label="Colapsar constructor"
           >
             {$selectedCount} <span class="text-[10px] opacity-30">/ {CARD_LIMIT}</span> tarjetas
             <span class="text-xs opacity-40">&darr;</span>
           </button>
-          <div class="flex items-center gap-2">
+          <div class="order-3 flex w-full items-center justify-end gap-2 sm:order-2 sm:w-auto">
             <button type="button" class="btn btn-ghost btn-sm text-error" onclick={handleClear}>
               Vaciar
             </button>
             <a href="/cards/compose" class="btn btn-soft btn-sm">Abrir compositor &rarr;</a>
-            <button type="button" class="btn btn-primary btn-sm" onclick={handleExportPdf}>
-              Exportar PDF
-            </button>
           </div>
+          <button
+            type="button"
+            class="btn btn-primary btn-sm shrink-0 order-2 sm:order-3"
+            onclick={handleExportPdf}
+          >
+            Exportar PDF
+          </button>
         </div>
 
         <div class="max-h-64 overflow-y-auto rounded-lg border border-base-200">
@@ -114,7 +118,9 @@
         </div>
       </div>
     {:else}
-      <div class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-5 py-2 lg:px-10">
+      <div
+        class="mx-auto flex w-full max-w-7xl items-center justify-between gap-3 px-5 py-2 lg:px-10"
+      >
         <button
           type="button"
           class="flex items-center gap-2 text-sm font-semibold btn-ghost rounded px-2 py-1 hover:bg-base-200"
@@ -125,7 +131,9 @@
           <span class="text-xs opacity-40">&uarr;</span>
         </button>
         <div class="flex items-center gap-2">
-          <a href="/cards/compose" class="btn btn-ghost btn-sm">Abrir compositor &rarr;</a>
+          <a href="/cards/compose" class="btn btn-ghost btn-sm hidden sm:inline-flex"
+            >Abrir compositor &rarr;</a
+          >
           <button type="button" class="btn btn-primary btn-sm" onclick={handleExportPdf}>
             Exportar PDF
           </button>

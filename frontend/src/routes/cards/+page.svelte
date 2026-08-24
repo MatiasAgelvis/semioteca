@@ -39,6 +39,7 @@
   );
   let focusedCardId = $state<string | null>(null);
   let mobileDrawerOpen = $state(false);
+  let composerTrayHeight = $state(0);
   let cards = $state<CardRecord[]>([]);
   const cardMap = $derived(new Map(cards.map((c): [string, CardRecord] => [c.id, c])));
 
@@ -620,6 +621,7 @@
     <div class="mt-6">
       <button
         class="btn btn-primary btn-sm fixed right-4 bottom-4 z-30 shadow-lg lg:hidden"
+        style:bottom={`${composerTrayHeight + 16}px`}
         onclick={() => {
           mobileDrawerOpen = true;
         }}
@@ -716,7 +718,9 @@
   </PageSection>
 </div>
 
-<ComposerTray {cardMap} />
+<div class="sticky bottom-0 z-40" bind:clientHeight={composerTrayHeight}>
+  <ComposerTray {cardMap} />
+</div>
 
 {#if shareCopied}
   <div class="toast toast-bottom toast-end z-50">
