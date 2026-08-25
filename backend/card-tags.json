@@ -5,7 +5,7 @@
   },
   {
     "name": "Pragmática",
-    "description": "Tarjetas sobre cómo el contexto de uso modifica o completa lo dicho: implicatura, deixis, actos de habla, presuposición e inferencia conversacional. Úsala cuando la pregunta central es qué se comunica en una situación concreta, más allá del contenido literal."
+    "description": "Tarjetas sobre implicatura, deixis, actos de habla, presuposición e inferencia conversacional. Úsala cuando el texto analiza específicamente estos fenómenos pragmáticos — no cuando solo menciona contexto o uso como parte de una discusión más amplia."
   },
   {
     "name": "Signo",
@@ -29,6 +29,6 @@
   },
   {
     "name": "Cognición",
-    "description": "Tarjetas sobre procesos y estados mentales: percepción, atención, memoria, pensamiento, emoción, empatía y el funcionamiento de la mente o el cerebro (p. ej. lingüística cognitiva). Úsala cuando el texto describe la actividad mental o cognitiva en sí — no cuando solo trata del significado, el lenguaje o la interpretación."
+    "description": "Tarjetas sobre la mente y el cerebro: funcionamiento cerebral, procesos cognitivos, lingüística cognitiva. Úsala cuando el texto describe la actividad de la mente o el cerebro — no cuando una teoría filosófica, pragmática o semántica solo menciona pensamiento o atención de paso."
   }
 ]
