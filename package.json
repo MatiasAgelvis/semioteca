@@ -6,6 +6,7 @@
     "content:generate": "cd backend && sh ../scripts/venv-python.sh generate_cards_json.py --report-anomalies",
     "content:relations": "cd backend && sh ../scripts/venv-python.sh generate_card_relations.py",
     "content:tag": "cd backend && sh ../scripts/venv-python.sh tag_cards.py",
+    "content:tagstats": "cd backend && sh ../scripts/venv-python.sh tag_stats.py --per-source",
     "content:sync": "node ./scripts/sync-content.mjs",
     "content:prepare": "npm run content:generate && npm run content:tag && npm run content:relations && npm run content:sync",
     "frontend:dev": "npm --prefix frontend run dev",
