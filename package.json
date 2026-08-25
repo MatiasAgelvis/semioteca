@@ -9,6 +9,7 @@
     "content:tagstats": "cd backend && sh ../scripts/venv-python.sh tag_stats.py --per-source",
     "content:sync": "node ./scripts/sync-content.mjs",
     "content:build": "npm run content:generate && npm run content:tag && npm run content:relations && npm run content:sync",
+    "content:commit-update": "git commit -m \"chore(cards): update tags and relations\" -m \"- remove outdated tags from some card entries\" -m \"- recalculate card similarity scores and relations\"",
     "frontend:dev": "npm --prefix frontend run dev",
     "frontend:check": "npm --prefix frontend run check",
     "frontend:build": "npm --prefix frontend run build",
