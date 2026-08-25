@@ -1,10 +1,9 @@
-from sentence_transformers import SentenceTransformer
-from torch import Tensor
-from tqdm import tqdm
-
 from card_models import Card, Library
 from logging_config import get_tag_logger, log_card_score_summary
+from sentence_transformers import SentenceTransformer
 from tags import CARD_TAG_NAMES, CARD_TAGS, CardTag
+from torch import Tensor
+from tqdm import tqdm
 
 MODEL_ID = "ibm-granite/granite-embedding-311m-multilingual-r2"
 DEFAULT_PROMPT = ""
