@@ -42,7 +42,7 @@ If you modified the source manuscripts or the Python generation logic:
 
 ```sh
 npm run content:generate   # regenerate cards.json and card images only
-npm run content:prepare    # generate + sync in one step
+npm run content:build     # generate + tag + relations + sync in one step
 ```
 
 ### Full build (for deploy)
@@ -53,7 +53,7 @@ npm run build   # frontend:build only
 
 Static output is written to `frontend/build/`.
 
-Deploys do not regenerate content. Update `frontend/static/content/` locally with `npm run content:sync` or `npm run content:prepare`, then commit the synced files.
+Deploys do not regenerate content. Update `frontend/static/content/` locally with `npm run content:sync` or `npm run content:build`, then commit the synced files.
 
 ---
 
@@ -74,7 +74,7 @@ Deploys do not regenerate content. Update `frontend/static/content/` locally wit
 ### Bibliographic cards
 
 1. Edit the `.odt` manuscripts in `backend/ODT/`.
-2. Run `npm run content:prepare` (regenerates `cards.json` and syncs).
+2. Run `npm run content:build` (regenerates `cards.json`, tags, computes relations, and syncs).
 
 ---
 

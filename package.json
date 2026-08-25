@@ -8,7 +8,7 @@
     "content:tag": "cd backend && sh ../scripts/venv-python.sh tag_cards.py",
     "content:tagstats": "cd backend && sh ../scripts/venv-python.sh tag_stats.py --per-source",
     "content:sync": "node ./scripts/sync-content.mjs",
-    "content:prepare": "npm run content:generate && npm run content:tag && npm run content:relations && npm run content:sync",
+    "content:build": "npm run content:generate && npm run content:tag && npm run content:relations && npm run content:sync",
     "frontend:dev": "npm --prefix frontend run dev",
     "frontend:check": "npm --prefix frontend run check",
     "frontend:build": "npm --prefix frontend run build",
