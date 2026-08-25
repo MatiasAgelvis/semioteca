@@ -233,4 +233,19 @@ Leaves for the open questions: exact repetition threshold, the fuzzy-matching me
 3. ✅ Fuzzy tolerance — **resolved**: containment-based matching (key substring / token overlap ≥ 0.7), not n-gram similarity. Handles longer variants and typos (`Gammar`, `United Kingdom;`/`UK:`).
 4. ✅ Where detection lives — `divider_detection.py`, called from `generate_cards_json.py`; split-health reported alongside the length anomalies.
 
-**Outstanding — separate workstream:** the `Intención` tagger over-firing persists (~79% of cards) even with divider-stripped content **and** the refined `Intención` description in `card-tags.json`. This is a model-level bias in `Recognai/zeroshot_selectra_medium`, not an extraction problem, and is tracked separately.
+**Outstanding — separate workstream (Intención over-firing): RESOLVED** — see “Tagger tuning — status & evaluation workflow” below.
+
+---
+
+## Tagger tuning — status & evaluation workflow
+
+**Status (2026-08-25).** The `Intención` over-firing (~79% of cards at 0.83 avg score, unresponsive to description edits) was a model-level bias in `Recognai/zeroshot_selectra_medium`, not an extraction or description problem. Fixed by swapping to `MoritzLaurer/mDeBERTa-v3-base-mnli-xnli` **and** rewriting `Intención` to strict Gricean meaning — now ~0.3% (8 cards), which matches the source corpus (intention genuinely appears in a handful of cards). `Semiótica` is the umbrella/default slot (~40–50%). Open item: `Cognición` sits between overcorrection (0.9%, too clinical) and blowout (86.6%, “papel del lenguaje” bridges poison this model) — the current description anchors only on the mental processes themselves (percepción/atención/memoria/emoción… “no cuando solo trata del significado, el lenguaje o la interpretación”).
+
+**Evaluation workflow (make 40-min runs count):**
+
+1. **Sample first** — `npm run content:tag:sample` tags the first 10 cards of each book (~250 cards, a couple of minutes) into `backend/cards.sample.json`; `npm run content:tagstats:sample` reports its distribution. Description tweaks iterate in minutes, not 40.
+2. **Full run only when the sample looks sane** — `npm run content:tag`, then `npm run content:tagstats`.
+3. `MAX_TAGS = 3` (was 2) so `Signo`/`Semántica`/`Significado`/`Realismo` can rank into a 3rd slot instead of always losing to `Semiótica`/`Pragmática`. Selection-only — no extra inference cost — so it is set before the run that validates the `Cognición` description, answering both questions at once.
+4. Inference is **batched per book** (`BATCH_SIZE = 32`) in `nli_tagger._score_cards` — semantics-preserving vs. per-card calls, but removes the per-call overhead that dominates a CPU run. `--device mps` is opt-in for Apple Silicon; validate on the sample before trusting it.
+
+When the distribution settles: record the final `card-tags.json` descriptions and `MAX_TAGS` here.
