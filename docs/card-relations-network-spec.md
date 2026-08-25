@@ -104,7 +104,7 @@ Hooks into the existing pipeline:
 npm run content:generate   # regenerate cards.json (existing)
 npm run content:relations  # NEW: compute relatedCards → card-relations.json
 npm run content:sync       # copy to frontend (existing)
-npm run content:prepare    # generate + relations + sync (updated)
+npm run content:build     # generate + tag + relations + sync
 ```
 
 Updates to `package.json`:
@@ -113,7 +113,7 @@ Updates to `package.json`:
 {
   "scripts": {
     "content:relations": "cd backend && sh ../scripts/venv-python.sh generate_card_relations.py",
-    "content:prepare": "npm run content:generate && npm run content:relations && npm run content:sync",
+    "content:build": "npm run content:generate && npm run content:tag && npm run content:relations && npm run content:sync",
   },
 }
 ```
@@ -147,7 +147,7 @@ The sync script (`sync-content.mjs`) will need a small update to also copy `card
 ### Step 4: Wire into build pipeline
 
 - Add `npm run content:relations`
-- Update `npm run content:prepare`
+- Update `npm run content:build`
 - Add `card-relations.json` to `sync-content.mjs`
 
 ### Step 5: Frontend integration

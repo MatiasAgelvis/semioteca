@@ -262,7 +262,7 @@ Vercel deploy
 | `npm run content:generate`  | Run card extraction from source documents   |
 | `npm run content:relations` | Compute related-card scores                 |
 | `npm run content:sync`      | Copy backend outputs to frontend static dir |
-| `npm run content:prepare`   | All three above in sequence                 |
+| `npm run content:build`     | All four above in sequence                  |
 | `npm run frontend:dev`      | Start SvelteKit dev server                  |
 | `npm run frontend:build`    | Production build                            |
 | `npm run build`             | Frontend build only (content assumed ready) |
