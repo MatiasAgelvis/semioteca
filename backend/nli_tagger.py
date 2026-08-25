@@ -14,7 +14,7 @@ logger = get_tag_logger()
 
 
 def normalize_card_content(card: Card) -> str:
-    return f"{card.title}: {card.content[150:]}"
+    return f"{card.title}: {card.content}"
 
 
 def _score_card(
