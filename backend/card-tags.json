@@ -1,7 +1,7 @@
 [
   {
     "name": "Semiótica",
-    "description": "Tarjetas sobre marcos generales de producción de sentido: sistemas de signos, códigos culturales, semiosis y modelos globales de interpretación. Úsala cuando el análisis no se concentra en una unidad lingüística particular, sino en la arquitectura del proceso de significación en su conjunto."
+    "description": "Tarjetas sobre la producción de sentido y la significación en general: sistemas de signos, códigos, semiosis e interpretación. Úsala cuando el texto aborda el sentido o la interpretación en términos generales — no cuando desarrolla específicamente pragmática, semántica, signo, cognición o intención."
   },
   {
     "name": "Pragmática",
@@ -25,10 +25,10 @@
   },
   {
     "name": "Intención",
-    "description": "Tarjetas sobre la intención comunicativa como noción técnica de la pragmática: el significado del hablante y su dependencia de que el oyente reconozca la intención del emisor (Grice). Úsala cuando el texto analiza qué quiere decir un hablante con un enunciado concreto, no cuando solo se atribuye una intención general a un autor o a una obra."
+    "description": "Tarjetas sobre la teoría del significado-no-natural de Grice: un hablante quiere decir algo cuando pretende que el oyente reconozca su intención de producir ese efecto. Úsala solo cuando el texto discute cómo la intención del hablante constituye o explica el significado del hablante — no para textos generales sobre significado, lenguaje o comunicación."
   },
   {
     "name": "Cognición",
-    "description": "Tarjetas sobre procesos mentales generales de conocimiento: percepción, atención, memoria, pensamiento y representación. Úsala cuando el enfoque sea la actividad cognitiva que sustenta la interpretación o la producción de sentido, más que el lenguaje formal o la teoría del signo."
+    "description": "Tarjetas sobre procesos y estados mentales: percepción, atención, memoria, pensamiento, emoción, empatía y el funcionamiento de la mente o el cerebro (p. ej. lingüística cognitiva). Úsala cuando el texto describe la actividad mental o cognitiva en sí — no cuando solo trata del significado, el lenguaje o la interpretación."
   }
 ]
