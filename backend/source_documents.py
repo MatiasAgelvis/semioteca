@@ -73,6 +73,14 @@ class SourceDocument(Enum):
         book="SOMA y SEMA",
         year="2008",
     )
+    GOODMAN_1990 = SourceDocumentConfig(
+        filename="Nelson Goodman 1990.odt",
+        split_pattern=PAGE_DOT_PATTERN,
+        title="Maneras de hacer mundos",
+        author="Goodman",
+        book="Maneras de hacer mundos",
+        year="1990",
+    )
     GREIMAS_FONTANILLE_1994 = SourceDocumentConfig(
         filename="Greimas, Fontanille 1994 Semiótica de las pasiones.odt",
         split_pattern=PAGE_DOT_PATTERN,
