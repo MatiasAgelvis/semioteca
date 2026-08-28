@@ -43,7 +43,7 @@ def save_json(data: dict, file_path: str) -> None:
         None
     """
     with open(file_path, "w") as f:
-        json.dump(data, f, indent=4)
+        json.dump(data, f, indent=2, ensure_ascii=False)
 
 
 def load_dataset(file_path: str) -> Library:
