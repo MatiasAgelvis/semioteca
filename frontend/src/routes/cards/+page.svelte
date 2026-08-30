@@ -43,7 +43,8 @@
   let cards = $state<CardRecord[]>([]);
   const cardMap = $derived(new Map(cards.map((c): [string, CardRecord] => [c.id, c])));
 
-  // Advanced search filters
+  // Advanced search filters (committed state — only mutated when the user commits
+  // from the dialog via "Ver todos" / Enter)
   let advancedOpen = $state(false);
   let showSearchHint = $state(false);
   let selectedAuthors = $state<Set<string>>(new Set());
@@ -55,6 +56,39 @@
     page: true,
     tags: true,
   });
+
+  // Dialog draft state — decoupled from the committed search state above.
+  // Typing/toggling here only updates the dialog preview (`dialog*` derived),
+  // never the page behind it. The draft is pushed to the committed state on
+  // "Ver todos" / Enter via `commitDialogToCommitted()`.
+  let dialogQuery = $state('');
+  let dialogTags = $state<Set<string>>(new Set());
+  let dialogAuthors = $state<Set<string>>(new Set());
+  let dialogMatchMode = $state<'all' | 'any'>('all');
+  let dialogFields = $state({
+    content: true,
+    authorBook: true,
+    page: true,
+    tags: true,
+  });
+
+  function syncDialogFromCommitted() {
+    dialogQuery = $cardsSearchQuery;
+    dialogDebouncedQuery = $cardsSearchQuery;
+    dialogTags = new Set(selectedTags);
+    dialogAuthors = new Set(selectedAuthors);
+    dialogMatchMode = matchMode;
+    dialogFields = { ...searchFields };
+  }
+
+  function commitDialogToCommitted() {
+    $cardsSearchQuery = dialogQuery;
+    debouncedQuery = dialogQuery; // skip the 200ms debounce, refresh the page immediately
+    selectedTags = new Set(dialogTags);
+    selectedAuthors = new Set(dialogAuthors);
+    matchMode = dialogMatchMode;
+    searchFields = { ...dialogFields };
+  }
 
   const authors = $derived.by(() => {
     const seen = new Set<string>();
@@ -79,34 +113,34 @@
     return [...seen].sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
   });
 
-  const activeFilterCount = $derived(
-    selectedAuthors.size +
-      selectedTags.size +
-      (matchMode === 'any' ? 1 : 0) +
-      (!searchFields.content || !searchFields.authorBook || !searchFields.page || !searchFields.tags
+  const dialogActiveFilterCount = $derived(
+    dialogAuthors.size +
+      dialogTags.size +
+      (dialogMatchMode === 'any' ? 1 : 0) +
+      (!dialogFields.content || !dialogFields.authorBook || !dialogFields.page || !dialogFields.tags
         ? 1
         : 0),
   );
 
   function toggleAuthor(author: string) {
-    const next = new Set(selectedAuthors);
+    const next = new Set(dialogAuthors);
     if (next.has(author)) next.delete(author);
     else next.add(author);
-    selectedAuthors = next;
+    dialogAuthors = next;
   }
 
   function toggleTag(tag: string) {
-    const next = new Set(selectedTags);
+    const next = new Set(dialogTags);
     if (next.has(tag)) next.delete(tag);
     else next.add(tag);
-    selectedTags = next;
+    dialogTags = next;
   }
 
-  function clearAdvancedFilters() {
-    selectedAuthors = new Set();
-    selectedTags = new Set();
-    matchMode = 'all';
-    searchFields = {
+  function clearDialogFilters() {
+    dialogAuthors = new Set();
+    dialogTags = new Set();
+    dialogMatchMode = 'all';
+    dialogFields = {
       content: true,
       authorBook: true,
       page: true,
@@ -218,6 +252,43 @@
   });
 
   const searchTerms = $derived(tokenizeQuery(debouncedQuery));
+
+  // Dialog-only search pipeline — same debounce pattern, but feeds the dialog
+  // preview (`dialogResults`) instead of the page's committed results.
+  let dialogDebouncedQuery = $state('');
+  let dialogDebounceTimer: ReturnType<typeof setTimeout> | null = null;
+
+  $effect(() => {
+    const q = dialogQuery;
+    if (dialogDebounceTimer) clearTimeout(dialogDebounceTimer);
+    dialogDebounceTimer = setTimeout(() => {
+      dialogDebouncedQuery = q;
+      dialogDebounceTimer = null;
+    }, 200);
+    return () => {
+      if (dialogDebounceTimer) {
+        clearTimeout(dialogDebounceTimer);
+        dialogDebounceTimer = null;
+      }
+    };
+  });
+
+  const dialogSearchTerms = $derived(tokenizeQuery(dialogDebouncedQuery));
+  const dialogHasCriteria = $derived(
+    tokenizeQuery(dialogQuery).length > 0 || dialogAuthors.size > 0 || dialogTags.size > 0,
+  );
+  const dialogRankedResults = $derived.by(() =>
+    getRankedSearchResults(
+      cards,
+      dialogSearchTerms,
+      dialogAuthors,
+      dialogTags,
+      dialogFields,
+      dialogMatchMode,
+    ),
+  );
+  const dialogResults = $derived(dialogRankedResults.slice(0, 24));
+  const dialogFullResultsCount = $derived(dialogRankedResults.length);
 
   const booksModel = $derived.by(() => {
     const grouped = new Map<
@@ -343,7 +414,10 @@
   }
 
   async function openFullResultsMode() {
-    if (!hasSearchCriteria) return;
+    if (!dialogHasCriteria) return;
+
+    // Push dialog draft → committed search state (the one and only recompute)
+    commitDialogToCommitted();
 
     fullResultsMode = true;
     closeSearchDialog();
@@ -351,10 +425,10 @@
 
     // Sync search state to URL
     const params = buildSearchParams({
-      q: $cardsSearchQuery,
-      tags: Array.from(selectedTags),
-      authors: Array.from(selectedAuthors),
-      mode: matchMode,
+      q: dialogQuery,
+      tags: Array.from(dialogTags),
+      authors: Array.from(dialogAuthors),
+      mode: dialogMatchMode,
     });
     const qs = params.toString();
     const url = qs ? `/cards?${qs}` : '/cards';
@@ -539,15 +613,28 @@
     history.replaceState(history.state, '', currentUrl.toString());
   });
 
+  // True once the draft has been seeded for the current open session, so the
+  // effect below doesn't overwrite the user's edits on every re-run.
+  let dialogSeeded = false;
+
   $effect(() => {
     if (!searchDialog) return;
 
     if ($cardsSearchDialogOpen) {
-      // Handle initial tags if provided
-      if ($cardsSearchInitialTags.length > 0) {
-        const nextTags = new Set(selectedTags);
-        $cardsSearchInitialTags.forEach((tag) => nextTags.add(tag));
-        selectedTags = nextTags;
+      // First time opening: seed the draft from committed state (or, for a tag
+      // click, start a fresh "just this tag" search).
+      if (!dialogSeeded) {
+        dialogSeeded = true;
+        if ($cardsSearchInitialTags.length > 0) {
+          dialogQuery = '';
+          dialogDebouncedQuery = '';
+          dialogTags = new Set($cardsSearchInitialTags);
+          dialogAuthors = new Set();
+          dialogMatchMode = 'all';
+          dialogFields = { content: true, authorBook: true, page: true, tags: true };
+        } else {
+          syncDialogFromCommitted();
+        }
         cardsSearchInitialTags.set([]); // Consume them
       }
 
@@ -556,11 +643,12 @@
       }
       void tick().then(() => {
         searchInput?.focus();
-        if ($cardsSearchQuery) searchInput?.select();
+        if (dialogQuery) searchInput?.select();
       });
       return;
     }
 
+    dialogSeeded = false;
     if (searchDialog.open) {
       searchDialog.close();
     }
@@ -754,7 +842,7 @@
         <label class="block">
           <input
             bind:this={searchInput}
-            bind:value={$cardsSearchQuery}
+            bind:value={dialogQuery}
             class="input input-lg input-bordered w-full truncate"
             placeholder="Busca por autor, libro, página, etiquetas o fragmento"
             type="search"
@@ -766,9 +854,9 @@
             }}
           />
         </label>
-        {#if selectedTags.size > 0 || selectedAuthors.size > 0}
+        {#if dialogTags.size > 0 || dialogAuthors.size > 0}
           <div class="flex flex-wrap gap-1.5 pt-1">
-            {#each Array.from(selectedTags) as tag}
+            {#each Array.from(dialogTags) as tag}
               <button
                 class="badge badge-primary badge-sm gap-1 hover:badge-error"
                 onclick={() => toggleTag(tag)}
@@ -776,7 +864,7 @@
                 {tag} <span>×</span>
               </button>
             {/each}
-            {#each Array.from(selectedAuthors) as author}
+            {#each Array.from(dialogAuthors) as author}
               <button
                 class="badge badge-secondary badge-sm gap-1 hover:badge-error"
                 onclick={() => toggleAuthor(author)}
@@ -786,7 +874,7 @@
             {/each}
             <button
               class="text-[10px] uppercase font-bold text-error ml-1 hover:underline"
-              onclick={clearAdvancedFilters}
+              onclick={clearDialogFilters}
             >
               Limpiar filtros
             </button>
@@ -796,16 +884,16 @@
 
       <div class="mt-3 flex items-center justify-between gap-3">
         <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
-          {#if searchTerms.length === 0 && selectedAuthors.size === 0 && selectedTags.size === 0}
+          {#if dialogSearchTerms.length === 0 && dialogAuthors.size === 0 && dialogTags.size === 0}
             <span>Escribe para buscar en toda la colección</span>
-          {:else if hasSearchCriteria}
+          {:else if dialogHasCriteria}
             <button
               type="button"
               class="btn btn-xs btn-primary"
-              disabled={fullResultsCount === 0}
+              disabled={dialogFullResultsCount === 0}
               onclick={openFullResultsMode}
             >
-              Ver todos ({fullResultsCount})
+              Ver todos ({dialogFullResultsCount})
             </button>
           {/if}
         </div>
@@ -820,8 +908,8 @@
             }}
           >
             Avanzado
-            {#if activeFilterCount > 0}
-              <span class="badge badge-xs badge-warning">{activeFilterCount}</span>
+            {#if dialogActiveFilterCount > 0}
+              <span class="badge badge-xs badge-warning">{dialogActiveFilterCount}</span>
             {/if}
             <span
               class={`text-xs transition-transform duration-200 ${advancedOpen ? 'rotate-180' : ''}`}
@@ -853,18 +941,18 @@
             <div class="flex flex-wrap gap-2">
               <button
                 type="button"
-                class={`btn btn-sm ${matchMode === 'all' ? 'btn-primary' : 'btn-outline'}`}
+                class={`btn btn-sm ${dialogMatchMode === 'all' ? 'btn-primary' : 'btn-outline'}`}
                 onclick={() => {
-                  matchMode = 'all';
+                  dialogMatchMode = 'all';
                 }}
               >
                 Estricto (Intersección)
               </button>
               <button
                 type="button"
-                class={`btn btn-sm ${matchMode === 'any' ? 'btn-primary' : 'btn-outline'}`}
+                class={`btn btn-sm ${dialogMatchMode === 'any' ? 'btn-primary' : 'btn-outline'}`}
                 onclick={() => {
-                  matchMode = 'any';
+                  dialogMatchMode = 'any';
                 }}
               >
                 Amplio (Unión)
@@ -897,27 +985,27 @@
             <p class="text-xs font-semibold uppercase tracking-widest opacity-50">Buscar en</p>
             <div class="flex flex-wrap gap-2">
               <label
-                class={`btn btn-sm gap-2 ${searchFields.content ? 'btn-primary' : 'btn-outline'}`}
+                class={`btn btn-sm gap-2 ${dialogFields.content ? 'btn-primary' : 'btn-outline'}`}
               >
-                <input type="checkbox" class="hidden" bind:checked={searchFields.content} />
+                <input type="checkbox" class="hidden" bind:checked={dialogFields.content} />
                 Contenido
               </label>
               <label
-                class={`btn btn-sm gap-2 ${searchFields.authorBook ? 'btn-primary' : 'btn-outline'}`}
+                class={`btn btn-sm gap-2 ${dialogFields.authorBook ? 'btn-primary' : 'btn-outline'}`}
               >
-                <input type="checkbox" class="hidden" bind:checked={searchFields.authorBook} />
+                <input type="checkbox" class="hidden" bind:checked={dialogFields.authorBook} />
                 Autor / libro
               </label>
               <label
-                class={`btn btn-sm gap-2 ${searchFields.page ? 'btn-primary' : 'btn-outline'}`}
+                class={`btn btn-sm gap-2 ${dialogFields.page ? 'btn-primary' : 'btn-outline'}`}
               >
-                <input type="checkbox" class="hidden" bind:checked={searchFields.page} />
+                <input type="checkbox" class="hidden" bind:checked={dialogFields.page} />
                 Página
               </label>
               <label
-                class={`btn btn-sm gap-2 ${searchFields.tags ? 'btn-primary' : 'btn-outline'}`}
+                class={`btn btn-sm gap-2 ${dialogFields.tags ? 'btn-primary' : 'btn-outline'}`}
               >
-                <input type="checkbox" class="hidden" bind:checked={searchFields.tags} />
+                <input type="checkbox" class="hidden" bind:checked={dialogFields.tags} />
                 Etiquetas
               </label>
             </div>
@@ -928,12 +1016,12 @@
               <p class="text-xs font-semibold uppercase tracking-widest opacity-50">
                 Filtrar por etiquetas
               </p>
-              {#if selectedTags.size > 0}
+              {#if dialogTags.size > 0}
                 <button
                   type="button"
                   class="text-xs text-primary hover:underline"
                   onclick={() => {
-                    selectedTags = new Set();
+                    dialogTags = new Set();
                   }}>Limpiar</button
                 >
               {/if}
@@ -942,10 +1030,10 @@
               {#each tags as tag}
                 <button
                   type="button"
-                  class={`btn btn-xs rounded-full ${selectedTags.has(tag) ? 'btn-primary' : 'btn-outline'}`}
+                  class={`btn btn-xs rounded-full ${dialogTags.has(tag) ? 'btn-primary' : 'btn-outline'}`}
                   onclick={() => toggleTag(tag)}
                 >
-                  {tag}{selectedTags.has(tag) ? ' ×' : ''}
+                  {tag}{dialogTags.has(tag) ? ' ×' : ''}
                 </button>
               {/each}
             </div>
@@ -956,12 +1044,12 @@
               <p class="text-xs font-semibold uppercase tracking-widest opacity-50">
                 Filtrar por autor
               </p>
-              {#if selectedAuthors.size > 0}
+              {#if dialogAuthors.size > 0}
                 <button
                   type="button"
                   class="text-xs text-primary hover:underline"
                   onclick={() => {
-                    selectedAuthors = new Set();
+                    dialogAuthors = new Set();
                   }}>Limpiar</button
                 >
               {/if}
@@ -970,10 +1058,10 @@
               {#each authors as author}
                 <button
                   type="button"
-                  class={`btn btn-xs rounded-full ${selectedAuthors.has(author) ? 'btn-primary' : 'btn-outline'}`}
+                  class={`btn btn-xs rounded-full ${dialogAuthors.has(author) ? 'btn-primary' : 'btn-outline'}`}
                   onclick={() => toggleAuthor(author)}
                 >
-                  {author}{selectedAuthors.has(author) ? ' ×' : ''}
+                  {author}{dialogAuthors.has(author) ? ' ×' : ''}
                 </button>
               {/each}
             </div>
@@ -983,22 +1071,22 @@
     </div>
 
     <div class="sm:max-h-[55vh] min-h-25 flex-1 space-y-3 overflow-y-auto px-6 py-5">
-      {#if !hasSearchCriteria}
+      {#if !dialogHasCriteria}
         <p
           class="rounded-2xl border border-dashed border-base-300 px-4 py-8 text-center text-sm opacity-70"
         >
           Busca en autores, libros, páginas y contenido. Al elegir un resultado, se abrirá su libro
           y se hará scroll a la tarjeta.
         </p>
-      {:else if searchResults.length === 0}
+      {:else if dialogResults.length === 0}
         <p
           class="rounded-2xl border border-dashed border-base-300 px-4 py-8 text-center text-sm opacity-70"
         >
           No hay coincidencias para esta búsqueda.
         </p>
       {:else}
-        {#each searchResults as card (card.id)}
-          <SearchResultItem {card} {searchTerms} onselect={selectSearchResult} />
+        {#each dialogResults as card (card.id)}
+          <SearchResultItem {card} searchTerms={dialogSearchTerms} onselect={selectSearchResult} />
         {/each}
       {/if}
     </div>

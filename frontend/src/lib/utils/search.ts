@@ -3,19 +3,22 @@ export interface HighlightSegment {
   match: boolean;
 }
 
-function foldChar(char: string): string {
-  return char
+function foldText(text: string): string {
+  return text
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase();
 }
 
+// Builds the folded string plus a mapping from folded positions back to
+// original positions. Only highlighting/excerpting need this mapping;
+// matching/counting should use the much faster `foldText`.
 function buildFoldedIndex(text: string) {
   let folded = '';
   const foldedToOriginal: number[] = [];
 
   for (let index = 0; index < text.length; index += 1) {
-    const chunk = foldChar(text[index]);
+    const chunk = foldText(text[index]);
     for (const foldedChar of chunk) {
       folded += foldedChar;
       foldedToOriginal.push(index);
@@ -48,7 +51,7 @@ export function tokenizeQuery(query: string): string[] {
     ...new Set(
       query
         .split(/[\s,.;:!?()\[\]{}"'“”‘’/\\|+-]+/)
-        .map((part) => foldChar(part.trim()))
+        .map((part) => foldText(part.trim()))
         .filter((part) => part.length > 0),
     ),
   ];
@@ -56,7 +59,7 @@ export function tokenizeQuery(query: string): string[] {
 
 export function getMatchCount(text: string, terms: string[]): number {
   if (terms.length === 0) return 0;
-  const { folded } = buildFoldedIndex(text);
+  const folded = foldText(text);
   let count = 0;
 
   for (const term of terms) {
@@ -74,20 +77,20 @@ export function getMatchCount(text: string, terms: string[]): number {
 
 export function matchesAllTerms(text: string, terms: string[]): boolean {
   if (terms.length === 0) return true;
-  const { folded } = buildFoldedIndex(text);
+  const folded = foldText(text);
   return terms.every((term) => folded.includes(term));
 }
 
 export function matchesAnyTerm(text: string, terms: string[]): boolean {
   if (terms.length === 0) return false;
-  const { folded } = buildFoldedIndex(text);
+  const folded = foldText(text);
   return terms.some((term) => folded.includes(term));
 }
 
 /** Returns how many distinct terms appear at least once in text. */
 export function countMatchedTerms(text: string, terms: string[]): number {
   if (terms.length === 0) return 0;
-  const { folded } = buildFoldedIndex(text);
+  const folded = foldText(text);
   return terms.filter((term) => folded.includes(term)).length;
 }
 
