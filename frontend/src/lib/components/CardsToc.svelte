@@ -50,7 +50,7 @@
       </li>
     {/each}
     {#if cards.length === 0}
-      <li class="text-xs opacity-60 px-4 py-2">Sin resultados para mostrar.</li>
+      <li class="text-xs opacity-50 px-4 py-2">Sin resultados para mostrar.</li>
     {/if}
   </ul>
 </SidebarContainer>

@@ -39,7 +39,7 @@
       </li>
     {/each}
     {#if books.length === 0}
-      <li class="px-4 py-2 text-xs opacity-60">No hay libros disponibles.</li>
+      <li class="px-4 py-2 text-xs opacity-50">No hay libros disponibles.</li>
     {/if}
   </ul>
 </SidebarContainer>

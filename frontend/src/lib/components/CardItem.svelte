@@ -183,7 +183,7 @@
           >
             <button
               type="button"
-              class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-60 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
+              class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-50 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
               onclick={() => openCardsSearch([tag])}
             >
               {tag}
