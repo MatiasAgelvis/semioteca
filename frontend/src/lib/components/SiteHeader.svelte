@@ -2,6 +2,7 @@
   import { cubicOut } from 'svelte/easing';
   import { fade, fly } from 'svelte/transition';
   import { onMount } from 'svelte';
+  import { Search } from '@lucide/svelte';
   import { page } from '$app/state';
   import ThemeSwitcher from './ThemeSwitcher.svelte';
   import {
@@ -127,17 +128,17 @@
           <button
             bind:this={searchButtonEl}
             type="button"
-            class={`input input-bordered flex w-full sm:w-80 lg:w-96 items-center justify-between rounded-full bg-base-100/90 gap-2 px-3 sm:px-4 text-left transition-[height,box-shadow] duration-300 ease-out hover:border-primary/50 focus:border-primary focus:outline-hidden mx-auto ${searchSizeClasses}`}
+            class={`input input-bordered flex w-full sm:w-80 lg:w-96 items-center gap-2 bg-base-100/90 px-3 sm:px-4 text-left transition-[height,box-shadow] duration-300 ease-out hover:border-primary/50 focus:border-primary focus:outline-hidden mx-auto ${searchSizeClasses}`}
             aria-label="Abrir búsqueda"
             onclick={handleSearchAction}
           >
+            <Search class="h-4 w-4 shrink-0 opacity-50" aria-hidden="true" />
             <span class="truncate text-sm opacity-50">
               <span class="lg:hidden">{$cardsSearchQuery || 'Buscar...'}</span>
               <span class="hidden lg:inline"
                 >{$cardsSearchQuery || 'Buscar en todas las tarjetas'}</span
               >
             </span>
-            <span class="hidden text-xs opacity-50 sm:inline">⌘K</span>
           </button>
         {/if}
       </div>
