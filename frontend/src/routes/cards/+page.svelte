@@ -865,9 +865,9 @@
             <span aria-hidden="true" class="text-xl">→</span>
           </button>
         </div>
-        <!-- Filter chips. min-h reserves space so toggling filters doesn't shift the Avanzado row. -->
-        <div class="flex flex-wrap items-center gap-1.5 pt-1 min-h-7 text-xs">
-          {#if dialogTags.size > 0 || dialogAuthors.size > 0}
+        <!-- Filter chips. Renders only when there are filters — no reserved space when empty. -->
+        {#if dialogTags.size > 0 || dialogAuthors.size > 0}
+          <div class="flex flex-wrap items-center gap-1.5 pt-1 pb-2 text-xs">
             {#each Array.from(dialogTags) as tag}
               <button
                 class="badge badge-primary badge-sm gap-1 hover:badge-error"
@@ -890,8 +890,8 @@
             >
               Limpiar filtros
             </button>
-          {/if}
-        </div>
+          </div>
+        {/if}
       </div>
 
       <!-- Hint / count on the left, Avanzado on the right — same row, anchored. -->
