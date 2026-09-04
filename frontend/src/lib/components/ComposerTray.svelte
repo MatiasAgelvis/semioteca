@@ -47,7 +47,7 @@
         <div class="mb-3 flex flex-wrap items-center justify-end gap-x-2 gap-y-2">
           <button
             type="button"
-            class="flex items-center gap-2 text-sm font-semibold btn-ghost rounded px-2 py-1 hover:bg-base-200 mr-auto shrink-0 order-1"
+            class="flex items-center gap-2 text-sm font-semibold btn-ghost rounded-field px-2 py-1 hover:bg-base-200 mr-auto shrink-0 order-1"
             onclick={() => (expanded = false)}
             aria-label="Colapsar constructor"
           >
@@ -69,7 +69,7 @@
           </button>
         </div>
 
-        <div class="max-h-64 overflow-y-auto rounded-lg border border-base-200">
+        <div class="max-h-64 overflow-y-auto rounded-box border border-base-200">
           {#each [...$composer.items].sort((a, b) => a.order - b.order) as item, index (item.cardId)}
             <div
               class="flex items-center justify-between gap-3 px-3 py-2 transition-colors hover:bg-base-200"
@@ -123,7 +123,7 @@
       >
         <button
           type="button"
-          class="flex items-center gap-2 text-sm font-semibold btn-ghost rounded px-2 py-1 hover:bg-base-200"
+          class="flex items-center gap-2 text-sm font-semibold btn-ghost rounded-field px-2 py-1 hover:bg-base-200"
           onclick={() => (expanded = true)}
           aria-label="Expandir constructor de documento"
         >

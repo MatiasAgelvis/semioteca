@@ -22,7 +22,7 @@
 
 <button
   type="button"
-  class="w-full rounded-2xl border border-base-200 bg-base-100 px-4 py-3 text-left transition hover:border-primary/50 hover:bg-base-200/60"
+  class="w-full rounded-box border border-base-200 bg-base-100 px-4 py-3 text-left transition hover:border-primary/50 hover:bg-base-200/60"
   onclick={() => onselect(card)}
 >
   <div class="contain-layout">

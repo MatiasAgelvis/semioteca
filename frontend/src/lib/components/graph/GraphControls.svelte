@@ -19,7 +19,7 @@
 </script>
 
 <div
-  class="absolute left-3 top-3 z-20 flex items-center gap-1 rounded-xl border border-base-300 bg-base-100/90 p-1.5 shadow-sm backdrop-blur-md"
+  class="absolute left-3 top-3 z-20 flex items-center gap-1 rounded-box border border-base-300 bg-base-100/90 p-1.5 shadow-sm backdrop-blur-md"
 >
   <div class="flex items-center gap-1" role="group" aria-label="Profundidad">
     <span class="hidden pl-1 text-xs text-base-content/50 sm:inline">Profundidad</span>
