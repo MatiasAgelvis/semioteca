@@ -103,16 +103,13 @@
 >
   <div class="mx-auto w-full max-w-7xl px-5 lg:px-10">
     <div
-      class={`grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 transition-[padding,gap] duration-300 ease-out ${compactHeader ? 'py-2' : 'py-3'}`}
+      class={`grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 transition-[padding,gap] duration-300 ease-out xl:py-3 ${compactHeader ? 'py-2' : 'py-3'}`}
     >
       <a
         href="/"
-        class={`flex min-w-0 items-center gap-2 text-base-content transition-[font-size,transform] duration-300 ease-out ${compactHeader ? 'text-base lg:text-xl' : 'text-lg sm:text-xl'} font-black tracking-tight mr-2 lg:mr-3`}
+        class="flex min-w-0 items-center gap-2 text-base-content text-lg sm:text-xl font-black tracking-tight mr-2 lg:mr-3"
       >
-        <Logo
-          size={compactHeader ? 6 : 7}
-          className="transition-[width,height] duration-300 ease-out"
-        />
+        <Logo size={7} />
         <span class="hidden truncate sm:inline">Significado Total</span>
       </a>
 
@@ -125,7 +122,10 @@
             onclick={handleSearchAction}
           >
             <span class="truncate text-sm opacity-50">
-              {$cardsSearchQuery || (compactHeader ? 'Buscar...' : 'Buscar en todas las tarjetas')}
+              <span class="lg:hidden">{$cardsSearchQuery || 'Buscar...'}</span>
+              <span class="hidden lg:inline"
+                >{$cardsSearchQuery || 'Buscar en todas las tarjetas'}</span
+              >
             </span>
             <span class="hidden text-xs opacity-50 sm:inline">⌘K</span>
           </button>
@@ -134,7 +134,7 @@
 
       <div class="flex items-center justify-end gap-2 mr-1">
         <div
-          class={`hidden overflow-hidden transition-[max-width,opacity,transform,margin] duration-300 ease-out xl:block ${compactHeader ? 'pointer-events-none max-w-0 -translate-y-1 opacity-0' : 'max-w-xl translate-y-0 opacity-100'}`}
+          class={`hidden overflow-hidden transition-[max-width,opacity,transform,margin] duration-300 ease-out xl:block xl:max-w-xl xl:translate-y-0 xl:opacity-100 xl:pointer-events-auto ${compactHeader ? 'max-w-0 pointer-events-none -translate-y-1 opacity-0' : 'max-w-xl translate-y-0 opacity-100'}`}
         >
           <nav class="flex items-center gap-2 whitespace-nowrap" aria-label="Primary">
             {#each links as link}
@@ -156,7 +156,7 @@
 
         <button
           type="button"
-          class={`btn btn-ghost transition-[opacity,transform] duration-300 ease-out ${compactHeader ? 'inline-flex translate-y-0 opacity-100' : 'inline-flex xl:hidden'}`}
+          class={`btn btn-ghost xl:hidden transition-[opacity,transform] duration-300 ease-out ${compactHeader ? 'inline-flex translate-y-0 opacity-100' : 'inline-flex'}`}
           onclick={toggleMenu}
           aria-expanded={menuOpen}
           aria-label="Abrir menu"
