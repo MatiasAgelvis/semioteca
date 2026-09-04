@@ -50,6 +50,8 @@
   --color-warning-content: oklch(20% 0.01 75);
   --color-error: oklch(50% 0.16 22);
   --color-error-content: oklch(98% 0 0);
+  --color-highlight: oklch(80% 0.14 85);
+  --color-highlight-content: oklch(20% 0.01 85);
 }
 
 @plugin 'daisyui/theme' {
@@ -76,4 +78,6 @@
   --color-warning-content: oklch(0% 0 0);
   --color-error: oklch(60.3% 0.255 22.18);
   --color-error-content: oklch(0% 0 0);
+  --color-highlight: oklch(45% 0.1 85);
+  --color-highlight-content: oklch(98% 0.01 85);
 }
