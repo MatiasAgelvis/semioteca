@@ -115,7 +115,7 @@
       {data.card.author} ({data.card.year}) &mdash; página {data.card.page ?? 's/p'}
     </p>
 
-    <div class="mt-7 space-y-4 rounded-xl border border-base-200 bg-base-200/40 p-5">
+    <div class="mt-7 space-y-4 rounded-box border border-base-200 bg-base-200/40 p-5">
       {#each contentParts as part}
         {#if part.kind === 'text'}
           <p class="whitespace-pre-wrap leading-8 opacity-90">

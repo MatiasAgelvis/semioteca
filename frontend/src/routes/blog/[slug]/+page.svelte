@@ -28,7 +28,7 @@
 
   <div class="flex flex-col items-center">
     <article
-      class="w-full max-w-4xl rounded-2xl border border-base-300/70 bg-base-100/90 p-6 shadow-lg shadow-base-content/5 lg:p-10 mb-10"
+      class="w-full max-w-4xl rounded-box border border-base-300/70 bg-base-100/90 p-6 shadow-lg shadow-base-content/5 lg:p-10 mb-10"
     >
       <header class="mb-8">
         <p class="mb-4 text-sm font-semibold tracking-[0.2em] text-base-content/60 uppercase">
@@ -52,7 +52,7 @@
       </header>
 
       <div
-        class="prose prose-slate max-w-none prose-headings:font-black prose-a:text-primary prose-img:rounded-xl prose-img:max-w-full prose-pre:overflow-x-auto wrap-break-word"
+        class="prose prose-slate max-w-none prose-headings:font-black prose-a:text-primary prose-img:rounded-box prose-img:max-w-full prose-pre:overflow-x-auto wrap-break-word"
       >
         {@html data.post.html}
       </div>

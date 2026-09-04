@@ -9,7 +9,7 @@
   }
 </script>
 
-<figure class="my-2 overflow-hidden rounded-lg border border-base-200">
+<figure class="my-2 overflow-hidden rounded-box border border-base-200">
   <div class="aspect-3/4 bg-base-200/30">
     <img
       src={imageUrl(image)}

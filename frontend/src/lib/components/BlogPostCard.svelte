@@ -14,7 +14,7 @@
 
 <a
   href={`/blog/${post.slug}`}
-  class="group flex flex-col rounded-2xl border border-base-300/70 p-5 transition hover:border-primary/30 hover:shadow-lg {variant ===
+  class="group flex flex-col rounded-box border border-base-300/70 p-5 transition hover:border-primary/30 hover:shadow-lg {variant ===
   'landing'
     ? 'bg-base-100/80'
     : 'bg-base-100/90 shadow-md shadow-base-content/5'}"
@@ -23,7 +23,7 @@
     <img
       src={post.coverImage}
       alt={post.title}
-      class="mb-4 w-full rounded-xl object-cover transition group-hover:opacity-90 dark:group-hover:opacity-80 {variant ===
+      class="mb-4 w-full rounded-box object-cover transition group-hover:opacity-90 dark:group-hover:opacity-80 {variant ===
       'landing'
         ? 'h-36'
         : 'h-44'}"

@@ -827,7 +827,7 @@
   }}
 >
   <div
-    class="modal-box flex flex-col overflow-hidden w-full h-full sm:h-auto sm:max-w-3xl rounded-none sm:rounded-4xl border border-base-300 bg-base-100 p-0 shadow-2xl"
+    class="modal-box flex flex-col overflow-hidden w-full h-full sm:h-auto sm:max-w-3xl rounded-none sm:rounded-box border border-base-300 bg-base-100 p-0 shadow-2xl"
   >
     <div class="shrink-0 border-b border-base-200 px-6 py-5">
       <div class="flex items-center justify-between gap-3">
@@ -921,7 +921,7 @@
 
       {#if advancedOpen}
         <div
-          class="mt-4 max-h-[40vh] overflow-y-auto overflow-scroll space-y-5 rounded-2xl border border-base-200 bg-base-50/60 px-5 py-4"
+          class="mt-4 max-h-[40vh] overflow-y-auto overflow-scroll space-y-5 rounded-box border border-base-200 bg-base-50/60 px-5 py-4"
         >
           <div class="space-y-2">
             <div class="flex items-center justify-between">
@@ -959,7 +959,7 @@
               </button>
             </div>
             {#if showSearchHint}
-              <div class="relative rounded-lg bg-base-200/50 p-2 pr-8">
+              <div class="relative rounded-box bg-base-200/50 p-2 pr-8">
                 <p class="text-[10px] opacity-60 leading-tight">
                   Estricto: requiere que coincidan todos los términos y todas las etiquetas
                   seleccionadas.<br />
@@ -1073,14 +1073,14 @@
     <div class="sm:max-h-[55vh] min-h-25 flex-1 space-y-3 overflow-y-auto px-6 py-5">
       {#if !dialogHasCriteria}
         <p
-          class="rounded-2xl border border-dashed border-base-300 px-4 py-8 text-center text-sm opacity-70"
+          class="rounded-box border border-dashed border-base-300 px-4 py-8 text-center text-sm opacity-70"
         >
           Busca en autores, libros, páginas y contenido. Al elegir un resultado, se abrirá su libro
           y se hará scroll a la tarjeta.
         </p>
       {:else if dialogResults.length === 0}
         <p
-          class="rounded-2xl border border-dashed border-base-300 px-4 py-8 text-center text-sm opacity-70"
+          class="rounded-box border border-dashed border-base-300 px-4 py-8 text-center text-sm opacity-70"
         >
           No hay coincidencias para esta búsqueda.
         </p>

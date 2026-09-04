@@ -13,7 +13,7 @@
 </script>
 
 <div
-  class="absolute right-3 top-3 z-40 w-56 rounded-xl border border-base-300 bg-base-100 p-4 shadow-lg"
+  class="absolute right-3 top-3 z-40 w-56 rounded-box border border-base-300 bg-base-100 p-4 shadow-lg"
 >
   <div class="mb-3 flex items-center justify-between">
     <span class="text-sm font-semibold">Leyenda</span>

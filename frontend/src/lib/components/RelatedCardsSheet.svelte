@@ -73,7 +73,7 @@
         {@const tags = visibleTags(rel.tags)}
         <a
           href="/cards/{rel.id}"
-          class="block rounded-xl border border-base-200 bg-base-100 p-4 transition-colors hover:border-primary/30 hover:bg-base-200/50"
+          class="block rounded-box border border-base-200 bg-base-100 p-4 transition-colors hover:border-primary/30 hover:bg-base-200/50"
           onclick={onselect
             ? (e: MouseEvent) => {
                 e.preventDefault();

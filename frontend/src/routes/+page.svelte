@@ -17,7 +17,7 @@
 
 <div class="mx-auto w-full max-w-7xl px-5 py-10 lg:px-10">
   <section
-    class="rounded-2xl border border-base-300/70 bg-base-100/90 p-8 shadow-xl shadow-base-content/5 lg:p-12"
+    class="rounded-box border border-base-300/70 bg-base-100/90 p-8 shadow-xl shadow-base-content/5 lg:p-12"
   >
     <!-- <p class="text-primary text-sm font-semibold tracking-[0.25em] uppercase">Significado Total</p> -->
     <h1 class="mt-3 max-w-4xl text-5xl font-black tracking-tight text-base-content sm:text-6xl">
@@ -50,7 +50,7 @@
     class={`mt-8 grid gap-4 md:grid-cols-2 ${SHOW_DOCS || SHOW_CV ? 'xl:grid-cols-4' : 'xl:grid-cols-2'}`}
   >
     <a
-      class="group rounded-2xl border border-base-300/70 bg-base-100/80 p-5 transition hover:border-primary/30"
+      class="group rounded-box border border-base-300/70 bg-base-100/80 p-5 transition hover:border-primary/30"
       href="/cards"
     >
       <p class="text-primary text-xs font-semibold tracking-[0.2em] uppercase">Repositorio</p>
@@ -60,7 +60,7 @@
       </p>
     </a>
     <a
-      class="group rounded-2xl border border-base-300/70 bg-base-100/80 p-5 transition hover:border-primary/30"
+      class="group rounded-box border border-base-300/70 bg-base-100/80 p-5 transition hover:border-primary/30"
       href="/blog"
     >
       <p class="text-primary text-xs font-semibold tracking-[0.2em] uppercase">Publicaciones</p>
@@ -71,7 +71,7 @@
     </a>
     {#if SHOW_DOCS}
       <a
-        class="group rounded-2xl border border-base-300/70 bg-base-100/80 p-5 transition hover:border-primary/30"
+        class="group rounded-box border border-base-300/70 bg-base-100/80 p-5 transition hover:border-primary/30"
         href="/docs"
       >
         <p class="text-primary text-xs font-semibold tracking-[0.2em] uppercase">Archivo</p>
@@ -83,7 +83,7 @@
     {/if}
     {#if SHOW_CV}
       <a
-        class="group rounded-2xl border border-base-300/70 bg-base-100/80 p-5 transition hover:border-primary/30"
+        class="group rounded-box border border-base-300/70 bg-base-100/80 p-5 transition hover:border-primary/30"
         href="/cv"
       >
         <p class="text-primary text-xs font-semibold tracking-[0.2em] uppercase">Trayectoria</p>
