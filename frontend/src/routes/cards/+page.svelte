@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
   import { goto } from '$app/navigation';
+  import { ChevronDown } from '@lucide/svelte';
 
   import PageSection from '$lib/components/PageSection.svelte';
   import BookSidebar from '$lib/components/BookSidebar.svelte';
@@ -839,11 +840,11 @@
         </form>
       </div>
       <div class="mt-4 flex flex-col gap-2">
-        <label class="block">
+        <div class="join w-full">
           <input
             bind:this={searchInput}
             bind:value={dialogQuery}
-            class="input input-lg input-bordered w-full truncate"
+            class="input input-lg input-bordered join-item w-full truncate"
             placeholder="Busca por autor, libro, página, etiquetas o fragmento"
             type="search"
             onkeydown={(e) => {
@@ -853,9 +854,20 @@
               }
             }}
           />
-        </label>
+          <button
+            type="button"
+            class="btn btn-lg btn-primary join-item shrink-0"
+            disabled={dialogFullResultsCount === 0}
+            aria-label="Ver todos los resultados"
+            title="Ver todos los resultados (Enter)"
+            onclick={openFullResultsMode}
+          >
+            <span aria-hidden="true" class="text-xl">→</span>
+          </button>
+        </div>
+        <!-- Filter chips. Renders only when there are filters — no reserved space when empty. -->
         {#if dialogTags.size > 0 || dialogAuthors.size > 0}
-          <div class="flex flex-wrap gap-1.5 pt-1">
+          <div class="flex flex-wrap items-center gap-1.5 pt-1 pb-2 text-xs">
             {#each Array.from(dialogTags) as tag}
               <button
                 class="badge badge-primary badge-sm gap-1 hover:badge-error"
@@ -882,41 +894,35 @@
         {/if}
       </div>
 
-      <div class="mt-3 flex items-center justify-between gap-3">
-        <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
-          {#if dialogSearchTerms.length === 0 && dialogAuthors.size === 0 && dialogTags.size === 0}
-            <span>Escribe para buscar en toda la colección</span>
-          {:else if dialogHasCriteria}
-            <button
-              type="button"
-              class="btn btn-xs btn-primary"
-              disabled={dialogFullResultsCount === 0}
-              onclick={openFullResultsMode}
-            >
-              Ver todos ({dialogFullResultsCount})
-            </button>
+      <!-- Hint / count on the left, Avanzado on the right — same row, anchored. -->
+      <div class="mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 text-xs">
+        {#if dialogSearchTerms.length === 0 && dialogAuthors.size === 0 && dialogTags.size === 0}
+          <span class="opacity-70">Escribe para buscar en toda la colección</span>
+        {:else if dialogFullResultsCount === 0}
+          <span class="badge badge-warning badge-sm gap-1">Sin resultados</span>
+        {:else if dialogHasCriteria}
+          <span class="badge badge-soft badge-sm gap-1">
+            {dialogFullResultsCount} resultado{dialogFullResultsCount === 1 ? '' : 's'}
+          </span>
+        {/if}
+        <button
+          type="button"
+          class={`btn btn-sm gap-1 ${advancedOpen ? 'btn-primary' : 'btn-ghost'}`}
+          onclick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            advancedOpen = !advancedOpen;
+          }}
+        >
+          Avanzado
+          {#if dialogActiveFilterCount > 0}
+            <span class="badge badge-xs badge-warning">{dialogActiveFilterCount}</span>
           {/if}
-        </div>
-        <div class="flex items-center justify-end gap-2">
-          <button
-            type="button"
-            class={`btn btn-xs gap-1 ${advancedOpen ? 'btn-primary' : 'btn-ghost'}`}
-            onclick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              advancedOpen = !advancedOpen;
-            }}
-          >
-            Avanzado
-            {#if dialogActiveFilterCount > 0}
-              <span class="badge badge-xs badge-warning">{dialogActiveFilterCount}</span>
-            {/if}
-            <span
-              class={`text-xs transition-transform duration-200 ${advancedOpen ? 'rotate-180' : ''}`}
-              >▾</span
-            >
-          </button>
-        </div>
+          <ChevronDown
+            class={`h-3.5 w-3.5 transition-transform duration-200 ${advancedOpen ? 'rotate-180' : ''}`}
+            aria-hidden="true"
+          />
+        </button>
       </div>
 
       {#if advancedOpen}
