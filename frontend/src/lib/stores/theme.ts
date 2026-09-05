@@ -1,14 +1,15 @@
 import { browser } from '$app/environment';
 import { writable } from 'svelte/store';
+import { LIGHT_THEME } from '$lib/config/theme';
 
 const createTheme = () => {
   const { subscribe, set } = writable<string>(
-    browser ? document.documentElement.getAttribute('data-theme') || 'light' : 'light',
+    browser ? document.documentElement.getAttribute('data-theme') || LIGHT_THEME : LIGHT_THEME,
   );
 
   if (browser) {
     const observer = new MutationObserver(() => {
-      set(document.documentElement.getAttribute('data-theme') || 'light');
+      set(document.documentElement.getAttribute('data-theme') || LIGHT_THEME);
     });
 
     observer.observe(document.documentElement, {

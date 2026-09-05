@@ -4,7 +4,7 @@
   let {
     segments,
     className = '',
-    matchClass = 'rounded bg-warning/30 px-0.5',
+    matchClass = 'rounded bg-highlight/40 px-0.5',
   }: {
     segments: HighlightSegment[];
     className?: string;

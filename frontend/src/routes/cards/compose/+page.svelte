@@ -162,14 +162,14 @@
     </div>
 
     {#if $selectedCount === 0}
-      <div class="mt-4 rounded-lg border border-dashed border-base-300 p-8 text-center">
+      <div class="mt-4 rounded-box border border-dashed border-base-300 p-8 text-center">
         <p class="text-sm opacity-50">
           No hay tarjetas seleccionadas. Ve al{' '}
           <a href="/cards" class="link link-primary">repositorio</a> y añade tarjetas al documento.
         </p>
       </div>
     {:else}
-      <div class="mt-4 overflow-hidden rounded-lg border border-base-200">
+      <div class="mt-4 overflow-hidden rounded-box border border-base-200">
         {#each sortedItems as item, index (item.cardId)}
           <div
             class="flex items-center justify-between gap-3 px-4 py-3 transition-colors hover:bg-base-200"

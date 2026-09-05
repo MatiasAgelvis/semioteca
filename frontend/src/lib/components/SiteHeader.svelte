@@ -2,6 +2,7 @@
   import { cubicOut } from 'svelte/easing';
   import { fade, fly } from 'svelte/transition';
   import { onMount } from 'svelte';
+  import { Search } from '@lucide/svelte';
   import { page } from '$app/state';
   import ThemeSwitcher from './ThemeSwitcher.svelte';
   import {
@@ -45,6 +46,15 @@
   let menuOpen = $state(false);
   const isCardsRoute = $derived(page.url.pathname.startsWith('/cards'));
   const isCardsIndex = $derived(page.url.pathname === '/cards' || page.url.pathname === '/cards/');
+
+  // Height/shadow shifts when the header compacts on scroll. Centralized so the
+  // search trigger, the desktop nav, and the mobile menu button stay in sync.
+  const compactClasses = $derived(compactHeader ? 'py-2' : 'py-3');
+  const searchSizeClasses = $derived(compactHeader ? 'h-9 sm:h-10 shadow-sm' : 'h-10');
+  const navTransitionClasses = $derived(
+    compactHeader ? 'max-w-0 -translate-y-1 opacity-0' : 'max-w-xl translate-y-0 opacity-100',
+  );
+  const menuButtonClasses = $derived(compactHeader ? 'translate-y-0 opacity-100' : '');
 
   async function handleSearchAction() {
     if (isCardsIndex) {
@@ -99,20 +109,17 @@
 
 <header
   bind:this={headerEl}
-  class="sticky top-0 z-50 border-b border-base-200/80 bg-base-100/90 backdrop-blur-md dark:border-base-200/40 dark:bg-base-900/85"
+  class="sticky top-0 z-50 border-b border-base-200/80 bg-base-100/90 backdrop-blur-md dark:bg-base-100/85 dark:border-base-200/40"
 >
   <div class="mx-auto w-full max-w-7xl px-5 lg:px-10">
     <div
-      class={`grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 transition-[padding,gap] duration-300 ease-out ${compactHeader ? 'py-2' : 'py-3'}`}
+      class={`grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 transition-[padding,gap] duration-300 ease-out xl:py-3 ${compactClasses}`}
     >
       <a
         href="/"
-        class={`flex min-w-0 items-center gap-2 text-base-content transition-[font-size,transform] duration-300 ease-out ${compactHeader ? 'text-base lg:text-xl' : 'text-lg sm:text-xl'} font-black tracking-tight mr-2 lg:mr-3`}
+        class="flex min-w-0 items-center gap-2 text-base-content text-lg sm:text-xl font-black tracking-tight mr-2 lg:mr-3"
       >
-        <Logo
-          size={compactHeader ? 6 : 7}
-          className="transition-[width,height] duration-300 ease-out"
-        />
+        <Logo size={7} />
         <span class="hidden truncate sm:inline">Significado Total</span>
       </a>
 
@@ -121,20 +128,24 @@
           <button
             bind:this={searchButtonEl}
             type="button"
-            class={`input input-bordered flex w-full sm:w-80 lg:w-96 items-center justify-between rounded-full bg-base-100/90 gap-2 px-3 sm:px-4 text-left transition-[height,box-shadow] duration-300 ease-out hover:border-primary/50 focus:border-primary focus:outline-hidden mx-auto ${compactHeader ? 'h-9 min-h-9 sm:h-10 sm:min-h-10 shadow-sm' : 'h-10 min-h-10'}`}
+            class={`input input-bordered flex w-full sm:w-80 lg:w-96 items-center gap-2 bg-base-100/90 px-3 sm:px-4 text-left transition-[height,box-shadow] duration-300 ease-out hover:border-primary/50 focus:border-primary focus:outline-hidden mx-auto ${searchSizeClasses}`}
+            aria-label="Abrir búsqueda"
             onclick={handleSearchAction}
           >
+            <Search class="h-4 w-4 shrink-0 opacity-50" aria-hidden="true" />
             <span class="truncate text-sm opacity-50">
-              {$cardsSearchQuery || (compactHeader ? 'Buscar...' : 'Buscar en todas las tarjetas')}
+              <span class="lg:hidden">{$cardsSearchQuery || 'Buscar...'}</span>
+              <span class="hidden lg:inline"
+                >{$cardsSearchQuery || 'Buscar en todas las tarjetas'}</span
+              >
             </span>
-            <span class="hidden text-xs opacity-50 sm:inline">⌘K</span>
           </button>
         {/if}
       </div>
 
       <div class="flex items-center justify-end gap-2 mr-1">
         <div
-          class={`hidden overflow-hidden transition-[max-width,opacity,transform,margin] duration-300 ease-out xl:block ${compactHeader ? 'pointer-events-none max-w-0 -translate-y-1 opacity-0' : 'max-w-xl translate-y-0 opacity-100'}`}
+          class={`hidden overflow-hidden transition-[max-width,opacity,transform,margin] duration-300 ease-out xl:block xl:max-w-xl xl:translate-y-0 xl:opacity-100 xl:pointer-events-auto ${navTransitionClasses}`}
         >
           <nav class="flex items-center gap-2 whitespace-nowrap" aria-label="Primary">
             {#each links as link}
@@ -156,7 +167,7 @@
 
         <button
           type="button"
-          class={`btn btn-ghost transition-[opacity,transform] duration-300 ease-out ${compactHeader ? 'inline-flex translate-y-0 opacity-100' : 'inline-flex xl:hidden'}`}
+          class={`btn btn-ghost xl:hidden inline-flex transition-[opacity,transform] duration-300 ease-out ${menuButtonClasses}`}
           onclick={toggleMenu}
           aria-expanded={menuOpen}
           aria-label="Abrir menu"
@@ -192,7 +203,7 @@
 
     {#if menuOpen}
       <div
-        class="absolute inset-x-0 top-full z-50 border-b border-base-200/80 bg-base-100/95 shadow-lg backdrop-blur-md dark:bg-base-900/92"
+        class="absolute inset-x-0 top-full z-50 border-b border-base-200/80 bg-base-100/95 shadow-lg backdrop-blur-md dark:bg-base-100/92"
         transition:fly={{ y: -10, duration: 220, easing: cubicOut }}
       >
         <div class="mx-auto flex w-full max-w-7xl flex-col gap-2 px-5 py-4 lg:px-10">

@@ -42,7 +42,7 @@
     <!-- Sidebar: contacto rápido -->
     <div class="space-y-6 lg:col-span-1">
       <!-- Sobre el proyecto -->
-      <div class="rounded-2xl border border-base-300/70 bg-base-100/80 p-6">
+      <div class="rounded-box border border-base-300/70 bg-base-100/80 p-6">
         <h2 class="text-xs font-semibold tracking-[0.2em] text-primary uppercase">
           Sobre el proyecto
         </h2>
@@ -58,7 +58,7 @@
     <!-- Columna principal: formulario -->
     <div class="lg:col-span-2">
       <div
-        class="rounded-2xl border border-base-300/70 bg-base-100/90 p-8 shadow-xl shadow-base-content/5 lg:p-12"
+        class="rounded-box border border-base-300/70 bg-base-100/90 p-8 shadow-xl shadow-base-content/5 lg:p-12"
       >
         {#if status === 'success'}
           <div role="alert" class="alert alert-success">

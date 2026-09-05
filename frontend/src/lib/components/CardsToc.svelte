@@ -1,56 +1,45 @@
 <script lang="ts">
-  import HighlightedText from '$lib/components/HighlightedText.svelte';
   import SidebarContainer from './SidebarContainer.svelte';
+  import TocItem from './TocItem.svelte';
+  import TocItemFull from './TocItemFull.svelte';
   import type { CardRecord } from '$lib/types/content';
-  import { getHighlightSegments } from '$lib/utils/search';
 
   let {
     cards,
     focusedCardId,
     searchTerms = [],
+    /** When true, show only page numbers (single-book context). When false, show author + book + page (cross-book search). */
+    compact = false,
     onscrollto,
   }: {
     cards: CardRecord[];
     focusedCardId: string | null;
     searchTerms?: string[];
+    compact?: boolean;
     onscrollto: (id: string) => void;
   } = $props();
 </script>
 
 <SidebarContainer title="Contenido">
-  <ul class="menu menu-sm p-0 w-auto">
-    {#each cards as card}
-      {@const authorSegments = getHighlightSegments(card.author, searchTerms)}
-      {@const bookSegments = getHighlightSegments(card.book, searchTerms)}
-      {@const pageSegments = getHighlightSegments(card.page ?? 's/p', searchTerms)}
-      <li>
-        <button
-          type="button"
-          class="flex items-stretch p-0 overflow-hidden {focusedCardId === card.id
-            ? 'menu-active'
-            : ''}"
-          onclick={() => onscrollto(card.id)}
-        >
-          <span class="flex min-w-0 flex-1 flex-col px-3 py-2 text-left">
-            <span class="block truncate font-semibold">
-              <HighlightedText segments={authorSegments} />
-            </span>
-            <span class="block truncate text-xs opacity-70">
-              <HighlightedText segments={bookSegments} />
-            </span>
-          </span>
-          <span
-            class="flex items-center justify-center border-l border-base-content/5 bg-base-content/5 px-2"
-          >
-            <span class="font-mono text-[10px] font-bold tracking-tighter opacity-50">
-              P. <HighlightedText segments={pageSegments} />
-            </span>
-          </span>
-        </button>
+  <ul class="menu menu-sm p-0 w-full min-w-0">
+    {#each cards as card, i (card.id)}
+      <li class="w-full">
+        {#if compact}
+          <TocItem
+            {card}
+            index={i + 1}
+            total={cards.length}
+            focused={focusedCardId === card.id}
+            {searchTerms}
+            {onscrollto}
+          />
+        {:else}
+          <TocItemFull {card} focused={focusedCardId === card.id} {searchTerms} {onscrollto} />
+        {/if}
       </li>
     {/each}
     {#if cards.length === 0}
-      <li class="text-xs opacity-60 px-4 py-2">Sin resultados para mostrar.</li>
+      <li class="text-xs opacity-50 px-4 py-2">Sin resultados para mostrar.</li>
     {/if}
   </ul>
 </SidebarContainer>

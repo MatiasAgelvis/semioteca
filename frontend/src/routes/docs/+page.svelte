@@ -18,7 +18,7 @@
     <div class="grid gap-3">
       {#each data.resources as resource}
         <div
-          class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-2xl border border-base-300/70 bg-base-200/70 px-4 py-3"
+          class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-box border border-base-300/70 bg-base-200/70 px-4 py-3"
         >
           <div class="min-w-0">
             <p class="wrap-break-word font-semibold text-base-content">{resource.title}</p>

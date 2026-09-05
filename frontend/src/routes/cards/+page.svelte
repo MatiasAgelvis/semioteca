@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
   import { goto } from '$app/navigation';
+  import { ChevronDown } from '@lucide/svelte';
 
   import PageSection from '$lib/components/PageSection.svelte';
   import BookSidebar from '$lib/components/BookSidebar.svelte';
@@ -291,22 +292,18 @@
   const dialogFullResultsCount = $derived(dialogRankedResults.length);
 
   const booksModel = $derived.by(() => {
-    const grouped = new Map<
-      string,
-      { key: string; author: string; title: string; count: number }
-    >();
+    const grouped = new Map<string, { key: string; author: string; title: string; year: string }>();
     for (const card of cards) {
       const key = getBookKey(card);
       const existing = grouped.get(key);
       if (existing) {
-        existing.count += 1;
         continue;
       }
       grouped.set(key, {
         key,
         author: card.author,
         title: card.book,
-        count: 1,
+        year: card.year,
       });
     }
     return [...grouped.values()].sort((a, b) => {
@@ -752,6 +749,7 @@
               cards={displayCards}
               {focusedCardId}
               searchTerms={fullResultsMode ? searchTerms : []}
+              compact={!fullResultsMode}
               onscrollto={handleTocScroll}
             />
           </div>
@@ -762,7 +760,7 @@
         class={`grid gap-6 ${fullResultsMode ? 'lg:grid-cols-[minmax(0,1fr)_18rem]' : 'lg:grid-cols-[18rem_minmax(0,1fr)_18rem]'}`}
       >
         {#if !fullResultsMode}
-          <div class="hidden lg:block">
+          <div class="hidden lg:block min-w-0">
             <BookSidebar
               books={booksModel}
               selectedBook={selectedBook ?? ''}
@@ -793,11 +791,12 @@
           {/if}
         </div>
 
-        <div class="hidden lg:block">
+        <div class="hidden lg:block min-w-0">
           <CardsToc
             cards={displayCards}
             {focusedCardId}
             searchTerms={fullResultsMode ? searchTerms : []}
+            compact={!fullResultsMode}
             onscrollto={scrollToCard}
           />
         </div>
@@ -827,7 +826,7 @@
   }}
 >
   <div
-    class="modal-box flex flex-col overflow-hidden w-full h-full sm:h-auto sm:max-w-3xl rounded-none sm:rounded-4xl border border-base-300 bg-base-100 p-0 shadow-2xl"
+    class="modal-box flex flex-col overflow-hidden w-full h-full sm:h-auto sm:max-w-3xl rounded-none sm:rounded-box border border-base-300 bg-base-100 p-0 shadow-2xl"
   >
     <div class="shrink-0 border-b border-base-200 px-6 py-5">
       <div class="flex items-center justify-between gap-3">
@@ -839,11 +838,11 @@
         </form>
       </div>
       <div class="mt-4 flex flex-col gap-2">
-        <label class="block">
+        <div class="join w-full">
           <input
             bind:this={searchInput}
             bind:value={dialogQuery}
-            class="input input-lg input-bordered w-full truncate"
+            class="input input-lg input-bordered join-item w-full truncate"
             placeholder="Busca por autor, libro, página, etiquetas o fragmento"
             type="search"
             onkeydown={(e) => {
@@ -853,9 +852,20 @@
               }
             }}
           />
-        </label>
+          <button
+            type="button"
+            class="btn btn-lg btn-primary join-item shrink-0"
+            disabled={dialogFullResultsCount === 0}
+            aria-label="Ver todos los resultados"
+            title="Ver todos los resultados (Enter)"
+            onclick={openFullResultsMode}
+          >
+            <span aria-hidden="true" class="text-xl">→</span>
+          </button>
+        </div>
+        <!-- Filter chips. Renders only when there are filters — no reserved space when empty. -->
         {#if dialogTags.size > 0 || dialogAuthors.size > 0}
-          <div class="flex flex-wrap gap-1.5 pt-1">
+          <div class="flex flex-wrap items-center gap-1.5 pt-1 pb-2 text-xs">
             {#each Array.from(dialogTags) as tag}
               <button
                 class="badge badge-primary badge-sm gap-1 hover:badge-error"
@@ -882,46 +892,40 @@
         {/if}
       </div>
 
-      <div class="mt-3 flex items-center justify-between gap-3">
-        <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
-          {#if dialogSearchTerms.length === 0 && dialogAuthors.size === 0 && dialogTags.size === 0}
-            <span>Escribe para buscar en toda la colección</span>
-          {:else if dialogHasCriteria}
-            <button
-              type="button"
-              class="btn btn-xs btn-primary"
-              disabled={dialogFullResultsCount === 0}
-              onclick={openFullResultsMode}
-            >
-              Ver todos ({dialogFullResultsCount})
-            </button>
+      <!-- Hint / count on the left, Avanzado on the right — same row, anchored. -->
+      <div class="mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 text-xs">
+        {#if dialogSearchTerms.length === 0 && dialogAuthors.size === 0 && dialogTags.size === 0}
+          <span class="opacity-70">Escribe para buscar en toda la colección</span>
+        {:else if dialogFullResultsCount === 0}
+          <span class="badge badge-warning badge-sm gap-1">Sin resultados</span>
+        {:else if dialogHasCriteria}
+          <span class="badge badge-soft badge-sm gap-1">
+            {dialogFullResultsCount} resultado{dialogFullResultsCount === 1 ? '' : 's'}
+          </span>
+        {/if}
+        <button
+          type="button"
+          class={`btn btn-sm gap-1 ${advancedOpen ? 'btn-primary' : 'btn-ghost'}`}
+          onclick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            advancedOpen = !advancedOpen;
+          }}
+        >
+          Avanzado
+          {#if dialogActiveFilterCount > 0}
+            <span class="badge badge-xs badge-warning">{dialogActiveFilterCount}</span>
           {/if}
-        </div>
-        <div class="flex items-center justify-end gap-2">
-          <button
-            type="button"
-            class={`btn btn-xs gap-1 ${advancedOpen ? 'btn-primary' : 'btn-ghost'}`}
-            onclick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              advancedOpen = !advancedOpen;
-            }}
-          >
-            Avanzado
-            {#if dialogActiveFilterCount > 0}
-              <span class="badge badge-xs badge-warning">{dialogActiveFilterCount}</span>
-            {/if}
-            <span
-              class={`text-xs transition-transform duration-200 ${advancedOpen ? 'rotate-180' : ''}`}
-              >▾</span
-            >
-          </button>
-        </div>
+          <ChevronDown
+            class={`h-3.5 w-3.5 transition-transform duration-200 ${advancedOpen ? 'rotate-180' : ''}`}
+            aria-hidden="true"
+          />
+        </button>
       </div>
 
       {#if advancedOpen}
         <div
-          class="mt-4 max-h-[40vh] overflow-y-auto overflow-scroll space-y-5 rounded-2xl border border-base-200 bg-base-50/60 px-5 py-4"
+          class="mt-4 max-h-[40vh] overflow-y-auto overflow-scroll space-y-5 rounded-box border border-base-200 bg-base-50/60 px-5 py-4"
         >
           <div class="space-y-2">
             <div class="flex items-center justify-between">
@@ -959,7 +963,7 @@
               </button>
             </div>
             {#if showSearchHint}
-              <div class="relative rounded-lg bg-base-200/50 p-2 pr-8">
+              <div class="relative rounded-box bg-base-200/50 p-2 pr-8">
                 <p class="text-[10px] opacity-60 leading-tight">
                   Estricto: requiere que coincidan todos los términos y todas las etiquetas
                   seleccionadas.<br />
@@ -1073,14 +1077,14 @@
     <div class="sm:max-h-[55vh] min-h-25 flex-1 space-y-3 overflow-y-auto px-6 py-5">
       {#if !dialogHasCriteria}
         <p
-          class="rounded-2xl border border-dashed border-base-300 px-4 py-8 text-center text-sm opacity-70"
+          class="rounded-box border border-dashed border-base-300 px-4 py-8 text-center text-sm opacity-70"
         >
           Busca en autores, libros, páginas y contenido. Al elegir un resultado, se abrirá su libro
           y se hará scroll a la tarjeta.
         </p>
       {:else if dialogResults.length === 0}
         <p
-          class="rounded-2xl border border-dashed border-base-300 px-4 py-8 text-center text-sm opacity-70"
+          class="rounded-box border border-dashed border-base-300 px-4 py-8 text-center text-sm opacity-70"
         >
           No hay coincidencias para esta búsqueda.
         </p>

@@ -125,7 +125,7 @@
         {#if searchActive}
           <span class="badge badge-warning badge-sm text-xs">{matchCount} coinc.</span>
         {/if}
-        <span class="badge badge-ghost badge-sm text-xs opacity-50">
+        <span class="badge badge-ghost badge-sm tabular-nums font-semibold">
           p. <HighlightedText segments={pageSegments} />
         </span>
         <a
@@ -183,7 +183,7 @@
           >
             <button
               type="button"
-              class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-60 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
+              class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-50 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
               onclick={() => openCardsSearch([tag])}
             >
               {tag}
