@@ -292,22 +292,18 @@
   const dialogFullResultsCount = $derived(dialogRankedResults.length);
 
   const booksModel = $derived.by(() => {
-    const grouped = new Map<
-      string,
-      { key: string; author: string; title: string; count: number }
-    >();
+    const grouped = new Map<string, { key: string; author: string; title: string; year: string }>();
     for (const card of cards) {
       const key = getBookKey(card);
       const existing = grouped.get(key);
       if (existing) {
-        existing.count += 1;
         continue;
       }
       grouped.set(key, {
         key,
         author: card.author,
         title: card.book,
-        count: 1,
+        year: card.year,
       });
     }
     return [...grouped.values()].sort((a, b) => {
@@ -753,6 +749,7 @@
               cards={displayCards}
               {focusedCardId}
               searchTerms={fullResultsMode ? searchTerms : []}
+              compact={!fullResultsMode}
               onscrollto={handleTocScroll}
             />
           </div>
@@ -763,7 +760,7 @@
         class={`grid gap-6 ${fullResultsMode ? 'lg:grid-cols-[minmax(0,1fr)_18rem]' : 'lg:grid-cols-[18rem_minmax(0,1fr)_18rem]'}`}
       >
         {#if !fullResultsMode}
-          <div class="hidden lg:block">
+          <div class="hidden lg:block min-w-0">
             <BookSidebar
               books={booksModel}
               selectedBook={selectedBook ?? ''}
@@ -794,11 +791,12 @@
           {/if}
         </div>
 
-        <div class="hidden lg:block">
+        <div class="hidden lg:block min-w-0">
           <CardsToc
             cards={displayCards}
             {focusedCardId}
             searchTerms={fullResultsMode ? searchTerms : []}
+            compact={!fullResultsMode}
             onscrollto={scrollToCard}
           />
         </div>

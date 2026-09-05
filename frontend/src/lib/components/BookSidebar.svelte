@@ -1,6 +1,7 @@
 <script lang="ts">
   import SidebarContainer from './SidebarContainer.svelte';
-  type Book = { key: string; author: string; title: string; count: number };
+  import { marquee } from '$lib/actions/marquee';
+  type Book = { key: string; author: string; title: string; year: string };
 
   let {
     books,
@@ -14,26 +15,20 @@
 </script>
 
 <SidebarContainer title="Libros">
-  <ul class="menu menu-sm p-0 w-auto">
+  <ul class="menu menu-sm p-0 w-full min-w-0">
     {#each books as book}
-      <li>
+      <li class="min-w-0">
         <button
           type="button"
-          class="flex items-stretch p-0 overflow-hidden {selectedBook === book.key
-            ? 'menu-active'
-            : ''}"
+          class={`flex items-stretch p-0 overflow-hidden w-full text-left ${selectedBook === book.key ? 'menu-active' : ''}`}
           onclick={() => onselect(book.key)}
         >
-          <span class="flex min-w-0 flex-1 flex-col px-3 py-2 text-left">
-            <span class="block truncate font-semibold">{book.author}</span>
-            <span class="block text-xs opacity-70">{book.title}</span>
-          </span>
-          <span
-            class="flex items-center justify-center border-l border-base-content/5 bg-base-content/5 px-2"
-          >
-            <span class="font-mono text-[10px] font-bold tracking-tighter opacity-50">
-              {book.count}
+          <span class="flex min-w-0 flex-1 flex-col gap-0.5 px-3 py-2 text-sm">
+            <span class="flex items-baseline gap-2 min-w-0">
+              <span use:marquee class="min-w-0 font-semibold">{book.author}</span>
+              <span class="text-xs opacity-50 tabular-nums shrink-0">{book.year}</span>
             </span>
+            <span use:marquee class="block min-w-0 text-xs opacity-70">{book.title}</span>
           </span>
         </button>
       </li>

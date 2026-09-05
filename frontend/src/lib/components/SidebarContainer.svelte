@@ -20,9 +20,9 @@
       <p class="text-xs font-bold uppercase tracking-widest opacity-50">{title}</p>
     </div>
     <div
-      class="max-h-[60vh] overflow-y-auto lg:max-h-[calc(100vh-15rem)] xl:max-h-[calc(100vh-14rem)]"
+      class="max-h-[60vh] overflow-y-auto lg:max-h-[calc(100vh-15rem)] xl:max-h-[calc(100vh-14rem)] min-w-0"
     >
-      <div class="p-2">
+      <div class="p-2 min-w-0">
         {@render children()}
       </div>
     </div>
