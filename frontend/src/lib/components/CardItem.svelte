@@ -125,7 +125,7 @@
         {#if searchActive}
           <span class="badge badge-warning badge-sm text-xs">{matchCount} coinc.</span>
         {/if}
-        <span class="badge badge-ghost badge-sm text-xs opacity-50">
+        <span class="badge badge-ghost badge-sm tabular-nums font-semibold">
           p. <HighlightedText segments={pageSegments} />
         </span>
         <a
