@@ -27,11 +27,17 @@ export function marquee(node: HTMLElement) {
     clone.style.whiteSpace = 'nowrap';
     clone.style.left = '-9999px';
 
-    while (node.firstChild) clone.appendChild(node.firstChild.cloneNode(true));
+    // Move children from the (clipped, overflow:hidden) host into the clone so the
+    // clone inherits their full intrinsic width. `cloneNode(true)` would leave the
+    // original children in place and turn this loop into an infinite one.
+    while (node.firstChild) clone.appendChild(node.firstChild);
 
     document.body.appendChild(clone);
     const fullWidth = clone.scrollWidth;
     document.body.removeChild(clone);
+
+    // Restore the children we moved out so the host keeps rendering its content.
+    while (clone.firstChild) node.appendChild(clone.firstChild);
 
     const containerWidth = node.clientWidth;
     const distance = fullWidth - containerWidth;
