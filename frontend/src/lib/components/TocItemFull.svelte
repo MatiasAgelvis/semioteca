@@ -1,6 +1,5 @@
 <script lang="ts">
   import HighlightedText from '$lib/components/HighlightedText.svelte';
-  import { marquee } from '$lib/actions/marquee';
   import type { CardRecord } from '$lib/types/content';
   import { getHighlightSegments } from '$lib/utils/search';
 
@@ -30,14 +29,14 @@
 >
   <span class="flex min-w-0 flex-1 flex-col">
     <span class="flex items-baseline gap-2 min-w-0">
-      <span use:marquee class="truncate min-w-0 font-semibold">
+      <span class="truncate min-w-0 font-semibold">
         <HighlightedText segments={authorSegments} />
       </span>
       <span class="badge badge-ghost badge-xs tabular-nums shrink-0 font-semibold"
         >p. <HighlightedText segments={pageSegments} /></span
       >
     </span>
-    <span use:marquee class="block min-w-0 text-xs opacity-70">
+    <span class="truncate block min-w-0 text-xs opacity-70">
       <HighlightedText segments={bookSegments} />
     </span>
   </span>
