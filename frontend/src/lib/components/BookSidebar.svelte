@@ -1,6 +1,5 @@
 <script lang="ts">
   import SidebarContainer from './SidebarContainer.svelte';
-  import { marquee } from '$lib/actions/marquee';
   type Book = { key: string; author: string; title: string; year: string };
 
   let {
@@ -25,10 +24,10 @@
         >
           <span class="flex min-w-0 flex-1 flex-col gap-0.5 px-3 py-2 text-sm">
             <span class="flex items-baseline gap-2 min-w-0">
-              <span use:marquee class="min-w-0 font-semibold">{book.author}</span>
+              <span class="truncate min-w-0 font-semibold">{book.author}</span>
               <span class="text-xs opacity-50 tabular-nums shrink-0">{book.year}</span>
             </span>
-            <span use:marquee class="block min-w-0 text-xs opacity-70">{book.title}</span>
+            <span class="truncate block min-w-0 text-xs opacity-70">{book.title}</span>
           </span>
         </button>
       </li>
