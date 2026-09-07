@@ -7,7 +7,7 @@
   <div class="pointer-events-none fixed right-4 bottom-4 z-100">
     <div class="toast toast-end toast-bottom">
       <div
-        class={`alert pointer-events-auto py-2 px-3 text-xs shadow-lg ${$toast.type === 'success' ? 'alert-success' : $toast.type === 'error' ? 'alert-error' : 'alert-info'}`}
+        class={`alert alert-soft pointer-events-auto py-2 px-3 text-xs shadow-lg ${$toast.type === 'success' ? 'alert-success' : $toast.type === 'error' ? 'alert-error' : 'alert-info'}`}
         role="status"
         aria-live="polite"
       >
