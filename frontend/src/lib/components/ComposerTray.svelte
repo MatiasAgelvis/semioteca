@@ -1,7 +1,7 @@
 <script lang="ts">
   import { composer, selectedCount } from '$lib/stores/composer';
   import { CARD_LIMIT } from '$lib/types/composer';
-  import { downloadPdf } from '$lib/utils/composer-pdf';
+  import { exportDocumentAsPdf } from '$lib/utils/composer-export';
   import { showToast } from '$lib/stores/toast';
   import type { CardRecord } from '$lib/types/content';
 
@@ -13,9 +13,12 @@
 
   let expanded = $state(false);
 
-  function handleExportPdf() {
+  // Sorted once per items-array change rather than on every {#each} re-render.
+  const sortedItems = $derived([...$composer.items].sort((a, b) => a.order - b.order));
+
+  async function handleExportPdf() {
     if ($selectedCount === 0) return;
-    downloadPdf($composer, cardMap);
+    await exportDocumentAsPdf($composer, cardMap);
   }
 
   function handleClear() {
@@ -70,19 +73,19 @@
         </div>
 
         <div class="max-h-64 overflow-y-auto rounded-box border border-base-200">
-          {#each [...$composer.items].sort((a, b) => a.order - b.order) as item, index (item.cardId)}
+          {#each sortedItems as item, index (item.cardId)}
             <div
               class="flex items-center justify-between gap-3 px-3 py-2 transition-colors hover:bg-base-200"
               class:border-b={index < $selectedCount - 1}
               class:border-base-200={index < $selectedCount - 1}
             >
-              <span class="min-w-0 flex-1 truncate text-sm">
-                <span class="font-mono text-xs opacity-40">#{item.order}</span>
-                {' '}
-                <span class="font-medium">{cardLabel(item.cardId)}</span>
+              <span class="flex min-w-0 flex-1 items-center gap-2 truncate text-sm">
+                <span class="font-mono text-xs opacity-40 shrink-0">#{item.order}</span>
+                <span class="font-medium truncate min-w-0">{cardLabel(item.cardId)}</span>
                 {#if cardPage(item.cardId)}
-                  <span class="text-xs opacity-30">&vert;</span>
-                  <span class="badge badge-ghost badge-sm text-xs">p. {cardPage(item.cardId)}</span>
+                  <span class="badge badge-ghost badge-sm tabular-nums font-semibold shrink-0">
+                    p. {cardPage(item.cardId)}
+                  </span>
                 {/if}
               </span>
               <div class="flex shrink-0 items-center gap-1">
