@@ -208,5 +208,31 @@ Use `--report-anomalies` to inspect these and refine split patterns or source co
 ## Notes
 
 - **Metadata is curated** - All cards inherit `title`, `author`, `year` from the source config, never from parsed content. This prevents contamination from cross-references.
-- **Images are extracted** - DOCX/ODT images are saved to `cards_images/` with relative paths in card metadata.
+- **Images are extracted** - DOCX/ODX images are saved to `cards_images/` with relative paths in card metadata.
 - **Regex patterns are source-specific** - Each source has its own split pattern to handle different citation styles.
+
+## Tests
+
+Unit tests live in `backend/tests/` and use the stdlib `unittest` framework
+(no extra dependency). They are also discoverable by `pytest` if it is
+installed.
+
+Run them via npm from the project root:
+
+```bash
+npm run test:unit
+```
+
+Or directly:
+
+```bash
+cd backend && python -m unittest discover -s tests -t .
+```
+
+The suite covers:
+
+- `page_shapes.is_allowed_page` — the allow-list of page shapes the verifier enforces, with one test per documented shape plus a sweep of the historical Honderich source-typo artifacts.
+- `verify_cards.verify()` — end-to-end checks for missing/empty pages, malformed pages, duplicate ids, and empty datasets.
+- `generate_cards_json.normalize_capture` — the function that strips stray leading `-` and `(` from page captures.
+
+The page-shape inventory (which shapes are accepted and which are rejected) is documented in `backend/page_shapes.py`. Both `verify_cards` and the test suite import from there, so updating the shapes in one place keeps the verifier and the docs in lock-step.

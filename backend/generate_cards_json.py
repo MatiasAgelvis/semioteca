@@ -141,8 +141,18 @@ def normalize_capture(value: Optional[str]) -> Optional[str]:
         return None
 
     normalized = value.strip()
+    # Strip a fully-balanced outer paren pair, e.g. "(156-157)" -> "156-157".
     if normalized.startswith("(") and normalized.endswith(")"):
         normalized = normalized[1:-1].strip()
+    # Some source ODTs have stray characters between the year and the page:
+    # "(1995-2001:-826-827)" yields page "-826-827", and "(1995-2001: (156-157)"
+    # yields page "(156-157". Drop any leading '-' or unbalanced '(' so we
+    # recover the intended page number; loop once in case both appear, e.g.
+    # "(-826-827" → "-826-827" → "826-827".
+    while normalized[:1] in {"-", "("} and (
+        normalized[:1] != "(" or not normalized.endswith(")")
+    ):
+        normalized = normalized[1:].strip()
     return normalized or None
 
 
