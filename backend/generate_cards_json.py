@@ -146,10 +146,12 @@ def normalize_capture(value: Optional[str]) -> Optional[str]:
         normalized = normalized[1:-1].strip()
     # Some source ODTs have stray characters between the year and the page:
     # "(1995-2001:-826-827)" yields page "-826-827", and "(1995-2001: (156-157)"
-    # yields page "(156-157". Drop those to recover the intended page number.
-    if normalized.startswith("-"):
-        normalized = normalized[1:].strip()
-    if normalized.startswith("(") and not normalized.endswith(")"):
+    # yields page "(156-157". Drop any leading '-' or unbalanced '(' so we
+    # recover the intended page number; loop once in case both appear, e.g.
+    # "(-826-827" → "-826-827" → "826-827".
+    while normalized[:1] in {"-", "("} and (
+        normalized[:1] != "(" or not normalized.endswith(")")
+    ):
         normalized = normalized[1:].strip()
     return normalized or None
 
