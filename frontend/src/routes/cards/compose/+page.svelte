@@ -9,21 +9,10 @@
 
   const cardMap = $derived(new Map(data.cards.map((c) => [c.id, c])));
 
-  let title = $state($composer.title);
-  let subtitle = $state($composer.subtitle ?? '');
-  let compiler = $state($composer.compiler ?? '');
-  let intro = $state($composer.intro ?? '');
+  // Document metadata reads from / writes to the store directly. No local copies,
+  // so any clear (tray, this page, or a future code path) propagates automatically.
   let metadataOpen = $state($composer.title === '');
   let previewedCardId = $state<string | null>(null);
-
-  $effect(() => {
-    composer.updateMeta({
-      title,
-      subtitle: subtitle || undefined,
-      compiler: compiler || undefined,
-      intro: intro || undefined,
-    });
-  });
 
   async function handleExportPdf() {
     if ($selectedCount === 0) return;
@@ -32,15 +21,11 @@
 
   function handleDownloadMd() {
     if ($selectedCount === 0) return;
-    exportDocumentAsMarkdown($composer, cardMap, title);
+    exportDocumentAsMarkdown($composer, cardMap, $composer.title);
   }
 
   function handleClear() {
     composer.clearDocument();
-    title = '';
-    subtitle = '';
-    compiler = '';
-    intro = '';
     showToast('Documento vaciado', 'info');
   }
 
@@ -86,8 +71,8 @@
     <input type="checkbox" bind:checked={metadataOpen} />
     <div class="collapse-title text-sm font-medium opacity-60">
       Metadatos
-      {#if title}
-        <span class="font-normal opacity-40"> &mdash; {title}</span>
+      {#if $composer.title}
+        <span class="font-normal opacity-40"> &mdash; {$composer.title}</span>
       {/if}
     </div>
     <div class="collapse-content">
@@ -101,7 +86,8 @@
             type="text"
             class="mt-1 block w-full input input-bordered"
             placeholder="Compendio de semiótica contemporánea"
-            bind:value={title}
+            value={$composer.title}
+            oninput={(e) => composer.updateMeta({ title: e.currentTarget.value })}
           />
         </div>
 
@@ -114,7 +100,8 @@
             type="text"
             class="mt-1 block w-full input input-bordered"
             placeholder="Una selección de fichas bibliográficas"
-            bind:value={subtitle}
+            value={$composer.subtitle ?? ''}
+            oninput={(e) => composer.updateMeta({ subtitle: e.currentTarget.value || undefined })}
           />
         </div>
 
@@ -127,7 +114,8 @@
             type="text"
             class="mt-1 block w-full input input-bordered"
             placeholder="Tu nombre"
-            bind:value={compiler}
+            value={$composer.compiler ?? ''}
+            oninput={(e) => composer.updateMeta({ compiler: e.currentTarget.value || undefined })}
           />
         </div>
 
@@ -140,7 +128,9 @@
             class="mt-1 block w-full textarea textarea-bordered"
             rows={4}
             placeholder="Una breve introducción al documento..."
-            bind:value={intro}></textarea>
+            value={$composer.intro ?? ''}
+            oninput={(e) => composer.updateMeta({ intro: e.currentTarget.value || undefined })}
+          ></textarea>
         </div>
       </div>
     </div>
