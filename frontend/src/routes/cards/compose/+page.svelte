@@ -1,8 +1,7 @@
 <script lang="ts">
   import { composer, selectedCount } from '$lib/stores/composer';
   import { CARD_LIMIT } from '$lib/types/composer';
-  import { buildDocumentMarkdown } from '$lib/utils/composer-markdown';
-  import { downloadPdf, downloadMarkdown } from '$lib/utils/composer-pdf';
+  import { exportDocumentAsMarkdown, exportDocumentAsPdf } from '$lib/utils/composer-export';
   import { showToast } from '$lib/stores/toast';
   import type { PageData } from './$types';
 
@@ -26,19 +25,14 @@
     });
   });
 
-  function handleExportPdf() {
+  async function handleExportPdf() {
     if ($selectedCount === 0) return;
-    downloadPdf($composer, cardMap);
+    await exportDocumentAsPdf($composer, cardMap);
   }
 
   function handleDownloadMd() {
     if ($selectedCount === 0) return;
-
-    const markdown = buildDocumentMarkdown($composer, cardMap);
-    const docTitle = title || 'Documento sin título';
-
-    downloadMarkdown(markdown, docTitle);
-    showToast('Documento Markdown descargado', 'success');
+    exportDocumentAsMarkdown($composer, cardMap, title);
   }
 
   function handleClear() {

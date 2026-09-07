@@ -1,7 +1,7 @@
 <script lang="ts">
   import { composer, selectedCount } from '$lib/stores/composer';
   import { CARD_LIMIT } from '$lib/types/composer';
-  import { downloadPdf } from '$lib/utils/composer-pdf';
+  import { exportDocumentAsPdf } from '$lib/utils/composer-export';
   import { showToast } from '$lib/stores/toast';
   import type { CardRecord } from '$lib/types/content';
 
@@ -16,9 +16,9 @@
   // Sorted once per items-array change rather than on every {#each} re-render.
   const sortedItems = $derived([...$composer.items].sort((a, b) => a.order - b.order));
 
-  function handleExportPdf() {
+  async function handleExportPdf() {
     if ($selectedCount === 0) return;
-    downloadPdf($composer, cardMap);
+    await exportDocumentAsPdf($composer, cardMap);
   }
 
   function handleClear() {
