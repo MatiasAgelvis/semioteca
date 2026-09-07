@@ -13,6 +13,9 @@
 
   let expanded = $state(false);
 
+  // Sorted once per items-array change rather than on every {#each} re-render.
+  const sortedItems = $derived([...$composer.items].sort((a, b) => a.order - b.order));
+
   function handleExportPdf() {
     if ($selectedCount === 0) return;
     downloadPdf($composer, cardMap);
@@ -70,7 +73,7 @@
         </div>
 
         <div class="max-h-64 overflow-y-auto rounded-box border border-base-200">
-          {#each [...$composer.items].sort((a, b) => a.order - b.order) as item, index (item.cardId)}
+          {#each sortedItems as item, index (item.cardId)}
             <div
               class="flex items-center justify-between gap-3 px-3 py-2 transition-colors hover:bg-base-200"
               class:border-b={index < $selectedCount - 1}
