@@ -1,8 +1,7 @@
 <script lang="ts">
   import { composer, selectedCount } from '$lib/stores/composer';
   import { CARD_LIMIT } from '$lib/types/composer';
-  import { buildDocumentMarkdown } from '$lib/utils/composer-markdown';
-  import { downloadPdf, downloadMarkdown } from '$lib/utils/composer-pdf';
+  import { exportDocumentAsMarkdown, exportDocumentAsPdf } from '$lib/utils/composer-export';
   import { showToast } from '$lib/stores/toast';
   import type { PageData } from './$types';
 
@@ -10,43 +9,23 @@
 
   const cardMap = $derived(new Map(data.cards.map((c) => [c.id, c])));
 
-  let title = $state($composer.title);
-  let subtitle = $state($composer.subtitle ?? '');
-  let compiler = $state($composer.compiler ?? '');
-  let intro = $state($composer.intro ?? '');
+  // Document metadata reads from / writes to the store directly. No local copies,
+  // so any clear (tray, this page, or a future code path) propagates automatically.
   let metadataOpen = $state($composer.title === '');
   let previewedCardId = $state<string | null>(null);
 
-  $effect(() => {
-    composer.updateMeta({
-      title,
-      subtitle: subtitle || undefined,
-      compiler: compiler || undefined,
-      intro: intro || undefined,
-    });
-  });
-
-  function handleExportPdf() {
+  async function handleExportPdf() {
     if ($selectedCount === 0) return;
-    downloadPdf($composer, cardMap);
+    await exportDocumentAsPdf($composer, cardMap);
   }
 
   function handleDownloadMd() {
     if ($selectedCount === 0) return;
-
-    const markdown = buildDocumentMarkdown($composer, cardMap);
-    const docTitle = title || 'Documento sin título';
-
-    downloadMarkdown(markdown, docTitle);
-    showToast('Documento Markdown descargado', 'success');
+    exportDocumentAsMarkdown($composer, cardMap, $composer.title);
   }
 
   function handleClear() {
     composer.clearDocument();
-    title = '';
-    subtitle = '';
-    compiler = '';
-    intro = '';
     showToast('Documento vaciado', 'info');
   }
 
@@ -54,7 +33,7 @@
     const card = cardMap.get(cardId);
     if (!card) return '';
     const stripped = card.content.replace(/\[\[IMAGE:\d+\]\]\n?/g, '');
-    return stripped.length > 200 ? stripped.slice(0, 200).trimEnd() + '…' : stripped;
+    return stripped.length > 350 ? stripped.slice(0, 350).trimEnd() + '…' : stripped;
   }
 
   function togglePreview(cardId: string) {
@@ -64,7 +43,12 @@
   function cardLabel(cardId: string): string {
     const card = cardMap.get(cardId);
     if (!card) return '(Tarjeta no encontrada)';
-    return `${card.author} \u2014 ${card.book}, p. ${card.page ?? 's.p.'}`;
+    return `${card.author} \u2014 ${card.book}`;
+  }
+
+  function cardPage(cardId: string): string {
+    const card = cardMap.get(cardId);
+    return card?.page ?? '';
   }
 
   const sortedItems = $derived([...$composer.items].sort((a, b) => a.order - b.order));
@@ -87,8 +71,8 @@
     <input type="checkbox" bind:checked={metadataOpen} />
     <div class="collapse-title text-sm font-medium opacity-60">
       Metadatos
-      {#if title}
-        <span class="font-normal opacity-40"> &mdash; {title}</span>
+      {#if $composer.title}
+        <span class="font-normal opacity-40"> &mdash; {$composer.title}</span>
       {/if}
     </div>
     <div class="collapse-content">
@@ -102,7 +86,8 @@
             type="text"
             class="mt-1 block w-full input input-bordered"
             placeholder="Compendio de semiótica contemporánea"
-            bind:value={title}
+            value={$composer.title}
+            oninput={(e) => composer.updateMeta({ title: e.currentTarget.value })}
           />
         </div>
 
@@ -115,7 +100,8 @@
             type="text"
             class="mt-1 block w-full input input-bordered"
             placeholder="Una selección de fichas bibliográficas"
-            bind:value={subtitle}
+            value={$composer.subtitle ?? ''}
+            oninput={(e) => composer.updateMeta({ subtitle: e.currentTarget.value || undefined })}
           />
         </div>
 
@@ -128,7 +114,8 @@
             type="text"
             class="mt-1 block w-full input input-bordered"
             placeholder="Tu nombre"
-            bind:value={compiler}
+            value={$composer.compiler ?? ''}
+            oninput={(e) => composer.updateMeta({ compiler: e.currentTarget.value || undefined })}
           />
         </div>
 
@@ -141,7 +128,9 @@
             class="mt-1 block w-full textarea textarea-bordered"
             rows={4}
             placeholder="Una breve introducción al documento..."
-            bind:value={intro}></textarea>
+            value={$composer.intro ?? ''}
+            oninput={(e) => composer.updateMeta({ intro: e.currentTarget.value || undefined })}
+          ></textarea>
         </div>
       </div>
     </div>
@@ -176,13 +165,18 @@
             class:border-b={index < $selectedCount - 1}
             class:border-base-200={index < $selectedCount - 1}
           >
-            <div class="flex min-w-0 items-center gap-3">
+            <div class="flex min-w-0 items-center gap-2 flex-1">
               <span class="font-mono text-xs opacity-40 shrink-0">#{item.order}</span>
               <button
                 type="button"
-                class="truncate text-sm text-left hover:underline cursor-pointer"
+                class="truncate text-sm text-left hover:underline cursor-pointer min-w-0"
                 onclick={() => togglePreview(item.cardId)}>{cardLabel(item.cardId)}</button
               >
+              {#if cardPage(item.cardId)}
+                <span class="badge badge-ghost badge-sm tabular-nums font-semibold shrink-0">
+                  p. {cardPage(item.cardId)}
+                </span>
+              {/if}
             </div>
             <div class="flex shrink-0 items-center gap-1">
               <button

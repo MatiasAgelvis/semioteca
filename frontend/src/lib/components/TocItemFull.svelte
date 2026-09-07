@@ -29,14 +29,14 @@
 >
   <span class="flex min-w-0 flex-1 flex-col">
     <span class="flex items-baseline gap-2 min-w-0">
-      <span class="truncate min-w-0 font-semibold">
+      <span class="truncate min-w-0 font-semibold" title={card.author}>
         <HighlightedText segments={authorSegments} />
       </span>
       <span class="badge badge-ghost badge-xs tabular-nums shrink-0 font-semibold"
         >p. <HighlightedText segments={pageSegments} /></span
       >
     </span>
-    <span class="truncate block min-w-0 text-xs opacity-70">
+    <span class="truncate block min-w-0 text-xs opacity-70" title={card.book}>
       <HighlightedText segments={bookSegments} />
     </span>
   </span>

@@ -156,12 +156,3 @@ export const selectedCardIds = derived(composer, ($composer) =>
 export const selectedCount = derived(composer, ($composer) => $composer.items.length);
 
 export const isAtLimit = derived(composer, ($composer) => $composer.items.length >= CARD_LIMIT);
-
-export function isSelected(cardId: string): boolean {
-  // Helper that reads the store synchronously (for use in non-reactive contexts)
-  let result = false;
-  composer.subscribe((doc) => {
-    result = doc.items.some((item) => item.cardId === cardId);
-  })();
-  return result;
-}

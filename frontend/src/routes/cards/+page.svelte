@@ -156,6 +156,7 @@
   const visibleCardIds = new Set<string>();
   let focusLockCardId: string | null = null;
   let focusLockTimeout: ReturnType<typeof setTimeout> | null = null;
+  let scrollEndListener: (() => void) | null = null;
   let debouncedQuery = $state('');
   let debounceTimer: ReturnType<typeof setTimeout> | null = null;
   let shareCopied = $state(false);
@@ -355,6 +356,10 @@
         clearTimeout(focusLockTimeout);
         focusLockTimeout = null;
       }
+      if (scrollEndListener) {
+        window.removeEventListener('scrollend', scrollEndListener);
+        scrollEndListener = null;
+      }
     }
   }
 
@@ -369,12 +374,47 @@
     }
 
     if (!node) return;
+
+    // Detach a previous click's `scrollend` listener (if any) so it can't release
+    // the lock we're about to set. Defensive — the timer below also bails if the
+    // captured `id` no longer matches — but avoids the listener firing on a stale
+    // scroll anyway.
+    if (scrollEndListener) {
+      window.removeEventListener('scrollend', scrollEndListener);
+      scrollEndListener = null;
+    }
+
     focusLockCardId = id;
     if (focusLockTimeout) clearTimeout(focusLockTimeout);
     focusLockTimeout = setTimeout(() => {
+      // Timer fallback for browsers without `scrollend`, or when the scroll is
+      // canceled (Escape, another click, programmatic navigation).
       if (focusLockCardId === id) focusLockCardId = null;
       focusLockTimeout = null;
+      if (scrollEndListener) {
+        window.removeEventListener('scrollend', scrollEndListener);
+        scrollEndListener = null;
+      }
     }, 600);
+
+    // `scrollend` (Safari 17.4+, Chromium-based, Firefox 137+) lets us release the
+    // lock as soon as the smooth scroll actually settles — before the 600ms timer.
+    // Fall back silently if unsupported.
+    const supportsScrollEnd = 'onscrollend' in window;
+    if (supportsScrollEnd) {
+      const handler = () => {
+        if (scrollEndListener !== handler) return;
+        if (focusLockCardId === id) focusLockCardId = null;
+        if (focusLockTimeout) {
+          clearTimeout(focusLockTimeout);
+          focusLockTimeout = null;
+        }
+        scrollEndListener = null;
+      };
+      scrollEndListener = handler;
+      window.addEventListener('scrollend', handler, { passive: true, once: true });
+    }
+
     focusedCardId = id;
     // Move keyboard focus to the selected card so it does not stay in the search input.
     node.setAttribute('tabindex', '-1');
@@ -459,21 +499,22 @@
           if (entry.isIntersecting) visibleCardIds.add(id);
           else visibleCardIds.delete(id);
         }
+        // While a click-scroll is in flight, freeze the highlight on the target.
+        // Releasing on first intersection (the previous behavior) tripped up smooth
+        // scrolls: the target enters the band before the scroll settles, the lock
+        // releases mid-animation, and a follow-up event re-picks before the user sees
+        // the centered result. The lock is now released by `scrollToCard` via the
+        // 600ms timer / `scrollend` listener.
         if (focusLockCardId) {
-          if (visibleCardIds.has(focusLockCardId)) {
-            focusedCardId = focusLockCardId;
-            focusLockCardId = null;
-            if (focusLockTimeout) {
-              clearTimeout(focusLockTimeout);
-              focusLockTimeout = null;
-            }
-          }
           return;
         }
         // Pick the most centered card among all currently visible ones
         let bestMatch: string | null = null;
         let minDistance = Infinity;
-        const viewportCenter = window.innerHeight * 0.4; // Aim for slightly above center
+        // Match the position that scrollIntoView({ block: 'center' }) lands a card at.
+        // Before, this was 0.4, which made the post-scroll "best match" land on the
+        // card immediately above the clicked one.
+        const viewportCenter = window.innerHeight / 2;
 
         for (const id of visibleCardIds) {
           const el = cardElements.get(id);
@@ -560,6 +601,10 @@
     return () => {
       cancelled = true;
       window.removeEventListener('keydown', handleKeydown);
+      if (scrollEndListener) {
+        window.removeEventListener('scrollend', scrollEndListener);
+        scrollEndListener = null;
+      }
       observer?.disconnect();
       if (focusLockTimeout) clearTimeout(focusLockTimeout);
     };
