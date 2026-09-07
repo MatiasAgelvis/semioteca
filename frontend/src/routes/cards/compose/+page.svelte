@@ -33,7 +33,7 @@
     const card = cardMap.get(cardId);
     if (!card) return '';
     const stripped = card.content.replace(/\[\[IMAGE:\d+\]\]\n?/g, '');
-    return stripped.length > 200 ? stripped.slice(0, 200).trimEnd() + '…' : stripped;
+    return stripped.length > 350 ? stripped.slice(0, 350).trimEnd() + '…' : stripped;
   }
 
   function togglePreview(cardId: string) {
