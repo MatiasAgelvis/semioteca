@@ -79,13 +79,13 @@
               class:border-b={index < $selectedCount - 1}
               class:border-base-200={index < $selectedCount - 1}
             >
-              <span class="min-w-0 flex-1 truncate text-sm">
-                <span class="font-mono text-xs opacity-40">#{item.order}</span>
-                {' '}
-                <span class="font-medium">{cardLabel(item.cardId)}</span>
+              <span class="flex min-w-0 flex-1 items-center gap-2 truncate text-sm">
+                <span class="font-mono text-xs opacity-40 shrink-0">#{item.order}</span>
+                <span class="font-medium truncate min-w-0">{cardLabel(item.cardId)}</span>
                 {#if cardPage(item.cardId)}
-                  <span class="text-xs opacity-30">&vert;</span>
-                  <span class="badge badge-ghost badge-sm text-xs">p. {cardPage(item.cardId)}</span>
+                  <span class="badge badge-ghost badge-sm tabular-nums font-semibold shrink-0">
+                    p. {cardPage(item.cardId)}
+                  </span>
                 {/if}
               </span>
               <div class="flex shrink-0 items-center gap-1">

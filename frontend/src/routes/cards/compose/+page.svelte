@@ -64,7 +64,12 @@
   function cardLabel(cardId: string): string {
     const card = cardMap.get(cardId);
     if (!card) return '(Tarjeta no encontrada)';
-    return `${card.author} \u2014 ${card.book}, p. ${card.page ?? 's.p.'}`;
+    return `${card.author} \u2014 ${card.book}`;
+  }
+
+  function cardPage(cardId: string): string {
+    const card = cardMap.get(cardId);
+    return card?.page ?? '';
   }
 
   const sortedItems = $derived([...$composer.items].sort((a, b) => a.order - b.order));
@@ -176,13 +181,18 @@
             class:border-b={index < $selectedCount - 1}
             class:border-base-200={index < $selectedCount - 1}
           >
-            <div class="flex min-w-0 items-center gap-3">
+            <div class="flex min-w-0 items-center gap-2 flex-1">
               <span class="font-mono text-xs opacity-40 shrink-0">#{item.order}</span>
               <button
                 type="button"
-                class="truncate text-sm text-left hover:underline cursor-pointer"
+                class="truncate text-sm text-left hover:underline cursor-pointer min-w-0"
                 onclick={() => togglePreview(item.cardId)}>{cardLabel(item.cardId)}</button
               >
+              {#if cardPage(item.cardId)}
+                <span class="badge badge-ghost badge-sm tabular-nums font-semibold shrink-0">
+                  p. {cardPage(item.cardId)}
+                </span>
+              {/if}
             </div>
             <div class="flex shrink-0 items-center gap-1">
               <button
