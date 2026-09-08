@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Generate card-relations.json from cards.json.
 
 Uses Granite 311M multilingual embeddings (768-dim, 32K token context)
@@ -13,10 +12,11 @@ from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
-from card_models import Library
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from tqdm import tqdm
+
+from card_models import Library
 
 # ---------------------------------------------------------------------------
 # Configuration

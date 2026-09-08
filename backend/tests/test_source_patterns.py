@@ -17,6 +17,7 @@ import re
 from pathlib import Path
 
 import pytest
+
 from source_documents import (
     LEVINSON_2004_PATTERN,
     PAGE_DOT_PATTERN,
