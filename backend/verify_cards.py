@@ -158,7 +158,7 @@ def _check_tags_allowlist(tag_allowlist: Iterable[str]) -> Callable[[str, str, d
 
 
 def _check_images(
-    card_id: str, author: str, card: dict, image_root: Optional[Path]
+    card_id: str, author: str, card: dict, image_root: Path | None
 ) -> list[str]:
     problems: list[str] = []
     images = card.get("images") or []
@@ -205,7 +205,7 @@ def verify(
     dataset: dict,
     *,
     tag_allowlist: Iterable[str] = (),
-    image_root: Optional[Path] = None,
+    image_root: Path | None = None,
 ) -> list[str]:
     """Return a list of human-readable problems; empty list means OK.
 

@@ -17,14 +17,14 @@ class SourceBuildResult:
 class CardLengthAnomaly:
     source_path: str
     card_id: str
-    page: Optional[str]
+    page: str | None
     char_count: int
     mean_chars: float
     stdev_chars: float
     source_share: float
     reasons: list[str]
-    raw_marker: Optional[str] = None
-    zscore: Optional[float] = None
+    raw_marker: str | None = None
+    zscore: float | None = None
 
 
 def collect_card_length_anomalies(
@@ -48,7 +48,7 @@ def collect_card_length_anomalies(
 
         for card, char_count in zip(result.cards, char_counts):
             reasons: list[str] = []
-            zscore: Optional[float] = None
+            zscore: float | None = None
             source_share = (char_count / total_chars) if total_chars else 0.0
             relative_to_mean = (char_count / mean_chars) if mean_chars else 0.0
 
