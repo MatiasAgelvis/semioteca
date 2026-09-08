@@ -11,7 +11,6 @@ import json
 from pathlib import Path
 
 import pytest
-
 import verify_cards
 from page_shapes import is_allowed_page
 

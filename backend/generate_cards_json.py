@@ -8,12 +8,9 @@ from dataclasses import asdict
 from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
-from typing import Optional
 
 import mammoth
 import pypandoc
-from tqdm import tqdm
-
 from anomalies import (
     SourceBuildResult,
     collect_card_length_anomalies,
@@ -26,6 +23,7 @@ from divider_detection import (
     strip_divider,
 )
 from source_documents import SourceDocumentConfig, find_source_configs
+from tqdm import tqdm
 
 SUPPORTED_INPUT_EXTENSIONS = {".odt", ".docx"}
 
@@ -133,7 +131,7 @@ def extract_text_and_images_from_docx_bytes(docx_bytes: bytes, image_dir: Path) 
     return text, images
 
 
-def normalize_capture(value: Optional[str]) -> Optional[str]:
+def normalize_capture(value: str | None) -> str | None:
     if value is None:
         return None
 

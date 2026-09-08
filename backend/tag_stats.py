@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# coding: utf-8
 
 """Report card-tag statistics for a `cards.json` dataset.
 

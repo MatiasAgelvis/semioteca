@@ -34,8 +34,8 @@ import argparse
 import json
 import re
 import sys
+from collections.abc import Callable, Iterable
 from pathlib import Path
-from typing import Callable, Iterable, Optional
 
 from page_shapes import is_allowed_page
 
@@ -130,7 +130,7 @@ def _check_book_metadata_consistency(dataset: dict) -> list[str]:
 def _check_tags_allowlist(tag_allowlist: Iterable[str]) -> Callable[[str, str, dict], list[str]]:
     # An empty allow-list means the caller opted out of the tag check
     # entirely; we return a no-op rather than flagging every card.
-    allowed: Optional[set[str]] = set(tag_allowlist) if tag_allowlist else None
+    allowed: set[str] | None = set(tag_allowlist) if tag_allowlist else None
     if allowed is not None and not allowed:
         allowed = None
 

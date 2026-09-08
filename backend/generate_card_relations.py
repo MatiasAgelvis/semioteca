@@ -8,7 +8,6 @@ cached to .npy so only changed card content triggers re-embedding.
 
 import hashlib
 import json
-import sys
 import time
 from collections import defaultdict
 from pathlib import Path

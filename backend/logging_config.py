@@ -1,14 +1,13 @@
 import json
 import logging
 from pathlib import Path
-from typing import Optional
 
 ROOT_DIR = Path(__file__).resolve().parent
 DEFAULT_LOG_FILE = ROOT_DIR / "global.log"
 TAG_LOG_FILE = ROOT_DIR / "tag_scores.log"
 
 
-def get_logger(name: str, log_file: Optional[Path] = None, level: int = logging.INFO) -> logging.Logger:
+def get_logger(name: str, log_file: Path | None = None, level: int = logging.INFO) -> logging.Logger:
     if log_file is None:
         log_file = DEFAULT_LOG_FILE
 

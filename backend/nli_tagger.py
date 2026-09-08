@@ -1,9 +1,8 @@
-from tqdm import tqdm
-from transformers import pipeline
-
 from card_models import Card, Library
 from logging_config import get_tag_logger, log_card_score_summary
 from tags import CARD_TAG_NAMES, CARD_TAGS, CardTag
+from tqdm import tqdm
+from transformers import pipeline
 
 # MODEL_ID = "MoritzLaurer/mDeBERTa-v3-base-mnli-xnli"
 MODEL_ID = "Recognai/zeroshot_selectra_medium"

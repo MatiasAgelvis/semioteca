@@ -16,7 +16,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import generate_cards_json
 import pytest
 from generate_cards_json import build_cards_for_source
 from source_documents import SourceDocument
