@@ -2,7 +2,6 @@ import re
 import statistics
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
 
 from card_models import Card
 
