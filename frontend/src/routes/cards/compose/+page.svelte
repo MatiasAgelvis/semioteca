@@ -2,6 +2,7 @@
   import { composer, selectedCount } from '$lib/stores/composer';
   import { CARD_LIMIT } from '$lib/types/composer';
   import { exportDocumentAsMarkdown, exportDocumentAsPdf } from '$lib/utils/composer-export';
+  import { exporting } from '$lib/stores/export';
   import { showToast } from '$lib/stores/toast';
   import type { PageData } from './$types';
 
@@ -19,9 +20,9 @@
     await exportDocumentAsPdf($composer, cardMap);
   }
 
-  function handleDownloadMd() {
+  async function handleDownloadMd() {
     if ($selectedCount === 0) return;
-    exportDocumentAsMarkdown($composer, cardMap, $composer.title);
+    await exportDocumentAsMarkdown($composer, cardMap, $composer.title);
   }
 
   function handleClear() {
@@ -226,17 +227,25 @@
     <button
       type="button"
       class="btn btn-outline"
-      disabled={$selectedCount === 0}
+      disabled={$selectedCount === 0 || $exporting !== null}
       onclick={handleDownloadMd}
+      aria-busy={$exporting === 'markdown'}
     >
+      {#if $exporting === 'markdown'}
+        <span class="loading loading-spinner loading-sm" aria-hidden="true"></span>
+      {/if}
       Descargar MD
     </button>
     <button
       type="button"
       class="btn btn-primary"
-      disabled={$selectedCount === 0}
+      disabled={$selectedCount === 0 || $exporting !== null}
       onclick={handleExportPdf}
+      aria-busy={$exporting === 'pdf'}
     >
+      {#if $exporting === 'pdf'}
+        <span class="loading loading-spinner loading-sm" aria-hidden="true"></span>
+      {/if}
       Exportar PDF
     </button>
   </div>
