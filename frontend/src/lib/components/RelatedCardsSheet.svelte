@@ -39,7 +39,7 @@
 </script>
 
 <dialog bind:this={dialogEl} class="modal" onclose={handleClose}>
-  <div class="modal-box max-w-2xl max-h-[calc(100vh-4rem)] !overflow-hidden flex flex-col !p-0">
+  <div class="modal-box max-w-2xl max-h-[calc(100vh-4rem)] overflow-hidden! flex flex-col p-0!">
     <!-- Header -->
     <div class="flex shrink-0 items-center justify-between border-b border-base-200 px-6 py-4">
       <h2 class="text-lg font-bold flex items-center gap-2">
