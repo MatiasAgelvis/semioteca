@@ -87,9 +87,9 @@ def collect_card_length_anomalies(
 
     def anomaly_sort_key(anomaly: CardLengthAnomaly) -> tuple[int, float, int, float]:
         reason_weight = 0
-        if any(reason.startswith("huge") or reason.startswith("long") for reason in anomaly.reasons):
+        if any(reason.startswith(("huge", "long")) for reason in anomaly.reasons):
             reason_weight = 3
-        elif any(reason.startswith("empty") or reason.startswith("tiny") or reason.startswith("short") for reason in anomaly.reasons):
+        elif any(reason.startswith(("empty", "tiny", "short")) for reason in anomaly.reasons):
             reason_weight = 2
         elif any(reason.startswith("dominates source") for reason in anomaly.reasons):
             reason_weight = 1
