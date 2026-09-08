@@ -24,6 +24,7 @@ cards in the lot, maybe even hand curate as we do for the regex patterns to ensu
 ## UI/UX & Bug Checklist
 
 - [ ] **Graph view — 'return to repository' for the companion card** · Add a way to navigate back to the card repository from the companion card panel (`GraphPanel`) in the graph view — it currently only has "Ver tarjeta completa" and "Explorar desde aquí".
+- [ ] **Card list — move 'open card' button near the title** · In `CardItem`, the `→` button sits at the far right edge next to the page badge. Move it next to the title/author line (same pattern as `GraphPanel`) so it reads as "open this card" rather than a disconnected action. More discoverable and better grouped with the card identity.
 - [ ] **Horizontal scroll on narrow viewports (mobile)** · Some cards can render wider than the viewport, causing sideways scrolling. Verify with `document.documentElement.scrollWidth > innerWidth` at ~320–375px. Images are likely NOT the cause — `CardImage` is `object-contain` inside a bounded, `overflow-hidden` figure. More likely: unbreakable tokens in `whitespace-pre-wrap` card content (needs `break-words`/`overflow-wrap:anywhere`), and the `card-actions flex-nowrap` bars (tags + Red/Añadir) forcing one non-wrapping row on very narrow screens.
 
 ## Themes (2026-08-20)
