@@ -213,9 +213,8 @@ Use `--report-anomalies` to inspect these and refine split patterns or source co
 
 ## Tests
 
-Unit tests live in `backend/tests/` and use the stdlib `unittest` framework
-(no extra dependency). They are also discoverable by `pytest` if it is
-installed.
+Unit tests live in `backend/tests/` and use `pytest` (declared as a
+dev dependency in `requirements.txt`).
 
 Run them via npm from the project root:
 
@@ -226,13 +225,16 @@ npm run test:unit
 Or directly:
 
 ```bash
-cd backend && python -m unittest discover -s tests -t .
+cd backend && pytest tests/
 ```
 
 The suite covers:
 
 - `page_shapes.is_allowed_page` — the allow-list of page shapes the verifier enforces, with one test per documented shape plus a sweep of the historical Honderich source-typo artifacts.
-- `verify_cards.verify()` — end-to-end checks for missing/empty pages, malformed pages, duplicate ids, and empty datasets.
+- `verify_cards.verify()` — the eight integrity invariants the verifier enforces: page shape, required fields, field formats, book-metadata consistency, tag allow-list, image paths on disk, and image placeholder wiring. The `tests/test_verify_cards_cli.py` module additionally exercises the CLI: exit codes, `--quiet`, `--cards-json`, and the error path when the file is missing.
 - `generate_cards_json.normalize_capture` — the function that strips stray leading `-` and `(` from page captures.
+- `generate_cards_json.slugify` — the lowercase-hyphenated prefix used to build card IDs.
+- `source_documents` patterns — each split pattern is unit-tested in isolation, and a parametrized regression test asserts that the first `raw_marker` from every source's live `cards.json` still matches its configured pattern.
+- `build_cards_for_source` round-trip — a parametrized test re-runs the full ODT-to-cards pipeline for every source and asserts the generated card count matches what's in `cards.json`. Catches silent regressions in the splitter, the regex, or the ODT-to-text conversion.
 
 The page-shape inventory (which shapes are accepted and which are rejected) is documented in `backend/page_shapes.py`. Both `verify_cards` and the test suite import from there, so updating the shapes in one place keeps the verifier and the docs in lock-step.
