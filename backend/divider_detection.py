@@ -271,7 +271,7 @@ def _extract(configs, source_dir: str):
     for config, path in find_source_configs(Path(source_dir)):
         try:
             text = extract_raw_text_from_docx_bytes(convert_odt_to_docx_bytes(path))
-        except Exception as exc:  # pragma: no cover
+        except Exception as exc:  # noqa: BLE001  # pragma: no cover
             print(f"{config.filename:<52} ERROR {exc}")
             continue
         sections = split_text_into_cards(text, config)
