@@ -5,7 +5,6 @@
   import type { GraphNode } from '$lib/types/graph';
   import CloseIcon from '$lib/components/CloseIcon.svelte';
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
-  import { openCardsSearch } from '$lib/stores/cardsSearch';
   import { MapPin } from '@lucide/svelte';
 
   let {
@@ -73,13 +72,9 @@
       {#if visibleTags.length > 0}
         <div class="mt-2 flex flex-wrap gap-1">
           {#each visibleTags as tag}
-            <button
-              type="button"
-              class="badge badge-outline badge-xs text-[10px] uppercase tracking-wider opacity-50 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
-              onclick={() => openCardsSearch([tag])}
-            >
+            <span class="badge badge-xs text-[10px] badge-soft badge-neutral uppercase opacity-60">
               {tag}
-            </button>
+            </span>
           {/each}
         </div>
       {/if}
