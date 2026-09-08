@@ -45,7 +45,7 @@ class ImageRef:
         return asdict(self)
 
     @staticmethod
-    def from_dict(data: dict) -> "ImageRef":
+    def from_dict(data: dict) -> ImageRef:
         return ImageRef(
             path=data["path"],
             filename=data["filename"],
@@ -74,7 +74,7 @@ class Card(BaseMetadata):
         return data
 
     @staticmethod
-    def from_dict(data: dict) -> "Card":
+    def from_dict(data: dict) -> Card:
         return Card(
             id=data["id"],
             title=data.get("title"),
@@ -101,7 +101,7 @@ class Book(BaseMetadata):
         return data
 
     @staticmethod
-    def from_dict(data: dict) -> "Book":
+    def from_dict(data: dict) -> Book:
         return Book(
             title=data.get("title"),
             author=data.get("author"),
@@ -119,7 +119,7 @@ class Library:
         return {"books": [book.to_dict() for book in self.books]}
 
     @staticmethod
-    def from_dict(data: dict) -> "Library":
+    def from_dict(data: dict) -> Library:
         return Library(
             books=[Book.from_dict(book_data) for book_data in data.get("books", [])]
         )

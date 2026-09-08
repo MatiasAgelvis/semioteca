@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# coding: utf-8
-
 """Verify invariants on the generated ``cards.json``.
 
 The frontend renders every card with a page badge (``p. <page>``) and falls

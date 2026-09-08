@@ -9,6 +9,7 @@ silently change the cleanup behaviour.
 from __future__ import annotations
 
 import pytest
+
 from generate_cards_json import normalize_capture
 
 

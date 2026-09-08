@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# coding: utf-8
-
 """Detect and strip the repeated bibliographic "divider" (page header / citation)
 from a source's cards.
 
