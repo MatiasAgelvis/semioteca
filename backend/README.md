@@ -125,9 +125,32 @@ CardSection   # Intermediate parsing result (marker, page, year, content)
 
 ### Requirements
 
+This project uses [uv](https://docs.astral.sh/uv/) for Python dependency
+management. Install uv (e.g. via Homebrew), then from the project root:
+
 ```bash
-pip install -r requirements.txt
+cd backend && uv sync
 ```
+
+`uv sync` reads `backend/pyproject.toml` and `backend/uv.lock`, creates a
+virtualenv under `backend/.venv`, and installs pinned dependencies.
+
+To add a dependency, edit `backend/pyproject.toml` and re-run `uv sync`.
+To regenerate the lockfile after a pyproject change, run `uv lock`.
+
+### First-time setup
+
+On a fresh checkout, before `npm run content:*` or `npm run test:unit`
+will work via uv, generate the lockfile once:
+
+```bash
+cd backend && uv lock && uv sync
+```
+
+The wrapper scripts (`scripts/uv-run.sh`, `scripts/run-tests.sh`) fall
+back to the legacy mise-managed `.venv` at the project root if
+`backend/uv.lock` is missing, so existing developer workflows continue
+working during the transition.
 
 Key dependencies:
 
@@ -214,7 +237,7 @@ Use `--report-anomalies` to inspect these and refine split patterns or source co
 ## Tests
 
 Unit tests live in `backend/tests/` and use `pytest` (declared as a
-dev dependency in `requirements.txt`).
+dev dependency in `backend/pyproject.toml`).
 
 Run them via npm from the project root:
 
@@ -225,7 +248,7 @@ npm run test:unit
 Or directly:
 
 ```bash
-cd backend && pytest tests/
+cd backend && uv run pytest tests/
 ```
 
 The suite covers:
