@@ -12,9 +12,6 @@ Fully-done work is archived in `todo-done.md` — this file tracks open items on
 Exporter MVP shipped: compose, reorder, metadata, Markdown + PDF export, with A4 print layout and per-card page breaks. See `todo-done.md` for the shipped scope.
 
 - [ ] Add optional per-card notes in composed documents.
-- [ ] Add local snapshots (multiple saved compositions).
-- [ ] Evaluate server-rendered PDF for deterministic pagination.
-- [ ] Add shareable composition links or account-backed saved documents.
 - [ ] Add citation-format presets and bibliography appendix generation.
 
 Cards from the same file are being tagged as different because of small name discrepancies,
