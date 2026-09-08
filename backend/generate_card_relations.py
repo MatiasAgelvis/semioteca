@@ -12,11 +12,10 @@ from collections import defaultdict
 from pathlib import Path
 
 import numpy as np
+from card_models import Library
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from tqdm import tqdm
-
-from card_models import Library
 
 # ---------------------------------------------------------------------------
 # Configuration
