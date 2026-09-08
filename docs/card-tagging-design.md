@@ -39,7 +39,7 @@ TL;DR - Tags are card-level, assigned automatically via embeddings+clustering (p
    - Write back the updated `cards.json` with `tags` populated.
    - CLI flags: `--input`, `--output`, `--n-clusters` (for KMeans fallback), `--dry-run`.
 
-5. `requirements.txt`
+5. `backend/pyproject.toml`
    - Add `sentence-transformers`, `umap-learn`, `hdbscan`, `scikit-learn`.
 
 ---
@@ -58,7 +58,7 @@ TL;DR - Tags are card-level, assigned automatically via embeddings+clustering (p
 - `backend/generate_cards_json.py` — initialize `tags=[]` at card creation
 - `backend/cards.json` — output; regenerate after model change
 - `backend/tag_cards.py` — new standalone enrichment script
-- `requirements.txt` — add ML deps
+- `backend/pyproject.toml` — add ML deps
 - `frontend/src/lib/types/content.ts` — `tags: string[]` on `CardRecord`
 - `frontend/src/lib/components/CardItem.svelte` — render badges
 - `frontend/src/routes/cards/+page.svelte` — search integration

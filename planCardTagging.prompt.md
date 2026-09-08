@@ -11,7 +11,7 @@ Replace the current random tagging in [backend/tag_cards.py](/Volumes/BlackHole/
    Either evolve [backend/card-tags.json](/Volumes/BlackHole/dev/web/semioteca/backend/card-tags.json#L1) into structured objects or keep it as the public vocabulary and load descriptions from a second file via [backend/tags.py](/Volumes/BlackHole/dev/web/semioteca/backend/tags.py#L1). I recommend a separate definitions file to avoid unnecessary schema churn.
 
 3. Add offline ML dependencies.
-   Extend [requirements.txt](/Volumes/BlackHole/dev/web/semioteca/requirements.txt#L1) with the packages needed to run `sentence-transformers` and the selected model, and document that the first run will download model weights. This blocks implementation and validation.
+   Extend [backend/pyproject.toml](/Volumes/BlackHole/dev/web/semioteca/backend/pyproject.toml#L1) with the packages needed to run `sentence-transformers` and the selected model, and document that the first run will download model weights. This blocks implementation and validation.
 
 4. Rework the tagging script into a real pipeline.
    Replace the random `tag_dataset()` flow in [backend/tag_cards.py](/Volumes/BlackHole/dev/web/semioteca/backend/tag_cards.py#L51) with functions that:
@@ -56,7 +56,7 @@ Replace the current random tagging in [backend/tag_cards.py](/Volumes/BlackHole/
 - [backend/cards.json](/Volumes/BlackHole/dev/web/semioteca/backend/cards.json#L1) — final tagged artifact.
 - [backend/card_models.py](/Volumes/BlackHole/dev/web/semioteca/backend/card_models.py#L1) — only if metadata storage changes.
 - [backend/generate_cards_json.py](/Volumes/BlackHole/dev/web/semioteca/backend/generate_cards_json.py#L1) — upstream generation step.
-- [requirements.txt](/Volumes/BlackHole/dev/web/semioteca/requirements.txt#L1) — ML dependencies.
+- [backend/pyproject.toml](/Volumes/BlackHole/dev/web/semioteca/backend/pyproject.toml#L1) — ML dependencies.
 - [package.json](/Volumes/BlackHole/dev/web/semioteca/package.json#L1) — script integration point.
 - [scripts/sync-content.mjs](/Volumes/BlackHole/dev/web/semioteca/scripts/sync-content.mjs#L1) — existing sync stage.
 - [README.md](/Volumes/BlackHole/dev/web/semioteca/README.md#L1) — workflow documentation.

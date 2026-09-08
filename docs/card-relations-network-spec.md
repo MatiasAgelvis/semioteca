@@ -71,7 +71,7 @@ score(A, B) = α × sim_embedding + β × sim_tags + γ × sim_author + δ × si
 - Multilingual, Spanish-friendly
 - Small footprint (~118 MB)
 - Fast inference on CPU (2,556 cards → ~30s on a modern Mac)
-- Uses `sentence-transformers` (already in `requirements.txt`)
+- Uses `sentence-transformers` (already in `backend/pyproject.toml`)
 
 ### Computational optimization
 
@@ -112,7 +112,7 @@ Updates to `package.json`:
 ```jsonc
 {
   "scripts": {
-    "content:relations": "cd backend && sh ../scripts/venv-python.sh generate_card_relations.py",
+    "content:relations": "cd backend && sh ../scripts/uv-run.sh generate_card_relations.py",
     "content:build": "npm run content:generate && npm run content:tag && npm run content:relations && npm run content:sync",
   },
 }

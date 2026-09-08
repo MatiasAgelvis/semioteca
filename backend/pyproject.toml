@@ -1,0 +1,37 @@
+[project]
+name = "semioteca-backend"
+version = "0.1.0"
+description = "Card-generation pipeline for the semioteca project (ODT/DOCX → structured JSON)."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    # ODT / DOCX extraction
+    "mammoth>=1.9",
+    "pypandoc>=1.15",
+    "python-dotenv>=1.0",
+    # Semantic tagging
+    "sentence-transformers>=5.0",
+    "transformers>=5.0",
+    "torch>=2.0",
+    "scikit-learn>=1.5",
+    "numpy>=2.0",
+    # Network / download (transformers dependency)
+    "huggingface-hub>=1.0",
+    "hf-xet>=1.0",
+    # CLI niceties
+    "rich>=15.0",
+    "tqdm>=4.0",
+    "typer>=0.20",
+    # Testing — pytest is small (compared to the ML deps) and this is an
+    # application, not a library, so we install it as a runtime dep.
+    "pytest>=8.0",
+]
+
+[tool.uv]
+# Treat as an application, not a library — no wheel/sdist needed.
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-ra"
