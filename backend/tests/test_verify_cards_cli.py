@@ -19,6 +19,7 @@ def test_main_returns_zero_on_clean_dataset(tmp_path: Path) -> None:
         [sys.executable, "verify_cards.py"],
         capture_output=True, text=True,
         cwd=repo_root / "backend",
+        check=False,
     ).returncode
     assert rc == 0, f"expected 0, got {rc}; stderr={rc!r}"
 
@@ -28,6 +29,7 @@ def test_main_returns_nonzero_when_cards_json_missing(tmp_path: Path) -> None:
     rc = subprocess.run(
         [sys.executable, str(script), "--cards-json", str(tmp_path / "nope.json")],
         capture_output=True, text=True,
+        check=False,
     ).returncode
     assert rc == 1
 
@@ -51,6 +53,7 @@ def test_main_returns_nonzero_on_violation(tmp_path: Path) -> None:
     rc = subprocess.run(
         [sys.executable, "verify_cards.py", "--cards-json", str(cards_path)],
         capture_output=True, text=True,
+        check=False,
     ).returncode
     assert rc == 1
 
@@ -74,6 +77,7 @@ def test_main_quiet_suppresses_per_card_diagnostics(tmp_path: Path) -> None:
     proc = subprocess.run(
         [sys.executable, "verify_cards.py", "--cards-json", str(cards_path), "--quiet"],
         capture_output=True, text=True,
+        check=False,
     )
     assert proc.returncode == 1
     # Quiet means no per-card diagnostic lines like "  - missing or empty..."
@@ -101,6 +105,7 @@ def test_main_verbose_shows_per_card_diagnostics(tmp_path: Path) -> None:
     proc = subprocess.run(
         [sys.executable, "verify_cards.py", "--cards-json", str(cards_path)],
         capture_output=True, text=True,
+        check=False,
     )
     assert proc.returncode == 1
     assert "missing or empty" in proc.stderr
@@ -112,6 +117,7 @@ def test_main_success_summary_format() -> None:
         [sys.executable, "verify_cards.py"],
         capture_output=True, text=True,
         cwd=repo_root / "backend",
+        check=False,
     )
     assert proc.returncode == 0
     assert "OK" in proc.stdout
@@ -123,5 +129,6 @@ def test_main_reports_missing_file_to_stderr(tmp_path: Path) -> None:
     proc = subprocess.run(
         [sys.executable, str(script), "--cards-json", str(tmp_path / "nope.json")],
         capture_output=True, text=True,
+        check=False,
     )
     assert "not found" in proc.stderr.lower() or "no such file" in proc.stderr.lower()
