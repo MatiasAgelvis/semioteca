@@ -1,3 +1,4 @@
+# TODO: is this file out of place
 """Exercise verify_cards._is_allowed_page against positive and negative cases."""
 import sys
 
