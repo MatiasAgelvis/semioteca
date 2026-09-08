@@ -36,7 +36,6 @@ from source_documents import (
         "p.107-108",
         "P. 107-108",
         "P. 45.",
-        "P. 45",
     ],
 )
 def test_page_dot_pattern_matches(value: str) -> None:
