@@ -36,7 +36,7 @@
     </span>
   </span>
   {#if card.tags.length > 0}
-    <span class="text-[10px] opacity-40 shrink-0 truncate">
+    <span class="text-[10px] font-semibold opacity-60 shrink-0 truncate">
       {card.tags.slice(0, 3).join(' · ')}
       {#if card.tags.length > 3}
         +{card.tags.length - 3}
