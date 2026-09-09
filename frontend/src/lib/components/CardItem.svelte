@@ -4,6 +4,7 @@
   import { showToast } from '$lib/stores/toast';
   import { openCardsSearch } from '$lib/stores/cardsSearch';
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
+  import Tag from '$lib/components/Tag.svelte';
   import { TAG_DESCRIPTIONS } from '$lib/constants';
   import type { CardImage as CardImageType, CardRecord } from '$lib/types/content';
   import {
@@ -181,13 +182,7 @@
             class="tooltip tooltip-top before:whitespace-normal before:max-w-50"
             data-tip={TAG_DESCRIPTIONS[tag] ?? 'Sin descripción'}
           >
-            <button
-              type="button"
-              class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-50 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
-              onclick={() => openCardsSearch([tag])}
-            >
-              {tag}
-            </button>
+            <Tag {tag} onclick={() => openCardsSearch([tag])} />
           </div>
         {/each}
       </div>

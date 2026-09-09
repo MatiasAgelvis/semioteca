@@ -6,6 +6,7 @@
   import CloseIcon from '$lib/components/CloseIcon.svelte';
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
   import { MapPin } from '@lucide/svelte';
+  import Tag from '$lib/components/Tag.svelte';
 
   let {
     node,
@@ -72,9 +73,7 @@
       {#if visibleTags.length > 0}
         <div class="mt-2 flex flex-wrap gap-1">
           {#each visibleTags as tag}
-            <span class="badge badge-xs text-[10px] badge-soft badge-neutral uppercase opacity-60">
-              {tag}
-            </span>
+            <Tag {tag} variant="static" />
           {/each}
         </div>
       {/if}
