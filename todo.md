@@ -24,16 +24,12 @@ cards in the lot, maybe even hand curate as we do for the regex patterns to ensu
 ## UI/UX & Bug Checklist
 
 - [ ] **Extract tag component** · Tags are rendered in 3+ places with inconsistent styles: `CardItem` (`badge-outline` buttons), search dialog (rounded pills + rectangular filter chips), `GraphPanel` (`badge-soft` spans). Extract into a single `<Tag>` component with props for variant (interactive/static, outline/soft/primary), shape (pill/rectangle), and size. Covers display tags, filter toggles, and active filter chips.
-  - `CardItem.svelte:184` — `badge badge-outline badge-sm`, interactive, opens search
-  - `cards/+page.svelte:1079` — `btn btn-xs rounded-full`, filter toggle in search dialog
-  - `cards/+page.svelte:912` — `badge badge-primary badge-sm`, active filter chip (rectangular)
-  - `GraphPanel.svelte:75` — `badge badge-sm badge-soft badge-neutral`, static metadata
-  - `RelatedCardsSheet.svelte` — also uses `openCardsSearch` for tag clicks
-  - `cards/+page.svelte:1058` — section header “Etiquetas” in advanced search
 
 - [ ] **Graph view — 'return to repository' for the companion card** · Add a way to navigate back to the card repository from the companion card panel (`GraphPanel`) in the graph view — it currently only has "Ver tarjeta completa" and "Explorar desde aquí".
 - [ ] **Card list — move 'open card' button near the title** · In `CardItem`, the `→` button sits at the far right edge next to the page badge. Move it next to the title/author line (same pattern as `GraphPanel`) so it reads as "open this card" rather than a disconnected action. More discoverable and better grouped with the card identity.
 - [ ] **Horizontal scroll on narrow viewports (mobile)** · Some cards can render wider than the viewport, causing sideways scrolling. Verify with `document.documentElement.scrollWidth > innerWidth` at ~320–375px. Images are likely NOT the cause — `CardImage` is `object-contain` inside a bounded, `overflow-hidden` figure. More likely: unbreakable tokens in `whitespace-pre-wrap` card content (needs `break-words`/`overflow-wrap:anywhere`), and the `card-actions flex-nowrap` bars (tags + Red/Añadir) forcing one non-wrapping row on very narrow screens.
+- [ ] **CardItem — tooltip overflow clipping** · Tooltips in `CardItem.svelte` are clipped by the parent container's boundary. Needs a portal implementation to render tooltips at the body level.
+- [ ] **Component doc route** · Create `/doc` route with isolated component examples (Tag variants, sizes, states) for faster front-end iteration. Evaluate after current feature branch.
 
 ## Themes (2026-08-20)
 
