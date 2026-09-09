@@ -49,7 +49,7 @@
       size
     ]} {variantClasses} {uppercase
       ? 'uppercase'
-      : ''} cursor-pointer {hoverClasses} hover:opacity-100 {className}"
+      : ''} cursor-pointer {hoverClasses} hover:opacity-100 truncate {className}"
     {onclick}
   >
     {tag}
@@ -61,7 +61,7 @@
   <span
     class="badge font-semibold gap-1 transition-colors {SIZE_CLASSES[
       size
-    ]} {variantClasses} {uppercase ? 'uppercase' : ''} {className}"
+    ]} {variantClasses} {uppercase ? 'uppercase' : ''} truncate {className}"
   >
     {tag}
   </span>
