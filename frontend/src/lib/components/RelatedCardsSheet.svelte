@@ -70,6 +70,29 @@
       class="min-h-0 flex-1 space-y-2 overflow-y-auto px-6 py-4"
       style="mask-image: linear-gradient(to bottom, black 95%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 92%, transparent 100%)"
     >
+      {#if currentCardId}
+        <button
+          class="btn btn-primary btn-md w-full gap-2"
+          onclick={() => {
+            onclose();
+            goto(`/cards/graph?origin=${currentCardId}`);
+          }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="1em"
+            height="1em"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"><path d="M7 17l9.2-9.2M17 17V7H7" /></svg
+          >
+          Explorar en red
+        </button>
+      {/if}
+
       {#each relations as rel (rel.id)}
         {@const tags = visibleTags(rel.tags)}
         <a
@@ -123,21 +146,6 @@
         </p>
       {/if}
     </div>
-
-    <!-- Fixed footer — always visible, no fade -->
-    {#if currentCardId}
-      <div class="shrink-0 border-t border-base-200 px-6 py-4">
-        <button
-          class="btn btn-soft w-full"
-          onclick={() => {
-            onclose();
-            goto(`/cards/graph?origin=${currentCardId}`);
-          }}
-        >
-          Explorar en red →
-        </button>
-      </div>
-    {/if}
   </div>
 
   <form method="dialog" class="modal-backdrop">
