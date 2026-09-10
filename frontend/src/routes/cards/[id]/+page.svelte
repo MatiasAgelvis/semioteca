@@ -113,7 +113,7 @@
       {/if}
     </div>
 
-    <h1 class="text-3xl font-black lg:text-4xl">{data.card.book}</h1>
+    <h1 class="text-3xl font-black lg:text-4xl truncate">{data.card.book}</h1>
     <p class="mt-2 opacity-70">
       {data.card.author} ({data.card.year}) &mdash; página {data.card.page ?? 's/p'}
     </p>
