@@ -7,6 +7,10 @@ Fully-done work is archived in `todo-done.md` — this file tracks open items on
 - [ ] Implement image optimization and responsive loading for card images.
   - Display, backend extraction/sync, and inline rendering are done — remaining: `srcset`/`sizes`, WebP/AVIF variants, and intrinsic dimensions.
 
+## Backend
+
+- [ ] **Text formatting loss** · Backend is losing text formatting (italics, etc.) during extraction. Investigate and preserve rich text formatting in card content.
+
 ## Card Composer
 
 Exporter MVP shipped: compose, reorder, metadata, Markdown + PDF export, with A4 print layout and per-card page breaks. See `todo-done.md` for the shipped scope.
