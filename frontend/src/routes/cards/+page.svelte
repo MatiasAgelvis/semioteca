@@ -21,6 +21,7 @@
   import { parseSearchUrl, buildSearchParams } from '$lib/utils/searchUrl';
   import RelatedCardsSheet from '$lib/components/RelatedCardsSheet.svelte';
   import ComposerTray from '$lib/components/ComposerTray.svelte';
+  import Tag from '$lib/components/Tag.svelte';
   import type {
     CardRecord,
     CardRelationEntry,
@@ -912,20 +913,22 @@
         {#if dialogTags.size > 0 || dialogAuthors.size > 0}
           <div class="flex flex-wrap items-center gap-1.5 pt-1 pb-2 text-xs">
             {#each Array.from(dialogTags) as tag}
-              <button
-                class="badge badge-primary badge-sm gap-1 hover:badge-error"
+              <Tag
+                {tag}
+                variant="filter"
+                hoverColor={dialogTags.has(tag) ? 'error' : 'primary'}
+                removable
                 onclick={() => toggleTag(tag)}
-              >
-                {tag} <span>×</span>
-              </button>
+              />
             {/each}
             {#each Array.from(dialogAuthors) as author}
-              <button
-                class="badge badge-secondary badge-sm gap-1 hover:badge-error"
+              <Tag
+                tag={author}
+                variant="secondary"
+                hoverColor={dialogTags.has(author) ? 'error' : 'primary'}
+                removable
                 onclick={() => toggleAuthor(author)}
-              >
-                {author} <span>×</span>
-              </button>
+              />
             {/each}
             <button
               class="text-[10px] uppercase font-bold text-error ml-1 hover:underline"
@@ -1077,13 +1080,13 @@
             </div>
             <div class="flex flex-wrap gap-x-2 gap-y-3 overflow-y-auto pt-1">
               {#each tags as tag}
-                <button
-                  type="button"
-                  class={`btn btn-xs rounded-full ${dialogTags.has(tag) ? 'btn-primary' : 'btn-outline'}`}
+                <Tag
+                  {tag}
+                  variant={dialogTags.has(tag) ? 'filter' : 'outline'}
+                  removable={dialogTags.has(tag)}
+                  hoverColor={dialogTags.has(tag) ? 'error' : 'primary'}
                   onclick={() => toggleTag(tag)}
-                >
-                  {tag}{dialogTags.has(tag) ? ' ×' : ''}
-                </button>
+                />
               {/each}
             </div>
           </div>
@@ -1105,13 +1108,13 @@
             </div>
             <div class="flex flex-wrap gap-2 overflow-y-auto">
               {#each authors as author}
-                <button
-                  type="button"
-                  class={`btn btn-xs rounded-full ${dialogAuthors.has(author) ? 'btn-primary' : 'btn-outline'}`}
+                <Tag
+                  tag={author}
+                  variant={dialogAuthors.has(author) ? 'secondary' : 'outline'}
+                  removable={dialogAuthors.has(author)}
+                  hoverColor={dialogAuthors.has(author) ? 'error' : 'primary'}
                   onclick={() => toggleAuthor(author)}
-                >
-                  {author}{dialogAuthors.has(author) ? ' ×' : ''}
-                </button>
+                />
               {/each}
             </div>
           </div>

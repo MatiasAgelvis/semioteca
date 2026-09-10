@@ -5,6 +5,7 @@
   import type { PageData } from './$types';
   import RelatedCardsSheet from '$lib/components/RelatedCardsSheet.svelte';
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
+  import Tag from '$lib/components/Tag.svelte';
   import { showToast } from '$lib/stores/toast';
   import { openCardsSearch } from '$lib/stores/cardsSearch';
   import { TAG_DESCRIPTIONS } from '$lib/constants';
@@ -13,6 +14,7 @@
     buildCardFullText,
     copyTextToClipboard,
   } from '$lib/utils/citation';
+  import { LucideUmbrella } from '@lucide/svelte';
 
   let { data }: { data: PageData } = $props();
 
@@ -94,6 +96,7 @@
           onclick={() => (sheetOpen = true)}
           title="Tarjetas relacionadas"
         >
+          <!-- TODO: Replace with icon from Lucide : vector-polygon -->
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 512 512"
@@ -135,13 +138,7 @@
             class="tooltip tooltip-top before:whitespace-normal before:max-w-50"
             data-tip={TAG_DESCRIPTIONS[tag] ?? 'Sin descripción'}
           >
-            <button
-              type="button"
-              class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-60 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
-              onclick={() => openCardsSearch([tag])}
-            >
-              {tag}
-            </button>
+            <Tag {tag} variant="outline" onclick={() => openCardsSearch([tag])} />
           </div>
         {/each}
       </div>

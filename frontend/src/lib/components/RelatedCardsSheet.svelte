@@ -1,6 +1,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { openCardsSearch } from '$lib/stores/cardsSearch';
+  import Tag from '$lib/components/Tag.svelte';
   import { TAG_DESCRIPTIONS } from '$lib/constants';
   import type { RelatedCard } from '$lib/types/content';
   import CloseIcon from '$lib/components/CloseIcon.svelte';
@@ -95,21 +96,12 @@
           {#if tags.length > 0}
             <div class="mt-2 flex flex-wrap gap-1">
               {#each tags as tag}
+                <!-- TODO: Tooltip is clipped by parent -->
                 <div
                   class="tooltip tooltip-top before:whitespace-normal before:max-w-50"
                   data-tip={TAG_DESCRIPTIONS[tag] ?? 'Sin descripción'}
                 >
-                  <button
-                    type="button"
-                    class="badge badge-outline badge-xs text-[9px] uppercase tracking-wider opacity-50 hover:badge-primary hover:opacity-80 cursor-pointer"
-                    onclick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      openCardsSearch([tag]);
-                    }}
-                  >
-                    {tag}
-                  </button>
+                  <Tag {tag} variant="static" />
                 </div>
               {/each}
             </div>
