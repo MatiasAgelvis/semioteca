@@ -83,14 +83,16 @@
             : undefined}
         >
           <div class="flex items-start justify-between gap-3">
-            <div class="min-w-0 flex-1">
-              <p class="truncate font-semibold text-sm">
-                {rel.author} — {rel.book}
-              </p>
-              <p class="mt-0.5 text-xs opacity-50">
-                {rel.author} ({rel.year}){rel.page ? ` · p. ${rel.page}` : ''}
-              </p>
-            </div>
+            <p class="truncate font-semibold text-sm min-w-0 flex-1">
+              {rel.author} — {rel.book}
+            </p>
+            {#if rel.page}
+              <span
+                class="badge badge-ghost badge-sm tabular-nums font-semibold shrink-0 whitespace-nowrap"
+              >
+                p. {rel.page}
+              </span>
+            {/if}
           </div>
 
           {#if tags.length > 0}
