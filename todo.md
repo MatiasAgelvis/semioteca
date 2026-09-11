@@ -27,7 +27,7 @@ cards in the lot, maybe even hand curate as we do for the regex patterns to ensu
 
 ## UI/UX & Bug Checklist
 
-- [ ] **Extract tag component** · Tags are rendered in 3+ places with inconsistent styles: `CardItem` (`badge-outline` buttons), search dialog (rounded pills + rectangular filter chips), `GraphPanel` (`badge-soft` spans). Extract into a single `<Tag>` component with props for variant (interactive/static, outline/soft/primary), shape (pill/rectangle), and size. Covers display tags, filter toggles, and active filter chips.
+- [x] **Extract tag component** · Tags are rendered in 3+ places with inconsistent styles: `CardItem` (`badge-outline` buttons), search dialog (rounded pills + rectangular filter chips), `GraphPanel` (`badge-soft` spans). Extract into a single `<Tag>` component with props for variant (interactive/static, outline/soft/primary), shape (pill/rectangle), and size. Covers display tags, filter toggles, and active filter chips.
 
 - [ ] **Graph view — 'return to repository' for the companion card** · Add a way to navigate back to the card repository from the companion card panel (`GraphPanel`) in the graph view — it currently only has "Ver tarjeta completa" and "Explorar desde aquí".
 - [ ] **Card list — move 'open card' button near the title** · In `CardItem`, the `→` button sits at the far right edge next to the page badge. Move it next to the title/author line (same pattern as `GraphPanel`) so it reads as "open this card" rather than a disconnected action. More discoverable and better grouped with the card identity.
@@ -38,9 +38,9 @@ cards in the lot, maybe even hand curate as we do for the regex patterns to ensu
 
 ## Themes (2026-08-20)
 
-- [ ] Test new DaisyUI themes — currently using the defaults (light/dark); evaluate `emerald` (light) and `forest` (dark).
-  - [ ] Pick a light + dark pair and enable them.
-  - [ ] Craft custom themes with similar palettes and homogeneous styles across components after settling on base themes.
+- [x] Test new DaisyUI themes — currently using the defaults (light/dark); evaluate `emerald` (light) and `forest` (dark).
+  - [x] Pick a light + dark pair and enable them.
+  - [x] Craft custom themes with similar palettes and homogeneous styles across components after settling on base themes.
 
 ## Graph network — entry / landing experience (revisit later)
 
