@@ -199,3 +199,68 @@ def print_card_length_anomalies(anomalies: list[CardLengthAnomaly]) -> None:
             if len(marker_preview) > 120:
                 marker_preview = marker_preview[:117] + "..."
             print(f"  marker={marker_preview}")
+
+
+# ------------------------------------------------------------------
+# Standalone runner — loads cards.json and runs all anomaly checks
+# ------------------------------------------------------------------
+
+def _load_cards_from_json(path: str = "cards.json") -> list[SourceBuildResult]:
+    """Load ``cards.json`` and group cards by source path."""
+    import json
+
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    grouped: dict[str, list[Card]] = {}
+    for book in data["books"]:
+        for card_dict in book["cards"]:
+            card = Card.from_dict(card_dict)
+            grouped.setdefault(card.source_path, []).append(card)
+
+    return [
+        SourceBuildResult(source_path=Path(src), cards=cards)
+        for src, cards in grouped.items()
+    ]
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description="Run anomaly checks against generated cards.json",
+    )
+    parser.add_argument(
+        "--cards-json",
+        default="cards.json",
+        help="Path to cards.json (default: cards.json)",
+    )
+    parser.add_argument(
+        "--page-threshold",
+        type=int,
+        default=DEFAULT_PAGE_LENGTH_THRESHOLD,
+        help=f"Page length threshold in chars (default: {DEFAULT_PAGE_LENGTH_THRESHOLD})",
+    )
+    args = parser.parse_args()
+
+    results = _load_cards_from_json(args.cards_json)
+    total_cards = sum(len(r.cards) for r in results)
+    print(f"Loaded {total_cards} cards from {len(results)} sources")
+
+    # Content-length anomalies
+    content_anomalies = collect_card_length_anomalies(
+        results,
+        sigma_threshold=3.0,
+        min_chars=20,
+        max_chars=5000,
+        source_share_threshold=0.5,
+        relative_ratio_threshold=3.0,
+    )
+    print_card_length_anomalies(content_anomalies)
+
+    # Page-length anomalies
+    page_anomalies = collect_page_length_anomalies(
+        results, threshold=args.page_threshold
+    )
+    print_page_length_anomalies(page_anomalies)
+
+    if not content_anomalies and not page_anomalies:
+        print("\nNo anomalies detected.")
