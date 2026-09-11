@@ -111,6 +111,10 @@
           <CardImage image={part.image} />
         {/if}
       {/each}
+      <p class="mt-5 text-xs opacity-40">
+        <button type="button" class="link link-hover" onclick={copyCitation}>Copiar cita</button>
+        · <button type="button" class="link link-hover" onclick={copyCardText}>Copiar texto</button>
+      </p>
     </div>
 
     <!-- Controls bar: tags left, actions right -->
@@ -160,12 +164,6 @@
         </button>
       </div>
     </div>
-
-    <p class="mt-5 text-xs opacity-40">
-      Fuente: {data.card.source_path}
-      · <button type="button" class="link link-hover" onclick={copyCitation}>Copiar cita</button>
-      · <button type="button" class="link link-hover" onclick={copyCardText}>Copiar texto</button>
-    </p>
   </article>
 </div>
 
