@@ -11,10 +11,14 @@ from pathlib import Path
 
 import mammoth
 import pypandoc
+from tqdm import tqdm
+
 from anomalies import (
     SourceBuildResult,
     collect_card_length_anomalies,
+    collect_page_length_anomalies,
     print_card_length_anomalies,
+    print_page_length_anomalies,
 )
 from card_models import Book, BookGroupKey, Card, CardSection, ImageRef
 from divider_detection import (
@@ -23,7 +27,6 @@ from divider_detection import (
     strip_divider,
 )
 from source_documents import SourceDocumentConfig, find_source_configs
-from tqdm import tqdm
 
 SUPPORTED_INPUT_EXTENSIONS = {".odt", ".docx"}
 
@@ -345,6 +348,10 @@ def main() -> None:
         print(f"Wrote {total_cards} cards to {output_path}")
         print(f"Images stored under {image_root}")
 
+    # Page-length: flag cards whose ``page`` string is long enough to
+    # overflow the TOC badge in the frontend.
+    page_anomalies = collect_page_length_anomalies(source_results)
+
     # Split-health: flag cards where a page marker leaked into the content (missed split).
     split_anomalies: list = []
     for (config, _source_path), result in zip(source_configs, source_results):
@@ -352,9 +359,10 @@ def main() -> None:
 
     if args.report_anomalies:
         print_card_length_anomalies(anomalies)
+        print_page_length_anomalies(page_anomalies)
         print_split_anomalies(split_anomalies)
-    elif args.verbose and not anomalies and not split_anomalies:
-        print("No card-length anomalies detected.")
+    elif args.verbose and not anomalies and not page_anomalies and not split_anomalies:
+        print("No anomalies detected.")
 
 
 if __name__ == "__main__":
