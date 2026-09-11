@@ -4,6 +4,7 @@
   "version": "1.2.2",
   "scripts": {
     "content:generate": "cd backend && sh ../scripts/uv-run.sh generate_cards_json.py --report-anomalies",
+    "content:anomalies": "cd backend && sh ../scripts/uv-run.sh anomalies.py",
     "content:verify": "cd backend && sh ../scripts/uv-run.sh verify_cards.py",
     "test:unit": "sh ./scripts/run-tests.sh",
     "content:relations": "cd backend && sh ../scripts/uv-run.sh generate_card_relations.py",
