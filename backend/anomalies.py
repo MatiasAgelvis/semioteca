@@ -5,6 +5,11 @@ from pathlib import Path
 
 from card_models import Card
 
+# Page badge in the frontend renders "p. {page}" inside a small truncated
+# badge.  Values beyond this length almost certainly need special handling
+# (abbreviation, tooltip, or data normalization).
+DEFAULT_PAGE_LENGTH_THRESHOLD = 20
+
 
 @dataclass
 class SourceBuildResult:
@@ -24,6 +29,18 @@ class CardLengthAnomaly:
     reasons: list[str]
     raw_marker: str | None = None
     zscore: float | None = None
+
+
+@dataclass
+class PageLengthAnomaly:
+    """A card whose ``page`` string is long enough to break the TOC badge."""
+
+    source_path: str
+    card_id: str
+    page: str
+    char_count: int
+    threshold: int
+    raw_marker: str | None = None
 
 
 def collect_card_length_anomalies(
@@ -85,6 +102,11 @@ def collect_card_length_anomalies(
                     )
                 )
 
+    # ------------------------------------------------------------------
+    # Page-length anomalies are independent of content-length anomalies
+    # and are collected separately.  See ``collect_page_length_anomalies``.
+    # ------------------------------------------------------------------
+
     def anomaly_sort_key(anomaly: CardLengthAnomaly) -> tuple[int, float, int, float]:
         reason_weight = 0
         if any(reason.startswith(("huge", "long")) for reason in anomaly.reasons):
@@ -102,6 +124,54 @@ def collect_card_length_anomalies(
         )
 
     return sorted(anomalies, key=anomaly_sort_key, reverse=True)
+
+
+def collect_page_length_anomalies(
+    source_results: list[SourceBuildResult],
+    threshold: int = DEFAULT_PAGE_LENGTH_THRESHOLD,
+) -> list[PageLengthAnomaly]:
+    """Return cards whose ``page`` string exceeds *threshold* characters.
+
+    Long page values (e.g. ``"5 y ss del capítulo Cerebros en una cubeta"``)
+    overflow the TOC badge in the frontend and need special handling.
+    """
+    anomalies: list[PageLengthAnomaly] = []
+    for result in source_results:
+        for card in result.cards:
+            if card.page and len(card.page) > threshold:
+                anomalies.append(
+                    PageLengthAnomaly(
+                        source_path=result.source_path.as_posix(),
+                        card_id=card.id,
+                        page=card.page,
+                        char_count=len(card.page),
+                        threshold=threshold,
+                        raw_marker=card.raw_marker,
+                    )
+                )
+    anomalies.sort(key=lambda a: a.char_count, reverse=True)
+    return anomalies
+
+
+def print_page_length_anomalies(anomalies: list[PageLengthAnomaly]) -> None:
+    if not anomalies:
+        return
+
+    print(f"\nPossible long page numbers (>{anomalies[0].threshold} chars):")
+    for anomaly in anomalies:
+        marker_preview = ""
+        if anomaly.raw_marker:
+            marker_preview = re.sub(r"\s+", " ", anomaly.raw_marker).strip()
+            if len(marker_preview) > 120:
+                marker_preview = marker_preview[:117] + "..."
+            marker_preview = f"  marker={marker_preview}"
+        print(
+            f"- {anomaly.source_path} "
+            f"card={anomaly.card_id} "
+            f"page={anomaly.page!r} "
+            f"chars={anomaly.char_count}/{anomaly.threshold}"
+            f"{marker_preview}"
+        )
 
 
 def print_card_length_anomalies(anomalies: list[CardLengthAnomaly]) -> None:
