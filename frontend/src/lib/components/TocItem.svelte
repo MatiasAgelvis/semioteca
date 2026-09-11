@@ -30,8 +30,8 @@
     : ''}"
   onclick={() => onscrollto(card.id)}
 >
-  <span class="flex items-baseline gap-2 shrink-0">
-    <span class="opacity-60 text-xs tabular-nums shrink-0 font-semibold">{index}.</span>
+  <span class="flex items-baseline gap-2 min-w-0">
+    <span class="opacity-60 text-xs tabular-nums shrink-0 font-semibold">#{index}</span>
     <span class="min-w-0 truncate font-semibold">
       <HighlightedText segments={pageSegments} />
     </span>
