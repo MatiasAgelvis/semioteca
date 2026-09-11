@@ -71,36 +71,38 @@
 </svelte:head>
 
 <div class="mx-auto w-full max-w-5xl px-5 py-10 lg:px-10">
+  <div class="mb-4">
+    {#if data.fromGraph && data.graphOrigin}
+      <a
+        class="btn btn-outline shrink-0"
+        href="/cards/graph?origin={encodeURIComponent(data.graphOrigin)}"
+      >
+        ← Volver a la red
+      </a>
+    {:else}
+      <a
+        class="btn btn-outline shrink-0"
+        href="/cards"
+        onclick={() => sessionStorage.setItem('cards:returnTo', data.card.id)}
+      >
+        ← Volver al repositorio
+      </a>
+    {/if}
+  </div>
+
   <article class="card bg-base-100 border border-base-300 p-6 shadow-sm lg:p-10">
-    <div class="mb-5 flex flex-wrap items-center justify-between gap-4">
-      {#if data.fromGraph && data.graphOrigin}
-        <a
-          class="btn btn-outline shrink-0"
-          href="/cards/graph?origin={encodeURIComponent(data.graphOrigin)}"
-        >
-          ← Volver a la red
-        </a>
-      {:else}
-        <a
-          class="btn btn-outline shrink-0"
-          href="/cards"
-          onclick={() => sessionStorage.setItem('cards:returnTo', data.card.id)}
-        >
-          ← Volver al repositorio
-        </a>
-      {/if}
+    <div class="flex items-start justify-between gap-4">
+      <p class="min-w-0 flex-1 text-xl font-bold truncate">
+        {data.card.author} — {data.card.book} ({data.card.year})
+      </p>
       {#if data.card.page}
-        <span class="badge badge-ghost badge-sm tabular-nums font-semibold shrink-0">
+        <span class="badge badge-ghost badge-md tabular-nums font-semibold shrink-0">
           p. {data.card.page}
         </span>
       {/if}
     </div>
 
-    <h1 class="text-3xl font-black lg:text-4xl truncate">{data.card.book}</h1>
-    <p class="mt-2 opacity-70">
-      {data.card.author} ({data.card.year}) &mdash; página {data.card.page ?? 's/p'}
-    </p>
-
+    <!-- Content container -->
     <div class="mt-7 space-y-4 rounded-box border border-base-200 bg-base-200/40 p-5">
       {#each contentParts as part}
         {#if part.kind === 'text'}
