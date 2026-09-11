@@ -89,6 +89,11 @@
           ← Volver al repositorio
         </a>
       {/if}
+      {#if data.card.page}
+        <span class="badge badge-ghost badge-sm tabular-nums font-semibold shrink-0">
+          p. {data.card.page}
+        </span>
+      {/if}
     </div>
 
     <h1 class="text-3xl font-black lg:text-4xl truncate">{data.card.book}</h1>
