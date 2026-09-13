@@ -35,6 +35,7 @@ cards in the lot, maybe even hand curate as we do for the regex patterns to ensu
 - [ ] **CardItem — tooltip overflow clipping** · Tooltips in `CardItem.svelte` are clipped by the parent container's boundary. Needs a portal implementation to render tooltips at the body level.
 - [x] **Long page numbers in TOC** · Edge case: page numbers like “p. 5 y ss del capítulo Cerebros en una cubeta” [Strawson — Análisis y metafísica] are extremely long. Currently truncated with ellipsis, but may need special handling (abbreviated format, tooltip with full text, or data normalization).
 - [ ] **Component doc route** · Create `/doc` route with isolated component examples (Tag variants, sizes, states) for faster front-end iteration. Evaluate after current feature branch.
+- [ ] **Unified card content presentation** · Card content is rendered in 8+ surfaces (`CardItem`, card detail, `GraphPanel`, `GraphTooltip`, `RelatedCardsSheet`, `SearchResultItem`, PDF export, Markdown export) with inconsistent formatting handling. Now that content carries HTML formatting tags, formalize a single content-rendering pipeline: one function that takes raw card content and a `mode` (preview/expanded/pdf/markdown) and returns the right output. Covers text truncation, image handling, formatting conversion, and excerpt generation. See also the "Federated Card Component" spec in `design/card-views.md`.
 
 ## Themes (2026-08-20)
 
