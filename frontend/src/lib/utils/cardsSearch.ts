@@ -1,5 +1,6 @@
 import type { CardRecord } from '$lib/types/content';
 import { countMatchedTerms, getMatchCount, matchesAllTerms, matchesAnyTerm } from './search';
+import { stripHtml } from './html';
 
 export type CardSearchFields = {
   content: boolean;
@@ -13,7 +14,7 @@ function buildSearchableText(card: CardRecord, searchFields: CardSearchFields) {
 
   if (searchFields.authorBook) parts.push(card.author, card.book);
   if (searchFields.page) parts.push(card.page ?? '');
-  if (searchFields.content) parts.push(card.content);
+  if (searchFields.content) parts.push(stripHtml(card.content));
   if (searchFields.tags && card.tags) parts.push(...card.tags);
 
   return parts.join(' ');
@@ -86,7 +87,7 @@ export function getRankedSearchResults(
               ) * 5
             : 0;
         const contentScore = searchFields.content
-          ? Math.min(getMatchCount(card.content, terms), 5)
+          ? Math.min(getMatchCount(stripHtml(card.content), terms), 5)
           : 0;
         return coverageBonus + authorScore + bookScore + pageScore + tagScore + contentScore;
       })(),
