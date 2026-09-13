@@ -5,6 +5,7 @@
   import type { GraphNode } from '$lib/types/graph';
   import CloseIcon from '$lib/components/CloseIcon.svelte';
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
+  import { sanitizeHtml } from '$lib/utils/html';
   import { MapPin } from '@lucide/svelte';
   import Tag from '$lib/components/Tag.svelte';
 
@@ -83,7 +84,11 @@
     <div class="flex-1 overflow-y-auto px-5 py-4">
       <div class="rounded-box border border-base-200 bg-base-200/40 p-4">
         <p class="whitespace-pre-wrap text-sm leading-relaxed opacity-80">
-          {node.content || 'Sin contenido disponible.'}
+          {#if node.content}
+            {@html sanitizeHtml(node.content)}
+          {:else}
+            Sin contenido disponible.
+          {/if}
         </p>
       </div>
     </div>
