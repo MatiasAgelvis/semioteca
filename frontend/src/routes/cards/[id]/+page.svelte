@@ -14,6 +14,7 @@
     buildCardFullText,
     copyTextToClipboard,
   } from '$lib/utils/citation';
+  import { sanitizeHtml } from '$lib/utils/html';
   import { LucideUmbrella, VectorPolygon } from '@lucide/svelte';
 
   let { data }: { data: PageData } = $props();
@@ -28,7 +29,7 @@
     const parts: ContentPart[] = [];
     for (let i = 0; i < chunks.length; i++) {
       if (i % 2 === 0) {
-        if (chunks[i].trim()) parts.push({ kind: 'text', text: chunks[i] });
+        if (chunks[i].trim()) parts.push({ kind: 'text', text: sanitizeHtml(chunks[i]) });
       } else {
         const img = imageMap.get(Number(chunks[i]));
         if (img) parts.push({ kind: 'image', image: img });
@@ -107,7 +108,7 @@
       {#each contentParts as part}
         {#if part.kind === 'text'}
           <p class="whitespace-pre-wrap leading-8 opacity-90">
-            {part.text}
+            {@html part.text}
           </p>
         {:else}
           <CardImage image={part.image} />

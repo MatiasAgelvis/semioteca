@@ -2,6 +2,7 @@
   import { composer, selectedCount } from '$lib/stores/composer';
   import { CARD_LIMIT } from '$lib/types/composer';
   import { exportDocumentAsMarkdown, exportDocumentAsPdf } from '$lib/utils/composer-export';
+  import { stripHtml, sanitizeHtml } from '$lib/utils/html';
   import { exporting } from '$lib/stores/export';
   import { showToast } from '$lib/stores/toast';
   import type { PageData } from './$types';
@@ -33,7 +34,7 @@
   function cardPreview(cardId: string): string {
     const card = cardMap.get(cardId);
     if (!card) return '';
-    const stripped = card.content.replace(/\[\[IMAGE:\d+\]\]\n?/g, '');
+    const stripped = stripHtml(card.content).replace(/\[\[IMAGE:\d+\]\]\n?/g, '');
     return stripped.length > 350 ? stripped.slice(0, 350).trimEnd() + '…' : stripped;
   }
 

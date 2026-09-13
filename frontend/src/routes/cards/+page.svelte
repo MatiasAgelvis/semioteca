@@ -18,6 +18,7 @@
   import { getBookKey } from '$lib/utils/books';
   import { tokenizeQuery } from '$lib/utils/search';
   import { getRankedSearchResults } from '$lib/utils/cardsSearch';
+  import { sanitizeHtml } from '$lib/utils/html';
   import { parseSearchUrl, buildSearchParams } from '$lib/utils/searchUrl';
   import RelatedCardsSheet from '$lib/components/RelatedCardsSheet.svelte';
   import ComposerTray from '$lib/components/ComposerTray.svelte';
@@ -207,7 +208,7 @@
         const card = cardMap.get(entry.id);
         if (!card) return null;
         const rawContent = card.content ?? '';
-        const cleanContent = rawContent
+        const cleanContent = sanitizeHtml(rawContent)
           .replace(/\[\[IMAGE:\d+\]\]/g, '')
           .replace(/\s+/g, ' ')
           .trim();
