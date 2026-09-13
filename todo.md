@@ -49,3 +49,7 @@ cards in the lot, maybe even hand curate as we do for the regex patterns to ensu
   - Random (and even N random suggestions) feels arbitrary when landing on 1 card among ~2,648 without context; a guided "wizard" (author → book → card, or tag → random) would largely duplicate the `/cards` search/filter.
   - Possible direction: surface a prominent "Explorar red" action on cards / card list (contextual entry, no landing), and/or thematic starting points based on hub cards (highest in-degree in `card-relations.json`).
   - Stop point reached: current random + repo fallback is good enough so users who land there don't feel stuck. Revisit the direction later.
+
+## Content quality (future)
+
+- [ ] **AI-assisted card cleanup** · Cards are hand-typed and accumulate small issues: misplaced formatting (`(**1994)**`), missing accents (`semiotca`), stray characters. Two-pass approach: (1) mechanical regex fixes for obvious tag repair (deterministic, no AI), (2) AI review pass that surfaces typos as diffs for human approval — not auto-apply. Key constraint: don't alter quotes or proper nouns; use the book title as context. Prototype the mechanical pass first as the safest win.
