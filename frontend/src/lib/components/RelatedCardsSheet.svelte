@@ -125,7 +125,7 @@
 
           {#if rel.contentPreview}
             <p class="mt-2 line-clamp-2 text-xs leading-relaxed opacity-60">
-              {rel.contentPreview}
+              {@html rel.contentPreview}
             </p>
           {/if}
         </a>
