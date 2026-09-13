@@ -22,7 +22,7 @@
   </p>
   {#if node.contentPreview}
     <p class="mt-1.5 line-clamp-3 text-xs leading-relaxed opacity-70">
-      {node.contentPreview}
+      {@html node.contentPreview}
     </p>
   {/if}
 </div>

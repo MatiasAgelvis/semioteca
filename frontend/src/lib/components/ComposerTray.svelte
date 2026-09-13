@@ -2,6 +2,7 @@
   import { composer, selectedCount } from '$lib/stores/composer';
   import { CARD_LIMIT } from '$lib/types/composer';
   import { exportDocumentAsPdf } from '$lib/utils/composer-export';
+  import { exporting } from '$lib/stores/export';
   import { showToast } from '$lib/stores/toast';
   import type { CardRecord } from '$lib/types/content';
 
@@ -67,7 +68,12 @@
             type="button"
             class="btn btn-primary btn-sm shrink-0 order-2 sm:order-3"
             onclick={handleExportPdf}
+            disabled={$exporting !== null}
+            aria-busy={$exporting === 'pdf'}
           >
+            {#if $exporting === 'pdf'}
+              <span class="loading loading-spinner loading-sm" aria-hidden="true"></span>
+            {/if}
             Exportar PDF
           </button>
         </div>
@@ -137,7 +143,16 @@
           <a href="/cards/compose" class="btn btn-ghost btn-sm hidden sm:inline-flex"
             >Abrir compositor &rarr;</a
           >
-          <button type="button" class="btn btn-primary btn-sm" onclick={handleExportPdf}>
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            onclick={handleExportPdf}
+            disabled={$exporting !== null}
+            aria-busy={$exporting === 'pdf'}
+          >
+            {#if $exporting === 'pdf'}
+              <span class="loading loading-spinner loading-sm" aria-hidden="true"></span>
+            {/if}
             Exportar PDF
           </button>
         </div>

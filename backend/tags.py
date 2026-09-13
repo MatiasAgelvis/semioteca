@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -15,9 +17,9 @@ class CardTag:
         return f"{self.name}: {self.description}"
 
     @classmethod
-    def labels_to_name_dict(cls, tags: list["CardTag"]) -> dict[str, str]:
+    def labels_to_name_dict(cls, tags: list[CardTag]) -> dict[str, str]:
         return {tag.to_label: tag.name for tag in tags}
-    
+
 
 CARD_TAGS: list[CardTag]
 CARD_TAG_NAMES: list[str]

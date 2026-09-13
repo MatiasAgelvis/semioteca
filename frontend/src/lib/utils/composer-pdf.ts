@@ -1,11 +1,13 @@
-import type { TDocumentDefinitions, Content, ContentText, ContentImage } from 'pdfmake/interfaces';
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
 import type { CardRecord, CardImage } from '$lib/types/content';
 import type { ComposerDocument } from '$lib/types/composer';
+import type { TDocumentDefinitions, Content, ContentText, ContentImage } from 'pdfmake/interfaces';
+import { htmlToPdfmake } from './html';
 
-// Initialize pdfmake with bundled fonts (Roboto)
-(pdfMake as any).vfs = pdfFonts;
+// pdfmake (and its embedded font VFS) are loaded lazily inside `downloadPdf`.
+// They are heavy and browser-only, so we keep them out of every bundle that
+// statically imports this module — most importantly, the SSR build, which
+// otherwise has to evaluate the multi-MB `vfs_fonts.js` for every route
+// that transitively reaches this file.
 
 function normalizeSpace(text: string): string {
   return text.replace(/\s+/g, ' ').trim();
@@ -92,11 +94,22 @@ async function cardToContent(card: CardRecord, index: number): Promise<Content[]
 
   for (let i = 0; i < chunks.length; i++) {
     if (i % 2 === 0) {
-      // Text chunk
-      const trimmed = chunks[i].trim();
-      if (trimmed) {
+      // Text chunk — convert HTML to pdfmake inline formatting
+      const spans = htmlToPdfmake(chunks[i]);
+      const text = spans
+        .map((s) => s.text)
+        .join('')
+        .trim();
+      if (text) {
         content.push({
-          text: trimmed,
+          text:
+            spans.length === 1 &&
+            !spans[0].bold &&
+            !spans[0].italics &&
+            !spans[0].superScript &&
+            !spans[0].subScript
+              ? text
+              : spans,
           style: 'body',
           margin: [0, 0, 0, 8],
         } as ContentText);
@@ -270,6 +283,14 @@ export async function downloadPdf(
   cardMap: Map<string, CardRecord>,
 ): Promise<void> {
   const def = await buildDocumentDefinition(doc, cardMap);
+
+  // Load pdfmake on demand so its multi-MB font VFS doesn't get pulled into
+  // every bundle that transitively imports this module.
+  const [{ default: pdfMake }, { default: pdfFonts }] = await Promise.all([
+    import('pdfmake/build/pdfmake'),
+    import('pdfmake/build/vfs_fonts'),
+  ]);
+  (pdfMake as any).vfs = pdfFonts;
 
   return new Promise((resolve) => {
     const date = new Date().toISOString().slice(0, 10);

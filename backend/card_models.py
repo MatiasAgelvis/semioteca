@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 from dataclasses import asdict, dataclass, field
-from typing import List, Optional
 
 # --------------------------------------
 # Helper classes for card data structures
@@ -7,18 +8,18 @@ from typing import List, Optional
 
 @dataclass(frozen=True)
 class BookGroupKey:
-    title: Optional[str]
-    author: Optional[str]
-    book: Optional[str]
-    year: Optional[str]
+    title: str | None
+    author: str | None
+    book: str | None
+    year: str | None
 
 
 @dataclass
 class CardSection:
     content: str
-    marker: Optional[str] = None
-    page: Optional[str] = None
-    year: Optional[str] = None
+    marker: str | None = None
+    page: str | None = None
+    year: str | None = None
 
 # ---------------------------------------
 # Schema models
@@ -26,27 +27,27 @@ class CardSection:
 
 @dataclass
 class BaseMetadata:
-    title: Optional[str] = None
-    author: Optional[str] = None
-    book: Optional[str] = None
-    year: Optional[str] = None
+    title: str | None = None
+    author: str | None = None
+    book: str | None = None
+    year: str | None = None
 
 
 @dataclass
 class ImageRef:
     path: str
     filename: str
-    internal_path: Optional[str] = None
-    caption: Optional[str] = None
-    position: Optional[str] = None
-    placeholder_id: Optional[int] = None
-    alt_text: Optional[str] = None
+    internal_path: str | None = None
+    caption: str | None = None
+    position: str | None = None
+    placeholder_id: int | None = None
+    alt_text: str | None = None
 
     def to_dict(self) -> dict:
         return asdict(self)
 
     @staticmethod
-    def from_dict(data: dict) -> "ImageRef":
+    def from_dict(data: dict) -> ImageRef:
         return ImageRef(
             path=data["path"],
             filename=data["filename"],
@@ -61,13 +62,13 @@ class ImageRef:
 @dataclass(kw_only=True)
 class Card(BaseMetadata):
     id: str
-    page: Optional[str]
-    raw_marker: Optional[str]
+    page: str | None
+    raw_marker: str | None
     content: str
     source_path: str
     source_format: str
-    images: List[ImageRef] = field(default_factory=list)
-    tags: List[str] = field(default_factory=list)
+    images: list[ImageRef] = field(default_factory=list)
+    tags: list[str] = field(default_factory=list)
 
     def to_dict(self) -> dict:
         data = asdict(self)
@@ -75,7 +76,7 @@ class Card(BaseMetadata):
         return data
 
     @staticmethod
-    def from_dict(data: dict) -> "Card":
+    def from_dict(data: dict) -> Card:
         return Card(
             id=data["id"],
             title=data.get("title"),
@@ -102,7 +103,7 @@ class Book(BaseMetadata):
         return data
 
     @staticmethod
-    def from_dict(data: dict) -> "Book":
+    def from_dict(data: dict) -> Book:
         return Book(
             title=data.get("title"),
             author=data.get("author"),
@@ -120,7 +121,7 @@ class Library:
         return {"books": [book.to_dict() for book in self.books]}
 
     @staticmethod
-    def from_dict(data: dict) -> "Library":
+    def from_dict(data: dict) -> Library:
         return Library(
             books=[Book.from_dict(book_data) for book_data in data.get("books", [])]
         )

@@ -4,6 +4,7 @@
   import { showToast } from '$lib/stores/toast';
   import { openCardsSearch } from '$lib/stores/cardsSearch';
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
+  import Tag from '$lib/components/Tag.svelte';
   import { TAG_DESCRIPTIONS } from '$lib/constants';
   import type { CardImage as CardImageType, CardRecord } from '$lib/types/content';
   import {
@@ -12,6 +13,8 @@
     copyTextToClipboard,
   } from '$lib/utils/citation';
   import { createExcerpt, getHighlightSegments, getMatchCount } from '$lib/utils/search';
+  import { stripHtml, sanitizeHtml } from '$lib/utils/html';
+  import { VectorPolygon } from '@lucide/svelte';
 
   let {
     card,
@@ -38,20 +41,26 @@
   const bookSegments = $derived(getHighlightSegments(card.book, searchTerms));
   const pageSegments = $derived(getHighlightSegments(card.page ?? 's/p', searchTerms));
 
+  const compactHtml = $derived(
+    (() => {
+      const cleaned = sanitizeHtml(card.content).replace(/\[\[IMAGE:\d+\]\]\n?/g, '');
+      return cleaned.length > 350 ? cleaned.slice(0, 350).trimEnd() + '\u2026' : cleaned;
+    })(),
+  );
+
   const compactText = $derived(
     searchActive
-      ? createExcerpt(card.content, searchTerms)
-      : (() => {
-          const stripped = card.content.replace(/\[\[IMAGE:\d+\]\]\n?/g, '');
-          return stripped.length > 350 ? stripped.slice(0, 350).trimEnd() + '\u2026' : stripped;
-        })(),
+      ? createExcerpt(stripHtml(card.content), searchTerms)
+      : stripHtml(card.content)
+          .replace(/\[\[IMAGE:\d+\]\]\n?/g, '')
+          .slice(0, 350),
   );
   const contentSegments = $derived(getHighlightSegments(compactText, searchTerms));
 
   const matchCount = $derived(
     searchActive
       ? getMatchCount(
-          [card.title, card.author, card.book, card.page ?? '', card.content].join(' '),
+          [card.title, card.author, card.book, card.page ?? '', stripHtml(card.content)].join(' '),
           searchTerms,
         )
       : 0,
@@ -66,7 +75,7 @@
     const parts: ContentPart[] = [];
     for (let i = 0; i < chunks.length; i++) {
       if (i % 2 === 0) {
-        if (chunks[i].trim()) parts.push({ kind: 'text', text: chunks[i] });
+        if (chunks[i].trim()) parts.push({ kind: 'text', text: sanitizeHtml(chunks[i]) });
       } else {
         const img = imageMap.get(Number(chunks[i]));
         if (img) parts.push({ kind: 'image', image: img });
@@ -145,7 +154,13 @@
         {#each expandedParts as part}
           {#if part.kind === 'text'}
             <p class="whitespace-pre-wrap text-sm leading-7 opacity-80">
-              <HighlightedText segments={getHighlightSegments(part.text, searchTerms)} />
+              {#if searchActive}
+                <HighlightedText
+                  segments={getHighlightSegments(stripHtml(part.text), searchTerms)}
+                />
+              {:else}
+                {@html part.text}
+              {/if}
             </p>
           {:else}
             <CardImage image={part.image} />
@@ -159,7 +174,11 @@
       </div>
     {:else}
       <p class="whitespace-pre-wrap text-sm leading-7 opacity-80">
-        <HighlightedText segments={contentSegments} />
+        {#if searchActive}
+          <HighlightedText segments={contentSegments} />
+        {:else}
+          {@html compactHtml}
+        {/if}
       </p>
     {/if}
 
@@ -181,13 +200,7 @@
             class="tooltip tooltip-top before:whitespace-normal before:max-w-50"
             data-tip={TAG_DESCRIPTIONS[tag] ?? 'Sin descripción'}
           >
-            <button
-              type="button"
-              class="badge badge-outline badge-sm text-[10px] uppercase tracking-wider opacity-50 transition-colors hover:badge-primary hover:opacity-100 cursor-pointer"
-              onclick={() => openCardsSearch([tag])}
-            >
-              {tag}
-            </button>
+            <Tag {tag} onclick={() => openCardsSearch([tag])} />
           </div>
         {/each}
       </div>
@@ -199,19 +212,7 @@
           onclick={() => onopenrelations?.(card.id)}
           title="Ver tarjetas relacionadas"
         >
-          <span aria-hidden="true">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-              width="1em"
-              height="1em"
-              fill="currentColor"
-            >
-              <path
-                d="M418.4 157.9c35.3-8.3 61.6-40 61.6-77.9c0-44.2-35.8-80-80-80c-43.4 0-78.7 34.5-80 77.5L136.2 151.1C121.7 136.8 101.9 128 80 128c-44.2 0-80 35.8-80 80s35.8 80 80 80c12.2 0 23.8-2.7 34.1-7.6L259.7 407.8c-2.4 7.6-3.7 15.8-3.7 24.2c0 44.2 35.8 80 80 80s80-35.8 80-80c0-27.7-14-52.1-35.4-66.4l37.8-207.7zM156.3 232.2c2.2-6.9 3.5-14.2 3.7-21.7l183.8-73.5c3.6 3.5 7.4 6.7 11.6 9.5L317.6 354.1c-5.5 1.3-10.8 3.1-15.8 5.5L156.3 232.2z"
-              />
-            </svg>
-          </span>
+          <VectorPolygon size="1em" />
           <span class="hidden md:inline">Red</span>
         </button>
         <button

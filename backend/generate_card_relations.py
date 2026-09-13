@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Generate card-relations.json from cards.json.
 
 Uses Granite 311M multilingual embeddings (768-dim, 32K token context)
@@ -8,7 +7,6 @@ cached to .npy so only changed card content triggers re-embedding.
 
 import hashlib
 import json
-import sys
 import time
 from collections import defaultdict
 from pathlib import Path

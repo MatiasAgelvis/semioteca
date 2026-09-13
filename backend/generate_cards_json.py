@@ -1,34 +1,32 @@
-#!/usr/bin/env python3
-# coding: utf-8
-
 import argparse
 import io
 import json
 import re
 import tempfile
 import warnings
-import zipfile
-from dataclasses import asdict, dataclass, field
+from dataclasses import asdict
 from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
-from typing import Optional
 
 import mammoth
 import pypandoc
+from tqdm import tqdm
+
 from anomalies import (
     SourceBuildResult,
     collect_card_length_anomalies,
+    collect_page_length_anomalies,
     print_card_length_anomalies,
+    print_page_length_anomalies,
 )
-from card_models import BaseMetadata, Book, BookGroupKey, Card, CardSection, ImageRef
+from card_models import Book, BookGroupKey, Card, CardSection, ImageRef
 from divider_detection import (
     detect_split_anomalies,
     print_split_anomalies,
     strip_divider,
 )
 from source_documents import SourceDocumentConfig, find_source_configs
-from tqdm import tqdm
 
 SUPPORTED_INPUT_EXTENSIONS = {".odt", ".docx"}
 
@@ -62,6 +60,13 @@ def get_image_extension(content_type: str) -> str:
     return ext
 
 
+# Tags whose HTML we preserve in card content.  Inline formatting tags
+# (em, strong, sup, sub) are kept as-is so the frontend can render them.
+# Block tags (p, br) are converted to newlines as before.
+# Everything else (a, table, ol, ul, li, div, …) is stripped.
+_ALLOWED_INLINE_TAGS = frozenset({"em", "strong", "sup", "sub"})
+
+
 class HTMLTextExtractor(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
@@ -75,10 +80,14 @@ class HTMLTextExtractor(HTMLParser):
                 self.parts.append(src.replace("IMAGE_PLACEHOLDER_", "[[IMAGE:").rstrip("/") + "]]")
         elif tag == "br":
             self.parts.append("\n")
+        elif tag in _ALLOWED_INLINE_TAGS:
+            self.parts.append(f"<{tag}>")
 
     def handle_endtag(self, tag: str) -> None:
         if tag in {"p", "div", "li", "tr"}:
             self.parts.append("\n")
+        elif tag in _ALLOWED_INLINE_TAGS:
+            self.parts.append(f"</{tag}>")
 
     def handle_data(self, data: str) -> None:
         self.parts.append(data)
@@ -136,11 +145,12 @@ def extract_text_and_images_from_docx_bytes(docx_bytes: bytes, image_dir: Path) 
     return text, images
 
 
-def normalize_capture(value: Optional[str]) -> Optional[str]:
+def normalize_capture(value: str | None) -> str | None:
     if value is None:
         return None
 
     normalized = value.strip()
+    normalized = _strip_tags(normalized)
     # Strip a fully-balanced outer paren pair, e.g. "(156-157)" -> "156-157".
     if normalized.startswith("(") and normalized.endswith(")"):
         normalized = normalized[1:-1].strip()
@@ -156,33 +166,79 @@ def normalize_capture(value: Optional[str]) -> Optional[str]:
     return normalized or None
 
 
+def _strip_tags(text: str) -> str:
+    """Strip all HTML tags, returning only text content.
+
+    Used to find split-marker positions in text that now contains inline
+    formatting tags (<em>, <strong>, …).  The original HTML-bearing text is
+    used for the actual card content.
+    """
+    return re.sub(r"<[^>]+>", "", text)
+
+
 def split_text_into_cards(text: str, config: SourceDocumentConfig) -> list[CardSection]:
     regex = re.compile(config.split_pattern, flags=re.IGNORECASE | re.MULTILINE)
-    matches = list(regex.finditer(text))
-    if not matches:
+    # The text may now contain inline HTML tags from mammoth (<em>, <strong>, …)
+    # which break the split-pattern regex (e.g. [^()] won't match '<').
+    # Strip tags for marker detection only; keep original text for content.
+    plain = _strip_tags(text)
+    plain_matches = list(regex.finditer(plain))
+    if not plain_matches:
         warnings.warn(
             f"Split pattern did not match any markers for {config.filename!r}. "
             "Treating document as a single card. Check the regex pattern."
         )
         return [CardSection(content=text.strip())]
 
+    # --- Offset mapping: plain positions → original positions ---
+    # The split regex runs against `plain` (tags stripped) because formatting
+    # tags like <strong> break the marker patterns (e.g. [^()] won't match '<').
+    # But card content must be sliced from the original HTML text.  Tags occupy
+    # character space in the original but vanish in plain, so positions diverge.
+    #
+    # Example:  original "<strong>RORTY</strong> (1991:15)."  (31 chars)
+    #              plain "RORTY (1991:15)."                   (16 chars)
+    #
+    # tag_offsets records each tag's (start, end) in the original, and
+    # plain_to_original accumulates the size difference to translate positions.
+    tag_offsets: list[tuple[int, int]] = []  # (start, end) of each tag in plain
+    tag_iter = re.finditer(r"<[^>]+>", text)
+    for tag_match in tag_iter:
+        tag_offsets.append((tag_match.start(), tag_match.end()))
+
+    # For each position in `plain`, compute the corresponding position in
+    # the original `text` by accounting for removed tags.
+    def plain_to_original(plain_pos: int) -> int:
+        offset = 0
+        for tag_start, tag_end in tag_offsets:
+            if tag_start - offset <= plain_pos:
+                offset += tag_end - tag_start
+            else:
+                break
+        return plain_pos + offset
+
     cards: list[CardSection] = []
-    for index, match in enumerate(matches):
+    for index, match in enumerate(plain_matches):
         groups = match.groupdict()
         marker = normalize_capture(groups.get("marker")) or match.group(0).strip()
-        start = match.end()
-        end = matches[index + 1].start() if index + 1 < len(matches) else len(text)
+        orig_start = plain_to_original(match.end())
+        orig_end = (
+            plain_to_original(plain_matches[index + 1].start())
+            if index + 1 < len(plain_matches)
+            else len(text)
+        )
         cards.append(
             CardSection(
                 marker=marker,
                 page=normalize_capture(groups.get("page")),
                 year=normalize_capture(groups.get("year")),
-                content=text[start:end].strip(),
+                content=text[orig_start:orig_end].strip(),
             )
         )
 
-    if matches[0].start() > 0:
-        preamble = text[: matches[0].start()].strip()
+    if plain_matches[0].start() > 0:
+        orig_preamble_end = plain_to_original(plain_matches[0].start())
+        preamble = text[:orig_preamble_end].strip()
         if preamble:
             cards[0].content = f"{preamble}\n\n{cards[0].content}"
 
@@ -350,6 +406,10 @@ def main() -> None:
         print(f"Wrote {total_cards} cards to {output_path}")
         print(f"Images stored under {image_root}")
 
+    # Page-length: flag cards whose ``page`` string is long enough to
+    # overflow the TOC badge in the frontend.
+    page_anomalies = collect_page_length_anomalies(source_results)
+
     # Split-health: flag cards where a page marker leaked into the content (missed split).
     split_anomalies: list = []
     for (config, _source_path), result in zip(source_configs, source_results):
@@ -357,9 +417,10 @@ def main() -> None:
 
     if args.report_anomalies:
         print_card_length_anomalies(anomalies)
+        print_page_length_anomalies(page_anomalies)
         print_split_anomalies(split_anomalies)
-    elif args.verbose and not anomalies and not split_anomalies:
-        print("No card-length anomalies detected.")
+    elif args.verbose and not anomalies and not page_anomalies and not split_anomalies:
+        print("No anomalies detected.")
 
 
 if __name__ == "__main__":

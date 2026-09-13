@@ -198,7 +198,7 @@
           onLegendToggle={() => (legendOpen = !legendOpen)}
           onRecenter={() => graphCanvas?.recenter()}
         />
-        {#if hoveredNode && !selectedNode}
+        {#if hoveredNode}
           <GraphTooltip node={hoveredNode} position={tooltipPos} />
         {/if}
         {#if legendOpen}

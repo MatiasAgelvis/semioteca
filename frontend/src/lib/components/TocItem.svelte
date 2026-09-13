@@ -1,5 +1,6 @@
 <script lang="ts">
   import HighlightedText from '$lib/components/HighlightedText.svelte';
+  import Tag from '$lib/components/Tag.svelte';
   import type { CardRecord } from '$lib/types/content';
   import { getHighlightSegments } from '$lib/utils/search';
 
@@ -29,14 +30,14 @@
     : ''}"
   onclick={() => onscrollto(card.id)}
 >
-  <span class="flex items-baseline gap-2 shrink min-w-0">
-    <span class="opacity-60 text-xs tabular-nums shrink-0 font-semibold">{index}.</span>
+  <span class="flex items-baseline gap-2 min-w-0">
+    <span class="opacity-60 text-xs tabular-nums shrink-0 font-semibold">#{index}</span>
     <span class="min-w-0 truncate font-semibold">
       <HighlightedText segments={pageSegments} />
     </span>
   </span>
   {#if card.tags.length > 0}
-    <span class="text-[10px] opacity-40 shrink-0 truncate">
+    <span class="text-[10px] font-semibold opacity-60 truncate">
       {card.tags.slice(0, 3).join(' · ')}
       {#if card.tags.length > 3}
         +{card.tags.length - 3}
