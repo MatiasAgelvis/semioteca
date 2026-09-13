@@ -9,7 +9,7 @@ Fully-done work is archived in `todo-done.md` — this file tracks open items on
 
 ## Backend
 
-- [ ] **Text formatting loss** · Backend is losing text formatting (italics, etc.) during extraction. Investigate and preserve rich text formatting in card content.
+- [x] **Text formatting loss** · Backend is losing text formatting (italics, etc.) during extraction. Investigate and preserve rich text formatting in card content.
 
 ## Card Composer
 
@@ -33,7 +33,7 @@ cards in the lot, maybe even hand curate as we do for the regex patterns to ensu
 - [ ] **Card list — move 'open card' button near the title** · In `CardItem`, the `→` button sits at the far right edge next to the page badge. Move it next to the title/author line (same pattern as `GraphPanel`) so it reads as "open this card" rather than a disconnected action. More discoverable and better grouped with the card identity.
 - [ ] **Horizontal scroll on narrow viewports (mobile)** · Some cards can render wider than the viewport, causing sideways scrolling. Verify with `document.documentElement.scrollWidth > innerWidth` at ~320–375px. Images are likely NOT the cause — `CardImage` is `object-contain` inside a bounded, `overflow-hidden` figure. More likely: unbreakable tokens in `whitespace-pre-wrap` card content (needs `break-words`/`overflow-wrap:anywhere`), and the `card-actions flex-nowrap` bars (tags + Red/Añadir) forcing one non-wrapping row on very narrow screens.
 - [ ] **CardItem — tooltip overflow clipping** · Tooltips in `CardItem.svelte` are clipped by the parent container's boundary. Needs a portal implementation to render tooltips at the body level.
-- [ ] **Long page numbers in TOC** · Edge case: page numbers like “p. 5 y ss del capítulo Cerebros en una cubeta” [Strawson — Análisis y metafísica] are extremely long. Currently truncated with ellipsis, but may need special handling (abbreviated format, tooltip with full text, or data normalization).
+- [x] **Long page numbers in TOC** · Edge case: page numbers like “p. 5 y ss del capítulo Cerebros en una cubeta” [Strawson — Análisis y metafísica] are extremely long. Currently truncated with ellipsis, but may need special handling (abbreviated format, tooltip with full text, or data normalization).
 - [ ] **Component doc route** · Create `/doc` route with isolated component examples (Tag variants, sizes, states) for faster front-end iteration. Evaluate after current feature branch.
 
 ## Themes (2026-08-20)
