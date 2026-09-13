@@ -13,6 +13,7 @@
     copyTextToClipboard,
   } from '$lib/utils/citation';
   import { createExcerpt, getHighlightSegments, getMatchCount } from '$lib/utils/search';
+  import { stripHtml, sanitizeHtml } from '$lib/utils/html';
   import { VectorPolygon } from '@lucide/svelte';
 
   let {
@@ -40,20 +41,26 @@
   const bookSegments = $derived(getHighlightSegments(card.book, searchTerms));
   const pageSegments = $derived(getHighlightSegments(card.page ?? 's/p', searchTerms));
 
+  const compactHtml = $derived(
+    (() => {
+      const cleaned = sanitizeHtml(card.content).replace(/\[\[IMAGE:\d+\]\]\n?/g, '');
+      return cleaned.length > 350 ? cleaned.slice(0, 350).trimEnd() + '\u2026' : cleaned;
+    })(),
+  );
+
   const compactText = $derived(
     searchActive
-      ? createExcerpt(card.content, searchTerms)
-      : (() => {
-          const stripped = card.content.replace(/\[\[IMAGE:\d+\]\]\n?/g, '');
-          return stripped.length > 350 ? stripped.slice(0, 350).trimEnd() + '\u2026' : stripped;
-        })(),
+      ? createExcerpt(stripHtml(card.content), searchTerms)
+      : stripHtml(card.content)
+          .replace(/\[\[IMAGE:\d+\]\]\n?/g, '')
+          .slice(0, 350),
   );
   const contentSegments = $derived(getHighlightSegments(compactText, searchTerms));
 
   const matchCount = $derived(
     searchActive
       ? getMatchCount(
-          [card.title, card.author, card.book, card.page ?? '', card.content].join(' '),
+          [card.title, card.author, card.book, card.page ?? '', stripHtml(card.content)].join(' '),
           searchTerms,
         )
       : 0,
@@ -68,7 +75,7 @@
     const parts: ContentPart[] = [];
     for (let i = 0; i < chunks.length; i++) {
       if (i % 2 === 0) {
-        if (chunks[i].trim()) parts.push({ kind: 'text', text: chunks[i] });
+        if (chunks[i].trim()) parts.push({ kind: 'text', text: sanitizeHtml(chunks[i]) });
       } else {
         const img = imageMap.get(Number(chunks[i]));
         if (img) parts.push({ kind: 'image', image: img });
@@ -147,7 +154,13 @@
         {#each expandedParts as part}
           {#if part.kind === 'text'}
             <p class="whitespace-pre-wrap text-sm leading-7 opacity-80">
-              <HighlightedText segments={getHighlightSegments(part.text, searchTerms)} />
+              {#if searchActive}
+                <HighlightedText
+                  segments={getHighlightSegments(stripHtml(part.text), searchTerms)}
+                />
+              {:else}
+                {@html part.text}
+              {/if}
             </p>
           {:else}
             <CardImage image={part.image} />
@@ -161,7 +174,11 @@
       </div>
     {:else}
       <p class="whitespace-pre-wrap text-sm leading-7 opacity-80">
-        <HighlightedText segments={contentSegments} />
+        {#if searchActive}
+          <HighlightedText segments={contentSegments} />
+        {:else}
+          {@html compactHtml}
+        {/if}
       </p>
     {/if}
 
