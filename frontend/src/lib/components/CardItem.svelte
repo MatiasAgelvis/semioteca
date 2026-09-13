@@ -125,11 +125,21 @@
   <div class="card-body p-5">
     <!-- Header: author + book on left, page on right -->
     <div class="flex flex-wrap items-center gap-2">
-      <p class="font-bold min-w-0 flex-1">
-        <HighlightedText segments={authorSegments} />
-        <span> &mdash; </span>
-        <HighlightedText segments={bookSegments} />
-      </p>
+      <div class="flex min-w-0 items-center gap-1">
+        <p class="font-bold min-w-0 truncate">
+          <HighlightedText segments={authorSegments} />
+          <span> &mdash; </span>
+          <HighlightedText segments={bookSegments} />
+        </p>
+        <a
+          href="/cards/{card.id}"
+          class="btn btn-ghost btn-xs btn-square shrink-0"
+          title="Ver tarjeta"
+          onclick={() => sessionStorage.setItem('cards:returnTo', card.id)}
+        >
+          →
+        </a>
+      </div>
       <div class="flex items-center gap-2 shrink-0 ml-auto">
         {#if searchActive}
           <span class="badge badge-warning badge-sm text-xs">{matchCount} coinc.</span>
@@ -137,14 +147,6 @@
         <span class="badge badge-ghost badge-sm tabular-nums font-semibold">
           p. <HighlightedText segments={pageSegments} />
         </span>
-        <a
-          href="/cards/{card.id}"
-          class="btn btn-ghost btn-xs btn-square"
-          title="Ver tarjeta"
-          onclick={() => sessionStorage.setItem('cards:returnTo', card.id)}
-        >
-          →
-        </a>
       </div>
     </div>
 
