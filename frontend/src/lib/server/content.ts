@@ -1,6 +1,7 @@
 import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { marked } from 'marked';
+import { sanitizeHtml } from '$lib/utils/html';
 import type {
   BlogPost,
   BlogPostMeta,
@@ -219,7 +220,7 @@ export async function buildRelatedCards(cardId: string): Promise<RelatedCard[]> 
       const card = cardMap.get(entry.id);
       if (!card) return null;
       const rawContent = card.content ?? '';
-      const cleanContent = rawContent
+      const cleanContent = sanitizeHtml(rawContent)
         .replace(/\[\[IMAGE:\d+\]\]/g, '')
         .replace(/\s+/g, ' ')
         .trim();

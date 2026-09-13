@@ -1,6 +1,7 @@
 import type { CardRecord, CardImage } from '$lib/types/content';
 import type { ComposerDocument } from '$lib/types/composer';
 import type { TDocumentDefinitions, Content, ContentText, ContentImage } from 'pdfmake/interfaces';
+import { htmlToPdfmake } from './html';
 
 // pdfmake (and its embedded font VFS) are loaded lazily inside `downloadPdf`.
 // They are heavy and browser-only, so we keep them out of every bundle that
@@ -93,11 +94,22 @@ async function cardToContent(card: CardRecord, index: number): Promise<Content[]
 
   for (let i = 0; i < chunks.length; i++) {
     if (i % 2 === 0) {
-      // Text chunk
-      const trimmed = chunks[i].trim();
-      if (trimmed) {
+      // Text chunk — convert HTML to pdfmake inline formatting
+      const spans = htmlToPdfmake(chunks[i]);
+      const text = spans
+        .map((s) => s.text)
+        .join('')
+        .trim();
+      if (text) {
         content.push({
-          text: trimmed,
+          text:
+            spans.length === 1 &&
+            !spans[0].bold &&
+            !spans[0].italics &&
+            !spans[0].superScript &&
+            !spans[0].subScript
+              ? text
+              : spans,
           style: 'body',
           margin: [0, 0, 0, 8],
         } as ContentText);

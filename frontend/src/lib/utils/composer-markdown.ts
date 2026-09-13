@@ -1,5 +1,6 @@
 import type { CardRecord, CardImage } from '$lib/types/content';
 import type { ComposerDocument } from '$lib/types/composer';
+import { htmlToMarkdown } from './html';
 
 function normalizeSpace(text: string): string {
   return text.replace(/\s+/g, ' ').trim();
@@ -24,9 +25,9 @@ function contentToMarkdown(card: CardRecord): string {
   let result = '';
   for (let i = 0; i < chunks.length; i++) {
     if (i % 2 === 0) {
-      // Text chunk
-      const trimmed = chunks[i].trim();
-      if (trimmed) result += trimmed + '\n\n';
+      // Text chunk — convert HTML formatting to Markdown
+      const md = htmlToMarkdown(chunks[i]).trim();
+      if (md) result += md + '\n\n';
     } else {
       // Image placeholder
       const img = imageMap.get(Number(chunks[i]));

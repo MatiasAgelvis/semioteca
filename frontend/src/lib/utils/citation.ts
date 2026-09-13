@@ -1,4 +1,5 @@
 import type { CardRecord } from '$lib/types/content';
+import { stripHtml } from './html';
 
 function normalizeSpace(text: string): string {
   return text.replace(/\s+/g, ' ').trim();
@@ -23,7 +24,7 @@ export function buildCardFullText(card: CardRecord): string {
   const year = normalizeSpace(card.year || 'n.d.');
   const title = normalizeSpace(card.book || 'Sin titulo');
   const page = normalizeSpace(card.page || 's. p.');
-  const content = normalizeSpace(stripImageMarkers(card.content));
+  const content = normalizeSpace(stripImageMarkers(stripHtml(card.content)));
 
   return `${author}. ${title} (${year}), p. ${page}.\n\n${content}`;
 }
