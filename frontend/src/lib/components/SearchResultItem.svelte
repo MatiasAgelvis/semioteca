@@ -2,6 +2,7 @@
   import HighlightedText from '$lib/components/HighlightedText.svelte';
   import type { CardRecord } from '$lib/types/content';
   import { createExcerpt, getHighlightSegments } from '$lib/utils/search';
+  import { stripHtml } from '$lib/utils/html';
 
   let {
     card,
@@ -16,7 +17,7 @@
   const authorSegments = $derived(getHighlightSegments(card.author, searchTerms));
   const bookSegments = $derived(getHighlightSegments(card.book, searchTerms));
   const pageSegments = $derived(getHighlightSegments(card.page ?? 's/p', searchTerms));
-  const previewText = $derived(createExcerpt(card.content, searchTerms, 90));
+  const previewText = $derived(createExcerpt(stripHtml(card.content), searchTerms, 90));
   const previewSegments = $derived(getHighlightSegments(previewText, searchTerms));
 </script>
 
