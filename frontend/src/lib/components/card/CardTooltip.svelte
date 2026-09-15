@@ -24,7 +24,7 @@
     {author} &mdash; {book}
   </p>
   <p class="text-xs opacity-60">
-    {year}{page ? ` &middot; p. ${page}` : ''}
+    {year}{page ? ` · p. ${page}` : ''}
   </p>
   {#if contentPreview}
     <p class="mt-1.5 line-clamp-3 text-xs leading-relaxed opacity-70">
