@@ -1139,7 +1139,13 @@
         </p>
       {:else}
         {#each dialogResults as card (card.id)}
-          <SearchResultItem {card} searchTerms={dialogSearchTerms} onselect={selectSearchResult} />
+          <SearchResultItem
+            {card}
+            searchTerms={dialogSearchTerms}
+            activeTags={[...dialogTags]}
+            activeAuthors={[...dialogAuthors]}
+            onselect={selectSearchResult}
+          />
         {/each}
       {/if}
     </div>
