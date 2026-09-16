@@ -8,35 +8,36 @@ export interface ToastMessage {
   type: ToastType;
 }
 
-export const toast = writable<ToastMessage | null>(null);
+export const toasts = writable<ToastMessage[]>([]);
 
 let nextToastId = 1;
-let dismissTimer: ReturnType<typeof setTimeout> | null = null;
+const dismissTimers = new Map<number, ReturnType<typeof setTimeout>>();
 
 export function showToast(text: string, type: ToastType = 'info', duration = 1800) {
-  if (dismissTimer) {
-    clearTimeout(dismissTimer);
-    dismissTimer = null;
-  }
-
-  toast.set({
-    id: nextToastId++,
-    text,
-    type,
-  });
+  const id = nextToastId++;
+  toasts.update((list) => [...list, { id, text, type }]);
 
   if (duration > 0) {
-    dismissTimer = setTimeout(() => {
-      toast.set(null);
-      dismissTimer = null;
-    }, duration);
+    dismissTimers.set(
+      id,
+      setTimeout(() => {
+        dismissToast(id);
+      }, duration),
+    );
   }
 }
 
-export function clearToast() {
-  if (dismissTimer) {
-    clearTimeout(dismissTimer);
-    dismissTimer = null;
+export function dismissToast(id: number) {
+  const timer = dismissTimers.get(id);
+  if (timer) {
+    clearTimeout(timer);
+    dismissTimers.delete(id);
   }
-  toast.set(null);
+  toasts.update((list) => list.filter((t) => t.id !== id));
+}
+
+export function clearAllToasts() {
+  for (const timer of dismissTimers.values()) clearTimeout(timer);
+  dismissTimers.clear();
+  toasts.set([]);
 }
