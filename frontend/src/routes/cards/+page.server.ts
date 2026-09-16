@@ -1,7 +1,5 @@
 import { readCardsDataset } from '$lib/server/content';
 
-export const prerender = true;
-
 export async function load() {
   const dataset = await readCardsDataset();
   const books = dataset.books.map((book) => ({

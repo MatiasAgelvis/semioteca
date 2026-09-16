@@ -1,34 +1,38 @@
 [
   {
-    "name": "Semiótica",
-    "description": "Tarjetas sobre la producción de sentido y la significación en general: sistemas de signos, códigos, semiosis e interpretación. Úsala cuando el texto aborda el sentido o la interpretación en términos generales — no cuando desarrolla específicamente pragmática, semántica, signo, cognición o intención."
-  },
-  {
-    "name": "Pragmática",
-    "description": "Tarjetas sobre implicatura, deixis, actos de habla, presuposición e inferencia conversacional. Úsala cuando el texto analiza específicamente estos fenómenos pragmáticos — no cuando solo menciona contexto o uso como parte de una discusión más amplia."
-  },
-  {
-    "name": "Signo",
-    "description": "Tarjetas centradas en el signo como unidad: su estructura interna, clases, función representacional y vínculos entre significante, significado y referente. Úsala cuando el objeto de análisis es el signo mismo, no la teoría general del sistema semiótico."
-  },
-  {
-    "name": "Significado",
-    "description": "Tarjetas sobre la noción general de significado: qué implica querer decir, cómo se constituye el contenido interpretado y qué factores conceptuales o culturales intervienen. Úsala para discusiones metateóricas amplias sobre el significado, sin compromiso técnico con un modelo semántico específico."
-  },
-  {
-    "name": "Semántica",
-    "description": "Tarjetas sobre análisis técnico del significado lingüístico: referencia, condiciones de verdad, intensión/extensión, composición y relaciones semánticas entre expresiones. Úsala cuando se trabaja con herramientas o teorías semánticas explícitas, no con reflexiones generales sobre el sentido."
-  },
-  {
     "name": "Realismo",
-    "description": "Tarjetas sobre el estatuto de la realidad y su relación con lenguaje y pensamiento: objetividad, verdad, representación, mundo externo, realismo/antirrealismo. Úsala cuando el núcleo del problema es ontológico o epistemológico, aunque aparezcan ejemplos lingüísticos."
+    "description": "Tarjetas que comprometen o discuten el estatus ontológico de algo: realismo sobre significados, sobre actos de habla, sobre entidades lingüísticas, sobre mundos posibles. Úsala cuando el texto toma posición sobre si algo existe independientemente de nuestra conceptualización."
   },
   {
-    "name": "Intención",
-    "description": "Tarjetas sobre la teoría del significado-no-natural de Grice: un hablante quiere decir algo cuando pretende que el oyente reconozca su intención de producir ese efecto. Úsala solo cuando el texto discute cómo la intención del hablante constituye o explica el significado del hablante — no para textos generales sobre significado, lenguaje o comunicación."
+    "name": "Cognitivismo",
+    "description": "Tarjetas que explican fenómenos semióticos o lingüísticos mediante procesos mentales: inferencia, representación, categorización, procesamiento. Úsala cuando la explicación apela a mecanismos cognitivos, no cuando solo menciona mente o pensamiento de paso."
   },
   {
-    "name": "Cognición",
-    "description": "Tarjetas sobre la mente y el cerebro: funcionamiento cerebral, procesos cognitivos, lingüística cognitiva. Úsala cuando el texto describe la actividad de la mente o el cerebro — no cuando una teoría filosófica, pragmática o semántica solo menciona pensamiento o atención de paso."
+    "name": "Referencia",
+    "description": "Tarjetas sobre cómo el lenguaje apunta al mundo: denotación, indicación, anclaje referencial, condiciones de satisfacción. Úsala cuando el problema central es la conexión entre expresiones y aquello que designan."
+  },
+  {
+    "name": "Percepción",
+    "description": "Tarjetas sobre cómo captamos o interpretamos información: interpretación contextual, reconocimiento de patrones, inferencia perceptiva. Úsala cuando el texto analiza el proceso de captar sentido, no cuando describe el contenido percibido."
+  },
+  {
+    "name": "Intension",
+    "description": "Tarjetas sobre intención vs. extensión: contenido conceptual, propiedades definitorias, familias de sentido, contenido intensional. Úsala cuando se trabaja con la estructura interna de conceptos o expresiones, especialmente en contraste con su alcance extensional."
+  },
+  {
+    "name": "Causalidad",
+    "description": "Tarjetas que establecen o discuten relaciones causales: causas de la comunicación, efectos de los actos de habla, determinismo lingüístico, causalidad mental. Úsala cuando el texto propone que X causa, produce o determina Y."
+  },
+  {
+    "name": "Materialista",
+    "description": "Tarjetas sobre la base material o física de los fenómenos: corporeidad, encarnación, materialidad del signo, bases neurológicas. Úsala cuando el texto sitúa lo semiótico o lo lingüístico en un sustrato material concreto."
+  },
+  {
+    "name": "Sensorial",
+    "description": "Tarjetas sobre la dimensión sensorial del significado: cualidades perceptivas, sinestesia, iconicidad sensorial, experiencia corporal. Úsala cuando el texto conecta sentido con experiencia sensorial directa — no con procesamiento cognitivo abstracto."
+  },
+  {
+    "name": "Datos",
+    "description": "Tarjetas basadas en o que apelan a evidencia empírica: corpus, experimentos, encuestas, observación de uso real. Úsala cuando la argumentación se apoya en datos concretos, no en razonamiento teórico puro."
   }
 ]

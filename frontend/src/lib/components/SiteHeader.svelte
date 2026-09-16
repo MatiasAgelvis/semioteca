@@ -12,7 +12,6 @@
   } from '$lib/stores/cardsSearch';
   import { selectedCount } from '$lib/stores/composer';
   import { SHOW_CV, SHOW_DOCS, SHOW_GUIDE } from '$lib/config/features';
-  import { goto } from '$app/navigation';
   import Logo from '$lib/components/Logo.svelte';
 
   const links = [
@@ -45,6 +44,8 @@
   let compactHeader = $state(false);
   let menuOpen = $state(false);
   const isCardsRoute = $derived(page.url.pathname.startsWith('/cards'));
+  const isSearchRoute = $derived(page.url.pathname.startsWith('/search'));
+  const showSearchBar = $derived(isCardsRoute || isSearchRoute);
   const isCardsIndex = $derived(page.url.pathname === '/cards' || page.url.pathname === '/cards/');
 
   // Height/shadow shifts when the header compacts on scroll. Centralized so the
@@ -57,12 +58,7 @@
   const menuButtonClasses = $derived(compactHeader ? 'translate-y-0 opacity-100' : '');
 
   async function handleSearchAction() {
-    if (isCardsIndex) {
-      openCardsSearch();
-    } else {
-      await goto('/cards');
-      openCardsSearch();
-    }
+    openCardsSearch();
   }
 
   function isActive(href: string): boolean {
@@ -124,7 +120,7 @@
       </a>
 
       <div class="relative flex min-w-0 items-center">
-        {#if isCardsRoute}
+        {#if showSearchBar}
           <button
             bind:this={searchButtonEl}
             type="button"

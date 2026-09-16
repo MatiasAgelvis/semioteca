@@ -9,15 +9,15 @@
   }
 </script>
 
-<figure class="my-2 overflow-hidden rounded-box border border-base-200">
-  <div class="aspect-3/4 bg-base-200/30">
+<figure class="my-2 overflow-hidden rounded-box bg-base-300/50 p-2">
+  <div>
     <img
       src={imageUrl(image)}
       alt={image.alt_text ?? image.caption ?? ''}
       loading="lazy"
       decoding="async"
       fetchpriority="low"
-      class="size-full object-contain"
+      class="w-full max-h-96 object-contain rounded"
     />
   </div>
   {#if image.caption}
