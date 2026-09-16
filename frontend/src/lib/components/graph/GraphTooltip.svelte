@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CardTooltip from '$lib/components/card/CardTooltip.svelte';
   import type { GraphNode } from '$lib/types/graph';
 
   let {
@@ -10,19 +11,11 @@
   } = $props();
 </script>
 
-<div
-  class="pointer-events-none fixed z-50 max-w-xs rounded-box border border-base-300 bg-base-100 p-3 text-sm shadow-md"
-  style="left: {position.x + 12}px; top: {position.y + 12}px"
->
-  <p class="font-semibold">
-    {node.author} — {node.book}
-  </p>
-  <p class="text-xs opacity-60">
-    {node.year}{node.page ? ` · p. ${node.page}` : ''}
-  </p>
-  {#if node.contentPreview}
-    <p class="mt-1.5 line-clamp-3 text-xs leading-relaxed opacity-70">
-      {@html node.contentPreview}
-    </p>
-  {/if}
-</div>
+<CardTooltip
+  author={node.author}
+  book={node.book}
+  year={node.year}
+  page={node.page}
+  contentPreview={node.contentPreview}
+  {position}
+/>
