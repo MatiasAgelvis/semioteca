@@ -14,6 +14,7 @@
   import CardTags from '$lib/components/card/CardTags.svelte';
   import { VectorPolygon } from '@lucide/svelte';
   import { openCardsSearch } from '$lib/stores/cardsSearch';
+  import { goto } from '$app/navigation';
 
   let { data }: { data: PageData } = $props();
 
