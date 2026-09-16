@@ -556,12 +556,6 @@
   let initialUrlApplied = false;
   $effect(() => {
     const search = $page.url.search;
-    console.log(
-      '[cards page] $effect fired, search:',
-      search,
-      'initialUrlApplied:',
-      initialUrlApplied,
-    );
     if (!initialUrlApplied) {
       initialUrlApplied = true;
       return; // onMount already handles the initial URL
