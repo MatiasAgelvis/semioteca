@@ -6,6 +6,7 @@
   import CardsToc from '$lib/components/CardsToc.svelte';
   import Tag from '$lib/components/Tag.svelte';
   import { tokenizeQuery } from '$lib/utils/search';
+  import { Share } from '@lucide/svelte';
   import { getRankedSearchResults } from '$lib/utils/cardsSearch';
   import { parseSearchUrl, buildSearchParams } from '$lib/utils/searchUrl';
   import { useCardObserver } from '$lib/utils/cardObserver.svelte';
@@ -14,6 +15,9 @@
   let loading = $state(true);
   let cards = $state<CardRecord[]>([]);
   const cardObs = useCardObserver();
+  let shareCopied = $state(false);
+  let shareTimeout: ReturnType<typeof setTimeout> | null = null;
+  const canSystemShare = $derived(typeof navigator !== 'undefined' && !!navigator.share);
   let query = $state('');
   let selectedTags = $state<Set<string>>(new Set());
   let selectedAuthors = $state<Set<string>>(new Set());
@@ -114,6 +118,30 @@
     matchMode = 'all';
   }
 
+  async function copyShareUrl() {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      document.getElementById('search-share')?.hidePopover();
+      shareCopied = true;
+      if (shareTimeout) clearTimeout(shareTimeout);
+      shareTimeout = setTimeout(() => {
+        shareCopied = false;
+        shareTimeout = null;
+      }, 2000);
+    } catch {
+      /* clipboard not available */
+    }
+  }
+
+  async function handleSystemShare() {
+    document.getElementById('search-share')?.hidePopover();
+    try {
+      await navigator.share({ title: document.title, url: window.location.href });
+    } catch {
+      /* cancelled or not supported */
+    }
+  }
+
   function handleTocScroll(id: string) {
     const el = document.getElementById(`card-${id}`);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -187,11 +215,35 @@
     </div>
   {/if}
 
-  <!-- Results summary -->
+  <!-- Results summary + share -->
   {#if !loading && hasSearchCriteria}
-    <p class="text-sm opacity-70">
-      {resultCount} resultado{resultCount === 1 ? '' : 's'}
-    </p>
+    <div class="flex items-center gap-3 text-sm opacity-70">
+      <span>{resultCount} resultado{resultCount === 1 ? '' : 's'}</span>
+      <button
+        popovertarget="search-share"
+        class="btn btn-ghost btn-xs shrink-0 gap-1"
+        aria-label="Compartir búsqueda"
+      >
+        <Share class="h-4 w-4" aria-hidden="true" />
+        <span class="hidden md:inline">Compartir</span>
+      </button>
+      <ul class="dropdown menu w-56 rounded-box bg-base-100 p-2 shadow" popover id="search-share">
+        <li>
+          <button type="button" class="btn btn-ghost btn-sm justify-start" onclick={copyShareUrl}
+            >Copiar enlace</button
+          >
+        </li>
+        {#if canSystemShare}
+          <li>
+            <button
+              type="button"
+              class="btn btn-ghost btn-sm justify-start"
+              onclick={handleSystemShare}>Compartir con el sistema…</button
+            >
+          </li>
+        {/if}
+      </ul>
+    </div>
   {/if}
 
   <!-- Results with TOC -->
@@ -220,3 +272,11 @@
     </div>
   {/if}
 </div>
+
+{#if shareCopied}
+  <div class="toast toast-bottom toast-end z-50">
+    <div class="alert alert-success py-2 text-sm shadow-lg">
+      <span>Enlace copiado</span>
+    </div>
+  </div>
+{/if}
