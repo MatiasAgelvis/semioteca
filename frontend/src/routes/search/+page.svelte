@@ -6,6 +6,7 @@
   import CardsToc from '$lib/components/CardsToc.svelte';
   import Tag from '$lib/components/Tag.svelte';
   import { tokenizeQuery } from '$lib/utils/search';
+  import { showToast } from '$lib/stores/toast';
   import { Share } from '@lucide/svelte';
   import { getRankedSearchResults } from '$lib/utils/cardsSearch';
   import { parseSearchUrl, buildSearchParams } from '$lib/utils/searchUrl';
@@ -15,8 +16,6 @@
   let loading = $state(true);
   let cards = $state<CardRecord[]>([]);
   const cardObs = useCardObserver();
-  let shareCopied = $state(false);
-  let shareTimeout: ReturnType<typeof setTimeout> | null = null;
   const canSystemShare = $derived(typeof navigator !== 'undefined' && !!navigator.share);
   let query = $state('');
   let selectedTags = $state<Set<string>>(new Set());
@@ -122,12 +121,7 @@
     try {
       await navigator.clipboard.writeText(window.location.href);
       document.getElementById('search-share')?.hidePopover();
-      shareCopied = true;
-      if (shareTimeout) clearTimeout(shareTimeout);
-      shareTimeout = setTimeout(() => {
-        shareCopied = false;
-        shareTimeout = null;
-      }, 2000);
+      showToast('Enlace copiado', 'success');
     } catch {
       /* clipboard not available */
     }
@@ -272,11 +266,3 @@
     </div>
   {/if}
 </div>
-
-{#if shareCopied}
-  <div class="toast toast-bottom toast-end z-50">
-    <div class="alert alert-success py-2 text-sm shadow-lg">
-      <span>Enlace copiado</span>
-    </div>
-  </div>
-{/if}

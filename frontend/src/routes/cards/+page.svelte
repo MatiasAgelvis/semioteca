@@ -7,6 +7,7 @@
   import CardItem from '$lib/components/CardItem.svelte';
   import CardsToc from '$lib/components/CardsToc.svelte';
   import { openCardsSearch } from '$lib/stores/cardsSearch';
+  import { showToast } from '$lib/stores/toast';
   import { getBookKey } from '$lib/utils/books';
   import { sanitizeHtml } from '$lib/utils/html';
   import { useCardObserver } from '$lib/utils/cardObserver.svelte';
@@ -66,8 +67,6 @@
     cardObs.unregister(id);
   }
 
-  let shareCopied = $state(false);
-  let shareTimeout: ReturnType<typeof setTimeout> | null = null;
   const canSystemShare = $derived(typeof navigator !== 'undefined' && !!navigator.share);
   let relationsMap = $state<Record<string, CardRelationEntry[]> | null>(null);
   let relatedRelations = $state<RelatedCard[]>([]);
@@ -77,12 +76,7 @@
   async function copyShareUrl() {
     try {
       await navigator.clipboard.writeText(location.href);
-      shareCopied = true;
-      if (shareTimeout) clearTimeout(shareTimeout);
-      shareTimeout = setTimeout(() => {
-        shareCopied = false;
-        shareTimeout = null;
-      }, 2000);
+      showToast('Enlace copiado', 'success');
     } catch {
       // Clipboard API not available — silently ignore
     }
@@ -425,14 +419,6 @@
 <div class="sticky bottom-0 z-40" bind:clientHeight={composerTrayHeight}>
   <ComposerTray {cardMap} />
 </div>
-
-{#if shareCopied}
-  <div class="toast toast-bottom toast-end z-50">
-    <div class="alert alert-success py-2 text-sm shadow-lg">
-      <span>Enlace copiado</span>
-    </div>
-  </div>
-{/if}
 
 <RelatedCardsSheet
   relations={relatedRelations}
