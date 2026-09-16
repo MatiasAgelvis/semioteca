@@ -66,3 +66,7 @@ cards in the lot, maybe even hand curate as we do for the regex patterns to ensu
 ## Performance
 
 - [ ] **Investigate build time regression** · Vercel build times jumped from ~2m30 to ~4m30 between the Aug 25 and Aug 28 deploys. Check what changed in that window — likely candidates: dependency updates, new prerender routes, or SvelteKit config changes.
+
+## Architecture (future)
+
+- [ ] **Create `/search` route** · Extract the full-results search view from `/cards` into its own `/search?q=...` route. Currently, search results and the card collection are the same component — "full results" is just a mode toggle (`fullResultsMode = true`). This forces workarounds like store-based communication between the global SearchDialog and the cards page. A separate `/search` route would make "go to full results" a simple `goto('/search?q=...')` and decouple search from browsing. Also enables proper URL-based search sharing and deep linking.
