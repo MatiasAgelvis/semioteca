@@ -12,7 +12,6 @@
   } from '$lib/stores/cardsSearch';
   import { selectedCount } from '$lib/stores/composer';
   import { SHOW_CV, SHOW_DOCS, SHOW_GUIDE } from '$lib/config/features';
-  import { goto } from '$app/navigation';
   import Logo from '$lib/components/Logo.svelte';
 
   const links = [
@@ -57,12 +56,7 @@
   const menuButtonClasses = $derived(compactHeader ? 'translate-y-0 opacity-100' : '');
 
   async function handleSearchAction() {
-    if (isCardsIndex) {
-      openCardsSearch();
-    } else {
-      await goto('/cards');
-      openCardsSearch();
-    }
+    openCardsSearch();
   }
 
   function isActive(href: string): boolean {
