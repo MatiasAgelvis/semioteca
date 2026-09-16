@@ -91,270 +91,6 @@
   </header>
 
   <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <!-- TIER 1: PREVIEW                                                    -->
-  <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <section>
-    <h2 class="text-lg font-bold border-b border-base-300 pb-2">
-      Tier 1 — Preview
-      <span class="text-xs font-normal opacity-50 ml-2"> Discover · Find · Navigate </span>
-    </h2>
-
-    <!-- SearchResultItem -->
-    <div class="mt-6">
-      <h3 class="text-sm font-semibold opacity-70 mb-2">
-        SearchResultItem <span class="text-xs opacity-50">· search dialog</span>
-      </h3>
-      <div class="max-w-2xl border border-base-300 rounded-box p-2">
-        <SearchResultItem card={mockCard} searchTerms={[]} onselect={noop} />
-      </div>
-      <div class="max-w-2xl border border-base-300 rounded-box p-2 mt-2">
-        <SearchResultItem card={mockCardLongPage} searchTerms={[]} onselect={noop} />
-      </div>
-    </div>
-
-    <!-- GraphTooltip (static mock — not actually positioned) -->
-    <div class="mt-8">
-      <h3 class="text-sm font-semibold opacity-70 mb-2">
-        GraphTooltip <span class="text-xs opacity-50">· graph hover</span>
-      </h3>
-      <div class="max-w-xs rounded-box border border-base-300 bg-base-100 p-3 text-sm shadow-md">
-        <p class="font-semibold">
-          {mockCard.author} — {mockCard.book}
-        </p>
-        <p class="text-xs opacity-60">
-          {mockCard.year}{mockCard.page ? ` · p. ${mockCard.page}` : ''}
-        </p>
-        <p class="mt-1.5 line-clamp-3 text-xs leading-relaxed opacity-70">
-          {mockGraphNode.contentPreview}
-        </p>
-      </div>
-    </div>
-
-    <!-- RelatedCardsSheet (inline, not dialog) -->
-    <div class="mt-8">
-      <h3 class="text-sm font-semibold opacity-70 mb-2">
-        RelatedCardsSheet <span class="text-xs opacity-50">· related cards row</span>
-      </h3>
-      <div class="max-w-2xl border border-base-300 rounded-box divide-y divide-base-300">
-        {#each [mockRelated, { ...mockRelated, id: 'other', author: 'Putnam', book: 'Representación y realidad', year: '1990', page: '68', contentPreview: 'La filosofía de la mente no es simplemente una filosofía de los estados mentales. Es también una filosofía del…', tags: ['filosofía de la mente', 'realismo'] }] as rel}
-          <a href="#demo" class="block px-4 py-3 hover:bg-base-200/50 transition">
-            <div class="flex items-center gap-2">
-              <p class="truncate font-semibold text-sm min-w-0 flex-1">
-                {rel.author} — {rel.book}
-              </p>
-              {#if rel.page}
-                <span class="badge badge-ghost badge-sm tabular-nums font-semibold shrink-0">
-                  p. {rel.page}
-                </span>
-              {/if}
-            </div>
-            {#if rel.tags.length > 0}
-              <div class="mt-2 flex flex-wrap gap-1">
-                {#each rel.tags as tag}
-                  <Tag {tag} variant="static" />
-                {/each}
-              </div>
-            {/if}
-            <p class="mt-2 line-clamp-2 text-xs leading-relaxed opacity-60">
-              {rel.contentPreview}
-            </p>
-          </a>
-        {/each}
-      </div>
-    </div>
-
-    <!-- TOC items -->
-    <div class="mt-8">
-      <h3 class="text-sm font-semibold opacity-70 mb-2">
-        TocItem / TocItemFull <span class="text-xs opacity-50">· sidebar navigation</span>
-      </h3>
-      <div class="max-w-xs border border-base-300 rounded-box">
-        <div class="flex min-w-0 items-center gap-2 px-3 py-2 text-sm">
-          <span class="opacity-60 text-xs tabular-nums shrink-0 font-semibold">#1</span>
-          <span class="min-w-0 truncate font-semibold">{mockCard.page}</span>
-        </div>
-        <div class="flex min-w-0 items-center gap-2 px-3 py-2 text-sm menu-active">
-          <span class="opacity-60 text-xs tabular-nums shrink-0 font-semibold">#2</span>
-          <span class="min-w-0 truncate font-semibold">{mockCardLongPage.page}</span>
-        </div>
-      </div>
-      <div class="max-w-xs border border-base-300 rounded-box mt-2">
-        <div class="flex min-w-0 items-center gap-2 px-3 py-2 text-sm">
-          <span class="truncate min-w-0 font-semibold">{mockCard.author}</span>
-          <span class="badge badge-ghost badge-xs tabular-nums shrink-0 font-semibold">
-            p. {mockCard.page}
-          </span>
-        </div>
-        <div class="truncate block min-w-0 text-xs opacity-70 px-3 pb-2">{mockCard.book}</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <!-- TIER 2: EXTENDED                                                   -->
-  <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <section>
-    <h2 class="text-lg font-bold border-b border-base-300 pb-2">
-      Tier 2 — Extended
-      <span class="text-xs font-normal opacity-50 ml-2"> Context · Actions </span>
-    </h2>
-
-    <!-- GraphPanel (static mock) -->
-    <div class="mt-6">
-      <h3 class="text-sm font-semibold opacity-70 mb-2">
-        GraphPanel <span class="text-xs opacity-50">· graph sidepane</span>
-      </h3>
-      <div class="max-w-md border border-base-300 rounded-box overflow-hidden">
-        <!-- Header -->
-        <div class="border-b border-base-200 px-5 py-3">
-          <div class="flex items-center justify-between">
-            <div class="flex min-w-0 flex-1 items-center gap-2">
-              <p class="truncate text-sm font-semibold">{mockCard.book}</p>
-              <button type="button" class="btn btn-ghost btn-xs shrink-0">→</button>
-            </div>
-            <button class="btn btn-ghost btn-sm btn-square ml-2 shrink-0">✕</button>
-          </div>
-          <p class="truncate text-xs opacity-60">
-            {mockCard.author} ({mockCard.year}){mockCard.page ? ` · p. ${mockCard.page}` : ''}
-          </p>
-          <div class="mt-2 flex flex-wrap gap-1">
-            {#each mockCard.tags as tag}
-              <Tag {tag} variant="static" />
-            {/each}
-          </div>
-        </div>
-
-        <!-- Content -->
-        <div class="px-5 py-4">
-          <div class="rounded-box border border-base-200 bg-base-200/40 p-4">
-            <p class="whitespace-pre-wrap text-sm leading-relaxed opacity-80">
-              {@html mockCard.content}
-            </p>
-          </div>
-        </div>
-
-        <!-- Footer -->
-        <div class="flex items-stretch gap-2 border-t border-base-200 px-5 py-3">
-          <span class="btn btn-outline btn-sm flex-1 justify-center pointer-events-none">
-            &#x1F4CD; Explorar desde aqu&iacute;
-          </span>
-          <span class="btn btn-sm min-w-28 btn-ghost pointer-events-none"> Añadir </span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <!-- TIER 3: DETAIL                                                     -->
-  <!-- ═══════════════════════════════════════════════════════════════════ -->
-  <section>
-    <h2 class="text-lg font-bold border-b border-base-300 pb-2">
-      Tier 3 — Detail
-      <span class="text-xs font-normal opacity-50 ml-2"> Complete · Reading · Composing </span>
-    </h2>
-
-    <!-- CardItem collapsed -->
-    <div class="mt-6">
-      <h3 class="text-sm font-semibold opacity-70 mb-2">
-        CardItem <span class="text-xs opacity-50">· books view (collapsed)</span>
-      </h3>
-      <div class="max-w-2xl">
-        <div class="card bg-base-100 border border-base-300 p-0">
-          <CardItem
-            card={mockCard}
-            focused={false}
-            onregister={noop}
-            onunregister={noop}
-            onopenrelations={logClick('open relations')}
-          />
-        </div>
-      </div>
-    </div>
-
-    <!-- CardItem expanded -->
-    <div class="mt-6">
-      <h3 class="text-sm font-semibold opacity-70 mb-2">
-        CardItem <span class="text-xs opacity-50">· books view (expanded)</span>
-      </h3>
-      <div class="max-w-2xl">
-        <div class="card bg-base-100 border border-base-300 p-0">
-          <CardItem
-            card={mockCard}
-            focused={true}
-            onregister={noop}
-            onunregister={noop}
-            onopenrelations={logClick('open relations')}
-          />
-        </div>
-      </div>
-    </div>
-
-    <!-- Card Detail page (static mock) -->
-    <div class="mt-8">
-      <h3 class="text-sm font-semibold opacity-70 mb-2">
-        Card Detail <span class="text-xs opacity-50">· /cards/[id]</span>
-      </h3>
-      <article class="card bg-base-100 border border-base-300 p-6 shadow-sm max-w-3xl">
-        <div class="flex items-start justify-between gap-4">
-          <p class="min-w-0 flex-1 text-xl font-bold truncate">
-            {mockCard.author} — {mockCard.book} ({mockCard.year})
-          </p>
-          {#if mockCard.page}
-            <span class="badge badge-ghost badge-md tabular-nums font-semibold shrink-0">
-              p. {mockCard.page}
-            </span>
-          {/if}
-        </div>
-
-        <div class="mt-7 space-y-4 rounded-box border border-base-200 bg-base-200/40 p-5">
-          <p class="whitespace-pre-wrap leading-8 opacity-90">
-            {@html mockCard.content}
-          </p>
-          <p class="mt-5 text-xs opacity-40">Copiar cita · Copiar texto</p>
-        </div>
-
-        <div class="card-actions flex-nowrap items-center justify-between mt-5">
-          <div class="flex flex-wrap gap-1 items-end">
-            {#each mockCard.tags as tag}
-              <Tag {tag} variant="outline" />
-            {/each}
-          </div>
-          <div class="flex flex-wrap items-center justify-end gap-2">
-            <span class="btn btn-xs md:btn-sm btn-ghost pointer-events-none">Red</span>
-            <span class="btn btn-xs md:btn-sm btn-ghost pointer-events-none">Añadir</span>
-          </div>
-        </div>
-      </article>
-    </div>
-
-    <!-- Compose preview (static mock) -->
-    <div class="mt-8">
-      <h3 class="text-sm font-semibold opacity-70 mb-2">
-        Composer Preview <span class="text-xs opacity-50">· compose page row</span>
-      </h3>
-      <div class="max-w-2xl border border-base-300 rounded-box">
-        <div class="px-4 py-3">
-          <p class="text-sm font-semibold">
-            1. {mockCard.author} — {mockCard.book} ({mockCard.year}), p. {mockCard.page}
-          </p>
-        </div>
-        <div class="px-4 pb-3">
-          <p
-            class="text-sm leading-relaxed opacity-70 pl-7 border-l-2 border-base-300 ml-2 whitespace-pre-wrap"
-          >
-            {mockCard.content.replace(/<[^>]+>/g, '').slice(0, 350)}…
-          </p>
-        </div>
-        <div class="border-t border-base-300 px-4 py-3">
-          <p class="text-sm font-semibold">
-            2. {mockCardLongPage.author} — {mockCardLongPage.book} ({mockCardLongPage.year}), p. {mockCardLongPage.page}
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════════════════════════════════════════════════════════════════ -->
   <!-- COMPARISON TABLE                                                   -->
   <!-- ═══════════════════════════════════════════════════════════════════ -->
   <section>
@@ -564,7 +300,7 @@
     <div class="mt-8">
       <h3 class="text-sm font-semibold opacity-70 mb-1">
         1. SearchResultItem
-        <span class="text-xs opacity-50 ml-1">&middot; search dialog</span>
+        <span class="text-xs opacity-50 ml-1">· search dialog</span>
       </h3>
       <p class="text-xs opacity-40 mb-2">
         Primitives: CardHeader(compact) + CardContent(excerpt 90)
@@ -586,7 +322,7 @@
     <div class="mt-8">
       <h3 class="text-sm font-semibold opacity-70 mb-1">
         2. GraphTooltip
-        <span class="text-xs opacity-50 ml-1">&middot; graph hover</span>
+        <span class="text-xs opacity-50 ml-1">· graph hover</span>
       </h3>
       <p class="text-xs opacity-40 mb-2">Primitives: CardTooltip (standalone)</p>
       <CardTooltip
@@ -603,7 +339,7 @@
     <div class="mt-8">
       <h3 class="text-sm font-semibold opacity-70 mb-1">
         3. RelatedCardsSheet
-        <span class="text-xs opacity-50 ml-1">&middot; related cards row</span>
+        <span class="text-xs opacity-50 ml-1">· related cards row</span>
       </h3>
       <p class="text-xs opacity-40 mb-2">
         Primitives: CardHeader(mini) + CardTags(static) + CardContent(excerpt 160)
@@ -629,7 +365,7 @@
     <div class="mt-8">
       <h3 class="text-sm font-semibold opacity-70 mb-1">
         4. TocItem / TocItemFull
-        <span class="text-xs opacity-50 ml-1">&middot; sidebar navigation</span>
+        <span class="text-xs opacity-50 ml-1">· sidebar navigation</span>
       </h3>
       <p class="text-xs opacity-40 mb-2">
         Primitives: CardBadge + text (too simple to need full primitives)
@@ -650,7 +386,7 @@
     <div class="mt-8">
       <h3 class="text-sm font-semibold opacity-70 mb-1">
         5. GraphPanel
-        <span class="text-xs opacity-50 ml-1">&middot; graph sidepane</span>
+        <span class="text-xs opacity-50 ml-1">· graph sidepane</span>
       </h3>
       <p class="text-xs opacity-40 mb-2">
         Primitives: CardHeader(compact) + CardTags(static) + CardContent(html) + CardActions(graph)
@@ -665,9 +401,7 @@
             <button class="btn btn-ghost btn-sm btn-square ml-2 shrink-0">&#x2715;</button>
           </div>
           <p class="truncate text-xs opacity-60">
-            {mockCard.author} ({mockCard.year}){mockCard.page
-              ? ` &middot; p. ${mockCard.page}`
-              : ''}
+            {mockCard.author} ({mockCard.year}){mockCard.page ? ` · p. ${mockCard.page}` : ''}
           </p>
           <div class="mt-2"><CardTags tags={mockCard.tags} variant="static" /></div>
         </div>
@@ -686,7 +420,7 @@
     <div class="mt-8">
       <h3 class="text-sm font-semibold opacity-70 mb-1">
         6. CardItem (collapsed)
-        <span class="text-xs opacity-50 ml-1">&middot; books view</span>
+        <span class="text-xs opacity-50 ml-1">· books view</span>
       </h3>
       <p class="text-xs opacity-40 mb-2">
         Primitives: CardHeader(compact + arrow) + CardContent(excerpt 350) + CardTags(interactive)
@@ -720,7 +454,7 @@
     <div class="mt-8">
       <h3 class="text-sm font-semibold opacity-70 mb-1">
         7. CardItem (expanded)
-        <span class="text-xs opacity-50 ml-1">&middot; books view</span>
+        <span class="text-xs opacity-50 ml-1">· books view</span>
       </h3>
       <p class="text-xs opacity-40 mb-2">
         Primitives: CardHeader(compact + arrow) + CardContent(full) + CardTags(interactive) + copy
@@ -739,7 +473,7 @@
         </div>
         <div class="mt-1 space-y-3">
           <CardContent text={mockCard.content} mode="full" images={mockCard.images} />
-          <p class="text-xs opacity-40">Copiar cita &middot; Copiar texto</p>
+          <p class="text-xs opacity-40">Copiar cita · Copiar texto</p>
         </div>
         <button type="button" class="btn btn-ghost btn-sm w-full mt-2 text-xs opacity-60">
           Ocultar contenido &uarr;
@@ -758,7 +492,7 @@
     <div class="mt-8">
       <h3 class="text-sm font-semibold opacity-70 mb-1">
         8. Card Detail
-        <span class="text-xs opacity-50 ml-1">&middot; /cards/[id]</span>
+        <span class="text-xs opacity-50 ml-1">· /cards/[id]</span>
       </h3>
       <p class="text-xs opacity-40 mb-2">
         Primitives: CardHeader(full) + CardContent(full) + CardTags(interactive) + CardActions(full)
@@ -775,7 +509,7 @@
         </div>
         <div class="mt-7 space-y-4 rounded-box border border-base-200 bg-base-200/40 p-5">
           <CardContent text={mockCard.content} mode="full" images={mockCard.images} />
-          <p class="mt-5 text-xs opacity-40">Copiar cita &middot; Copiar texto</p>
+          <p class="mt-5 text-xs opacity-40">Copiar cita · Copiar texto</p>
         </div>
         <div class="mt-5">
           <CardActions variant="full" cardId={mockCard.id} onOpenRelations={logClick('relations')}>
@@ -791,7 +525,7 @@
     <div class="mt-8">
       <h3 class="text-sm font-semibold opacity-70 mb-1">
         9. Composer Preview
-        <span class="text-xs opacity-50 ml-1">&middot; compose page row</span>
+        <span class="text-xs opacity-50 ml-1">· compose page row</span>
       </h3>
       <p class="text-xs opacity-40 mb-2">
         Primitives: CardHeader(full, inline) + CardContent(excerpt 350)
