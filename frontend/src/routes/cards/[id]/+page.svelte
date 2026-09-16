@@ -1,42 +1,24 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
-  import CardImage from '$lib/components/CardImage.svelte';
-  import type { CardImage as CardImageType } from '$lib/types/content';
   import type { PageData } from './$types';
   import RelatedCardsSheet from '$lib/components/RelatedCardsSheet.svelte';
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
-  import Tag from '$lib/components/Tag.svelte';
   import { showToast } from '$lib/stores/toast';
-  import { openCardsSearch } from '$lib/stores/cardsSearch';
-  import { TAG_DESCRIPTIONS } from '$lib/constants';
   import {
     buildCardCitationAPA,
     buildCardFullText,
     copyTextToClipboard,
   } from '$lib/utils/citation';
   import { sanitizeHtml } from '$lib/utils/html';
-  import { LucideUmbrella, VectorPolygon } from '@lucide/svelte';
+  import CardHeader from '$lib/components/card/CardHeader.svelte';
+  import CardContent from '$lib/components/card/CardContent.svelte';
+  import CardTags from '$lib/components/card/CardTags.svelte';
+  import { VectorPolygon } from '@lucide/svelte';
+  import { openCardsSearch } from '$lib/stores/cardsSearch';
+  import { goto } from '$app/navigation';
 
   let { data }: { data: PageData } = $props();
 
   let sheetOpen = $state(false);
-
-  type ContentPart = { kind: 'text'; text: string } | { kind: 'image'; image: CardImageType };
-
-  const contentParts = $derived.by<ContentPart[]>(() => {
-    const imageMap = new Map(data.card.images.map((img) => [img.placeholder_id, img]));
-    const chunks = data.card.content.split(/\[\[IMAGE:(\d+)\]\]/g);
-    const parts: ContentPart[] = [];
-    for (let i = 0; i < chunks.length; i++) {
-      if (i % 2 === 0) {
-        if (chunks[i].trim()) parts.push({ kind: 'text', text: sanitizeHtml(chunks[i]) });
-      } else {
-        const img = imageMap.get(Number(chunks[i]));
-        if (img) parts.push({ kind: 'image', image: img });
-      }
-    }
-    return parts;
-  });
 
   function handleSelectRelation(cardId: string) {
     sheetOpen = false;
@@ -63,8 +45,6 @@
       composer.addCard(data.card.id);
     }
   }
-
-  const visibleTags = $derived(data.card.tags?.filter((tag) => tag.trim().length > 0) ?? []);
 </script>
 
 <svelte:head>
@@ -93,27 +73,18 @@
 
   <article class="card bg-base-100 border border-base-300 p-6 shadow-sm lg:p-10">
     <div class="flex items-start justify-between gap-4">
-      <p class="min-w-0 flex-1 text-xl font-bold truncate">
-        {data.card.author} — {data.card.book} ({data.card.year})
-      </p>
-      {#if data.card.page}
-        <span class="badge badge-ghost badge-md tabular-nums font-semibold shrink-0">
-          p. {data.card.page}
-        </span>
-      {/if}
+      <CardHeader
+        author={data.card.author}
+        book={data.card.book}
+        year={data.card.year}
+        page={data.card.page}
+        variant="full"
+      />
     </div>
 
     <!-- Content container -->
     <div class="mt-7 space-y-4 rounded-box border border-base-200 bg-base-200/40 p-5">
-      {#each contentParts as part}
-        {#if part.kind === 'text'}
-          <p class="whitespace-pre-wrap leading-8 opacity-90">
-            {@html part.text}
-          </p>
-        {:else}
-          <CardImage image={part.image} />
-        {/if}
-      {/each}
+      <CardContent text={data.card.content} mode="full" images={data.card.images} />
       <p class="mt-5 text-xs opacity-40">
         <button type="button" class="link link-hover" onclick={copyCitation}>Copiar cita</button>
         · <button type="button" class="link link-hover" onclick={copyCardText}>Copiar texto</button>
@@ -122,18 +93,14 @@
 
     <!-- Controls bar: tags left, actions right -->
     <div class="card-actions flex-nowrap items-center justify-between mt-5">
-      <div class="flex flex-wrap gap-1 items-end">
-        {#each visibleTags as tag}
-          <div
-            class="tooltip tooltip-top before:whitespace-normal before:max-w-50"
-            data-tip={TAG_DESCRIPTIONS[tag] ?? 'Sin descripción'}
-          >
-            <Tag {tag} variant="outline" onclick={() => openCardsSearch([tag])} />
-          </div>
-        {/each}
-      </div>
-
-      <div class="flex flex-wrap items-center justify-end gap-2">
+      <CardTags
+        tags={data.card.tags}
+        variant="interactive"
+        onTagClick={(tag) => {
+          openCardsSearch([tag]);
+        }}
+      />
+      <div class="flex flex-wrap items-center justify-end gap-2 ml-auto">
         <button
           type="button"
           class="btn btn-xs md:btn-sm btn-ghost transition-all"

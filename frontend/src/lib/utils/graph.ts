@@ -1,6 +1,6 @@
 import type { CardRelationEntry, CardRecord, CardsDataset } from '$lib/types/content';
 import type { GraphData, GraphLink, GraphNode } from '$lib/types/graph';
-import { sanitizeHtml } from './html';
+import { stripHtml } from './html';
 
 /**
  * Builds a lookup map: card ID → CardRecord.
@@ -49,8 +49,7 @@ export function buildGraph(
   const nodes: GraphNode[] = Array.from(visited).map((id) => {
     const card = cardMap.get(id);
     const rawContent = card?.content ?? '';
-    // Sanitize HTML and strip image placeholders for preview display
-    const cleanContent = sanitizeHtml(rawContent)
+    const cleanContent = stripHtml(rawContent)
       .replace(/\[\[IMAGE:\d+\]\]/g, '')
       .trim();
     const contentPreview =

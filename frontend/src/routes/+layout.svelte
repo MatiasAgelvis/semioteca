@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { goto } from '$app/navigation';
   import GlobalToast from '$lib/components/GlobalToast.svelte';
+  import SearchDialog from '$lib/components/SearchDialog.svelte';
   import SiteFooter from '$lib/components/SiteFooter.svelte';
   import SiteHeader from '$lib/components/SiteHeader.svelte';
   import { DARK_THEME, LIGHT_THEME, THEME_STORAGE_KEY } from '$lib/config/theme';
@@ -8,9 +10,6 @@
 
   let { children } = $props();
 
-  // Inline bootstrap that runs in <head> before body paint to set the correct
-  // theme. Theme names are injected from $lib/config/theme so this stays a
-  // single source of truth — no hardcoded theme strings here.
   const themeBootstrap = `
     (function(){
       var k=${JSON.stringify(THEME_STORAGE_KEY)};
@@ -20,6 +19,10 @@
       document.documentElement.dataset.theme=stored||(matchMedia('(prefers-color-scheme: dark)').matches?d:l);
     })();
   `;
+
+  function handleGlobalSelect(card: { id: string }) {
+    goto(`/cards/${card.id}`);
+  }
 </script>
 
 <svelte:head>
@@ -32,4 +35,5 @@
   <main class="flex-1">{@render children()}</main>
   <SiteFooter />
   <GlobalToast />
+  <SearchDialog onselect={handleGlobalSelect} />
 </div>
