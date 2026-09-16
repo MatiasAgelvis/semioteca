@@ -115,7 +115,7 @@
   function handleRandomCard() {
     if (cardIds.length === 0) return;
     const id = cardIds[Math.floor(Math.random() * cardIds.length)];
-    window.location.assign(`/cards/graph?origin=${encodeURIComponent(id)}&depth=1`);
+    goto(`/cards/graph?origin=${encodeURIComponent(id)}&depth=1`);
   }
 
   function handleSelect(node: GraphNode | null) {
