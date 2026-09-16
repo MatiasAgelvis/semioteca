@@ -1,23 +1,15 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte';
-  import { goto, afterNavigate, replaceState } from '$app/navigation';
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import PageSection from '$lib/components/PageSection.svelte';
   import BookSidebar from '$lib/components/BookSidebar.svelte';
   import CardItem from '$lib/components/CardItem.svelte';
   import CardsToc from '$lib/components/CardsToc.svelte';
-  import {
-    cardsSearchDialogOpen,
-    cardsSearchQuery,
-    cardsSearchFullResultsRequest,
-    closeCardsSearch,
-    openCardsSearch,
-  } from '$lib/stores/cardsSearch';
+  import { openCardsSearch } from '$lib/stores/cardsSearch';
   import { getBookKey } from '$lib/utils/books';
-  import { tokenizeQuery } from '$lib/utils/search';
-  import { getRankedSearchResults } from '$lib/utils/cardsSearch';
   import { sanitizeHtml } from '$lib/utils/html';
-  import { page } from '$app/stores';
-  import { parseSearchUrl, buildSearchParams } from '$lib/utils/searchUrl';
+  import { useCardObserver } from '$lib/utils/cardObserver.svelte';
   import RelatedCardsSheet from '$lib/components/RelatedCardsSheet.svelte';
   import ComposerTray from '$lib/components/ComposerTray.svelte';
   import type {
@@ -32,28 +24,14 @@
 
   let loading = $state(true);
   let selectedBook = $state<string | null>(null);
-  let fullResultsMode = $state(false);
-  let initializedFromUrl = $state(false);
+
   let returnToCardId = $state<string | null>(
     typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('cards:returnTo') : null,
   );
-  let focusedCardId = $state<string | null>(null);
   let mobileDrawerOpen = $state(false);
   let composerTrayHeight = $state(0);
   let cards = $state<CardRecord[]>([]);
   const cardMap = $derived(new Map(cards.map((c): [string, CardRecord] => [c.id, c])));
-
-  // Committed search state — only mutated when the dialog commits via
-  // onopenfullresults callback.
-  let selectedAuthors = $state<Set<string>>(new Set());
-  let selectedTags = $state<Set<string>>(new Set());
-  let matchMode = $state<'all' | 'any'>('all');
-  let searchFields = $state({
-    content: true,
-    authorBook: true,
-    page: true,
-    tags: true,
-  });
 
   const authors = $derived.by(() => {
     const seen = new Set<string>();
@@ -78,14 +56,16 @@
     return [...seen].sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
   });
 
-  let observer: IntersectionObserver | null = null;
-  const cardElements = new Map<string, HTMLElement>();
-  const visibleCardIds = new Set<string>();
-  let focusLockCardId: string | null = null;
-  let focusLockTimeout: ReturnType<typeof setTimeout> | null = null;
-  let scrollEndListener: (() => void) | null = null;
-  let debouncedQuery = $state('');
-  let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+  const cardObs = useCardObserver();
+
+  // CardItem uses (el, id) callbacks — bridge to the observer.
+  function registerCard(el: HTMLElement, id: string) {
+    cardObs.register(id, el);
+  }
+  function unregisterCard(_el: HTMLElement, id: string) {
+    cardObs.unregister(id);
+  }
+
   let shareCopied = $state(false);
   let shareTimeout: ReturnType<typeof setTimeout> | null = null;
   const canSystemShare = $derived(typeof navigator !== 'undefined' && !!navigator.share);
@@ -108,9 +88,7 @@
     }
   }
 
-  const shareLabel = $derived(
-    fullResultsMode ? 'Compartir resultados' : selectedBook ? 'Compartir libro' : 'Compartir',
-  );
+  const shareLabel = $derived(selectedBook ? 'Compartir libro' : 'Compartir');
 
   async function handleSystemShare() {
     try {
@@ -159,28 +137,10 @@
   function handleSelectRelation(cardId: string) {
     const card = cards.find((c) => c.id === cardId);
     if (!card) return;
-    fullResultsMode = false;
     selectedBook = getBookKey(card);
     relatedSheetOpen = false;
     tick().then(() => scrollToCard(card.id));
   }
-
-  $effect(() => {
-    const q = $cardsSearchQuery;
-    if (debounceTimer) clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => {
-      debouncedQuery = q;
-      debounceTimer = null;
-    }, 200);
-    return () => {
-      if (debounceTimer) {
-        clearTimeout(debounceTimer);
-        debounceTimer = null;
-      }
-    };
-  });
-
-  const searchTerms = $derived(tokenizeQuery(debouncedQuery));
 
   const booksModel = $derived.by(() => {
     const grouped = new Map<string, { key: string; author: string; title: string; year: string }>();
@@ -212,100 +172,19 @@
     return cards.filter((card) => getBookKey(card) === activeBookKey);
   });
 
-  const hasSearchCriteria = $derived(
-    searchTerms.length > 0 || selectedAuthors.size > 0 || selectedTags.size > 0,
-  );
-
-  const rankedSearchResults = $derived.by(() =>
-    getRankedSearchResults(
-      cards,
-      searchTerms,
-      selectedAuthors,
-      selectedTags,
-      searchFields,
-      matchMode,
-    ),
-  );
-
-  const searchResults = $derived(rankedSearchResults.slice(0, 24));
-  const fullResultsCount = $derived(rankedSearchResults.length);
-  const displayCards = $derived(fullResultsMode ? rankedSearchResults : filteredCards);
-
-  function registerCard(el: HTMLElement, id: string) {
-    cardElements.set(id, el);
-    observer?.observe(el);
-  }
-
-  function unregisterCard(el: HTMLElement, id: string) {
-    observer?.unobserve(el);
-    cardElements.delete(id);
-    visibleCardIds.delete(id);
-    if (focusLockCardId === id) {
-      focusLockCardId = null;
-      if (focusLockTimeout) {
-        clearTimeout(focusLockTimeout);
-        focusLockTimeout = null;
-      }
-      if (scrollEndListener) {
-        window.removeEventListener('scrollend', scrollEndListener);
-        scrollEndListener = null;
-      }
-    }
-  }
-
   async function scrollToCard(id: string) {
-    const cardIndex = displayCards.findIndex((card) => card.id === id);
+    const cardIndex = filteredCards.findIndex((card) => card.id === id);
     if (cardIndex === -1) return;
 
-    let node = cardElements.get(id) ?? document.getElementById(`card-${id}`);
+    let node = document.getElementById(`card-${id}`);
     if (!node) {
       await tick();
-      node = cardElements.get(id) ?? document.getElementById(`card-${id}`);
+      node = document.getElementById(`card-${id}`);
     }
-
     if (!node) return;
 
-    // Detach a previous click's `scrollend` listener (if any) so it can't release
-    // the lock we're about to set. Defensive — the timer below also bails if the
-    // captured `id` no longer matches — but avoids the listener firing on a stale
-    // scroll anyway.
-    if (scrollEndListener) {
-      window.removeEventListener('scrollend', scrollEndListener);
-      scrollEndListener = null;
-    }
-
-    focusLockCardId = id;
-    if (focusLockTimeout) clearTimeout(focusLockTimeout);
-    focusLockTimeout = setTimeout(() => {
-      // Timer fallback for browsers without `scrollend`, or when the scroll is
-      // canceled (Escape, another click, programmatic navigation).
-      if (focusLockCardId === id) focusLockCardId = null;
-      focusLockTimeout = null;
-      if (scrollEndListener) {
-        window.removeEventListener('scrollend', scrollEndListener);
-        scrollEndListener = null;
-      }
-    }, 600);
-
-    // `scrollend` (Safari 17.4+, Chromium-based, Firefox 137+) lets us release the
-    // lock as soon as the smooth scroll actually settles — before the 600ms timer.
-    // Fall back silently if unsupported.
-    const supportsScrollEnd = 'onscrollend' in window;
-    if (supportsScrollEnd) {
-      const handler = () => {
-        if (scrollEndListener !== handler) return;
-        if (focusLockCardId === id) focusLockCardId = null;
-        if (focusLockTimeout) {
-          clearTimeout(focusLockTimeout);
-          focusLockTimeout = null;
-        }
-        scrollEndListener = null;
-      };
-      scrollEndListener = handler;
-      window.addEventListener('scrollend', handler, { passive: true, once: true });
-    }
-
-    focusedCardId = id;
+    cardObs.freezeFocus(id);
+    cardObs.focusedCardId = id;
     // Move keyboard focus to the selected card so it does not stay in the search input.
     node.setAttribute('tabindex', '-1');
     node.focus({ preventScroll: true });
@@ -317,126 +196,13 @@
   }
 
   function selectBook(key: string) {
-    fullResultsMode = false;
     selectedBook = key;
     mobileDrawerOpen = false;
-  }
-
-  async function handleSelectSearchResult(card: CardRecord) {
-    fullResultsMode = false;
-    selectedBook = getBookKey(card);
-    (document.activeElement as HTMLElement | null)?.blur();
-    closeCardsSearch();
-    await tick();
-    await scrollToCard(card.id);
-  }
-
-  async function handleOpenFullResults(params: {
-    query: string;
-    tags: Set<string>;
-    authors: Set<string>;
-    mode: 'all' | 'any';
-    fields: { content: boolean; authorBook: boolean; page: boolean; tags: boolean };
-  }) {
-    fullResultsMode = true;
-    closeCardsSearch();
-    mobileDrawerOpen = false;
-
-    // Push dialog state → committed search state
-    $cardsSearchQuery = params.query;
-    debouncedQuery = params.query;
-    selectedTags = new Set(params.tags);
-    selectedAuthors = new Set(params.authors);
-    matchMode = params.mode;
-    searchFields = { ...params.fields };
-
-    // Sync search state to URL
-    const urlParams = buildSearchParams({
-      q: params.query,
-      tags: Array.from(params.tags),
-      authors: Array.from(params.authors),
-      mode: params.mode,
-    });
-    const qs = urlParams.toString();
-    const url = qs ? `/cards?${qs}` : '/cards';
-    await goto(url, { replaceState: true, noScroll: true, keepFocus: true });
-
-    await tick();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function closeFullResultsMode() {
-    fullResultsMode = false;
-    const url = selectedBook ? `/cards?book=${encodeURIComponent(selectedBook)}` : '/cards';
-    goto(url, { replaceState: true, noScroll: true, keepFocus: true });
   }
 
   function handleTocScroll(id: string) {
     scrollToCard(id);
     mobileDrawerOpen = false;
-  }
-
-  async function setupObserver() {
-    if (typeof window === 'undefined' || loading) return;
-    await tick();
-    observer?.disconnect();
-    visibleCardIds.clear();
-    observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          const id = entry.target.getAttribute('data-card-id');
-          if (!id) continue;
-          if (entry.isIntersecting) visibleCardIds.add(id);
-          else visibleCardIds.delete(id);
-        }
-        // While a click-scroll is in flight, freeze the highlight on the target.
-        // Releasing on first intersection (the previous behavior) tripped up smooth
-        // scrolls: the target enters the band before the scroll settles, the lock
-        // releases mid-animation, and a follow-up event re-picks before the user sees
-        // the centered result. The lock is now released by `scrollToCard` via the
-        // 600ms timer / `scrollend` listener.
-        if (focusLockCardId) {
-          return;
-        }
-        // Pick the most centered card among all currently visible ones
-        let bestMatch: string | null = null;
-        let minDistance = Infinity;
-        // Match the position that scrollIntoView({ block: 'center' }) lands a card at.
-        // Before, this was 0.4, which made the post-scroll "best match" land on the
-        // card immediately above the clicked one.
-        const viewportCenter = window.innerHeight / 2;
-
-        for (const id of visibleCardIds) {
-          const el = cardElements.get(id);
-          if (!el) continue;
-          const rect = el.getBoundingClientRect();
-          const cardMiddle = rect.top + rect.height / 2;
-          const distance = Math.abs(cardMiddle - viewportCenter);
-
-          if (distance < minDistance) {
-            minDistance = distance;
-            bestMatch = id;
-          }
-        }
-        if (bestMatch) focusedCardId = bestMatch;
-        else if (displayCards.length > 0) focusedCardId = displayCards[0].id;
-      },
-      {
-        root: null,
-        rootMargin: '-25% 0px -40% 0px',
-        threshold: [0, 0.1, 0.5],
-      },
-    );
-    for (const card of displayCards) {
-      const node = cardElements.get(card.id);
-      if (node) observer.observe(node);
-    }
-    if (
-      displayCards.length > 0 &&
-      (!focusedCardId || !displayCards.some((c) => c.id === focusedCardId))
-    ) {
-      focusedCardId = displayCards[0].id;
-    }
   }
 
   onMount(() => {
@@ -448,16 +214,9 @@
       }
     };
 
-    // Restore search state from URL params (runs once on page load)
-    const urlParams = parseSearchUrl(new URL(window.location.href).searchParams);
-    const hasUrlParams = Object.keys(urlParams).length > 0;
-    if (hasUrlParams) {
-      if (urlParams.q) $cardsSearchQuery = urlParams.q;
-      if (urlParams.tags) selectedTags = new Set(urlParams.tags);
-      if (urlParams.authors) selectedAuthors = new Set(urlParams.authors);
-      if (urlParams.mode) matchMode = urlParams.mode;
-      if (urlParams.book) selectedBook = urlParams.book;
-    }
+    // Restore book selection from URL params (runs once on page load)
+    const bookParam = $page.url.searchParams.get('book');
+    if (bookParam) selectedBook = bookParam;
 
     window.addEventListener('keydown', handleKeydown);
     void (async () => {
@@ -473,12 +232,8 @@
         relationsMap = await relationsRes.json();
       }
       if (!cancelled) {
-        if (hasUrlParams) {
-          fullResultsMode = true;
-          initializedFromUrl = true;
-        }
         loading = false;
-        await setupObserver();
+        await cardObs.setupObserver(filteredCards);
         if (returnToCardId) {
           sessionStorage.removeItem('cards:returnTo');
           const id = returnToCardId;
@@ -491,12 +246,7 @@
     return () => {
       cancelled = true;
       window.removeEventListener('keydown', handleKeydown);
-      if (scrollEndListener) {
-        window.removeEventListener('scrollend', scrollEndListener);
-        scrollEndListener = null;
-      }
-      observer?.disconnect();
-      if (focusLockTimeout) clearTimeout(focusLockTimeout);
+      cardObs.destroy();
     };
   });
 
@@ -523,65 +273,19 @@
   $effect(() => {
     if (loading) return;
     selectedBook;
-    fullResultsMode;
-    displayCards.length;
-    void setupObserver();
+    filteredCards.length;
+    void cardObs.setupObserver(filteredCards);
   });
 
+  // Sync selected book to URL
   $effect(() => {
-    if (fullResultsMode && !hasSearchCriteria) {
-      fullResultsMode = false;
-    }
-  });
-
-  // Sync selected book to URL (only in browse mode, not full-results)
-  $effect(() => {
-    if (loading || fullResultsMode) return;
+    if (loading) return;
     if (!selectedBook || !booksModel.length) return;
-    const currentUrl = new URL(window.location.href);
-    // Don't interfere when URL has search params (full-results mode)
-    if (
-      currentUrl.searchParams.has('q') ||
-      currentUrl.searchParams.has('tags') ||
-      currentUrl.searchParams.has('authors')
-    )
-      return;
-    const currentBook = currentUrl.searchParams.get('book');
+    const currentBook = $page.url.searchParams.get('book');
     if (currentBook === selectedBook) return;
-    currentUrl.searchParams.set('book', selectedBook);
-    replaceState(currentUrl.toString(), {});
-  });
-
-  // React to URL param changes (e.g. from SearchDialog "go to full results")
-  let initialUrlApplied = false;
-  $effect(() => {
-    const search = $page.url.search;
-    if (!initialUrlApplied) {
-      initialUrlApplied = true;
-      return; // onMount already handles the initial URL
-    }
-    const urlParams = parseSearchUrl($page.url.searchParams);
-    if (Object.keys(urlParams).length === 0) return;
-    fullResultsMode = false;
-    if (urlParams.q) $cardsSearchQuery = urlParams.q;
-    if (urlParams.tags) selectedTags = new Set(urlParams.tags);
-    if (urlParams.authors) selectedAuthors = new Set(urlParams.authors);
-    if (urlParams.book) selectedBook = urlParams.book;
-  });
-
-  // Watch for full-results requests from the global SearchDialog
-  $effect(() => {
-    const request = $cardsSearchFullResultsRequest;
-    if (!request) return;
-    // Apply the search state
-    $cardsSearchQuery = request.query;
-    selectedTags = request.tags;
-    selectedAuthors = request.authors;
-    matchMode = request.mode;
-    // ... (fields are already in dialogFields via the store)
-    fullResultsMode = true;
-    // Clear the request so it doesn't re-trigger
-    cardsSearchFullResultsRequest.set(null);
+    const sp = $page.url.searchParams;
+    sp.set('book', selectedBook);
+    goto(`/cards?${sp.toString()}`, { replaceState: true, noScroll: true, keepFocus: true });
   });
 </script>
 
@@ -596,14 +300,7 @@
     headingLevel="h1"
   >
     <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm opacity-70">
-      {#if fullResultsMode}
-        <span>{fullResultsCount} resultados globales</span>
-        <button class="btn btn-ghost btn-xs" type="button" onclick={closeFullResultsMode}
-          >Volver al modo libro</button
-        >
-      {:else}
-        <span>{filteredCards.length} tarjetas en este libro.</span>
-      {/if}
+      <span>{filteredCards.length} tarjetas en este libro.</span>
 
       <button
         popovertarget="cards-share"
@@ -671,52 +368,40 @@
                 Cerrar
               </button>
             </div>
-            {#if !fullResultsMode}
-              <BookSidebar
-                books={booksModel}
-                selectedBook={selectedBook ?? ''}
-                onselect={selectBook}
-              />
-            {/if}
+            <BookSidebar
+              books={booksModel}
+              selectedBook={selectedBook ?? ''}
+              onselect={selectBook}
+            />
             <CardsToc
-              cards={displayCards}
-              {focusedCardId}
-              searchTerms={fullResultsMode ? searchTerms : []}
-              compact={!fullResultsMode}
+              cards={filteredCards}
+              focusedCardId={cardObs.focusedCardId}
+              compact
               onscrollto={handleTocScroll}
             />
           </div>
         </div>
       </div>
 
-      <div
-        class={`grid gap-6 ${fullResultsMode ? 'lg:grid-cols-[minmax(0,1fr)_18rem]' : 'lg:grid-cols-[18rem_minmax(0,1fr)_18rem]'}`}
-      >
-        {#if !fullResultsMode}
-          <div class="hidden lg:block min-w-0">
-            <BookSidebar
-              books={booksModel}
-              selectedBook={selectedBook ?? ''}
-              onselect={selectBook}
-            />
-          </div>
-        {/if}
+      <div class="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)_18rem]">
+        <div class="hidden lg:block min-w-0">
+          <BookSidebar books={booksModel} selectedBook={selectedBook ?? ''} onselect={selectBook} />
+        </div>
 
         <div class="space-y-5">
           {#if loading}
             <p>Cargando tarjetas...</p>
           {:else}
-            {#each displayCards as card (card.id)}
+            {#each filteredCards as card (card.id)}
               <CardItem
                 {card}
-                focused={focusedCardId === card.id}
-                searchTerms={fullResultsMode ? searchTerms : []}
+                focused={cardObs.focusedCardId === card.id}
                 onregister={registerCard}
                 onunregister={unregisterCard}
                 onopenrelations={handleOpenRelations}
               />
             {/each}
-            {#if displayCards.length === 0}
+            {#if filteredCards.length === 0}
               <p class="text-sm">
                 No hay tarjetas que coincidan con la búsqueda o el filtro seleccionado.
               </p>
@@ -726,10 +411,9 @@
 
         <div class="hidden lg:block min-w-0">
           <CardsToc
-            cards={displayCards}
-            {focusedCardId}
-            searchTerms={fullResultsMode ? searchTerms : []}
-            compact={!fullResultsMode}
+            cards={filteredCards}
+            focusedCardId={cardObs.focusedCardId}
+            compact
             onscrollto={scrollToCard}
           />
         </div>
