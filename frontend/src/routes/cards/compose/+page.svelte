@@ -142,7 +142,7 @@
   <div class="mt-8">
     <div class="flex items-center justify-between">
       <h2 class="text-xs font-semibold uppercase tracking-widest opacity-40">
-        Tarjetas &middot; {$selectedCount}
+        Tarjetas · {$selectedCount}
         <span class="text-[10px] opacity-30">/ {CARD_LIMIT}</span>
       </h2>
       {#if $selectedCount > 0}
