@@ -8,9 +8,10 @@
     cardsSearchDialogOpen,
     cardsSearchQuery,
     cardsSearchInitialTags,
-    cardsSearchFullResultsRequest,
     closeCardsSearch,
   } from '$lib/stores/cardsSearch';
+  import { goto } from '$app/navigation';
+  import { buildSearchParams, parseSearchUrl } from '$lib/utils/searchUrl';
   import { tokenizeQuery } from '$lib/utils/search';
   import { getRankedSearchResults } from '$lib/utils/cardsSearch';
   import type { CardRecord } from '$lib/types/content';
@@ -158,17 +159,16 @@
   function openFullResultsMode() {
     if (!dialogHasCriteria) return;
 
-    // Push dialog draft → store so the page can read it
-    $cardsSearchQuery = dialogQuery;
-    // Signal the cards page to enter full-results mode via store
-    cardsSearchFullResultsRequest.set({
-      query: dialogQuery,
-      tags: new Set(dialogTags),
-      authors: new Set(dialogAuthors),
-      mode: dialogMatchMode,
-      fields: { ...dialogFields },
-    });
     closeCardsSearch();
+
+    const sp = buildSearchParams({
+      q: dialogQuery || undefined,
+      tags: Array.from(dialogTags),
+      authors: Array.from(dialogAuthors),
+      mode: dialogMatchMode,
+    });
+    const qs = sp.toString();
+    goto(qs ? `/search?${qs}` : '/search');
   }
 
   function selectSearchResult(card: CardRecord) {
@@ -204,6 +204,15 @@
           dialogTags = new Set($cardsSearchInitialTags);
           dialogAuthors = new Set();
           dialogMatchMode = 'all';
+          dialogFields = { content: true, authorBook: true, page: true, tags: true };
+        } else if (typeof window !== 'undefined') {
+          // Seed from current URL params (e.g. when opened from /search?q=...)
+          const urlParams = parseSearchUrl(new URL(window.location.href).searchParams);
+          dialogQuery = urlParams.q ?? '';
+          dialogDebouncedQuery = dialogQuery;
+          dialogTags = new Set(urlParams.tags ?? []);
+          dialogAuthors = new Set(urlParams.authors ?? []);
+          dialogMatchMode = urlParams.mode ?? 'all';
           dialogFields = { content: true, authorBook: true, page: true, tags: true };
         } else {
           syncDialogFromCommitted();
