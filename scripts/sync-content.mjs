@@ -15,7 +15,8 @@ const sources = {
   cv: path.join(rootDir, 'backend', 'CV'),
 };
 
-const targetRoot = path.join(rootDir, 'frontend', 'static', 'content');
+const staticRoot = path.join(rootDir, 'frontend', 'static', 'content');
+const libDataRoot = path.join(rootDir, 'frontend', 'src', 'lib', 'data');
 
 async function ensureExists(targetPath) {
   try {
@@ -45,21 +46,24 @@ async function writeCardIds() {
   }
   const dataset = JSON.parse(await readFile(sources.cardsJson, 'utf8'));
   const ids = dataset.books.flatMap((book) => book.cards.map((card) => card.id));
-  await writeFile(path.join(targetRoot, 'card-ids.json'), JSON.stringify(ids), 'utf8');
+  await writeFile(path.join(staticRoot, 'card-ids.json'), JSON.stringify(ids), 'utf8');
   console.log('[sync-content] Wrote card-ids.json');
 }
 
 async function main() {
-  await rm(targetRoot, { recursive: true, force: true });
-  await mkdir(targetRoot, { recursive: true });
+  await rm(staticRoot, { recursive: true, force: true });
+  await mkdir(staticRoot, { recursive: true });
+  await mkdir(libDataRoot, { recursive: true });
 
-  await copyIfExists(sources.cardsJson, path.join(targetRoot, 'cards.json'));
+  await copyIfExists(sources.cardsJson, path.join(staticRoot, 'cards.json'));
   await writeCardIds();
-  await copyIfExists(sources.cardRelations, path.join(targetRoot, 'card-relations.json'));
-  await copyIfExists(sources.cardTags, path.join(targetRoot, 'card-tags.json'));
-  await copyIfExists(sources.cardsImages, path.join(targetRoot, 'cards_images'));
-  await copyIfExists(sources.blog, path.join(targetRoot, 'blog'));
-  await copyIfExists(sources.cv, path.join(targetRoot, 'cv'));
+  await copyIfExists(sources.cardRelations, path.join(staticRoot, 'card-relations.json'));
+  await copyIfExists(sources.cardsImages, path.join(staticRoot, 'cards_images'));
+  await copyIfExists(sources.blog, path.join(staticRoot, 'blog'));
+  await copyIfExists(sources.cv, path.join(staticRoot, 'cv'));
+
+  // Importable copy for frontend static imports (backend/card-tags.json is the source of truth)
+  await copyIfExists(sources.cardTags, path.join(libDataRoot, 'card-tags.json'));
 }
 
 main().catch((error) => {

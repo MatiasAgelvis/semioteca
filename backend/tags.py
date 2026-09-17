@@ -10,11 +10,12 @@ TAG_FILE = Path(__file__).resolve().parent / "card-tags.json"
 @dataclass(frozen=True)
 class CardTag:
     name: str
-    description: str
+    prompt: str
+    definition: str = ""
 
     @property
     def to_label(self) -> str:
-        return f"{self.name}: {self.description}"
+        return f"{self.name}: {self.prompt}"
 
     @classmethod
     def labels_to_name_dict(cls, tags: list[CardTag]) -> dict[str, str]:
@@ -34,13 +35,14 @@ def _normalize_tags(raw_tags: list[object]) -> list[CardTag]:
     normalized: list[CardTag] = []
     for item in raw_tags:
         if isinstance(item, str):
-            normalized.append(CardTag(name=item, description=item))
+            normalized.append(CardTag(name=item, prompt=item))
             continue
         if isinstance(item, dict):
             name = item.get("name")
-            description = item.get("description")
-            if isinstance(name, str) and isinstance(description, str):
-                normalized.append(CardTag(name=name, description=description))
+            prompt = item.get("prompt")
+            if isinstance(name, str) and isinstance(prompt, str):
+                definition = item.get("definition", "")
+                normalized.append(CardTag(name=name, prompt=prompt, definition=str(definition)))
     return normalized
 
 

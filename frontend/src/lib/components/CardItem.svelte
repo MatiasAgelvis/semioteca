@@ -5,7 +5,7 @@
   import { openCardsSearch } from '$lib/stores/cardsSearch';
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
   import Tag from '$lib/components/Tag.svelte';
-  import { TAG_DESCRIPTIONS } from '$lib/constants';
+  import { tagDefinitions } from '$lib/utils/tagDescriptions';
   import type { CardImage as CardImageType, CardRecord } from '$lib/types/content';
   import {
     buildCardCitationAPA,
@@ -200,7 +200,7 @@
         {#each visibleTags as tag}
           <div
             class="tooltip tooltip-top before:whitespace-normal before:max-w-50"
-            data-tip={TAG_DESCRIPTIONS[tag] ?? 'Sin descripción'}
+            data-tip={tagDefinitions[tag] ?? tag}
           >
             <Tag {tag} onclick={() => openCardsSearch([tag])} />
           </div>
