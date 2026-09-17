@@ -1,38 +1,47 @@
 [
   {
     "name": "Realismo",
-    "description": "Tarjetas que comprometen o discuten el estatus ontológico de algo: realismo sobre significados, sobre actos de habla, sobre entidades lingüísticas, sobre mundos posibles. Úsala cuando el texto toma posición sobre si algo existe independientemente de nuestra conceptualización."
+    "prompt": "Tarjetas que comprometen o discuten el estatus ontológico de algo: realismo sobre significados, sobre actos de habla, sobre entidades lingüísticas, sobre mundos posibles. Úsala cuando el texto toma posición sobre si algo existe independientemente de nuestra conceptualización.",
+    "definition": "Estatus ontológico de entidades lingüísticas y semióticas."
   },
   {
     "name": "Cognitivismo",
-    "description": "Tarjetas que explican fenómenos semióticos o lingüísticos mediante procesos mentales: inferencia, representación, categorización, procesamiento. Úsala cuando la explicación apela a mecanismos cognitivos, no cuando solo menciona mente o pensamiento de paso."
+    "prompt": "Tarjetas que explican fenómenos semióticos o lingüísticos mediante procesos mentales: inferencia, representación, categorización, procesamiento. Úsala cuando la explicación apela a mecanismos cognitivos, no cuando solo menciona mente o pensamiento de paso.",
+    "definition": "Procesos mentales que sustentan la interpretación."
   },
   {
     "name": "Referencia",
-    "description": "Tarjetas sobre cómo el lenguaje apunta al mundo: denotación, indicación, anclaje referencial, condiciones de satisfacción. Úsala cuando el problema central es la conexión entre expresiones y aquello que designan."
+    "prompt": "Tarjetas sobre cómo el lenguaje apunta al mundo: denotación, indicación, anclaje referencial, condiciones de satisfacción. Úsala cuando el problema central es la conexión entre expresiones y aquello que designan.",
+    "definition": "Conexión entre expresiones y aquello que designan."
   },
   {
     "name": "Percepción",
-    "description": "Tarjetas sobre cómo captamos o interpretamos información: interpretación contextual, reconocimiento de patrones, inferencia perceptiva. Úsala cuando el texto analiza el proceso de captar sentido, no cuando describe el contenido percibido."
+    "prompt": "Tarjetas sobre cómo captamos o interpretamos información: interpretación contextual, reconocimiento de patrones, inferencia perceptiva. Úsala cuando el texto analiza el proceso de captar sentido, no cuando describe el contenido percibido.",
+    "definition": "Proceso de captar e interpretar sentido."
   },
   {
     "name": "Intención",
-    "description": "Tarjetas sobre intención, volición y agencia comunicativa: qué pretende el hablante, cómo se construye la intención en el discurso, rol de la voluntad en la significación. Úsala cuando el texto explora el papel de la intención como fuerza constitutiva del sentido — no cuando solo menciona propósito de paso."
+    "prompt": "Tarjetas sobre intención, volición y agencia comunicativa: qué pretende el hablante, cómo se construye la intención en el discurso, rol de la voluntad en la significación. Úsala cuando el texto explora el papel de la intención como fuerza constitutiva del sentido — no cuando solo menciona propósito de paso.",
+    "definition": "Agencia comunicativa y voluntad del hablante."
   },
   {
     "name": "Causalidad",
-    "description": "Tarjetas que establecen o discuten relaciones causales: causas de la comunicación, efectos de los actos de habla, determinismo lingüístico, causalidad mental. Úsala cuando el texto propone que X causa, produce o determina Y."
+    "prompt": "Tarjetas que establecen o discuten relaciones causales: causas de la comunicación, efectos de los actos de habla, determinismo lingüístico, causalidad mental. Úsala cuando el texto propone que X causa, produce o determina Y.",
+    "definition": "Relaciones causales en comunicación y lenguaje."
   },
   {
     "name": "Materialista",
-    "description": "Tarjetas sobre la base material o física de los fenómenos: corporeidad, encarnación, materialidad del signo, bases neurológicas. Úsala cuando el texto sitúa lo semiótico o lo lingüístico en un sustrato material concreto."
+    "prompt": "Tarjetas sobre la base material o física de los fenómenos: corporeidad, encarnación, materialidad del signo, bases neurológicas. Úsala cuando el texto sitúa lo semiótico o lo lingüístico en un sustrato material concreto.",
+    "definition": "Base material o física de los fenómenos semióticos."
   },
   {
     "name": "Sensorial",
-    "description": "Tarjetas sobre la dimensión sensorial del significado: cualidades perceptivas, sinestesia, iconicidad sensorial, experiencia corporal. Úsala cuando el texto conecta sentido con experiencia sensorial directa — no con procesamiento cognitivo abstracto."
+    "prompt": "Tarjetas sobre la dimensión sensorial del significado: cualidades perceptivas, sinestesia, iconicidad sensorial, experiencia corporal. Úsala cuando el texto conecta sentido con experiencia sensorial directa — no con procesamiento cognitivo abstracto.",
+    "definition": "Experiencia sensorial directa como fuente de sentido."
   },
   {
     "name": "Datos",
-    "description": "Tarjetas basadas en o que apelan a evidencia empírica: corpus, experimentos, encuestas, observación de uso real. Úsala cuando la argumentación se apoya en datos concretos, no en razonamiento teórico puro."
+    "prompt": "Tarjetas basadas en o que apelan a evidencia empírica: corpus, experimentos, encuestas, observación de uso real. Úsala cuando la argumentación se apoya en datos concretos, no en razonamiento teórico puro.",
+    "definition": "Evidencia empírica: corpus, experimentos, uso real."
   }
 ]
