@@ -41,21 +41,17 @@
     });
   });
 
-  let compactHeader = $state(false);
   let menuOpen = $state(false);
   const isCardsRoute = $derived(page.url.pathname.startsWith('/cards'));
   const isSearchRoute = $derived(page.url.pathname.startsWith('/search'));
   const showSearchBar = $derived(isCardsRoute || isSearchRoute);
-  const isCardsIndex = $derived(page.url.pathname === '/cards' || page.url.pathname === '/cards/');
 
-  // Height/shadow shifts when the header compacts on scroll. Centralized so the
-  // search trigger, the desktop nav, and the mobile menu button stay in sync.
-  const compactClasses = $derived(compactHeader ? 'py-2' : 'py-3');
-  const searchSizeClasses = $derived(compactHeader ? 'h-9 sm:h-10 shadow-sm' : 'h-10');
-  const navTransitionClasses = $derived(
-    compactHeader ? 'max-w-0 -translate-y-1 opacity-0' : 'max-w-xl translate-y-0 opacity-100',
-  );
-  const menuButtonClasses = $derived(compactHeader ? 'translate-y-0 opacity-100' : '');
+  // Header keeps a fixed height — no scroll-based compaction to avoid
+  // the feedback loop where height change shifts scroll position.
+  const compactClasses = 'py-3';
+  const searchSizeClasses = 'h-10';
+  const navTransitionClasses = 'max-w-xl translate-y-0 opacity-100';
+  const menuButtonClasses = '';
 
   async function handleSearchAction() {
     openCardsSearch();
@@ -77,24 +73,13 @@
   let headerEl = $state<HTMLElement | null>(null);
 
   onMount(() => {
-    const updateCompactHeader = () => {
-      compactHeader = window.scrollY > 24;
-      if (!compactHeader) menuOpen = false;
-    };
-
-    updateCompactHeader();
-    window.addEventListener('scroll', updateCompactHeader, { passive: true });
-
     const ro = new ResizeObserver((entries) => {
       const h = entries[0]?.borderBoxSize?.[0]?.blockSize ?? headerEl?.offsetHeight ?? 0;
       document.documentElement.style.setProperty('--header-height', `${h}px`);
     });
     if (headerEl) ro.observe(headerEl);
 
-    return () => {
-      window.removeEventListener('scroll', updateCompactHeader);
-      ro.disconnect();
-    };
+    return () => ro.disconnect();
   });
 
   $effect(() => {

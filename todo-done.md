@@ -87,3 +87,31 @@ Completed work, moved out of `todo.md` to keep it short. Items here are finished
 - [x] TOC hidden behind navbar on mobile — mobile drawer now has header-height padding.
 - [x] TOC doesn't update after search — now reflects filtered results in full results mode; BookSidebar hidden during search.
 - [x] Lyons 1997 extraction weird postfix — fixed in the extraction logic.
+
+## Backend
+
+- [x] **Text formatting loss** · Backend is losing text formatting (italics, etc.) during extraction. Investigate and preserve rich text formatting in card content.
+
+## Card Composer
+
+- [x] Exporter MVP shipped: compose, reorder, metadata, Markdown + PDF export, with A4 print layout and per-card page breaks.
+- [x] Cards from the same file were tagged differently due to small name discrepancies (e.g. "Eco 1992" vs "Eco 1994", "Honderich" vs "Ted Honderich"). Fixed by extracting `Metadata` at the file level once and assigning it to all cards in the lot.
+
+## UI/UX & Bug Checklist
+
+- [x] **Extract tag component** · Tags are rendered in 3+ places with inconsistent styles: `CardItem` (`badge-outline` buttons), search dialog (rounded pills + rectangular filter chips), `GraphPanel` (`badge-soft` spans). Extract into a single `<Tag>` component with props for variant (interactive/static, outline/soft/primary), shape (pill/rectangle), and size. Covers display tags, filter toggles, and active filter chips.
+- [x] **Card list — move 'open card' button near the title** · Moved `→` button from far-right (next to page badge) to right after the book title in `CardItem`, matching the `GraphPanel` pattern. Reads as "open this card" now, better grouped with card identity.
+- [x] **Horizontal scroll on narrow viewports (mobile)** · Investigated: cannot reproduce below ~300px, which is narrower than any real device. Images shrink properly via `object-contain` + bounded container. Not a real issue — closing.
+- [x] **Long page numbers in TOC** · Edge case: page numbers like "p. 5 y ss del capítulo Cerebros en una cubeta" [Strawson — Análisis y metafísica] are extremely long. Currently truncated with ellipsis, but may need special handling (abbreviated format, tooltip with full text, or data normalization).
+- [x] **Toast notifications** · Toasts are overlapping, instead of making a vertical stack they overlap in the z-index. Currently it's a single toast shared by all notifications.
+- [x] **SearchDialog not available outside /cards** · Tag clicks on the card detail page (`/cards/[id]`) called `openCardsSearch` but no `SearchDialog` was mounted there. Fixed by mounting `SearchDialog` in the root layout so it's available globally.
+
+## Themes (2026-08-20)
+
+- [x] Test new DaisyUI themes — currently using the defaults (light/dark); evaluate `emerald` (light) and `forest` (dark).
+  - [x] Pick a light + dark pair and enable them.
+  - [x] Craft custom themes with similar palettes and homogeneous styles across components after settling on base themes.
+
+## Architecture
+
+- [x] **Create `/search` route** · Extracted the full-results search view from `/cards` into its own `/search?q=...` route. Decoupled search from browsing; enables URL-based search sharing and deep linking.
