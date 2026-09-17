@@ -105,6 +105,9 @@ Completed work, moved out of `todo.md` to keep it short. Items here are finished
 - [x] **Long page numbers in TOC** · Edge case: page numbers like "p. 5 y ss del capítulo Cerebros en una cubeta" [Strawson — Análisis y metafísica] are extremely long. Currently truncated with ellipsis, but may need special handling (abbreviated format, tooltip with full text, or data normalization).
 - [x] **Toast notifications** · Toasts are overlapping, instead of making a vertical stack they overlap in the z-index. Currently it's a single toast shared by all notifications.
 - [x] **SearchDialog not available outside /cards** · Tag clicks on the card detail page (`/cards/[id]`) called `openCardsSearch` but no `SearchDialog` was mounted there. Fixed by mounting `SearchDialog` in the root layout so it's available globally.
+- [x] **Unified card content presentation** · Formalized a single content-rendering pipeline for the 8+ surfaces that render card content.
+- [x] **Explore in network button** · Pinned "Explorar en red" button outside the scrollable area in `RelatedCardsSheet` so it stays visible regardless of scroll position.
+- [x] **Book View scroll reset** · Switching books now scrolls to the top smoothly. Navigating via related card pane scrolls to the target card instead.
 
 ## Themes (2026-08-20)
 
