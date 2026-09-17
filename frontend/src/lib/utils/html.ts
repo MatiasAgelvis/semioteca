@@ -30,7 +30,7 @@ export function stripHtml(html: string): string {
  * set, but this ensures no unexpected markup leaks through.
  */
 export function sanitizeHtml(html: string): string {
-  return html.replace(/<\/([a-zA-Z][a-zA-Z0-9]*)\b[^>]*>/g, (match, tag) => {
+  return html.replace(/<\/?([a-zA-Z][a-zA-Z0-9]*)\b[^>]*\/?>/g, (match, tag) => {
     const lower = tag.toLowerCase();
     return ALLOWED_TAGS.has(lower) ? match : '';
   });

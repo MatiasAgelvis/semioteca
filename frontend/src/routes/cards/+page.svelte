@@ -30,6 +30,7 @@
     typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('cards:returnTo') : null,
   );
   let mobileDrawerOpen = $state(false);
+  let skipScrollToTop = false;
   let composerTrayHeight = $state(0);
   let cards = $state<CardRecord[]>([]);
   const cardMap = $derived(new Map(cards.map((c): [string, CardRecord] => [c.id, c])));
@@ -128,12 +129,16 @@
     relatedSheetOpen = true;
   }
 
-  function handleSelectRelation(cardId: string) {
+  async function handleSelectRelation(cardId: string) {
     const card = cards.find((c) => c.id === cardId);
     if (!card) return;
+    skipScrollToTop = true;
     selectedBook = getBookKey(card);
     relatedSheetOpen = false;
-    tick().then(() => scrollToCard(card.id));
+    // Wait for the book switch, then for the new cards to render and paint
+    await tick();
+    await new Promise(requestAnimationFrame);
+    scrollToCard(card.id);
   }
 
   const booksModel = $derived.by(() => {
@@ -279,7 +284,15 @@
     if (currentBook === selectedBook) return;
     const sp = $page.url.searchParams;
     sp.set('book', selectedBook);
-    goto(`/cards?${sp.toString()}`, { replaceState: true, noScroll: true, keepFocus: true });
+    goto(`/cards?${sp.toString()}`, { replaceState: true, noScroll: true, keepFocus: true }).then(
+      () => {
+        if (skipScrollToTop) {
+          skipScrollToTop = false;
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      },
+    );
   });
 </script>
 

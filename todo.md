@@ -21,11 +21,7 @@ Fully-done work is archived in `todo-done.md` — this file tracks open items on
 - [ ] **Graph view — 'return to repository' for the companion card** · Add a way to navigate back to the card repository from the companion card panel (`GraphPanel`) in the graph view — it currently only has "Ver tarjeta completa" and "Explorar desde aquí".
 - [ ] **CardItem — tooltip overflow clipping** · Tooltips in `CardItem.svelte` are clipped by the parent container's boundary. Needs a portal implementation to render tooltips at the body level.
 - [ ] **Component doc route** · Create `/doc` route with isolated component examples (Tag variants, sizes, states) for faster front-end iteration. Evaluate after current feature branch.
-- [ ] **Unified card content presentation** · Card content is rendered in 8+ surfaces (`CardItem`, card detail, `GraphPanel`, `GraphTooltip`, `RelatedCardsSheet`, `SearchResultItem`, PDF export, Markdown export) with inconsistent formatting handling. Now that content carries HTML formatting tags, formalize a single content-rendering pipeline: one function that takes raw card content and a `mode` (preview/expanded/pdf/markdown) and returns the right output. Covers text truncation, image handling, formatting conversion, and excerpt generation. See also the "Federated Card Component" spec in `design/card-views.md`.
-- [ ] **Explore in network button** · If one relations pane is scrolled and that button gets out of view it will remain until its scrolled to again in the same or another pane. Can hide the network entrypoint — a user might not realize that the pane is halfway scrolled and miss the button.
-- [ ] **Book View** · When switching book views the scroll position is preserved, so users land in an arbitrary position in the newly selected book. Ideally scroll should be reset to the top of the book or preserved by book, not globally to the view.
 - [ ] **Search bar** · The search bar parameters reset each time the bar is closed, the state should be preserved until the user explicitly resets it. It should be reset under specific conditions (e.g. when the user selects a tag from a card). Those conditions should be explored — currently it obfuscates the search UX.
-- [ ] Migrate `<slot>` usage to `{@render ...}` tags — Svelte deprecation warning in `CardActions.svelte:49:4`.
 
 ## Graph network — entry / landing experience (revisit later)
 
@@ -42,3 +38,7 @@ Fully-done work is archived in `todo-done.md` — this file tracks open items on
 ## Performance
 
 - [ ] **Investigate build time regression** · Vercel build times jumped from ~2m30 to ~4m30 between the Aug 25 and Aug 28 deploys. Check what changed in that window — likely candidates: dependency updates, new prerender routes, or SvelteKit config changes.
+
+## Frontend testing (when needed)
+
+- [ ] Set up Vitest for the frontend. Priority targets: `html.ts` (sanitizeHtml, htmlToPdfmake, htmlToMarkdown) — pure regex/parser logic that's easy to regress. Skip component tests for now.
