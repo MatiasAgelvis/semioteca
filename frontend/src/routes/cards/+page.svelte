@@ -279,7 +279,11 @@
     if (currentBook === selectedBook) return;
     const sp = $page.url.searchParams;
     sp.set('book', selectedBook);
-    goto(`/cards?${sp.toString()}`, { replaceState: true, noScroll: true, keepFocus: true });
+    goto(`/cards?${sp.toString()}`, { replaceState: true, noScroll: true, keepFocus: true }).then(
+      () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+    );
   });
 </script>
 
