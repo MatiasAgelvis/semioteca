@@ -1,6 +1,6 @@
 <script lang="ts">
   import Tag from '$lib/components/Tag.svelte';
-  import { TAG_DESCRIPTIONS } from '$lib/constants';
+  import { tagDefinitions } from '$lib/utils/tagDescriptions';
 
   let {
     tags = [],
@@ -26,7 +26,7 @@
       {#if variant === 'interactive'}
         <div
           class="tooltip tooltip-top before:whitespace-normal before:max-w-50"
-          data-tip={TAG_DESCRIPTIONS[tag] ?? 'Sin descripción'}
+          data-tip={tagDefinitions[tag] ?? tag}
         >
           <Tag {tag} onclick={() => onTagClick?.(tag)} />
         </div>
