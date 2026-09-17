@@ -124,23 +124,23 @@
 >
   <div class="card-body p-5">
     <!-- Header: author + book on left, page on right -->
-    <div class="flex flex-wrap items-center gap-2">
-      <div class="flex min-w-0 items-center gap-1">
-        <p class="font-bold min-w-0 truncate">
+    <div class="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-2">
+      <div class="min-w-0">
+        <p class="font-bold min-w-0">
           <HighlightedText segments={authorSegments} />
           <span> &mdash; </span>
           <HighlightedText segments={bookSegments} />
+          <a
+            href="/cards/{card.id}"
+            class="btn btn-ghost btn-xs btn-square shrink-0 inline-flex align-middle ml-1"
+            title="Ver tarjeta"
+            onclick={() => sessionStorage.setItem('cards:returnTo', card.id)}
+          >
+            →
+          </a>
         </p>
-        <a
-          href="/cards/{card.id}"
-          class="btn btn-ghost btn-xs btn-square shrink-0"
-          title="Ver tarjeta"
-          onclick={() => sessionStorage.setItem('cards:returnTo', card.id)}
-        >
-          →
-        </a>
       </div>
-      <div class="flex items-center gap-2 shrink-0 ml-auto">
+      <div class="flex items-center gap-2 shrink-0">
         {#if searchActive}
           <span class="badge badge-warning badge-sm text-xs">{matchCount} coinc.</span>
         {/if}
