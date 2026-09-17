@@ -38,3 +38,7 @@ Fully-done work is archived in `todo-done.md` — this file tracks open items on
 ## Performance
 
 - [ ] **Investigate build time regression** · Vercel build times jumped from ~2m30 to ~4m30 between the Aug 25 and Aug 28 deploys. Check what changed in that window — likely candidates: dependency updates, new prerender routes, or SvelteKit config changes.
+
+## Frontend testing (when needed)
+
+- [ ] Set up Vitest for the frontend. Priority targets: `html.ts` (sanitizeHtml, htmlToPdfmake, htmlToMarkdown) — pure regex/parser logic that's easy to regress. Skip component tests for now.
