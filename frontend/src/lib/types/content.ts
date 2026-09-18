@@ -28,6 +28,7 @@ export interface CardBook {
   book: string;
   year: string;
   cards: CardRecord[];
+  footnotes?: Record<string, string>;
 }
 
 export interface CardsDataset {

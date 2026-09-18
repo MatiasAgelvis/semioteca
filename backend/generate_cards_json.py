@@ -4,7 +4,6 @@ import json
 import re
 import tempfile
 import warnings
-from dataclasses import asdict
 from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
@@ -26,6 +25,7 @@ from divider_detection import (
     print_split_anomalies,
     strip_divider,
 )
+from footnotes import extract_footnotes
 from source_documents import SourceDocumentConfig, find_source_configs
 
 SUPPORTED_INPUT_EXTENSIONS = {".odt", ".docx"}
@@ -390,7 +390,19 @@ def main() -> None:
             group_index[key].cards.append(card)
             total_cards += 1
 
-    output_data = {"books": [asdict(group) for group in books]}
+    # Extract footnote sections from the last card of each book.
+    for group in books:
+        if not group.cards:
+            continue
+        last_card = group.cards[-1]
+        footnotes, cleaned = extract_footnotes(last_card.content)
+        if footnotes:
+            group.footnotes = footnotes
+            last_card.content = cleaned
+            if args.verbose:
+                print(f"  Extracted {len(footnotes)} footnotes from {last_card.id}")
+
+    output_data = {"books": [group.to_dict() for group in books]}
     output_path.write_text(json.dumps(output_data, ensure_ascii=False, indent=2), encoding="utf-8")
 
     anomalies = collect_card_length_anomalies(
