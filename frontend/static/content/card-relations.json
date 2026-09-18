@@ -79,8 +79,8 @@
       "score": 0.6646
     },
     {
-      "id": "avranmides-2019-knowing-other-minds-41",
-      "score": 0.6643
+      "id": "avranmides-2019-knowing-other-minds-5",
+      "score": 0.6636
     }
   ],
   "avranmides-2019-knowing-other-minds-3": [
@@ -91,6 +91,10 @@
     {
       "id": "putnam-1988-razon-verdad-e-historia-29",
       "score": 0.7585
+    },
+    {
+      "id": "avranmides-2019-knowing-other-minds-41",
+      "score": 0.7532
     },
     {
       "id": "honderich-2001-enciclopedia-oxford-31",
@@ -119,10 +123,6 @@
     {
       "id": "strawson-1997-an-lisis-y-metaf-sica-63",
       "score": 0.7464
-    },
-    {
-      "id": "rorty-1991-contigengencia-iron-a-y-solidaridad-31",
-      "score": 0.7453
     }
   ],
   "avranmides-2019-knowing-other-minds-4": [
@@ -151,12 +151,12 @@
       "score": 0.6601
     },
     {
-      "id": "avranmides-2019-knowing-other-minds-41",
-      "score": 0.6597
-    },
-    {
       "id": "avranmides-2019-knowing-other-minds-36",
       "score": 0.6596
+    },
+    {
+      "id": "avranmides-2019-knowing-other-minds-41",
+      "score": 0.6595
     },
     {
       "id": "avranmides-2019-knowing-other-minds-5",
@@ -1517,6 +1517,10 @@
       "score": 0.7403
     },
     {
+      "id": "avranmides-2019-knowing-other-minds-41",
+      "score": 0.6955
+    },
+    {
       "id": "avranmides-2019-knowing-other-minds-6",
       "score": 0.6817
     },
@@ -1547,10 +1551,6 @@
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-208",
       "score": 0.6695
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-104",
-      "score": 0.6694
     }
   ],
   "avranmides-2019-knowing-other-minds-38": [
@@ -1681,44 +1681,44 @@
   ],
   "avranmides-2019-knowing-other-minds-41": [
     {
+      "id": "putnam-1988-razon-verdad-e-historia-103",
+      "score": 0.7579
+    },
+    {
       "id": "avranmides-2019-knowing-other-minds-3",
-      "score": 0.6777
+      "score": 0.7532
     },
     {
-      "id": "avranmides-2019-knowing-other-minds-30",
-      "score": 0.6682
+      "id": "putnam-1988-razon-verdad-e-historia-32",
+      "score": 0.7497
     },
     {
-      "id": "avranmides-2019-knowing-other-minds-31",
-      "score": 0.6678
+      "id": "warnock-1989-j-l-austin-2",
+      "score": 0.7435
     },
     {
-      "id": "avranmides-2019-knowing-other-minds-23",
-      "score": 0.6652
-    },
-    {
-      "id": "avranmides-2019-knowing-other-minds-35",
-      "score": 0.665
-    },
-    {
-      "id": "avranmides-2019-knowing-other-minds-36",
-      "score": 0.6643
-    },
-    {
-      "id": "avranmides-2019-knowing-other-minds-2",
-      "score": 0.6643
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-208",
+      "score": 0.7377
     },
     {
       "id": "avranmides-2019-knowing-other-minds-26",
-      "score": 0.6601
+      "score": 0.7357
     },
     {
-      "id": "avranmides-2019-knowing-other-minds-27",
-      "score": 0.6599
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-160",
+      "score": 0.7317
     },
     {
-      "id": "avranmides-2019-knowing-other-minds-4",
-      "score": 0.6597
+      "id": "putnam-1990-representaci-n-y-realidad-45",
+      "score": 0.7311
+    },
+    {
+      "id": "avranmides-2019-knowing-other-minds-6",
+      "score": 0.7302
+    },
+    {
+      "id": "avranmides-2019-knowing-other-minds-40",
+      "score": 0.7296
     }
   ],
   "cuenca-y-hilferty-1999-intruducci-n-a-la-ling-stica-cognitiva-1": [
@@ -1857,11 +1857,11 @@
       "score": 0.7589
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-51",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-85",
       "score": 0.754
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-85",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-51",
       "score": 0.754
     },
     {
@@ -27107,6 +27107,10 @@
       "score": 0.7196
     },
     {
+      "id": "avranmides-2019-knowing-other-minds-41",
+      "score": 0.719
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-8",
       "score": 0.7166
     },
@@ -27125,10 +27129,6 @@
     {
       "id": "putnam-1988-razon-verdad-e-historia-32",
       "score": 0.7145
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-34",
-      "score": 0.7096
     }
   ],
   "honderich-2001-enciclopedia-oxford-13": [
@@ -110301,6 +110301,10 @@
       "score": 0.7574
     },
     {
+      "id": "avranmides-2019-knowing-other-minds-41",
+      "score": 0.7435
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-290",
       "score": 0.7407
     },
@@ -110327,10 +110331,6 @@
     {
       "id": "strawson-1997-an-lisis-y-metaf-sica-127",
       "score": 0.7278
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-240",
-      "score": 0.7269
     }
   ],
   "warnock-1989-j-l-austin-3": [

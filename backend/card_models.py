@@ -96,10 +96,13 @@ class Card(BaseMetadata):
 @dataclass
 class Book(BaseMetadata):
     cards: list[Card] = field(default_factory=list)
+    footnotes: dict[str, str] = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         data = asdict(self)
         data["cards"] = [card.to_dict() for card in self.cards]
+        if not data["footnotes"]:
+            del data["footnotes"]
         return data
 
     @staticmethod
@@ -110,6 +113,7 @@ class Book(BaseMetadata):
             book=data.get("book"),
             year=data.get("year"),
             cards=[Card.from_dict(card_data) for card_data in data.get("cards", [])],
+            footnotes=data.get("footnotes", {}),
         )
 
 
