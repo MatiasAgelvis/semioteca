@@ -54,6 +54,10 @@
     content: mockCard.content.replace(/<[^>]+>/g, ''),
     contentPreview: mockCard.content.replace(/<[^>]+>/g, '').slice(0, 200) + '…',
     tags: mockCard.tags,
+    x: 0,
+    y: 0,
+    fx: 0,
+    fy: 0,
   };
 
   const mockRelated: RelatedCard = {
