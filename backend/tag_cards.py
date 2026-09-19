@@ -2,9 +2,10 @@ import json
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 import nli_tagger
 from card_models import Library
-from dotenv import load_dotenv
 from logging_config import get_tag_logger
 from tags import CARD_TAGS, CardTag
 
