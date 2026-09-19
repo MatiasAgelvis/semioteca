@@ -72,10 +72,10 @@ class HTMLTextExtractor(HTMLParser):
         super().__init__()
         self.parts: list[str] = []
 
-    def handle_starttag(self, tag: str, attrs: list[tuple[str, str]]) -> None:
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         if tag == "img":
             attrs_dict = dict(attrs)
-            src = attrs_dict.get("src", "")
+            src = attrs_dict.get("src") or ""
             if src.startswith("IMAGE_PLACEHOLDER_"):
                 self.parts.append(src.replace("IMAGE_PLACEHOLDER_", "[[IMAGE:").rstrip("/") + "]]")
         elif tag == "br":
