@@ -8,7 +8,7 @@
   import CardsToc from '$lib/components/CardsToc.svelte';
   import { openCardsSearch } from '$lib/stores/cardsSearch';
   import { showToast } from '$lib/stores/toast';
-  import { getBookKey } from '$lib/utils/books';
+  import { getBookKey, normalizeBookPart } from '$lib/utils/books';
   import { sanitizeHtml } from '$lib/utils/html';
   import { useCardObserver } from '$lib/utils/cardObserver.svelte';
   import RelatedCardsSheet from '$lib/components/RelatedCardsSheet.svelte';
@@ -33,6 +33,9 @@
   let skipScrollToTop = false;
   let composerTrayHeight = $state(0);
   let cards = $state<CardRecord[]>([]);
+  let booksFootnotes = $state<Map<string, Record<string, string>>>(new Map());
+  let footnoteReturnY = $state<number | null>(null);
+  let notasVisible = $state(false);
   const cardMap = $derived(new Map(cards.map((c): [string, CardRecord] => [c.id, c])));
 
   const authors = $derived.by(() => {
@@ -164,6 +167,10 @@
     });
   });
 
+  const currentBookFootnotes = $derived(
+    selectedBook ? booksFootnotes.get(selectedBook) : undefined,
+  );
+
   const filteredCards = $derived.by(() => {
     if (cards.length === 0) return [];
     // Avoid rendering the entire dataset on first paint before selectedBook is initialized.
@@ -193,6 +200,33 @@
       inline: 'nearest',
     });
   }
+
+  function handleFootnoteClick(e: MouseEvent) {
+    if ((e.target as HTMLElement).closest('a[href^="#fn-"]')) {
+      footnoteReturnY = window.scrollY;
+    }
+  }
+
+  function scrollToReturnPosition() {
+    if (footnoteReturnY !== null) {
+      window.scrollTo({ top: footnoteReturnY, behavior: 'smooth' });
+      footnoteReturnY = null;
+    }
+  }
+
+  let notasSectionEl = $state<HTMLElement | null>(null);
+
+  $effect(() => {
+    if (!notasSectionEl) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        notasVisible = entry.isIntersecting;
+      },
+      { threshold: 0.1 },
+    );
+    observer.observe(notasSectionEl);
+    return () => observer.disconnect();
+  });
 
   function selectBook(key: string) {
     selectedBook = key;
@@ -226,6 +260,12 @@
       if (cardsRes.ok && !cancelled) {
         const dataset = (await cardsRes.json()) as CardsDataset;
         cards = dataset.books.flatMap((book) => book.cards);
+        for (const book of dataset.books) {
+          if (book.footnotes && Object.keys(book.footnotes).length > 0) {
+            const key = `${normalizeBookPart(book.author)}-${normalizeBookPart(book.book)}`;
+            booksFootnotes.set(key, book.footnotes);
+          }
+        }
       }
       if (relationsRes.ok && !cancelled) {
         relationsMap = await relationsRes.json();
@@ -395,7 +435,7 @@
           <BookSidebar books={booksModel} selectedBook={selectedBook ?? ''} onselect={selectBook} />
         </div>
 
-        <div class="space-y-5">
+        <div class="space-y-5" onclick={handleFootnoteClick}>
           {#if loading}
             <p>Cargando tarjetas...</p>
           {:else}
@@ -403,6 +443,7 @@
               <CardItem
                 {card}
                 focused={cardObs.focusedCardId === card.id}
+                footnotes={currentBookFootnotes}
                 onregister={registerCard}
                 onunregister={unregisterCard}
                 onopenrelations={handleOpenRelations}
@@ -412,6 +453,22 @@
               <p class="text-sm">
                 No hay tarjetas que coincidan con la búsqueda o el filtro seleccionado.
               </p>
+            {/if}
+            {#if currentBookFootnotes}
+              {@const sortedFootnotes = Object.entries(currentBookFootnotes).sort(
+                ([a], [b]) => Number(a) - Number(b),
+              )}
+              <div class="mt-8 border-t border-base-300 pt-6" bind:this={notasSectionEl}>
+                <h2 class="text-sm font-bold opacity-70 mb-3">Notas</h2>
+                <ol class="space-y-2 text-xs leading-relaxed opacity-70 list-none">
+                  {#each sortedFootnotes as [num, text] (num)}
+                    <li id="fn-{num}" class="flex gap-2 scroll-mt-24">
+                      <span class="font-semibold shrink-0 tabular-nums">{num}.</span>
+                      <span>{text}</span>
+                    </li>
+                  {/each}
+                </ol>
+              </div>
             {/if}
           {/if}
         </div>
@@ -428,6 +485,17 @@
     </div>
   </PageSection>
 </div>
+
+{#if notasVisible && footnoteReturnY !== null}
+  <button
+    type="button"
+    class="fixed bottom-20 right-4 z-30 btn btn-sm shadow-lg bg-base-200 border border-base-300"
+    onclick={scrollToReturnPosition}
+    aria-label="Volver a la referencia"
+  >
+    ↑ Volver
+  </button>
+{/if}
 
 <div class="sticky bottom-0 z-40" bind:clientHeight={composerTrayHeight}>
   <ComposerTray {cardMap} />
