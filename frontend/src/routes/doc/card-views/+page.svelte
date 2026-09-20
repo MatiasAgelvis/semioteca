@@ -350,7 +350,7 @@
       </p>
       <div class="max-w-2xl border border-base-300 rounded-box divide-y divide-base-300">
         {#each [mockRelated, { ...mockRelated, id: 'other', author: 'Putnam', book: 'Representaci\u00f3n y realidad', year: '1990', page: '68', contentPreview: 'La filosof\u00eda de la mente no es simplemente una filosof\u00eda de los estados mentales. Es tambi\u00e9n una filosof\u00eda del\u2026', tags: ['filosof\u00eda de la mente', 'realismo'] }] as rel}
-          <a href="/cards/{rel.id}" class="block px-4 py-3 hover:bg-base-200/50 transition">
+          <a href="/cards" class="block px-4 py-3 hover:bg-base-200/50 transition">
             <div class="flex items-center gap-2">
               <CardHeader author={rel.author} book={rel.book} page={rel.page} variant="mini" />
             </div>
