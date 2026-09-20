@@ -34,8 +34,8 @@
   let composerTrayHeight = $state(0);
   let cards = $state<CardRecord[]>([]);
   let booksFootnotes = $state<Map<string, Record<string, string>>>(new Map());
-  let footnoteReturnY = $state<number | null>(null);
-  let notasVisible = $state(false);
+  // Return-to-position feature (scroll back from Notas to superscript)
+  // is in $lib/utils/footnote-return.ts — see that file to re-enable.
   const cardMap = $derived(new Map(cards.map((c): [string, CardRecord] => [c.id, c])));
 
   const authors = $derived.by(() => {
@@ -201,32 +201,30 @@
     });
   }
 
-  function handleFootnoteClick(e: MouseEvent) {
-    if ((e.target as HTMLElement).closest('a[href^="#fn-"]')) {
-      footnoteReturnY = window.scrollY;
-    }
-  }
+  // --- Return-to-position (dormant) ---
+  // function handleFootnoteClick(e: MouseEvent) {
+  //   if ((e.target as HTMLElement).closest('a[href^="#fn-"]')) {
+  //     footnoteReturnY = window.scrollY;
+  //   }
+  // }
+  //
+  // function scrollToReturnPosition() {
+  //   if (footnoteReturnY !== null) {
+  //     window.scrollTo({ top: footnoteReturnY, behavior: 'smooth' });
+  //     footnoteReturnY = null;
+  //   }
+  // }
 
-  function scrollToReturnPosition() {
-    if (footnoteReturnY !== null) {
-      window.scrollTo({ top: footnoteReturnY, behavior: 'smooth' });
-      footnoteReturnY = null;
-    }
-  }
-
-  let notasSectionEl = $state<HTMLElement | null>(null);
-
-  $effect(() => {
-    if (!notasSectionEl) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        notasVisible = entry.isIntersecting;
-      },
-      { threshold: 0.1 },
-    );
-    observer.observe(notasSectionEl);
-    return () => observer.disconnect();
-  });
+  // let notasSectionEl: HTMLElement | null = null;
+  // $effect(() => {
+  //   if (!notasSectionEl) return;
+  //   const observer = new IntersectionObserver(
+  //     ([entry]) => { notasVisible = entry.isIntersecting; },
+  //     { threshold: 0.1 },
+  //   );
+  //   observer.observe(notasSectionEl);
+  //   return () => observer.disconnect();
+  // });
 
   function selectBook(key: string) {
     selectedBook = key;
@@ -435,7 +433,7 @@
           <BookSidebar books={booksModel} selectedBook={selectedBook ?? ''} onselect={selectBook} />
         </div>
 
-        <div class="space-y-5" onclick={handleFootnoteClick}>
+        <div class="space-y-5">
           {#if loading}
             <p>Cargando tarjetas...</p>
           {:else}
@@ -458,7 +456,7 @@
               {@const sortedFootnotes = Object.entries(currentBookFootnotes).sort(
                 ([a], [b]) => Number(a) - Number(b),
               )}
-              <div class="mt-8 border-t border-base-300 pt-6" bind:this={notasSectionEl}>
+              <div class="mt-8 border-t border-base-300 pt-6">
                 <h2 class="text-sm font-bold opacity-70 mb-3">Notas</h2>
                 <ol class="space-y-2 text-xs leading-relaxed opacity-70 list-none">
                   {#each sortedFootnotes as [num, text] (num)}
@@ -485,17 +483,6 @@
     </div>
   </PageSection>
 </div>
-
-{#if notasVisible && footnoteReturnY !== null}
-  <button
-    type="button"
-    class="fixed bottom-20 right-4 z-30 btn btn-sm shadow-lg bg-base-200 border border-base-300"
-    onclick={scrollToReturnPosition}
-    aria-label="Volver a la referencia"
-  >
-    ↑ Volver
-  </button>
-{/if}
 
 <div class="sticky bottom-0 z-40" bind:clientHeight={composerTrayHeight}>
   <ComposerTray {cardMap} />

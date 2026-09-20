@@ -8,6 +8,7 @@
     composerDisabled = false,
     onOpenRelations,
     onToggleComposer,
+    left,
   }: {
     variant?: 'minimal' | 'graph' | 'full';
     cardId: string;
@@ -15,6 +16,7 @@
     composerDisabled?: boolean;
     onOpenRelations?: (id: string) => void;
     onToggleComposer?: (id: string) => void;
+    left?: import('svelte').Snippet;
   } = $props();
 </script>
 
@@ -46,7 +48,7 @@
   </div>
 {:else if variant === 'full'}
   <div class="card-actions flex-nowrap items-center justify-between">
-    <slot name="left" />
+    {#if left}{@render left()}{/if}
     <div class="flex flex-wrap items-center justify-end gap-2">
       <button
         type="button"

@@ -2,9 +2,10 @@ import json
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 import nli_tagger
 from card_models import Library
-from dotenv import load_dotenv
 from logging_config import get_tag_logger
 from tags import CARD_TAGS, CardTag
 
@@ -20,24 +21,24 @@ logger = get_tag_logger()
 logger.info("\n\n" + "="*80 + "\n\n")
 logger.info(f"Tagger: {tagger.__name__}, Model: {tagger.MODEL_ID}, Max Tags: {tagger.MAX_TAGS}")
 
-def load_json(file_path: str) -> dict:
+def load_json(file_path: str | Path) -> dict:
     """
     Load a JSON file and return its contents as a dictionary.
     Args:
-        file_path (str): The path to the JSON file to be loaded.
+        file_path (str | Path): The path to the JSON file to load.
     Returns:
-        dict: The contents of the JSON file as a dictionary.
+        dict: The contents of the JSON file.
     """
     with open(file_path, "r") as f:
         return json.load(f)
 
 
-def save_json(data: dict, file_path: str) -> None:
+def save_json(data: dict, file_path: str | Path) -> None:
     """
     Save a dictionary to a JSON file.
     Args:
         data (dict): The dictionary to save.
-        file_path (str): The path to the JSON file where the data will be saved.
+        file_path (str | Path): The path to the JSON file to save.
     Returns:
         None
     """
@@ -45,23 +46,23 @@ def save_json(data: dict, file_path: str) -> None:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def load_dataset(file_path: str) -> Library:
+def load_dataset(file_path: str | Path) -> Library:
     """
     Load a cards dataset from a JSON file.
     Args:
-        file_path (str): The path to the JSON file containing card data.
+        file_path (str | Path): The path to the JSON file containing card data.
     Returns:
         Library: The loaded dataset.
     """
     return Library.from_dict(load_json(file_path))
 
 
-def save_dataset(dataset: Library, file_path: str) -> None:
+def save_dataset(dataset: Library, file_path: str | Path) -> None:
     """
     Save a cards dataset to a JSON file.
     Args:
         dataset (Library): The dataset to save.
-        file_path (str): The path to the JSON file where the dataset will be saved.
+        file_path (str | Path): The path to the JSON file where the dataset will be saved.
     Returns:
         None
     """
