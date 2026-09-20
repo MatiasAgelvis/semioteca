@@ -40,7 +40,7 @@
 {#if node}
   <div
     transition:fly={{ x: 320, duration: 250, easing: cubicOut }}
-    class="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-base-300 bg-base-100 shadow-2xl lg:static lg:z-auto lg:w-[28rem] lg:max-w-none lg:shrink-0 lg:rounded-box lg:border lg:border-base-300 lg:bg-base-200/50 lg:shadow-none"
+    class="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-base-300 bg-base-100 shadow-2xl lg:static lg:z-auto lg:w-md lg:max-w-none lg:shrink-0 lg:rounded-box lg:border lg:border-base-300 lg:bg-base-200/50 lg:shadow-none"
     role="dialog"
     aria-label="Vista previa de la tarjeta"
     tabindex="-1"

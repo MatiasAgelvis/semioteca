@@ -3,6 +3,7 @@
   import HighlightedText from '$lib/components/HighlightedText.svelte';
   import { getHighlightSegments, createExcerpt } from '$lib/utils/search';
   import { stripHtml, sanitizeHtml } from '$lib/utils/html';
+  import { linkFootnotes } from '$lib/utils/footnotes';
   import type { CardImage as CardImageType } from '$lib/types/content';
 
   let {
@@ -11,12 +12,14 @@
     mode = 'excerpt',
     excerptLength = 350,
     searchTerms = [],
+    footnotes,
   }: {
     text: string;
     images?: CardImageType[];
     mode?: 'excerpt' | 'full' | 'html';
     excerptLength?: number;
     searchTerms?: string[];
+    footnotes?: Record<string, string>;
   } = $props();
 
   // Image map for placeholder resolution
@@ -54,7 +57,7 @@
   </p>
 {:else if mode === 'html'}
   <p class="whitespace-pre-wrap text-sm leading-relaxed opacity-80">
-    {@html sanitizeHtml(text)}
+    {@html footnotes ? linkFootnotes(sanitizeHtml(text), footnotes) : sanitizeHtml(text)}
   </p>
 {:else if mode === 'full'}
   {#each chunks as chunk, i}
@@ -64,7 +67,7 @@
           {#if searchTerms.length > 0}
             <HighlightedText segments={getHighlightSegments(stripHtml(chunk), searchTerms)} />
           {:else}
-            {@html sanitizeHtml(chunk)}
+            {@html footnotes ? linkFootnotes(sanitizeHtml(chunk), footnotes) : sanitizeHtml(chunk)}
           {/if}
         </p>
       {/if}

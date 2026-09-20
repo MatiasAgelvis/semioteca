@@ -14,12 +14,14 @@
   } from '$lib/utils/citation';
   import { createExcerpt, getHighlightSegments, getMatchCount } from '$lib/utils/search';
   import { stripHtml, sanitizeHtml } from '$lib/utils/html';
+  import { linkFootnotes } from '$lib/utils/footnotes';
   import { VectorPolygon } from '@lucide/svelte';
 
   let {
     card,
     focused,
     searchTerms = [],
+    footnotes,
     onregister,
     onunregister,
     onopenrelations,
@@ -27,6 +29,7 @@
     card: CardRecord;
     focused: boolean;
     searchTerms?: string[];
+    footnotes?: Record<string, string>;
     onregister?: (el: HTMLElement, id: string) => void;
     onunregister?: (el: HTMLElement, id: string) => void;
     onopenrelations?: (cardId: string) => void;
@@ -44,7 +47,8 @@
   const compactHtml = $derived(
     (() => {
       const cleaned = sanitizeHtml(card.content).replace(/\[\[IMAGE:\d+\]\]\n?/g, '');
-      return cleaned.length > 350 ? cleaned.slice(0, 350).trimEnd() + '\u2026' : cleaned;
+      const truncated = cleaned.length > 350 ? cleaned.slice(0, 350).trimEnd() + '\u2026' : cleaned;
+      return footnotes ? linkFootnotes(truncated, footnotes) : truncated;
     })(),
   );
 
@@ -75,7 +79,11 @@
     const parts: ContentPart[] = [];
     for (let i = 0; i < chunks.length; i++) {
       if (i % 2 === 0) {
-        if (chunks[i].trim()) parts.push({ kind: 'text', text: sanitizeHtml(chunks[i]) });
+        if (chunks[i].trim())
+          parts.push({
+            kind: 'text',
+            text: linkFootnotes(sanitizeHtml(chunks[i]), footnotes ?? {}),
+          });
       } else {
         const img = imageMap.get(Number(chunks[i]));
         if (img) parts.push({ kind: 'image', image: img });

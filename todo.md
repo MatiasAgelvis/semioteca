@@ -9,7 +9,7 @@ Fully-done work is archived in `todo-done.md` — this file tracks open items on
 
 ## Backend
 
-- [ ] Footnotes, apparently there are superindeces in the text that link to a footnote section at the end of the file. See [Avramindes] final card for an example.
+- [ ] Footnotes: backend extraction done (contiguous `\d+.\s` blocks parsed into `Book.footnotes`). Frontend rendering still needed — show a "Notas" section at the bottom of the book view and link `<sup>N</sup>` refs to anchor entries.
 
 ## Card Composer
 
