@@ -9,7 +9,7 @@ Fully-done work is archived in `todo-done.md` — this file tracks open items on
 
 ## Backend
 
-- [ ] Footnotes: backend extraction done (contiguous `\d+.\s` blocks parsed into `Book.footnotes`). Frontend rendering still needed — show a "Notas" section at the bottom of the book view and link `<sup>N</sup>` refs to anchor entries.
+- [x] Footnotes: backend extraction done (contiguous `\d+.\s` blocks parsed into `Book.footnotes`). Frontend rendering still needed — show a "Notas" section at the bottom of the book view and link `<sup>N</sup>` refs to anchor entries.
 
 ## Card Composer
 
