@@ -163,6 +163,8 @@ def normalize_capture(value: str | None) -> str | None:
         normalized[:1] != "(" or not normalized.endswith(")")
     ):
         normalized = normalized[1:].strip()
+    # Strip trailing hyphens/dashes, e.g. "48-49-" -> "48-49".
+    normalized = normalized.rstrip("-–— ")
     return normalized or None
 
 
