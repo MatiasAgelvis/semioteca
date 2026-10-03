@@ -113,7 +113,7 @@
       "score": 0.7471
     },
     {
-      "id": "nelson-goodman-1990-29",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-29",
       "score": 0.747
     },
     {
@@ -281,7 +281,7 @@
       "score": 0.7493
     },
     {
-      "id": "nelson-goodman-1990-27",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-27",
       "score": 0.7488
     },
     {
@@ -323,11 +323,11 @@
       "score": 0.7411
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-50",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-84",
       "score": 0.741
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-84",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-50",
       "score": 0.741
     },
     {
@@ -365,7 +365,7 @@
       "score": 0.7422
     },
     {
-      "id": "nelson-goodman-1990-1",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-1",
       "score": 0.7422
     },
     {
@@ -1097,7 +1097,7 @@
       "score": 0.7673
     },
     {
-      "id": "nelson-goodman-1990-24",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-24",
       "score": 0.763
     },
     {
@@ -1857,11 +1857,11 @@
       "score": 0.7589
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-85",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-51",
       "score": 0.754
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-51",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-85",
       "score": 0.754
     },
     {
@@ -2395,6 +2395,10 @@
   ],
   "cuenca-y-hilferty-1999-intruducci-n-a-la-ling-stica-cognitiva-17": [
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-31",
+      "score": 0.7553
+    },
+    {
       "id": "putnam-1990-representaci-n-y-realidad-90",
       "score": 0.7482
     },
@@ -2429,10 +2433,6 @@
     {
       "id": "mcgilchrist-2024-el-cerebro-dividido-8",
       "score": 0.7411
-    },
-    {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-26",
-      "score": 0.7406
     }
   ],
   "cuenca-y-hilferty-1999-intruducci-n-a-la-ling-stica-cognitiva-18": [
@@ -3187,8 +3187,8 @@
       "score": 0.7627
     },
     {
-      "id": "cuenca-y-hilferty-1999-intruducci-n-a-la-ling-stica-cognitiva-6",
-      "score": 0.7619
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.7624
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-3": [
@@ -3335,6 +3335,10 @@
       "score": 0.7861
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-17",
+      "score": 0.7854
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-183",
       "score": 0.7848
     },
@@ -3353,10 +3357,6 @@
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-166",
       "score": 0.782
-    },
-    {
-      "id": "putnam-1999-el-pragmatismo-23",
-      "score": 0.7799
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-7": [
@@ -3457,6 +3457,10 @@
       "score": 0.7464
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-35",
+      "score": 0.745
+    },
+    {
       "id": "langacker-1987-fundations-of-cognitive-grammar-50",
       "score": 0.7441
     },
@@ -3478,10 +3482,6 @@
     },
     {
       "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-23",
-      "score": 0.7358
-    },
-    {
-      "id": "leech-1997-principios-de-pragm-tica-73",
       "score": 0.7358
     }
   ],
@@ -3549,11 +3549,11 @@
       "score": 0.7319
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-85",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-51",
       "score": 0.7222
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-51",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-85",
       "score": 0.7222
     },
     {
@@ -3565,8 +3565,8 @@
       "score": 0.6954
     },
     {
-      "id": "lyons-1997-sem-ntica-ling-stica-135",
-      "score": 0.6911
+      "id": "quine-1990-filosof-a-de-la-l-gica-3",
+      "score": 0.6915
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-12": [
@@ -3919,6 +3919,10 @@
       "score": 0.7738
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-34",
+      "score": 0.7714
+    },
+    {
       "id": "putnam-1990-representaci-n-y-realidad-22",
       "score": 0.7674
     },
@@ -3941,10 +3945,6 @@
     {
       "id": "strawson-1997-an-lisis-y-metaf-sica-24",
       "score": 0.7574
-    },
-    {
-      "id": "leech-1997-principios-de-pragm-tica-63",
-      "score": 0.7573
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-21": [
@@ -4195,8 +4195,8 @@
       "score": 0.7699
     },
     {
-      "id": "levinson-1989-pragm-tica-137",
-      "score": 0.7672
+      "id": "quine-1990-filosof-a-de-la-l-gica-17",
+      "score": 0.7679
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-27": [
@@ -4251,8 +4251,16 @@
       "score": 0.7893
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-16",
+      "score": 0.7892
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-242",
       "score": 0.7887
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.7844
     },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-93",
@@ -4267,20 +4275,12 @@
       "score": 0.7726
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-1",
+      "score": 0.7696
+    },
+    {
       "id": "leech-1997-principios-de-pragm-tica-19",
       "score": 0.7679
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-174",
-      "score": 0.7663
-    },
-    {
-      "id": "putnam-1990-representaci-n-y-realidad-157",
-      "score": 0.7661
-    },
-    {
-      "id": "leech-1997-principios-de-pragm-tica-55",
-      "score": 0.7647
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-29": [
@@ -4343,6 +4343,10 @@
       "score": 0.7537
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.7523
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-28",
       "score": 0.7506
     },
@@ -4361,13 +4365,13 @@
     {
       "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-128",
       "score": 0.7451
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-249",
-      "score": 0.7449
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-31": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-17",
+      "score": 0.7849
+    },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-6",
       "score": 0.7829
@@ -4403,10 +4407,6 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-215",
       "score": 0.7693
-    },
-    {
-      "id": "nelson-goodman-1990-20",
-      "score": 0.7688
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-32": [
@@ -4553,6 +4553,10 @@
       "score": 0.7319
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-41",
+      "score": 0.7305
+    },
+    {
       "id": "putnam-1988-razon-verdad-e-historia-19",
       "score": 0.7304
     },
@@ -4571,10 +4575,6 @@
     {
       "id": "putnam-1990-representaci-n-y-realidad-97",
       "score": 0.6973
-    },
-    {
-      "id": "putnam-1994-las-mil-caras-del-realismo-31",
-      "score": 0.697
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-36": [
@@ -4667,8 +4667,16 @@
       "score": 0.7812
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-40",
+      "score": 0.7742
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-132",
       "score": 0.7707
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.7689
     },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-2",
@@ -4693,14 +4701,6 @@
     {
       "id": "putnam-1988-razon-verdad-e-historia-45",
       "score": 0.7584
-    },
-    {
-      "id": "honderich-2001-enciclopedia-oxford-27",
-      "score": 0.7551
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-255",
-      "score": 0.7544
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-39": [
@@ -4805,6 +4805,10 @@
       "score": 0.7604
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-23",
+      "score": 0.7551
+    },
+    {
       "id": "putnam-2001-la-trenza-de-los-tres-cabos-55",
       "score": 0.7492
     },
@@ -4823,10 +4827,6 @@
     {
       "id": "levinson-1989-pragm-tica-51",
       "score": 0.7337
-    },
-    {
-      "id": "putnam-1990-representaci-n-y-realidad-161",
-      "score": 0.7324
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-42": [
@@ -4847,7 +4847,7 @@
       "score": 0.7665
     },
     {
-      "id": "nelson-goodman-1990-33",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-33",
       "score": 0.7651
     },
     {
@@ -4859,16 +4859,16 @@
       "score": 0.7644
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-9",
+      "score": 0.7643
+    },
+    {
       "id": "putnam-1988-razon-verdad-e-historia-186",
       "score": 0.7642
     },
     {
       "id": "putnam-1988-razon-verdad-e-historia-137",
       "score": 0.7618
-    },
-    {
-      "id": "warnock-1989-j-l-austin-36",
-      "score": 0.7614
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-43": [
@@ -5041,6 +5041,10 @@
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-47": [
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-42",
+      "score": 0.7645
+    },
+    {
       "id": "putnam-1988-razon-verdad-e-historia-148",
       "score": 0.762
     },
@@ -5075,10 +5079,6 @@
     {
       "id": "putnam-1994-las-mil-caras-del-realismo-41",
       "score": 0.7431
-    },
-    {
-      "id": "levinson-1989-pragm-tica-103",
-      "score": 0.7411
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-48": [
@@ -5401,6 +5401,10 @@
       "score": 0.7618
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-46",
+      "score": 0.759
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-146",
       "score": 0.7567
     },
@@ -5411,10 +5415,6 @@
     {
       "id": "levinson-1989-pragm-tica-138",
       "score": 0.7511
-    },
-    {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-102",
-      "score": 0.7506
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-56": [
@@ -6133,7 +6133,7 @@
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-73": [
     {
-      "id": "nelson-goodman-1990-25",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-25",
       "score": 0.7671
     },
     {
@@ -6245,7 +6245,7 @@
       "score": 0.7722
     },
     {
-      "id": "nelson-goodman-1990-27",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-27",
       "score": 0.7698
     },
     {
@@ -6301,7 +6301,7 @@
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-77": [
     {
-      "id": "nelson-goodman-1990-28",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-28",
       "score": 0.7668
     },
     {
@@ -6603,8 +6603,16 @@
       "score": 0.798
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-40",
+      "score": 0.7974
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-106",
       "score": 0.7938
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.7865
     },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-50",
@@ -6625,14 +6633,6 @@
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-255",
       "score": 0.7672
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-25",
-      "score": 0.7642
-    },
-    {
-      "id": "putnam-1988-razon-verdad-e-historia-153",
-      "score": 0.7584
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-85": [
@@ -6985,12 +6985,20 @@
       "score": 0.7885
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.7826
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-223",
       "score": 0.7798
     },
     {
       "id": "lyons-1997-sem-ntica-ling-stica-126",
       "score": 0.7798
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-16",
+      "score": 0.7793
     },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-28",
@@ -7003,14 +7011,6 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-18",
       "score": 0.7768
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-204",
-      "score": 0.7747
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-174",
-      "score": 0.7716
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-94": [
@@ -7573,6 +7573,10 @@
       "score": 0.7607
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-25",
+      "score": 0.7517
+    },
+    {
       "id": "putnam-2001-la-trenza-de-los-tres-cabos-20",
       "score": 0.7479
     },
@@ -7595,10 +7599,6 @@
     {
       "id": "putnam-1988-razon-verdad-e-historia-138",
       "score": 0.7427
-    },
-    {
-      "id": "levinson-1989-pragm-tica-19",
-      "score": 0.7407
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-108": [
@@ -7723,8 +7723,8 @@
       "score": 0.7427
     },
     {
-      "id": "putnam-1988-razon-verdad-e-historia-155",
-      "score": 0.7385
+      "id": "quine-1990-filosof-a-de-la-l-gica-23",
+      "score": 0.7422
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-111": [
@@ -7975,8 +7975,8 @@
       "score": 0.7439
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-5",
-      "score": 0.7435
+      "id": "quine-1990-filosof-a-de-la-l-gica-42",
+      "score": 0.7436
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-117": [
@@ -8447,6 +8447,10 @@
       "score": 0.775
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-41",
+      "score": 0.7364
+    },
+    {
       "id": "leech-1997-principios-de-pragm-tica-20",
       "score": 0.7314
     },
@@ -8477,10 +8481,6 @@
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-182",
       "score": 0.702
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-181",
-      "score": 0.7002
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-129": [
@@ -8639,16 +8639,16 @@
       "score": 0.7745
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-40",
+      "score": 0.7712
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-38",
       "score": 0.7707
     },
     {
       "id": "leech-1997-principios-de-pragm-tica-52",
       "score": 0.7641
-    },
-    {
-      "id": "honderich-2001-enciclopedia-oxford-27",
-      "score": 0.7586
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-133": [
@@ -8867,6 +8867,10 @@
       "score": 0.7699
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-1",
+      "score": 0.7669
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-228",
       "score": 0.7647
     },
@@ -8897,10 +8901,6 @@
     {
       "id": "levinson-1989-pragm-tica-188",
       "score": 0.7514
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-174",
-      "score": 0.7489
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-139": [
@@ -9437,16 +9437,16 @@
       "score": 0.6096
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-5",
+      "score": 0.6093
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-246",
       "score": 0.6086
     },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-26",
       "score": 0.6085
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-236",
-      "score": 0.6072
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-152": [
@@ -9639,6 +9639,10 @@
       "score": 0.7624
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-46",
+      "score": 0.762
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-78",
       "score": 0.7593
     },
@@ -9647,16 +9651,12 @@
       "score": 0.7581
     },
     {
-      "id": "nelson-goodman-1990-19",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-19",
       "score": 0.7577
     },
     {
       "id": "warnock-1989-j-l-austin-34",
       "score": 0.7564
-    },
-    {
-      "id": "levinson-1989-pragm-tica-183",
-      "score": 0.7562
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-157": [
@@ -10307,6 +10307,10 @@
       "score": 0.7536
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-4",
+      "score": 0.7525
+    },
+    {
       "id": "putnam-1988-razon-verdad-e-historia-137",
       "score": 0.7478
     },
@@ -10325,10 +10329,6 @@
     {
       "id": "warnock-1989-j-l-austin-36",
       "score": 0.7429
-    },
-    {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-84",
-      "score": 0.7406
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-173": [
@@ -10479,6 +10479,10 @@
       "score": 0.7563
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-23",
+      "score": 0.7517
+    },
+    {
       "id": "putnam-2001-la-trenza-de-los-tres-cabos-55",
       "score": 0.7479
     },
@@ -10493,10 +10497,6 @@
     {
       "id": "putnam-1994-las-mil-caras-del-realismo-12",
       "score": 0.7376
-    },
-    {
-      "id": "putnam-1990-representaci-n-y-realidad-25",
-      "score": 0.7371
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-177": [
@@ -10701,12 +10701,12 @@
       "score": 0.7474
     },
     {
-      "id": "nelson-goodman-1990-19",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-19",
       "score": 0.747
     },
     {
-      "id": "levinson-2004-significados-presumibles-108",
-      "score": 0.745
+      "id": "quine-1990-filosof-a-de-la-l-gica-46",
+      "score": 0.7452
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-182": [
@@ -10747,8 +10747,8 @@
       "score": 0.7419
     },
     {
-      "id": "putnam-1988-razon-verdad-e-historia-138",
-      "score": 0.7384
+      "id": "quine-1990-filosof-a-de-la-l-gica-25",
+      "score": 0.7406
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-183": [
@@ -10781,7 +10781,7 @@
       "score": 0.7804
     },
     {
-      "id": "nelson-goodman-1990-20",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-20",
       "score": 0.78
     },
     {
@@ -11055,19 +11055,19 @@
       "score": 0.6299
     },
     {
-      "id": "nelson-goodman-1990-2",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-2",
       "score": 0.6278
     },
     {
-      "id": "nelson-goodman-1990-38",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-38",
       "score": 0.6274
     },
     {
-      "id": "nelson-goodman-1990-6",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-6",
       "score": 0.6267
     },
     {
-      "id": "nelson-goodman-1990-1",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-1",
       "score": 0.6261
     },
     {
@@ -11075,11 +11075,11 @@
       "score": 0.6246
     },
     {
-      "id": "nelson-goodman-1990-4",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-4",
       "score": 0.6243
     },
     {
-      "id": "nelson-goodman-1990-17",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-17",
       "score": 0.6241
     },
     {
@@ -11227,7 +11227,7 @@
       "score": 0.7584
     },
     {
-      "id": "nelson-goodman-1990-1",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-1",
       "score": 0.7523
     },
     {
@@ -11621,16 +11621,16 @@
       "score": 0.7819
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-17",
+      "score": 0.7792
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-204",
       "score": 0.7791
     },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-26",
       "score": 0.779
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-166",
-      "score": 0.7776
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-204": [
@@ -11727,7 +11727,7 @@
       "score": 0.7736
     },
     {
-      "id": "nelson-goodman-1990-20",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-20",
       "score": 0.771
     },
     {
@@ -11751,12 +11751,12 @@
       "score": 0.7627
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-166",
-      "score": 0.762
+      "id": "quine-1990-filosof-a-de-la-l-gica-17",
+      "score": 0.7622
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-188",
-      "score": 0.7614
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-166",
+      "score": 0.762
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-207": [
@@ -11899,8 +11899,16 @@
       "score": 0.7985
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.7909
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-93",
       "score": 0.7906
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-16",
+      "score": 0.7875
     },
     {
       "id": "lyons-1997-sem-ntica-ling-stica-126",
@@ -11911,20 +11919,12 @@
       "score": 0.7782
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-1",
+      "score": 0.7769
+    },
+    {
       "id": "strawson-1997-an-lisis-y-metaf-sica-107",
       "score": 0.7706
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-204",
-      "score": 0.7705
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-18",
-      "score": 0.7687
-    },
-    {
-      "id": "putnam-1990-representaci-n-y-realidad-157",
-      "score": 0.7648
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-211": [
@@ -12139,7 +12139,7 @@
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-216": [
     {
-      "id": "nelson-goodman-1990-17",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-17",
       "score": 0.7758
     },
     {
@@ -12323,6 +12323,10 @@
       "score": 0.7645
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-11",
+      "score": 0.7643
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-257",
       "score": 0.7617
     },
@@ -12341,10 +12345,6 @@
     {
       "id": "putnam-1990-representaci-n-y-realidad-50",
       "score": 0.7553
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-233",
-      "score": 0.7549
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-221": [
@@ -12355,6 +12355,10 @@
     {
       "id": "putnam-1988-razon-verdad-e-historia-49",
       "score": 0.7718
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-48",
+      "score": 0.7709
     },
     {
       "id": "strawson-1997-an-lisis-y-metaf-sica-98",
@@ -12383,10 +12387,6 @@
     {
       "id": "levinson-1989-pragm-tica-18",
       "score": 0.7626
-    },
-    {
-      "id": "putnam-1990-representaci-n-y-realidad-41",
-      "score": 0.76
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-222": [
@@ -12453,24 +12453,24 @@
       "score": 0.7752
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.7747
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-1",
+      "score": 0.774
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-28",
+      "score": 0.7733
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-149",
       "score": 0.7721
     },
     {
-      "id": "lyons-1997-sem-ntica-ling-stica-143",
-      "score": 0.7708
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-126",
-      "score": 0.7687
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-18",
-      "score": 0.7679
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-204",
-      "score": 0.7644
+      "id": "quine-1990-filosof-a-de-la-l-gica-16",
+      "score": 0.771
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-224": [
@@ -12517,6 +12517,10 @@
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-225": [
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-38",
+      "score": 0.7527
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-42",
       "score": 0.7489
     },
@@ -12551,10 +12555,6 @@
     {
       "id": "levinson-1989-pragm-tica-129",
       "score": 0.7384
-    },
-    {
-      "id": "levinson-2004-significados-presumibles-68",
-      "score": 0.7381
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-226": [
@@ -12659,8 +12659,20 @@
       "score": 0.7893
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-16",
+      "score": 0.7839
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.7803
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-223",
       "score": 0.7752
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-1",
+      "score": 0.7711
     },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-138",
@@ -12669,18 +12681,6 @@
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-174",
       "score": 0.7584
-    },
-    {
-      "id": "levinson-1989-pragm-tica-188",
-      "score": 0.7549
-    },
-    {
-      "id": "putnam-1988-razon-verdad-e-historia-14",
-      "score": 0.7537
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-30",
-      "score": 0.7537
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-229": [
@@ -12805,8 +12805,8 @@
       "score": 0.7506
     },
     {
-      "id": "putnam-1999-el-pragmatismo-25",
-      "score": 0.7474
+      "id": "quine-1990-filosof-a-de-la-l-gica-48",
+      "score": 0.7482
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-232": [
@@ -12889,8 +12889,8 @@
       "score": 0.765
     },
     {
-      "id": "putnam-1988-razon-verdad-e-historia-68",
-      "score": 0.7558
+      "id": "quine-1990-filosof-a-de-la-l-gica-11",
+      "score": 0.7575
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-234": [
@@ -12991,6 +12991,10 @@
       "score": 0.7732
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-17",
+      "score": 0.7729
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-250",
       "score": 0.7719
     },
@@ -13013,10 +13017,6 @@
     {
       "id": "strawson-1997-an-lisis-y-metaf-sica-96",
       "score": 0.7644
-    },
-    {
-      "id": "putnam-1990-representaci-n-y-realidad-134",
-      "score": 0.7634
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-237": [
@@ -13259,16 +13259,16 @@
       "score": 0.7793
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-16",
+      "score": 0.7759
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.7705
+    },
+    {
       "id": "levinson-2004-significados-presumibles-33",
       "score": 0.77
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-174",
-      "score": 0.7697
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-204",
-      "score": 0.7687
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-243": [
@@ -13361,6 +13361,10 @@
       "score": 0.7822
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-9",
+      "score": 0.7772
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-42",
       "score": 0.7765
     },
@@ -13371,6 +13375,10 @@
     {
       "id": "putnam-1988-razon-verdad-e-historia-137",
       "score": 0.7693
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-4",
+      "score": 0.7665
     },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-3",
@@ -13385,16 +13393,8 @@
       "score": 0.7636
     },
     {
-      "id": "lyons-1997-sem-ntica-ling-stica-105",
-      "score": 0.7617
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-172",
-      "score": 0.7613
-    },
-    {
-      "id": "warnock-1989-j-l-austin-36",
-      "score": 0.7603
+      "id": "quine-1990-filosof-a-de-la-l-gica-38",
+      "score": 0.7632
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-246": [
@@ -13477,8 +13477,8 @@
       "score": 0.7503
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-210",
-      "score": 0.7497
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.7499
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-248": [
@@ -13587,6 +13587,10 @@
       "score": 0.7719
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-17",
+      "score": 0.7712
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-183",
       "score": 0.7682
     },
@@ -13601,10 +13605,6 @@
     {
       "id": "putnam-2001-la-trenza-de-los-tres-cabos-109",
       "score": 0.7634
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-204",
-      "score": 0.7624
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-251": [
@@ -13721,16 +13721,16 @@
       "score": 0.7554
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-9",
+      "score": 0.751
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-3",
       "score": 0.7499
     },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-42",
       "score": 0.7487
-    },
-    {
-      "id": "levinson-2004-significados-presumibles-109",
-      "score": 0.7478
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-254": [
@@ -13801,6 +13801,10 @@
       "score": 0.7572
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.7546
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-38",
       "score": 0.7544
     },
@@ -13811,10 +13815,6 @@
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-2",
       "score": 0.7513
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-25",
-      "score": 0.7493
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-256": [
@@ -13939,7 +13939,7 @@
       "score": 0.761
     },
     {
-      "id": "nelson-goodman-1990-21",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-21",
       "score": 0.761
     }
   ],
@@ -14767,7 +14767,7 @@
       "score": 0.7365
     },
     {
-      "id": "nelson-goodman-1990-37",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-37",
       "score": 0.7344
     },
     {
@@ -14985,7 +14985,7 @@
       "score": 0.7472
     },
     {
-      "id": "nelson-goodman-1990-1",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-1",
       "score": 0.7457
     },
     {
@@ -15133,6 +15133,10 @@
       "score": 0.7524
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-40",
+      "score": 0.7521
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-84",
       "score": 0.7518
     },
@@ -15155,10 +15159,6 @@
     {
       "id": "putnam-1988-razon-verdad-e-historia-45",
       "score": 0.7427
-    },
-    {
-      "id": "putnam-1988-razon-verdad-e-historia-149",
-      "score": 0.7422
     }
   ],
   "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-288": [
@@ -16451,7 +16451,7 @@
       "score": 0.7455
     },
     {
-      "id": "nelson-goodman-1990-38",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-38",
       "score": 0.7422
     },
     {
@@ -16473,7 +16473,7 @@
       "score": 0.769
     },
     {
-      "id": "nelson-goodman-1990-20",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-20",
       "score": 0.766
     },
     {
@@ -16489,6 +16489,10 @@
       "score": 0.7612
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-17",
+      "score": 0.7609
+    },
+    {
       "id": "putnam-1990-representaci-n-y-realidad-140",
       "score": 0.7602
     },
@@ -16499,10 +16503,6 @@
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-202",
       "score": 0.7568
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-161",
-      "score": 0.754
     }
   ],
   "eco-1992-los-l-mites-de-la-interpretaci-n-19": [
@@ -17187,11 +17187,11 @@
       "score": 0.7554
     },
     {
-      "id": "nelson-goodman-1990-10",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-10",
       "score": 0.7549
     },
     {
-      "id": "nelson-goodman-1990-19",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-19",
       "score": 0.7534
     },
     {
@@ -17257,7 +17257,7 @@
       "score": 0.7577
     },
     {
-      "id": "nelson-goodman-1990-30",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-30",
       "score": 0.7572
     }
   ],
@@ -17497,7 +17497,7 @@
       "score": 0.7479
     },
     {
-      "id": "nelson-goodman-1990-25",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-25",
       "score": 0.7461
     },
     {
@@ -17619,11 +17619,11 @@
       "score": 0.7833
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-49",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-83",
       "score": 0.7829
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-83",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-49",
       "score": 0.7829
     },
     {
@@ -17757,12 +17757,12 @@
       "score": 0.7402
     },
     {
-      "id": "levinson-1989-pragm-tica-118",
-      "score": 0.7389
+      "id": "quine-1990-filosof-a-de-la-l-gica-34",
+      "score": 0.7398
     },
     {
-      "id": "levinson-2004-significados-presumibles-24",
-      "score": 0.7383
+      "id": "levinson-1989-pragm-tica-118",
+      "score": 0.7389
     }
   ],
   "fabbri-2000-el-giro-semi-tico-6": [
@@ -18741,11 +18741,11 @@
       "score": 0.7871
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-87",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-53",
       "score": 0.7795
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-53",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-87",
       "score": 0.7795
     },
     {
@@ -19357,7 +19357,7 @@
       "score": 0.7457
     },
     {
-      "id": "nelson-goodman-1990-22",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-22",
       "score": 0.7399
     }
   ],
@@ -19463,11 +19463,11 @@
       "score": 0.7674
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-43",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-77",
       "score": 0.7665
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-77",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-43",
       "score": 0.7665
     },
     {
@@ -19551,6 +19551,10 @@
       "score": 0.756
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-11",
+      "score": 0.745
+    },
+    {
       "id": "levinson-2004-significados-presumibles-102",
       "score": 0.7449
     },
@@ -19565,10 +19569,6 @@
     {
       "id": "putnam-1990-representaci-n-y-realidad-158",
       "score": 0.7422
-    },
-    {
-      "id": "putnam-1988-razon-verdad-e-historia-47",
-      "score": 0.7416
     }
   ],
   "fontanille-2008-soma-y-sema-7": [
@@ -19731,7 +19731,7 @@
       "score": 0.7637
     },
     {
-      "id": "nelson-goodman-1990-22",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-22",
       "score": 0.7625
     },
     {
@@ -19753,19 +19753,19 @@
       "score": 0.7689
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-44",
-      "score": 0.7683
-    },
-    {
       "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-78",
       "score": 0.7683
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-50",
-      "score": 0.7621
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-44",
+      "score": 0.7683
     },
     {
       "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-84",
+      "score": 0.7621
+    },
+    {
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-50",
       "score": 0.7621
     },
     {
@@ -19987,7 +19987,7 @@
       "score": 0.7474
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-53",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-87",
       "score": 0.7471
     }
   ],
@@ -20063,7 +20063,7 @@
       "score": 0.7574
     },
     {
-      "id": "nelson-goodman-1990-27",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-27",
       "score": 0.7559
     },
     {
@@ -20143,11 +20143,11 @@
       "score": 0.7662
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-46",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-80",
       "score": 0.7627
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-80",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-46",
       "score": 0.7627
     },
     {
@@ -20257,6 +20257,10 @@
       "score": 0.7292
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-36",
+      "score": 0.7289
+    },
+    {
       "id": "putnam-1990-representaci-n-y-realidad-77",
       "score": 0.727
     },
@@ -20279,10 +20283,6 @@
     {
       "id": "levinson-1989-pragm-tica-206",
       "score": 0.7211
-    },
-    {
-      "id": "putnam-1988-razon-verdad-e-historia-52",
-      "score": 0.721
     }
   ],
   "fontanille-2008-soma-y-sema-24": [
@@ -20819,7 +20819,7 @@
       "score": 0.7289
     },
     {
-      "id": "nelson-goodman-1990-9",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-9",
       "score": 0.7271
     },
     {
@@ -20945,11 +20945,11 @@
       "score": 0.7665
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-53",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-87",
       "score": 0.7664
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-87",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-53",
       "score": 0.7664
     },
     {
@@ -21059,11 +21059,11 @@
       "score": 0.7505
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-44",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-78",
       "score": 0.7438
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-78",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-44",
       "score": 0.7438
     },
     {
@@ -21105,11 +21105,11 @@
       "score": 0.7599
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-46",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-80",
       "score": 0.7554
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-80",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-46",
       "score": 0.7554
     },
     {
@@ -21201,11 +21201,11 @@
       "score": 0.7079
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-51",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-85",
       "score": 0.7013
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-85",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-51",
       "score": 0.7013
     }
   ],
@@ -21293,7 +21293,7 @@
       "score": 0.7307
     }
   ],
-  "nelson-goodman-1990-1": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-1": [
     {
       "id": "putnam-1994-las-mil-caras-del-realismo-28",
       "score": 0.7801
@@ -21335,7 +21335,7 @@
       "score": 0.7479
     }
   ],
-  "nelson-goodman-1990-2": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-2": [
     {
       "id": "putnam-1990-representaci-n-y-realidad-82",
       "score": 0.7539
@@ -21377,17 +21377,17 @@
       "score": 0.7344
     }
   ],
-  "nelson-goodman-1990-3": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-3": [
     {
-      "id": "nelson-goodman-1990-21",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-21",
       "score": 0.8137
     },
     {
-      "id": "nelson-goodman-1990-13",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-13",
       "score": 0.7796
     },
     {
-      "id": "nelson-goodman-1990-8",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-8",
       "score": 0.7787
     },
     {
@@ -21411,7 +21411,7 @@
       "score": 0.7518
     },
     {
-      "id": "nelson-goodman-1990-24",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-24",
       "score": 0.7513
     },
     {
@@ -21419,52 +21419,56 @@
       "score": 0.7508
     }
   ],
-  "nelson-goodman-1990-4": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-4": [
     {
-      "id": "nelson-goodman-1990-38",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-38",
       "score": 0.6722
     },
     {
-      "id": "nelson-goodman-1990-2",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-2",
       "score": 0.6654
     },
     {
-      "id": "nelson-goodman-1990-23",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-23",
       "score": 0.6644
     },
     {
-      "id": "nelson-goodman-1990-3",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-3",
       "score": 0.6608
     },
     {
-      "id": "nelson-goodman-1990-36",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-36",
       "score": 0.66
     },
     {
-      "id": "nelson-goodman-1990-21",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-21",
       "score": 0.6571
     },
     {
-      "id": "nelson-goodman-1990-17",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-17",
       "score": 0.6554
     },
     {
-      "id": "nelson-goodman-1990-37",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-37",
       "score": 0.6518
     },
     {
-      "id": "nelson-goodman-1990-22",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-22",
       "score": 0.6468
     },
     {
-      "id": "nelson-goodman-1990-7",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-7",
       "score": 0.6433
     }
   ],
-  "nelson-goodman-1990-5": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-5": [
     {
       "id": "putnam-1999-el-pragmatismo-6",
       "score": 0.7278
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-3",
+      "score": 0.7249
     },
     {
       "id": "putnam-2001-la-trenza-de-los-tres-cabos-13",
@@ -21479,7 +21483,7 @@
       "score": 0.7017
     },
     {
-      "id": "nelson-goodman-1990-14",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-14",
       "score": 0.7007
     },
     {
@@ -21497,23 +21501,19 @@
     {
       "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-48",
       "score": 0.689
-    },
-    {
-      "id": "nelson-goodman-1990-10",
-      "score": 0.6837
     }
   ],
-  "nelson-goodman-1990-6": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-6": [
     {
-      "id": "nelson-goodman-1990-4",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-4",
       "score": 0.6407
     },
     {
-      "id": "nelson-goodman-1990-7",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-7",
       "score": 0.6373
     },
     {
-      "id": "nelson-goodman-1990-38",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-38",
       "score": 0.6356
     },
     {
@@ -21521,7 +21521,7 @@
       "score": 0.6337
     },
     {
-      "id": "nelson-goodman-1990-36",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-36",
       "score": 0.633
     },
     {
@@ -21529,11 +21529,11 @@
       "score": 0.6314
     },
     {
-      "id": "nelson-goodman-1990-17",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-17",
       "score": 0.6314
     },
     {
-      "id": "nelson-goodman-1990-2",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-2",
       "score": 0.6284
     },
     {
@@ -21541,63 +21541,63 @@
       "score": 0.6277
     },
     {
-      "id": "nelson-goodman-1990-1",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-1",
       "score": 0.6271
     }
   ],
-  "nelson-goodman-1990-7": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-7": [
     {
-      "id": "nelson-goodman-1990-36",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-36",
       "score": 0.6583
     },
     {
-      "id": "nelson-goodman-1990-2",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-2",
       "score": 0.6471
     },
     {
-      "id": "nelson-goodman-1990-8",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-8",
       "score": 0.6437
     },
     {
-      "id": "nelson-goodman-1990-4",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-4",
       "score": 0.6433
     },
     {
-      "id": "nelson-goodman-1990-22",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-22",
       "score": 0.6411
     },
     {
-      "id": "nelson-goodman-1990-1",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-1",
       "score": 0.6405
     },
     {
-      "id": "nelson-goodman-1990-23",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-23",
       "score": 0.64
     },
     {
-      "id": "nelson-goodman-1990-10",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-10",
       "score": 0.6393
     },
     {
-      "id": "nelson-goodman-1990-6",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-6",
       "score": 0.6373
     },
     {
-      "id": "nelson-goodman-1990-9",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-9",
       "score": 0.6369
     }
   ],
-  "nelson-goodman-1990-8": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-8": [
     {
-      "id": "nelson-goodman-1990-13",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-13",
       "score": 0.7852
     },
     {
-      "id": "nelson-goodman-1990-3",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-3",
       "score": 0.7787
     },
     {
-      "id": "nelson-goodman-1990-21",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-21",
       "score": 0.7656
     },
     {
@@ -21609,7 +21609,7 @@
       "score": 0.7583
     },
     {
-      "id": "nelson-goodman-1990-24",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-24",
       "score": 0.755
     },
     {
@@ -21629,9 +21629,9 @@
       "score": 0.7462
     }
   ],
-  "nelson-goodman-1990-9": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-9": [
     {
-      "id": "nelson-goodman-1990-28",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-28",
       "score": 0.7484
     },
     {
@@ -21671,9 +21671,9 @@
       "score": 0.7315
     }
   ],
-  "nelson-goodman-1990-10": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-10": [
     {
-      "id": "nelson-goodman-1990-19",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-19",
       "score": 0.7706
     },
     {
@@ -21713,7 +21713,7 @@
       "score": 0.7411
     }
   ],
-  "nelson-goodman-1990-11": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-11": [
     {
       "id": "putnam-1990-representaci-n-y-realidad-12",
       "score": 0.7444
@@ -21755,7 +21755,7 @@
       "score": 0.7241
     }
   ],
-  "nelson-goodman-1990-12": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-12": [
     {
       "id": "putnam-1994-las-mil-caras-del-realismo-33",
       "score": 0.747
@@ -21797,21 +21797,21 @@
       "score": 0.7312
     }
   ],
-  "nelson-goodman-1990-13": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-13": [
     {
-      "id": "nelson-goodman-1990-8",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-8",
       "score": 0.7852
     },
     {
-      "id": "nelson-goodman-1990-3",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-3",
       "score": 0.7796
     },
     {
-      "id": "nelson-goodman-1990-21",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-21",
       "score": 0.7673
     },
     {
-      "id": "nelson-goodman-1990-24",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-24",
       "score": 0.7485
     },
     {
@@ -21839,7 +21839,7 @@
       "score": 0.7307
     }
   ],
-  "nelson-goodman-1990-14": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-14": [
     {
       "id": "honderich-2001-enciclopedia-oxford-62",
       "score": 0.7486
@@ -21881,9 +21881,9 @@
       "score": 0.7222
     }
   ],
-  "nelson-goodman-1990-15": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-15": [
     {
-      "id": "nelson-goodman-1990-37",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-37",
       "score": 0.7388
     },
     {
@@ -21923,7 +21923,7 @@
       "score": 0.7161
     }
   ],
-  "nelson-goodman-1990-16": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-16": [
     {
       "id": "fabbri-2000-el-giro-semi-tico-18",
       "score": 0.7238
@@ -21965,7 +21965,7 @@
       "score": 0.709
     }
   ],
-  "nelson-goodman-1990-17": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-17": [
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-216",
       "score": 0.7758
@@ -21987,7 +21987,7 @@
       "score": 0.7425
     },
     {
-      "id": "nelson-goodman-1990-37",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-37",
       "score": 0.741
     },
     {
@@ -22007,7 +22007,7 @@
       "score": 0.7281
     }
   ],
-  "nelson-goodman-1990-18": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-18": [
     {
       "id": "putnam-1988-razon-verdad-e-historia-45",
       "score": 0.7577
@@ -22041,21 +22041,21 @@
       "score": 0.7395
     },
     {
-      "id": "eco-1992-los-l-mites-de-la-interpretaci-n-37",
-      "score": 0.7373
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.7393
     },
     {
-      "id": "putnam-2001-la-trenza-de-los-tres-cabos-125",
-      "score": 0.7368
+      "id": "eco-1992-los-l-mites-de-la-interpretaci-n-37",
+      "score": 0.7373
     }
   ],
-  "nelson-goodman-1990-19": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-19": [
     {
       "id": "strawson-1997-an-lisis-y-metaf-sica-102",
       "score": 0.7829
     },
     {
-      "id": "nelson-goodman-1990-10",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-10",
       "score": 0.7706
     },
     {
@@ -22091,7 +22091,7 @@
       "score": 0.7465
     }
   ],
-  "nelson-goodman-1990-20": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-20": [
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-183",
       "score": 0.78
@@ -22107,6 +22107,10 @@
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-203",
       "score": 0.7679
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-17",
+      "score": 0.7667
     },
     {
       "id": "eco-1992-los-l-mites-de-la-interpretaci-n-18",
@@ -22127,15 +22131,11 @@
     {
       "id": "putnam-1994-las-mil-caras-del-realismo-39",
       "score": 0.7576
-    },
-    {
-      "id": "levinson-1989-pragm-tica-137",
-      "score": 0.7573
     }
   ],
-  "nelson-goodman-1990-21": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-21": [
     {
-      "id": "nelson-goodman-1990-3",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-3",
       "score": 0.8137
     },
     {
@@ -22143,11 +22143,11 @@
       "score": 0.768
     },
     {
-      "id": "nelson-goodman-1990-13",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-13",
       "score": 0.7673
     },
     {
-      "id": "nelson-goodman-1990-8",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-8",
       "score": 0.7656
     },
     {
@@ -22175,13 +22175,13 @@
       "score": 0.7579
     }
   ],
-  "nelson-goodman-1990-22": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-22": [
     {
-      "id": "nelson-goodman-1990-30",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-30",
       "score": 0.7891
     },
     {
-      "id": "nelson-goodman-1990-23",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-23",
       "score": 0.7867
     },
     {
@@ -22217,17 +22217,17 @@
       "score": 0.7538
     }
   ],
-  "nelson-goodman-1990-23": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-23": [
     {
-      "id": "nelson-goodman-1990-22",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-22",
       "score": 0.7867
     },
     {
-      "id": "nelson-goodman-1990-30",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-30",
       "score": 0.7694
     },
     {
-      "id": "nelson-goodman-1990-38",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-38",
       "score": 0.7476
     },
     {
@@ -22259,7 +22259,7 @@
       "score": 0.7269
     }
   ],
-  "nelson-goodman-1990-24": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-24": [
     {
       "id": "avranmides-2019-knowing-other-minds-27",
       "score": 0.763
@@ -22269,7 +22269,7 @@
       "score": 0.7617
     },
     {
-      "id": "nelson-goodman-1990-8",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-8",
       "score": 0.755
     },
     {
@@ -22281,11 +22281,11 @@
       "score": 0.7531
     },
     {
-      "id": "nelson-goodman-1990-3",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-3",
       "score": 0.7513
     },
     {
-      "id": "nelson-goodman-1990-21",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-21",
       "score": 0.7504
     },
     {
@@ -22293,7 +22293,7 @@
       "score": 0.7492
     },
     {
-      "id": "nelson-goodman-1990-13",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-13",
       "score": 0.7485
     },
     {
@@ -22301,7 +22301,7 @@
       "score": 0.7457
     }
   ],
-  "nelson-goodman-1990-25": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-25": [
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-73",
       "score": 0.7671
@@ -22343,17 +22343,17 @@
       "score": 0.7461
     }
   ],
-  "nelson-goodman-1990-26": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-26": [
     {
-      "id": "nelson-goodman-1990-27",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-27",
       "score": 0.6647
     },
     {
-      "id": "nelson-goodman-1990-25",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-25",
       "score": 0.6582
     },
     {
-      "id": "nelson-goodman-1990-28",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-28",
       "score": 0.6472
     },
     {
@@ -22385,7 +22385,7 @@
       "score": 0.6085
     }
   ],
-  "nelson-goodman-1990-27": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-27": [
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-75",
       "score": 0.7698
@@ -22427,7 +22427,7 @@
       "score": 0.7551
     }
   ],
-  "nelson-goodman-1990-28": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-28": [
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-77",
       "score": 0.7668
@@ -22441,7 +22441,7 @@
       "score": 0.7503
     },
     {
-      "id": "nelson-goodman-1990-9",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-9",
       "score": 0.7484
     },
     {
@@ -22469,7 +22469,7 @@
       "score": 0.7421
     }
   ],
-  "nelson-goodman-1990-29": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-29": [
     {
       "id": "honderich-2001-enciclopedia-oxford-31",
       "score": 0.774
@@ -22511,13 +22511,13 @@
       "score": 0.7442
     }
   ],
-  "nelson-goodman-1990-30": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-30": [
     {
-      "id": "nelson-goodman-1990-22",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-22",
       "score": 0.7891
     },
     {
-      "id": "nelson-goodman-1990-23",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-23",
       "score": 0.7694
     },
     {
@@ -22553,83 +22553,83 @@
       "score": 0.7447
     }
   ],
-  "nelson-goodman-1990-31": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-31": [
     {
-      "id": "nelson-goodman-1990-32",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-32",
       "score": 0.6751
     },
     {
-      "id": "nelson-goodman-1990-30",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-30",
       "score": 0.6564
     },
     {
-      "id": "nelson-goodman-1990-15",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-15",
       "score": 0.6407
     },
     {
-      "id": "nelson-goodman-1990-22",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-22",
       "score": 0.6241
     },
     {
-      "id": "nelson-goodman-1990-34",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-34",
       "score": 0.6217
     },
     {
-      "id": "nelson-goodman-1990-2",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-2",
       "score": 0.6208
     },
     {
-      "id": "nelson-goodman-1990-36",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-36",
       "score": 0.6175
     },
     {
-      "id": "nelson-goodman-1990-16",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-16",
       "score": 0.616
     },
     {
-      "id": "nelson-goodman-1990-29",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-29",
       "score": 0.6153
     },
     {
-      "id": "nelson-goodman-1990-13",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-13",
       "score": 0.6139
     }
   ],
-  "nelson-goodman-1990-32": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-32": [
     {
-      "id": "nelson-goodman-1990-31",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-31",
       "score": 0.6751
     },
     {
-      "id": "nelson-goodman-1990-30",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-30",
       "score": 0.6512
     },
     {
-      "id": "nelson-goodman-1990-15",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-15",
       "score": 0.6442
     },
     {
-      "id": "nelson-goodman-1990-2",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-2",
       "score": 0.6194
     },
     {
-      "id": "nelson-goodman-1990-16",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-16",
       "score": 0.6186
     },
     {
-      "id": "nelson-goodman-1990-34",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-34",
       "score": 0.6184
     },
     {
-      "id": "nelson-goodman-1990-29",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-29",
       "score": 0.6158
     },
     {
-      "id": "nelson-goodman-1990-22",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-22",
       "score": 0.6145
     },
     {
-      "id": "nelson-goodman-1990-36",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-36",
       "score": 0.6145
     },
     {
@@ -22637,7 +22637,7 @@
       "score": 0.6128
     }
   ],
-  "nelson-goodman-1990-33": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-33": [
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-42",
       "score": 0.7651
@@ -22679,29 +22679,29 @@
       "score": 0.7368
     }
   ],
-  "nelson-goodman-1990-34": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-34": [
     {
       "id": "putnam-1988-razon-verdad-e-historia-130",
       "score": 0.6605
     },
     {
-      "id": "nelson-goodman-1990-22",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-22",
       "score": 0.6576
     },
     {
-      "id": "nelson-goodman-1990-20",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-20",
       "score": 0.6509
     },
     {
-      "id": "nelson-goodman-1990-2",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-2",
       "score": 0.6469
     },
     {
-      "id": "nelson-goodman-1990-30",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-30",
       "score": 0.6467
     },
     {
-      "id": "nelson-goodman-1990-35",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-35",
       "score": 0.646
     },
     {
@@ -22713,15 +22713,15 @@
       "score": 0.6434
     },
     {
-      "id": "nelson-goodman-1990-3",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-3",
       "score": 0.6425
     },
     {
-      "id": "nelson-goodman-1990-36",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-36",
       "score": 0.6424
     }
   ],
-  "nelson-goodman-1990-35": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-35": [
     {
       "id": "putnam-1990-representaci-n-y-realidad-28",
       "score": 0.77
@@ -22763,7 +22763,7 @@
       "score": 0.7361
     }
   ],
-  "nelson-goodman-1990-36": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-36": [
     {
       "id": "putnam-1988-razon-verdad-e-historia-135",
       "score": 0.7572
@@ -22805,17 +22805,17 @@
       "score": 0.7296
     }
   ],
-  "nelson-goodman-1990-37": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-37": [
     {
       "id": "putnam-1999-el-pragmatismo-43",
       "score": 0.7451
     },
     {
-      "id": "nelson-goodman-1990-17",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-17",
       "score": 0.741
     },
     {
-      "id": "nelson-goodman-1990-15",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-15",
       "score": 0.7388
     },
     {
@@ -22827,7 +22827,7 @@
       "score": 0.7344
     },
     {
-      "id": "nelson-goodman-1990-21",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-21",
       "score": 0.7342
     },
     {
@@ -22839,7 +22839,7 @@
       "score": 0.7319
     },
     {
-      "id": "nelson-goodman-1990-3",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-3",
       "score": 0.727
     },
     {
@@ -22847,13 +22847,13 @@
       "score": 0.7181
     }
   ],
-  "nelson-goodman-1990-38": [
+  "nelson-goodman-1990-maneras-de-hacer-mundos-38": [
     {
       "id": "warnock-1989-j-l-austin-26",
       "score": 0.7561
     },
     {
-      "id": "nelson-goodman-1990-23",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-23",
       "score": 0.7476
     },
     {
@@ -22979,11 +22979,11 @@
       "score": 0.6652
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-86",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-52",
       "score": 0.6611
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-52",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-86",
       "score": 0.6611
     },
     {
@@ -23021,11 +23021,11 @@
       "score": 0.8032
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-80",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-46",
       "score": 0.803
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-46",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-80",
       "score": 0.803
     },
     {
@@ -23273,11 +23273,11 @@
       "score": 0.7828
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-87",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-53",
       "score": 0.7757
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-53",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-87",
       "score": 0.7757
     },
     {
@@ -23461,6 +23461,10 @@
       "score": 0.7456
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-10",
+      "score": 0.7436
+    },
+    {
       "id": "fontanille-2008-soma-y-sema-29",
       "score": 0.7434
     },
@@ -23471,10 +23475,6 @@
     {
       "id": "levinson-2004-significados-presumibles-93",
       "score": 0.7427
-    },
-    {
-      "id": "levinson-1989-pragm-tica-238",
-      "score": 0.742
     }
   ],
   "greimas-fontanille-1994-semi-tica-de-las-pasiones-15": [
@@ -23521,11 +23521,11 @@
   ],
   "greimas-fontanille-1994-semi-tica-de-las-pasiones-16": [
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-47",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-81",
       "score": 0.7648
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-81",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-47",
       "score": 0.7648
     },
     {
@@ -23873,11 +23873,11 @@
       "score": 0.7826
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-49",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-83",
       "score": 0.7805
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-83",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-49",
       "score": 0.7805
     },
     {
@@ -23965,11 +23965,11 @@
       "score": 0.7713
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-83",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-49",
       "score": 0.7648
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-49",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-83",
       "score": 0.7648
     },
     {
@@ -24953,11 +24953,11 @@
       "score": 0.85
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-44",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-78",
       "score": 0.7862
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-78",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-44",
       "score": 0.7862
     },
     {
@@ -26133,11 +26133,11 @@
       "score": 0.8017
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-50",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-84",
       "score": 0.7862
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-84",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-50",
       "score": 0.7862
     },
     {
@@ -26917,8 +26917,8 @@
       "score": 0.7329
     },
     {
-      "id": "honderich-2001-enciclopedia-oxford-66",
-      "score": 0.7312
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.7317
     }
   ],
   "honderich-2001-enciclopedia-oxford-8": [
@@ -26973,11 +26973,19 @@
       "score": 0.6373
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-38",
+      "score": 0.6314
+    },
+    {
       "id": "honderich-2001-enciclopedia-oxford-28",
       "score": 0.6313
     },
     {
       "id": "levinson-1989-pragm-tica-153",
+      "score": 0.6283
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-20",
       "score": 0.6283
     },
     {
@@ -26995,14 +27003,6 @@
     {
       "id": "strawson-1997-an-lisis-y-metaf-sica-29",
       "score": 0.6242
-    },
-    {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-115",
-      "score": 0.6226
-    },
-    {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-114",
-      "score": 0.6219
     }
   ],
   "honderich-2001-enciclopedia-oxford-10": [
@@ -27737,6 +27737,10 @@
       "score": 0.7651
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.7626
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-2",
       "score": 0.7608
     },
@@ -27755,10 +27759,6 @@
     {
       "id": "levinson-1989-pragm-tica-97",
       "score": 0.7548
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-84",
-      "score": 0.7539
     }
   ],
   "honderich-2001-enciclopedia-oxford-28": [
@@ -27863,7 +27863,7 @@
       "score": 0.7776
     },
     {
-      "id": "nelson-goodman-1990-29",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-29",
       "score": 0.7702
     },
     {
@@ -27905,7 +27905,7 @@
       "score": 0.7834
     },
     {
-      "id": "nelson-goodman-1990-29",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-29",
       "score": 0.774
     },
     {
@@ -27951,7 +27951,7 @@
       "score": 0.7537
     },
     {
-      "id": "nelson-goodman-1990-10",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-10",
       "score": 0.7532
     },
     {
@@ -28467,7 +28467,7 @@
       "score": 0.7362
     },
     {
-      "id": "nelson-goodman-1990-21",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-21",
       "score": 0.7361
     },
     {
@@ -28531,6 +28531,10 @@
       "score": 0.7637
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-38",
+      "score": 0.7587
+    },
+    {
       "id": "levinson-1989-pragm-tica-163",
       "score": 0.7576
     },
@@ -28553,10 +28557,6 @@
     {
       "id": "levinson-1989-pragm-tica-182",
       "score": 0.7534
-    },
-    {
-      "id": "leech-1997-principios-de-pragm-tica-184",
-      "score": 0.7511
     }
   ],
   "honderich-2001-enciclopedia-oxford-47": [
@@ -28581,6 +28581,10 @@
       "score": 0.7589
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-11",
+      "score": 0.7565
+    },
+    {
       "id": "putnam-1990-representaci-n-y-realidad-148",
       "score": 0.7554
     },
@@ -28595,10 +28599,6 @@
     {
       "id": "putnam-1988-razon-verdad-e-historia-68",
       "score": 0.7535
-    },
-    {
-      "id": "rorty-1991-contigengencia-iron-a-y-solidaridad-30",
-      "score": 0.7534
     }
   ],
   "honderich-2001-enciclopedia-oxford-48": [
@@ -28909,7 +28909,7 @@
       "score": 0.6486
     },
     {
-      "id": "nelson-goodman-1990-34",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-34",
       "score": 0.6459
     },
     {
@@ -29043,11 +29043,11 @@
       "score": 0.7569
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-44",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-78",
       "score": 0.7562
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-78",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-44",
       "score": 0.7562
     },
     {
@@ -29139,12 +29139,12 @@
       "score": 0.7457
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-221",
-      "score": 0.7413
+      "id": "quine-1990-filosof-a-de-la-l-gica-48",
+      "score": 0.7438
     },
     {
-      "id": "putnam-2001-la-trenza-de-los-tres-cabos-146",
-      "score": 0.7403
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-221",
+      "score": 0.7413
     }
   ],
   "honderich-2001-enciclopedia-oxford-61": [
@@ -29191,7 +29191,7 @@
   ],
   "honderich-2001-enciclopedia-oxford-62": [
     {
-      "id": "nelson-goodman-1990-14",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-14",
       "score": 0.7486
     },
     {
@@ -29261,16 +29261,16 @@
       "score": 0.7321
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-25",
+      "score": 0.7293
+    },
+    {
       "id": "leech-1997-principios-de-pragm-tica-38",
       "score": 0.7274
     },
     {
       "id": "putnam-1990-representaci-n-y-realidad-77",
       "score": 0.7212
-    },
-    {
-      "id": "fontanille-2008-soma-y-sema-23",
-      "score": 0.717
     }
   ],
   "honderich-2001-enciclopedia-oxford-64": [
@@ -29391,12 +29391,12 @@
       "score": 0.7694
     },
     {
-      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-3",
-      "score": 0.7675
+      "id": "quine-1990-filosof-a-de-la-l-gica-40",
+      "score": 0.7676
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-38",
-      "score": 0.7674
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-3",
+      "score": 0.7675
     }
   ],
   "honderich-2001-enciclopedia-oxford-67": [
@@ -29749,6 +29749,10 @@
       "score": 0.6395
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-21",
+      "score": 0.6383
+    },
+    {
       "id": "honderich-2001-enciclopedia-oxford-10",
       "score": 0.6309
     },
@@ -29771,10 +29775,6 @@
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-59",
       "score": 0.6282
-    },
-    {
-      "id": "levinson-1989-pragm-tica-147",
-      "score": 0.628
     }
   ],
   "honderich-2001-enciclopedia-oxford-76": [
@@ -30169,6 +30169,10 @@
       "score": 0.7572
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-37",
+      "score": 0.7568
+    },
+    {
       "id": "langacker-1987-fundations-of-cognitive-grammar-21",
       "score": 0.7552
     },
@@ -30191,10 +30195,6 @@
     {
       "id": "levinson-1989-pragm-tica-242",
       "score": 0.7521
-    },
-    {
-      "id": "honderich-2001-enciclopedia-oxford-5",
-      "score": 0.7502
     }
   ],
   "langacker-1987-fundations-of-cognitive-grammar-6": [
@@ -30319,7 +30319,7 @@
       "score": 0.724
     },
     {
-      "id": "nelson-goodman-1990-17",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-17",
       "score": 0.7201
     }
   ],
@@ -30463,6 +30463,10 @@
       "score": 0.7407
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-41",
+      "score": 0.7403
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-35",
       "score": 0.7319
     },
@@ -30485,10 +30489,6 @@
     {
       "id": "leech-1997-principios-de-pragm-tica-38",
       "score": 0.6819
-    },
-    {
-      "id": "langacker-1987-fundations-of-cognitive-grammar-52",
-      "score": 0.678
     }
   ],
   "langacker-1987-fundations-of-cognitive-grammar-13": [
@@ -30787,6 +30787,10 @@
   ],
   "langacker-1987-fundations-of-cognitive-grammar-20": [
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-31",
+      "score": 0.7636
+    },
+    {
       "id": "leech-1997-principios-de-pragm-tica-145",
       "score": 0.759
     },
@@ -30821,10 +30825,6 @@
     {
       "id": "fabbri-2000-el-giro-semi-tico-22",
       "score": 0.7451
-    },
-    {
-      "id": "levinson-1989-pragm-tica-200",
-      "score": 0.7428
     }
   ],
   "langacker-1987-fundations-of-cognitive-grammar-21": [
@@ -31029,12 +31029,12 @@
       "score": 0.7554
     },
     {
-      "id": "levinson-1989-pragm-tica-138",
-      "score": 0.7532
+      "id": "quine-1990-filosof-a-de-la-l-gica-46",
+      "score": 0.7536
     },
     {
-      "id": "levinson-1989-pragm-tica-114",
-      "score": 0.7511
+      "id": "levinson-1989-pragm-tica-138",
+      "score": 0.7532
     }
   ],
   "langacker-1987-fundations-of-cognitive-grammar-26": [
@@ -31631,6 +31631,10 @@
       "score": 0.7971
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-37",
+      "score": 0.7701
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-76",
       "score": 0.7676
     },
@@ -31661,10 +31665,6 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-32",
       "score": 0.7486
-    },
-    {
-      "id": "langacker-1987-fundations-of-cognitive-grammar-21",
-      "score": 0.7477
     }
   ],
   "langacker-1987-fundations-of-cognitive-grammar-41": [
@@ -31697,7 +31697,7 @@
       "score": 0.7659
     },
     {
-      "id": "nelson-goodman-1990-8",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-8",
       "score": 0.7619
     },
     {
@@ -33747,8 +33747,12 @@
       "score": 0.7423
     },
     {
-      "id": "nelson-goodman-1990-18",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-18",
       "score": 0.7407
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-32",
+      "score": 0.7397
     },
     {
       "id": "leech-1997-principios-de-pragm-tica-166",
@@ -33761,10 +33765,6 @@
     {
       "id": "putnam-1990-representaci-n-y-realidad-156",
       "score": 0.7365
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-106",
-      "score": 0.7352
     }
   ],
   "leech-1997-principios-de-pragm-tica-1": [
@@ -34037,11 +34037,11 @@
       "score": 0.6625
     },
     {
-      "id": "levinson-1989-pragm-tica-12",
+      "id": "levinson-1989-pragm-tica-11",
       "score": 0.6614
     },
     {
-      "id": "levinson-1989-pragm-tica-11",
+      "id": "levinson-1989-pragm-tica-12",
       "score": 0.6614
     },
     {
@@ -34121,6 +34121,10 @@
       "score": 0.7746
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-31",
+      "score": 0.7678
+    },
+    {
       "id": "levinson-1989-pragm-tica-34",
       "score": 0.7664
     },
@@ -34139,10 +34143,6 @@
     {
       "id": "levinson-1989-pragm-tica-200",
       "score": 0.7619
-    },
-    {
-      "id": "fabbri-2000-el-giro-semi-tico-22",
-      "score": 0.7613
     }
   ],
   "leech-1997-principios-de-pragm-tica-10": [
@@ -34309,7 +34309,7 @@
       "score": 0.7757
     },
     {
-      "id": "levinson-1989-pragm-tica-11",
+      "id": "levinson-1989-pragm-tica-12",
       "score": 0.7749
     }
   ],
@@ -34465,6 +34465,10 @@
       "score": 0.7433
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-3",
+      "score": 0.7316
+    },
+    {
       "id": "putnam-2001-la-trenza-de-los-tres-cabos-99",
       "score": 0.7276
     },
@@ -34475,10 +34479,6 @@
     {
       "id": "leech-1997-principios-de-pragm-tica-181",
       "score": 0.7101
-    },
-    {
-      "id": "nelson-goodman-1990-5",
-      "score": 0.7091
     }
   ],
   "leech-1997-principios-de-pragm-tica-18": [
@@ -34567,6 +34567,10 @@
   ],
   "leech-1997-principios-de-pragm-tica-20": [
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-41",
+      "score": 0.7692
+    },
+    {
       "id": "langacker-1987-fundations-of-cognitive-grammar-12",
       "score": 0.7407
     },
@@ -34599,12 +34603,8 @@
       "score": 0.7076
     },
     {
-      "id": "leech-1997-principios-de-pragm-tica-55",
-      "score": 0.7001
-    },
-    {
-      "id": "leech-1997-principios-de-pragm-tica-9",
-      "score": 0.6973
+      "id": "quine-1990-filosof-a-de-la-l-gica-36",
+      "score": 0.7023
     }
   ],
   "leech-1997-principios-de-pragm-tica-21": [
@@ -35355,12 +35355,12 @@
       "score": 0.7521
     },
     {
-      "id": "putnam-1988-razon-verdad-e-historia-147",
-      "score": 0.7483
+      "id": "quine-1990-filosof-a-de-la-l-gica-36",
+      "score": 0.7511
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-107",
-      "score": 0.7439
+      "id": "putnam-1988-razon-verdad-e-historia-147",
+      "score": 0.7483
     }
   ],
   "leech-1997-principios-de-pragm-tica-39": [
@@ -36351,6 +36351,10 @@
       "score": 0.7548
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-34",
+      "score": 0.7529
+    },
+    {
       "id": "putnam-1988-razon-verdad-e-historia-170",
       "score": 0.7492
     },
@@ -36365,10 +36369,6 @@
     {
       "id": "levinson-2004-significados-presumibles-53",
       "score": 0.7456
-    },
-    {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-61",
-      "score": 0.7453
     }
   ],
   "leech-1997-principios-de-pragm-tica-64": [
@@ -36759,6 +36759,10 @@
       "score": 0.7558
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-35",
+      "score": 0.7553
+    },
+    {
       "id": "leech-1997-principios-de-pragm-tica-183",
       "score": 0.7531
     },
@@ -36785,10 +36789,6 @@
     {
       "id": "cuenca-y-hilferty-1999-intruducci-n-a-la-ling-stica-cognitiva-23",
       "score": 0.7421
-    },
-    {
-      "id": "langacker-1987-fundations-of-cognitive-grammar-54",
-      "score": 0.7415
     }
   ],
   "leech-1997-principios-de-pragm-tica-74": [
@@ -38341,8 +38341,8 @@
       "score": 0.7252
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-107",
-      "score": 0.7206
+      "id": "quine-1990-filosof-a-de-la-l-gica-25",
+      "score": 0.7247
     }
   ],
   "leech-1997-principios-de-pragm-tica-111": [
@@ -39681,12 +39681,12 @@
       "score": 0.752
     },
     {
-      "id": "putnam-1988-razon-verdad-e-historia-44",
-      "score": 0.7428
+      "id": "quine-1990-filosof-a-de-la-l-gica-34",
+      "score": 0.7492
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-20",
-      "score": 0.7402
+      "id": "putnam-1988-razon-verdad-e-historia-44",
+      "score": 0.7428
     }
   ],
   "leech-1997-principios-de-pragm-tica-143": [
@@ -40425,6 +40425,10 @@
       "score": 0.7552
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-11",
+      "score": 0.7533
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-89",
       "score": 0.7518
     },
@@ -40439,10 +40443,6 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-113",
       "score": 0.7483
-    },
-    {
-      "id": "levinson-2004-significados-presumibles-77",
-      "score": 0.7449
     }
   ],
   "leech-1997-principios-de-pragm-tica-161": [
@@ -40693,8 +40693,8 @@
       "score": 0.7541
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-2",
-      "score": 0.7523
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.7529
     }
   ],
   "leech-1997-principios-de-pragm-tica-167": [
@@ -41403,12 +41403,12 @@
       "score": 0.745
     },
     {
-      "id": "langacker-1987-fundations-of-cognitive-grammar-50",
-      "score": 0.7357
+      "id": "quine-1990-filosof-a-de-la-l-gica-35",
+      "score": 0.7434
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-20",
-      "score": 0.7351
+      "id": "langacker-1987-fundations-of-cognitive-grammar-50",
+      "score": 0.7357
     }
   ],
   "leech-1997-principios-de-pragm-tica-184": [
@@ -41727,11 +41727,11 @@
       "score": 0.7565
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-47",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-81",
       "score": 0.753
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-81",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-47",
       "score": 0.753
     },
     {
@@ -44133,11 +44133,11 @@
       "score": 0.8118
     },
     {
-      "id": "levinson-1989-pragm-tica-12",
+      "id": "levinson-1989-pragm-tica-11",
       "score": 0.8086
     },
     {
-      "id": "levinson-1989-pragm-tica-11",
+      "id": "levinson-1989-pragm-tica-12",
       "score": 0.8086
     }
   ],
@@ -45889,6 +45889,10 @@
       "score": 0.7533
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-11",
+      "score": 0.7513
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-233",
       "score": 0.7496
     },
@@ -45899,10 +45903,6 @@
     {
       "id": "putnam-1990-representaci-n-y-realidad-109",
       "score": 0.7473
-    },
-    {
-      "id": "levinson-2004-significados-presumibles-9",
-      "score": 0.7464
     }
   ],
   "levinson-1989-pragm-tica-102": [
@@ -48531,6 +48531,10 @@
       "score": 0.7633
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-10",
+      "score": 0.7606
+    },
+    {
       "id": "levinson-1989-pragm-tica-242",
       "score": 0.7598
     },
@@ -48545,10 +48549,6 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-232",
       "score": 0.7574
-    },
-    {
-      "id": "levinson-2004-significados-presumibles-58",
-      "score": 0.7571
     }
   ],
   "levinson-1989-pragm-tica-165": [
@@ -48879,12 +48879,12 @@
       "score": 0.7615
     },
     {
-      "id": "levinson-2004-significados-presumibles-1",
+      "id": "quine-1990-filosof-a-de-la-l-gica-17",
       "score": 0.761
     },
     {
-      "id": "putnam-1999-el-pragmatismo-23",
-      "score": 0.7583
+      "id": "levinson-2004-significados-presumibles-1",
+      "score": 0.761
     }
   ],
   "levinson-1989-pragm-tica-173": [
@@ -49589,16 +49589,16 @@
       "score": 0.7746
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-22",
+      "score": 0.7707
+    },
+    {
       "id": "levinson-2004-significados-presumibles-58",
       "score": 0.7694
     },
     {
       "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-62",
       "score": 0.7656
-    },
-    {
-      "id": "levinson-2004-significados-presumibles-115",
-      "score": 0.7652
     }
   ],
   "levinson-1989-pragm-tica-190": [
@@ -50291,6 +50291,10 @@
       "score": 0.7666
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-25",
+      "score": 0.7665
+    },
+    {
       "id": "leech-1997-principios-de-pragm-tica-38",
       "score": 0.7614
     },
@@ -50309,10 +50313,6 @@
     {
       "id": "levinson-1989-pragm-tica-19",
       "score": 0.7491
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-107",
-      "score": 0.7436
     }
   ],
   "levinson-1989-pragm-tica-207": [
@@ -51182,7 +51182,7 @@
     },
     {
       "id": "levinson-1989-pragm-tica-238",
-      "score": 0.7539
+      "score": 0.754
     },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-158",
@@ -56885,11 +56885,11 @@
       "score": 0.8795
     },
     {
-      "id": "levinson-1989-pragm-tica-12",
+      "id": "levinson-1989-pragm-tica-11",
       "score": 0.8786
     },
     {
-      "id": "levinson-1989-pragm-tica-11",
+      "id": "levinson-1989-pragm-tica-12",
       "score": 0.8786
     },
     {
@@ -57183,11 +57183,11 @@
       "score": 0.7535
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-83",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-49",
       "score": 0.7527
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-49",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-83",
       "score": 0.7527
     },
     {
@@ -57447,12 +57447,12 @@
       "score": 0.7531
     },
     {
-      "id": "cuenca-y-hilferty-1999-intruducci-n-a-la-ling-stica-cognitiva-21",
-      "score": 0.7516
+      "id": "quine-1990-filosof-a-de-la-l-gica-12",
+      "score": 0.7523
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-56",
-      "score": 0.7496
+      "id": "cuenca-y-hilferty-1999-intruducci-n-a-la-ling-stica-cognitiva-21",
+      "score": 0.7516
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-12": [
@@ -57481,6 +57481,10 @@
       "score": 0.7903
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-33",
+      "score": 0.7884
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-182",
       "score": 0.7835
     },
@@ -57491,10 +57495,6 @@
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-243",
       "score": 0.7828
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-201",
-      "score": 0.7827
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-13": [
@@ -57725,6 +57725,10 @@
       "score": 0.7836
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-28",
+      "score": 0.7823
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-242",
       "score": 0.7816
     },
@@ -57742,10 +57746,6 @@
     },
     {
       "id": "leech-1997-principios-de-pragm-tica-3",
-      "score": 0.771
-    },
-    {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-107",
       "score": 0.771
     }
   ],
@@ -57829,8 +57829,8 @@
       "score": 0.7551
     },
     {
-      "id": "levinson-1989-pragm-tica-127",
-      "score": 0.7524
+      "id": "quine-1990-filosof-a-de-la-l-gica-46",
+      "score": 0.7535
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-21": [
@@ -58027,6 +58027,10 @@
       "score": 0.77
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-32",
+      "score": 0.7695
+    },
+    {
       "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-32",
       "score": 0.7669
     },
@@ -58037,10 +58041,6 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-94",
       "score": 0.7657
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-84",
-      "score": 0.7642
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-26": [
@@ -58969,6 +58969,10 @@
   ],
   "lyons-1997-sem-ntica-ling-stica-48": [
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-12",
+      "score": 0.755
+    },
+    {
       "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-4",
       "score": 0.7539
     },
@@ -59003,10 +59007,6 @@
     {
       "id": "putnam-1990-representaci-n-y-realidad-82",
       "score": 0.7414
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-219",
-      "score": 0.7411
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-49": [
@@ -59321,6 +59321,10 @@
       "score": 0.7925
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-33",
+      "score": 0.7882
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-162",
       "score": 0.7879
     },
@@ -59339,10 +59343,6 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-61",
       "score": 0.7841
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-66",
-      "score": 0.7839
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-57": [
@@ -59531,6 +59531,14 @@
       "score": 0.7975
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-33",
+      "score": 0.7921
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-26",
+      "score": 0.7881
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-159",
       "score": 0.7881
     },
@@ -59545,14 +59553,6 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-56",
       "score": 0.7841
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-12",
-      "score": 0.7827
-    },
-    {
-      "id": "levinson-1989-pragm-tica-122",
-      "score": 0.7812
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-62": [
@@ -59761,8 +59761,8 @@
       "score": 0.7736
     },
     {
-      "id": "eco-1992-los-l-mites-de-la-interpretaci-n-30",
-      "score": 0.7697
+      "id": "quine-1990-filosof-a-de-la-l-gica-33",
+      "score": 0.7725
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-67": [
@@ -60349,8 +60349,8 @@
       "score": 0.7526
     },
     {
-      "id": "lyons-1997-sem-ntica-ling-stica-204",
-      "score": 0.7493
+      "id": "quine-1990-filosof-a-de-la-l-gica-28",
+      "score": 0.7525
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-81": [
@@ -60391,7 +60391,7 @@
       "score": 0.7501
     },
     {
-      "id": "nelson-goodman-1990-1",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-1",
       "score": 0.7488
     }
   ],
@@ -60505,6 +60505,10 @@
       "score": 0.7421
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-31",
+      "score": 0.741
+    },
+    {
       "id": "levinson-1989-pragm-tica-37",
       "score": 0.7408
     },
@@ -60515,10 +60519,6 @@
     {
       "id": "langacker-1987-fundations-of-cognitive-grammar-20",
       "score": 0.7357
-    },
-    {
-      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-115",
-      "score": 0.7329
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-85": [
@@ -60639,12 +60639,12 @@
       "score": 0.7521
     },
     {
-      "id": "leech-1997-principios-de-pragm-tica-52",
-      "score": 0.7482
+      "id": "quine-1990-filosof-a-de-la-l-gica-32",
+      "score": 0.7502
     },
     {
-      "id": "leech-1997-principios-de-pragm-tica-166",
-      "score": 0.7426
+      "id": "leech-1997-principios-de-pragm-tica-52",
+      "score": 0.7482
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-88": [
@@ -60715,11 +60715,11 @@
       "score": 0.7488
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-52",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-86",
       "score": 0.7472
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-86",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-52",
       "score": 0.7472
     },
     {
@@ -61005,6 +61005,10 @@
       "score": 0.7425
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-31",
+      "score": 0.7424
+    },
+    {
       "id": "levinson-1989-pragm-tica-34",
       "score": 0.7417
     },
@@ -61019,10 +61023,6 @@
     {
       "id": "strawson-1997-an-lisis-y-metaf-sica-76",
       "score": 0.7362
-    },
-    {
-      "id": "morente-1983-lecciones-preliminares-de-filosof-a-18",
-      "score": 0.7346
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-97": [
@@ -61089,6 +61089,10 @@
       "score": 0.7548
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-34",
+      "score": 0.7487
+    },
+    {
       "id": "fabbri-2000-el-giro-semi-tico-5",
       "score": 0.7485
     },
@@ -61103,10 +61107,6 @@
     {
       "id": "strawson-1997-an-lisis-y-metaf-sica-61",
       "score": 0.7448
-    },
-    {
-      "id": "putnam-1990-representaci-n-y-realidad-22",
-      "score": 0.7447
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-99": [
@@ -61387,20 +61387,20 @@
       "score": 0.7686
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-38",
+      "score": 0.7685
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-9",
+      "score": 0.7684
+    },
+    {
       "id": "strawson-1997-an-lisis-y-metaf-sica-84",
       "score": 0.7682
     },
     {
       "id": "levinson-1989-pragm-tica-39",
       "score": 0.7676
-    },
-    {
-      "id": "levinson-1989-pragm-tica-177",
-      "score": 0.7672
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-160",
-      "score": 0.767
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-106": [
@@ -61409,8 +61409,16 @@
       "score": 0.7938
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-40",
+      "score": 0.7893
+    },
+    {
       "id": "honderich-2001-enciclopedia-oxford-66",
       "score": 0.784
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.777
     },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-132",
@@ -61435,14 +61443,6 @@
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-38",
       "score": 0.7621
-    },
-    {
-      "id": "putnam-1988-razon-verdad-e-historia-153",
-      "score": 0.7597
-    },
-    {
-      "id": "putnam-1988-razon-verdad-e-historia-45",
-      "score": 0.7585
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-107": [
@@ -61699,6 +61699,10 @@
   ],
   "lyons-1997-sem-ntica-ling-stica-113": [
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-11",
+      "score": 0.7748
+    },
+    {
       "id": "strawson-1997-an-lisis-y-metaf-sica-111",
       "score": 0.7632
     },
@@ -61733,10 +61737,6 @@
     {
       "id": "putnam-1990-representaci-n-y-realidad-109",
       "score": 0.7484
-    },
-    {
-      "id": "leech-1997-principios-de-pragm-tica-160",
-      "score": 0.7483
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-114": [
@@ -61895,16 +61895,16 @@
       "score": 0.7387
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-14",
+      "score": 0.7382
+    },
+    {
       "id": "leech-1997-principios-de-pragm-tica-50",
       "score": 0.7381
     },
     {
       "id": "putnam-1990-representaci-n-y-realidad-28",
       "score": 0.7363
-    },
-    {
-      "id": "putnam-1990-representaci-n-y-realidad-75",
-      "score": 0.7347
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-118": [
@@ -62169,12 +62169,24 @@
       "score": 0.6494
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.6487
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-16",
+      "score": 0.6472
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-125",
       "score": 0.6445
     },
     {
       "id": "rorty-1990-el-giro-ling-stico-4",
       "score": 0.6436
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-15",
+      "score": 0.6405
     },
     {
       "id": "putnam-2001-la-trenza-de-los-tres-cabos-70",
@@ -62185,20 +62197,8 @@
       "score": 0.6386
     },
     {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-25",
-      "score": 0.6385
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-129",
-      "score": 0.6359
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-102",
-      "score": 0.6356
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-141",
-      "score": 0.6346
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.6386
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-125": [
@@ -62281,8 +62281,8 @@
       "score": 0.7793
     },
     {
-      "id": "putnam-1990-representaci-n-y-realidad-157",
-      "score": 0.776
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.7775
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-127": [
@@ -62487,12 +62487,12 @@
       "score": 0.7655
     },
     {
-      "id": "putnam-1988-razon-verdad-e-historia-139",
-      "score": 0.7586
+      "id": "quine-1990-filosof-a-de-la-l-gica-18",
+      "score": 0.7625
     },
     {
-      "id": "rorty-1991-contigengencia-iron-a-y-solidaridad-28",
-      "score": 0.7585
+      "id": "putnam-1988-razon-verdad-e-historia-139",
+      "score": 0.7586
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-132": [
@@ -62811,6 +62811,10 @@
       "score": 0.6363
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-28",
+      "score": 0.6326
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-133",
       "score": 0.6313
     },
@@ -62825,10 +62829,6 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-154",
       "score": 0.6278
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-33",
-      "score": 0.6274
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-140": [
@@ -62925,6 +62925,10 @@
       "score": 0.6549
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-39",
+      "score": 0.6376
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-144",
       "score": 0.6354
     },
@@ -62937,6 +62941,10 @@
       "score": 0.6351
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-38",
+      "score": 0.6346
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-145",
       "score": 0.6346
     },
@@ -62947,14 +62955,6 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-152",
       "score": 0.634
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-149",
-      "score": 0.6332
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-162",
-      "score": 0.632
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-143": [
@@ -63037,8 +63037,8 @@
       "score": 0.7562
     },
     {
-      "id": "leech-1997-principios-de-pragm-tica-167",
-      "score": 0.7545
+      "id": "quine-1990-filosof-a-de-la-l-gica-18",
+      "score": 0.7555
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-145": [
@@ -63117,12 +63117,12 @@
       "score": 0.7576
     },
     {
-      "id": "levinson-1989-pragm-tica-127",
-      "score": 0.7568
+      "id": "quine-1990-filosof-a-de-la-l-gica-46",
+      "score": 0.7571
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-55",
-      "score": 0.7567
+      "id": "levinson-1989-pragm-tica-127",
+      "score": 0.7568
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-147": [
@@ -63177,8 +63177,24 @@
       "score": 0.6542
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-42",
+      "score": 0.6402
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-39",
+      "score": 0.6389
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-150",
       "score": 0.6382
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-40",
+      "score": 0.6375
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-38",
+      "score": 0.6369
     },
     {
       "id": "lyons-1997-sem-ntica-ling-stica-133",
@@ -63191,22 +63207,6 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-142",
       "score": 0.6345
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-141",
-      "score": 0.6333
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-38",
-      "score": 0.6329
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-127",
-      "score": 0.6328
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-37",
-      "score": 0.6271
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-149": [
@@ -63217,6 +63217,10 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-18",
       "score": 0.7836
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-28",
+      "score": 0.7739
     },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-223",
@@ -63231,24 +63235,20 @@
       "score": 0.7665
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-1",
+      "score": 0.7661
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.766
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-204",
       "score": 0.7618
     },
     {
       "id": "leech-1997-principios-de-pragm-tica-12",
       "score": 0.7605
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-93",
-      "score": 0.7605
-    },
-    {
-      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-76",
-      "score": 0.7597
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-210",
-      "score": 0.7565
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-150": [
@@ -63441,6 +63441,10 @@
       "score": 0.7653
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-46",
+      "score": 0.7645
+    },
+    {
       "id": "levinson-1989-pragm-tica-183",
       "score": 0.7616
     },
@@ -63454,10 +63458,6 @@
     },
     {
       "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-69",
-      "score": 0.7487
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-156",
       "score": 0.7487
     }
   ],
@@ -64281,6 +64281,10 @@
       "score": 0.762
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-46",
+      "score": 0.7617
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-20",
       "score": 0.7594
     },
@@ -64295,10 +64299,6 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-146",
       "score": 0.7567
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-156",
-      "score": 0.7557
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-175": [
@@ -64503,12 +64503,12 @@
       "score": 0.7608
     },
     {
-      "id": "putnam-1990-representaci-n-y-realidad-104",
-      "score": 0.76
+      "id": "quine-1990-filosof-a-de-la-l-gica-7",
+      "score": 0.7605
     },
     {
-      "id": "eco-1992-los-l-mites-de-la-interpretaci-n-42",
-      "score": 0.7595
+      "id": "putnam-1990-representaci-n-y-realidad-104",
+      "score": 0.76
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-180": [
@@ -64639,19 +64639,19 @@
   ],
   "lyons-1997-sem-ntica-ling-stica-183": [
     {
-      "id": "nelson-goodman-1990-1",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-1",
       "score": 0.6334
     },
     {
-      "id": "nelson-goodman-1990-38",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-38",
       "score": 0.6286
     },
     {
-      "id": "nelson-goodman-1990-37",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-37",
       "score": 0.6272
     },
     {
-      "id": "nelson-goodman-1990-36",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-36",
       "score": 0.625
     },
     {
@@ -64659,19 +64659,19 @@
       "score": 0.6239
     },
     {
-      "id": "nelson-goodman-1990-23",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-23",
       "score": 0.6238
     },
     {
-      "id": "nelson-goodman-1990-19",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-19",
       "score": 0.6228
     },
     {
-      "id": "nelson-goodman-1990-2",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-2",
       "score": 0.6224
     },
     {
-      "id": "nelson-goodman-1990-17",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-17",
       "score": 0.6223
     },
     {
@@ -65793,6 +65793,10 @@
       "score": 0.7683
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-10",
+      "score": 0.7679
+    },
+    {
       "id": "levinson-1989-pragm-tica-136",
       "score": 0.7657
     },
@@ -65807,10 +65811,6 @@
     {
       "id": "levinson-1989-pragm-tica-242",
       "score": 0.7636
-    },
-    {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-99",
-      "score": 0.7623
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-211": [
@@ -66705,6 +66705,10 @@
       "score": 0.7683
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-10",
+      "score": 0.766
+    },
+    {
       "id": "putnam-1990-representaci-n-y-realidad-92",
       "score": 0.7658
     },
@@ -66731,10 +66735,6 @@
     {
       "id": "leech-1997-principios-de-pragm-tica-4",
       "score": 0.7623
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-82",
-      "score": 0.7619
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-233": [
@@ -67377,6 +67377,10 @@
       "score": 0.7766
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-33",
+      "score": 0.7712
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-240",
       "score": 0.769
     },
@@ -67389,6 +67393,10 @@
       "score": 0.7679
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-26",
+      "score": 0.764
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-168",
       "score": 0.7638
     },
@@ -67399,14 +67407,6 @@
     {
       "id": "levinson-1989-pragm-tica-14",
       "score": 0.7614
-    },
-    {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-109",
-      "score": 0.7612
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-36",
-      "score": 0.7593
     }
   ],
   "lyons-1997-sem-ntica-ling-stica-249": [
@@ -67737,7 +67737,7 @@
       "score": 0.7539
     },
     {
-      "id": "nelson-goodman-1990-20",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-20",
       "score": 0.748
     },
     {
@@ -68119,7 +68119,7 @@
       "score": 0.7136
     },
     {
-      "id": "nelson-goodman-1990-14",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-14",
       "score": 0.7136
     }
   ],
@@ -68481,7 +68481,7 @@
       "score": 0.7317
     },
     {
-      "id": "nelson-goodman-1990-9",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-9",
       "score": 0.7311
     },
     {
@@ -68725,7 +68725,7 @@
       "score": 0.7405
     },
     {
-      "id": "nelson-goodman-1990-20",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-20",
       "score": 0.7393
     },
     {
@@ -68801,7 +68801,7 @@
       "score": 0.7321
     },
     {
-      "id": "nelson-goodman-1990-15",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-15",
       "score": 0.7254
     },
     {
@@ -68829,7 +68829,7 @@
       "score": 0.718
     },
     {
-      "id": "nelson-goodman-1990-37",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-37",
       "score": 0.7163
     },
     {
@@ -69221,6 +69221,10 @@
       "score": 0.7773
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-36",
+      "score": 0.7632
+    },
+    {
       "id": "levinson-1989-pragm-tica-19",
       "score": 0.7615
     },
@@ -69231,6 +69235,10 @@
     {
       "id": "putnam-1988-razon-verdad-e-historia-138",
       "score": 0.7372
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-25",
+      "score": 0.737
     },
     {
       "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-36",
@@ -69247,14 +69255,6 @@
     {
       "id": "levinson-1989-pragm-tica-10",
       "score": 0.734
-    },
-    {
-      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-1",
-      "score": 0.7335
-    },
-    {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-45",
-      "score": 0.7262
     }
   ],
   "moeschler-y-reboul-2000-diccionario-enciclopedico-8": [
@@ -69309,6 +69309,10 @@
       "score": 0.7688
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-34",
+      "score": 0.7674
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-20",
       "score": 0.7669
     },
@@ -69335,10 +69339,6 @@
     {
       "id": "levinson-1989-pragm-tica-85",
       "score": 0.753
-    },
-    {
-      "id": "putnam-1990-representaci-n-y-realidad-22",
-      "score": 0.7498
     }
   ],
   "moeschler-y-reboul-2000-diccionario-enciclopedico-10": [
@@ -69421,8 +69421,8 @@
       "score": 0.7612
     },
     {
-      "id": "putnam-1990-representaci-n-y-realidad-155",
-      "score": 0.759
+      "id": "quine-1990-filosof-a-de-la-l-gica-38",
+      "score": 0.7602
     }
   ],
   "moeschler-y-reboul-2000-diccionario-enciclopedico-12": [
@@ -69837,12 +69837,12 @@
       "score": 0.7464
     },
     {
-      "id": "levinson-2004-significados-presumibles-68",
-      "score": 0.7439
+      "id": "quine-1990-filosof-a-de-la-l-gica-38",
+      "score": 0.7461
     },
     {
-      "id": "levinson-1989-pragm-tica-129",
-      "score": 0.743
+      "id": "levinson-2004-significados-presumibles-68",
+      "score": 0.7439
     }
   ],
   "moeschler-y-reboul-2000-diccionario-enciclopedico-22": [
@@ -70295,16 +70295,16 @@
       "score": 0.7631
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-40",
+      "score": 0.7624
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-50",
       "score": 0.7581
     },
     {
-      "id": "honderich-2001-enciclopedia-oxford-27",
-      "score": 0.7577
-    },
-    {
-      "id": "putnam-1988-razon-verdad-e-historia-45",
-      "score": 0.7561
+      "id": "quine-1990-filosof-a-de-la-l-gica-32",
+      "score": 0.758
     }
   ],
   "moeschler-y-reboul-2000-diccionario-enciclopedico-33": [
@@ -70315,6 +70315,10 @@
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-223",
       "score": 0.748
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-19",
+      "score": 0.7464
     },
     {
       "id": "putnam-1990-representaci-n-y-realidad-111",
@@ -70343,10 +70347,6 @@
     {
       "id": "leech-1997-principios-de-pragm-tica-55",
       "score": 0.7361
-    },
-    {
-      "id": "putnam-1988-razon-verdad-e-historia-62",
-      "score": 0.7353
     }
   ],
   "moeschler-y-reboul-2000-diccionario-enciclopedico-34": [
@@ -70971,12 +70971,12 @@
       "score": 0.7202
     },
     {
-      "id": "nelson-goodman-1990-5",
-      "score": 0.689
+      "id": "quine-1990-filosof-a-de-la-l-gica-3",
+      "score": 0.7058
     },
     {
-      "id": "putnam-2001-la-trenza-de-los-tres-cabos-99",
-      "score": 0.6804
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-5",
+      "score": 0.689
     }
   ],
   "moeschler-y-reboul-2000-diccionario-enciclopedico-49": [
@@ -71539,6 +71539,10 @@
       "score": 0.7587
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-22",
+      "score": 0.7571
+    },
+    {
       "id": "levinson-1989-pragm-tica-149",
       "score": 0.7563
     },
@@ -71559,12 +71563,8 @@
       "score": 0.7409
     },
     {
-      "id": "putnam-1990-representaci-n-y-realidad-98",
-      "score": 0.7344
-    },
-    {
-      "id": "leech-1997-principios-de-pragm-tica-73",
-      "score": 0.7332
+      "id": "quine-1990-filosof-a-de-la-l-gica-35",
+      "score": 0.7351
     }
   ],
   "moeschler-y-reboul-2000-diccionario-enciclopedico-63": [
@@ -71887,6 +71887,10 @@
       "score": 0.7555
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-29",
+      "score": 0.7555
+    },
+    {
       "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-83",
       "score": 0.7554
     },
@@ -71897,10 +71901,6 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-179",
       "score": 0.7539
-    },
-    {
-      "id": "leech-1997-principios-de-pragm-tica-37",
-      "score": 0.7515
     }
   ],
   "moeschler-y-reboul-2000-diccionario-enciclopedico-71": [
@@ -72269,16 +72269,16 @@
       "score": 0.7432
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-11",
+      "score": 0.7406
+    },
+    {
       "id": "strawson-1997-an-lisis-y-metaf-sica-111",
       "score": 0.74
     },
     {
       "id": "lyons-1997-sem-ntica-ling-stica-113",
       "score": 0.7395
-    },
-    {
-      "id": "lyons-1997-sem-ntica-ling-stica-255",
-      "score": 0.7356
     }
   ],
   "moeschler-y-reboul-2000-diccionario-enciclopedico-80": [
@@ -72375,6 +72375,10 @@
       "score": 0.7648
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-34",
+      "score": 0.7631
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-20",
       "score": 0.7624
     },
@@ -72401,10 +72405,6 @@
     {
       "id": "levinson-1989-pragm-tica-85",
       "score": 0.7544
-    },
-    {
-      "id": "putnam-1988-razon-verdad-e-historia-170",
-      "score": 0.7543
     }
   ],
   "moeschler-y-reboul-2000-diccionario-enciclopedico-83": [
@@ -73337,6 +73337,10 @@
       "score": 0.7508
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-23",
+      "score": 0.7493
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-261",
       "score": 0.7476
     },
@@ -73367,10 +73371,6 @@
     {
       "id": "putnam-2001-la-trenza-de-los-tres-cabos-72",
       "score": 0.7379
-    },
-    {
-      "id": "putnam-1988-razon-verdad-e-historia-155",
-      "score": 0.7351
     }
   ],
   "moeschler-y-reboul-2000-diccionario-enciclopedico-106": [
@@ -74139,6 +74139,10 @@
       "score": 0.7433
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-3",
+      "score": 0.7404
+    },
+    {
       "id": "levinson-1989-pragm-tica-3",
       "score": 0.74
     },
@@ -74159,16 +74163,12 @@
       "score": 0.72
     },
     {
-      "id": "nelson-goodman-1990-5",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-5",
       "score": 0.7017
     },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-11",
       "score": 0.6732
-    },
-    {
-      "id": "putnam-1990-representaci-n-y-realidad-103",
-      "score": 0.6718
     }
   ],
   "moeschler-y-reboul-2000-diccionario-enciclopedico-125": [
@@ -74689,6 +74689,10 @@
       "score": 0.7237
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-41",
+      "score": 0.7184
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-128",
       "score": 0.716
     },
@@ -74711,10 +74715,6 @@
     {
       "id": "putnam-1990-representaci-n-y-realidad-103",
       "score": 0.6688
-    },
-    {
-      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-7",
-      "score": 0.6682
     }
   ],
   "moeschler-y-reboul-2000-diccionario-enciclopedico-138": [
@@ -74887,6 +74887,10 @@
   ],
   "morente-1983-lecciones-preliminares-de-filosof-a-1": [
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-29",
+      "score": 0.7509
+    },
+    {
       "id": "strawson-1997-an-lisis-y-metaf-sica-86",
       "score": 0.7505
     },
@@ -74895,7 +74899,7 @@
       "score": 0.7503
     },
     {
-      "id": "nelson-goodman-1990-25",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-25",
       "score": 0.748
     },
     {
@@ -74921,10 +74925,6 @@
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-217",
       "score": 0.7446
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-191",
-      "score": 0.7445
     }
   ],
   "morente-1983-lecciones-preliminares-de-filosof-a-2": [
@@ -75117,7 +75117,7 @@
       "score": 0.7526
     },
     {
-      "id": "nelson-goodman-1990-27",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-27",
       "score": 0.7521
     },
     {
@@ -75315,7 +75315,7 @@
       "score": 0.7415
     },
     {
-      "id": "nelson-goodman-1990-22",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-22",
       "score": 0.7346
     },
     {
@@ -75575,7 +75575,7 @@
       "score": 0.7395
     },
     {
-      "id": "nelson-goodman-1990-22",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-22",
       "score": 0.7391
     },
     {
@@ -75595,7 +75595,7 @@
       "score": 0.736
     },
     {
-      "id": "nelson-goodman-1990-30",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-30",
       "score": 0.7309
     }
   ],
@@ -75667,7 +75667,7 @@
       "score": 0.7348
     },
     {
-      "id": "nelson-goodman-1990-22",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-22",
       "score": 0.7325
     },
     {
@@ -75743,7 +75743,7 @@
       "score": 0.7452
     },
     {
-      "id": "nelson-goodman-1990-29",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-29",
       "score": 0.7442
     },
     {
@@ -75805,7 +75805,7 @@
       "score": 0.7309
     },
     {
-      "id": "putnam-1990-representaci-n-y-realidad-84",
+      "id": "quine-1990-filosof-a-de-la-l-gica-46",
       "score": 0.7303
     }
   ],
@@ -77565,12 +77565,12 @@
       "score": 0.7687
     },
     {
-      "id": "putnam-1990-representaci-n-y-realidad-135",
-      "score": 0.7649
+      "id": "quine-1990-filosof-a-de-la-l-gica-37",
+      "score": 0.7666
     },
     {
-      "id": "lyons-1997-sem-ntica-ling-stica-76",
-      "score": 0.7627
+      "id": "putnam-1990-representaci-n-y-realidad-135",
+      "score": 0.7649
     }
   ],
   "putnam-1988-razon-verdad-e-historia-40": [
@@ -101135,6 +101135,2022 @@
       "score": 0.7763
     }
   ],
+  "quine-1990-filosof-a-de-la-l-gica-1": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-16",
+      "score": 0.7983
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.7825
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-210",
+      "score": 0.7769
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-223",
+      "score": 0.774
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-126",
+      "score": 0.7711
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-228",
+      "score": 0.7711
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-18",
+      "score": 0.7699
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-28",
+      "score": 0.7696
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-93",
+      "score": 0.7694
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-138",
+      "score": 0.7669
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-2": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-40",
+      "score": 0.7885
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-84",
+      "score": 0.7865
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-106",
+      "score": 0.777
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-45",
+      "score": 0.769
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-38",
+      "score": 0.7689
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-132",
+      "score": 0.763
+    },
+    {
+      "id": "honderich-2001-enciclopedia-oxford-27",
+      "score": 0.7626
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-2",
+      "score": 0.7624
+    },
+    {
+      "id": "honderich-2001-enciclopedia-oxford-66",
+      "score": 0.7622
+    },
+    {
+      "id": "levinson-1989-pragm-tica-169",
+      "score": 0.7585
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-3": [
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-13",
+      "score": 0.7463
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-124",
+      "score": 0.7404
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-99",
+      "score": 0.7321
+    },
+    {
+      "id": "levinson-1989-pragm-tica-3",
+      "score": 0.7319
+    },
+    {
+      "id": "leech-1997-principios-de-pragm-tica-17",
+      "score": 0.7316
+    },
+    {
+      "id": "putnam-1999-el-pragmatismo-6",
+      "score": 0.7301
+    },
+    {
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-5",
+      "score": 0.7249
+    },
+    {
+      "id": "levinson-1989-pragm-tica-197",
+      "score": 0.7165
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-48",
+      "score": 0.7058
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-4",
+      "score": 0.6925
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-4": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-9",
+      "score": 0.7791
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-149",
+      "score": 0.7749
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-155",
+      "score": 0.7677
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-245",
+      "score": 0.7665
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-38",
+      "score": 0.7626
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-93",
+      "score": 0.7605
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-152",
+      "score": 0.7583
+    },
+    {
+      "id": "putnam-1994-las-mil-caras-del-realismo-19",
+      "score": 0.7552
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-145",
+      "score": 0.7545
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-137",
+      "score": 0.7545
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-5": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-3",
+      "score": 0.6437
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.6398
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-10",
+      "score": 0.6381
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-24",
+      "score": 0.6379
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-84",
+      "score": 0.6375
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-14",
+      "score": 0.637
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-97",
+      "score": 0.6352
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-242",
+      "score": 0.6339
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-4",
+      "score": 0.6336
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-47",
+      "score": 0.6336
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-6": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-8",
+      "score": 0.6546
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-9",
+      "score": 0.6397
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.6375
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-7",
+      "score": 0.635
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-15",
+      "score": 0.628
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-5",
+      "score": 0.6274
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-31",
+      "score": 0.6254
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-23",
+      "score": 0.6238
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-3",
+      "score": 0.6229
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-10",
+      "score": 0.6228
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-7": [
+    {
+      "id": "rorty-1990-el-giro-ling-stico-12",
+      "score": 0.7675
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-179",
+      "score": 0.7605
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-59",
+      "score": 0.7604
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-83",
+      "score": 0.7538
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-147",
+      "score": 0.7511
+    },
+    {
+      "id": "levinson-2004-significados-presumibles-1",
+      "score": 0.7504
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-217",
+      "score": 0.75
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-35",
+      "score": 0.7496
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-242",
+      "score": 0.7493
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-171",
+      "score": 0.7477
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-8": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-6",
+      "score": 0.6546
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-7",
+      "score": 0.6421
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-44",
+      "score": 0.6362
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.6358
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-10",
+      "score": 0.6353
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-9",
+      "score": 0.6349
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-110",
+      "score": 0.6307
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-45",
+      "score": 0.6304
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-11",
+      "score": 0.6293
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-4",
+      "score": 0.6288
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-9": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-4",
+      "score": 0.7791
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-245",
+      "score": 0.7772
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-77",
+      "score": 0.7768
+    },
+    {
+      "id": "levinson-2004-significados-presumibles-79",
+      "score": 0.7706
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-105",
+      "score": 0.7684
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-42",
+      "score": 0.7643
+    },
+    {
+      "id": "levinson-1989-pragm-tica-182",
+      "score": 0.763
+    },
+    {
+      "id": "levinson-2004-significados-presumibles-71",
+      "score": 0.7624
+    },
+    {
+      "id": "levinson-2004-significados-presumibles-14",
+      "score": 0.7619
+    },
+    {
+      "id": "levinson-2004-significados-presumibles-68",
+      "score": 0.7597
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-10": [
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-110",
+      "score": 0.7794
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-97",
+      "score": 0.7692
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-210",
+      "score": 0.7679
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-35",
+      "score": 0.7664
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-232",
+      "score": 0.766
+    },
+    {
+      "id": "levinson-1989-pragm-tica-136",
+      "score": 0.7616
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-241",
+      "score": 0.7615
+    },
+    {
+      "id": "levinson-1989-pragm-tica-242",
+      "score": 0.7611
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-98",
+      "score": 0.7606
+    },
+    {
+      "id": "levinson-1989-pragm-tica-164",
+      "score": 0.7606
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-11": [
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-111",
+      "score": 0.787
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-113",
+      "score": 0.7748
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-220",
+      "score": 0.7643
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-120",
+      "score": 0.7617
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-81",
+      "score": 0.7608
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-109",
+      "score": 0.7602
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-50",
+      "score": 0.7591
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-63",
+      "score": 0.7575
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-233",
+      "score": 0.7575
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-47",
+      "score": 0.7573
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-12": [
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-48",
+      "score": 0.755
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-11",
+      "score": 0.7523
+    },
+    {
+      "id": "leech-1997-principios-de-pragm-tica-170",
+      "score": 0.7477
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-82",
+      "score": 0.7474
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-13",
+      "score": 0.746
+    },
+    {
+      "id": "fabbri-2000-el-giro-semi-tico-4",
+      "score": 0.7455
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-162",
+      "score": 0.7427
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-56",
+      "score": 0.7421
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-165",
+      "score": 0.7421
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-105",
+      "score": 0.742
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-13": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-12",
+      "score": 0.6559
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-14",
+      "score": 0.627
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-19",
+      "score": 0.6225
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-116",
+      "score": 0.6205
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-11",
+      "score": 0.6193
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-11",
+      "score": 0.6192
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-158",
+      "score": 0.6191
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-29",
+      "score": 0.6174
+    },
+    {
+      "id": "rorty-1990-el-giro-ling-stico-9",
+      "score": 0.617
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-89",
+      "score": 0.6157
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-14": [
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-75",
+      "score": 0.7656
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-24",
+      "score": 0.762
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-262",
+      "score": 0.7612
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-28",
+      "score": 0.7608
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-29",
+      "score": 0.7606
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-52",
+      "score": 0.7593
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-74",
+      "score": 0.7582
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-71",
+      "score": 0.7568
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-36",
+      "score": 0.7548
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-130",
+      "score": 0.7528
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-15": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.6584
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-10",
+      "score": 0.6461
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-70",
+      "score": 0.6443
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-16",
+      "score": 0.6429
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.6417
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-125",
+      "score": 0.6408
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-124",
+      "score": 0.6405
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-11",
+      "score": 0.64
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-25",
+      "score": 0.6398
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-9",
+      "score": 0.6369
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-16": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.8194
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-1",
+      "score": 0.7983
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-28",
+      "score": 0.7892
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-210",
+      "score": 0.7875
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-228",
+      "score": 0.7839
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-93",
+      "score": 0.7793
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-242",
+      "score": 0.7759
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-223",
+      "score": 0.771
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-19",
+      "score": 0.7704
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-126",
+      "score": 0.7689
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-17": [
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-6",
+      "score": 0.7854
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-31",
+      "score": 0.7849
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-203",
+      "score": 0.7792
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-236",
+      "score": 0.7729
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-250",
+      "score": 0.7712
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-183",
+      "score": 0.7682
+    },
+    {
+      "id": "putnam-1999-el-pragmatismo-23",
+      "score": 0.768
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-26",
+      "score": 0.7679
+    },
+    {
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-20",
+      "score": 0.7667
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-206",
+      "score": 0.7622
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-18": [
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-61",
+      "score": 0.7676
+    },
+    {
+      "id": "levinson-2004-significados-presumibles-38",
+      "score": 0.7655
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-131",
+      "score": 0.7625
+    },
+    {
+      "id": "levinson-1989-pragm-tica-28",
+      "score": 0.759
+    },
+    {
+      "id": "levinson-2004-significados-presumibles-30",
+      "score": 0.7586
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-54",
+      "score": 0.7574
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-80",
+      "score": 0.7568
+    },
+    {
+      "id": "rorty-1990-el-giro-ling-stico-10",
+      "score": 0.756
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-144",
+      "score": 0.7555
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-112",
+      "score": 0.7552
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-19": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-28",
+      "score": 0.787
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.7762
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-16",
+      "score": 0.7704
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-126",
+      "score": 0.7639
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-223",
+      "score": 0.7616
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-242",
+      "score": 0.7609
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-18",
+      "score": 0.7599
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-28",
+      "score": 0.7578
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-93",
+      "score": 0.7564
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-210",
+      "score": 0.756
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-20": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-16",
+      "score": 0.6518
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-17",
+      "score": 0.6486
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.6469
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-92",
+      "score": 0.6438
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-201",
+      "score": 0.6419
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-32",
+      "score": 0.6405
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-69",
+      "score": 0.6397
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-90",
+      "score": 0.6378
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-148",
+      "score": 0.6371
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-60",
+      "score": 0.6371
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-21": [
+    {
+      "id": "honderich-2001-enciclopedia-oxford-75",
+      "score": 0.6383
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-69",
+      "score": 0.6345
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-214",
+      "score": 0.6337
+    },
+    {
+      "id": "honderich-2001-enciclopedia-oxford-74",
+      "score": 0.6324
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-216",
+      "score": 0.6321
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-28",
+      "score": 0.6318
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-89",
+      "score": 0.6318
+    },
+    {
+      "id": "honderich-2001-enciclopedia-oxford-66",
+      "score": 0.6318
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-66",
+      "score": 0.63
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-60",
+      "score": 0.63
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-22": [
+    {
+      "id": "levinson-1989-pragm-tica-189",
+      "score": 0.7707
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-62",
+      "score": 0.7571
+    },
+    {
+      "id": "levinson-1989-pragm-tica-58",
+      "score": 0.7519
+    },
+    {
+      "id": "rorty-1991-contigengencia-iron-a-y-solidaridad-12",
+      "score": 0.7517
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-89",
+      "score": 0.7514
+    },
+    {
+      "id": "levinson-1989-pragm-tica-149",
+      "score": 0.7456
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-61",
+      "score": 0.7451
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-35",
+      "score": 0.7438
+    },
+    {
+      "id": "langacker-1987-fundations-of-cognitive-grammar-54",
+      "score": 0.7425
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-21",
+      "score": 0.7417
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-23": [
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-72",
+      "score": 0.7577
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-41",
+      "score": 0.7551
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-176",
+      "score": 0.7517
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-105",
+      "score": 0.7493
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-110",
+      "score": 0.7422
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-15",
+      "score": 0.7421
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-153",
+      "score": 0.7387
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-25",
+      "score": 0.734
+    },
+    {
+      "id": "putnam-1994-las-mil-caras-del-realismo-36",
+      "score": 0.7336
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-55",
+      "score": 0.7334
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-24": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-16",
+      "score": 0.8194
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-210",
+      "score": 0.7909
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-28",
+      "score": 0.7844
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-93",
+      "score": 0.7826
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-1",
+      "score": 0.7825
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-228",
+      "score": 0.7803
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-126",
+      "score": 0.7775
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-19",
+      "score": 0.7762
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-223",
+      "score": 0.7747
+    },
+    {
+      "id": "leech-1997-principios-de-pragm-tica-12",
+      "score": 0.7717
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-25": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-36",
+      "score": 0.7693
+    },
+    {
+      "id": "levinson-1989-pragm-tica-206",
+      "score": 0.7665
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-20",
+      "score": 0.7588
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-107",
+      "score": 0.7517
+    },
+    {
+      "id": "putnam-1994-las-mil-caras-del-realismo-31",
+      "score": 0.7463
+    },
+    {
+      "id": "leech-1997-principios-de-pragm-tica-38",
+      "score": 0.7423
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-45",
+      "score": 0.7412
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-182",
+      "score": 0.7406
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-7",
+      "score": 0.737
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-147",
+      "score": 0.7356
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-26": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-33",
+      "score": 0.8044
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-61",
+      "score": 0.7881
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-109",
+      "score": 0.7779
+    },
+    {
+      "id": "levinson-1989-pragm-tica-122",
+      "score": 0.7744
+    },
+    {
+      "id": "rorty-1990-el-giro-ling-stico-22",
+      "score": 0.7738
+    },
+    {
+      "id": "levinson-1989-pragm-tica-11",
+      "score": 0.7736
+    },
+    {
+      "id": "levinson-1989-pragm-tica-12",
+      "score": 0.7736
+    },
+    {
+      "id": "levinson-1989-pragm-tica-14",
+      "score": 0.7704
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-83",
+      "score": 0.7703
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-159",
+      "score": 0.77
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-27": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-28",
+      "score": 0.6586
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-31",
+      "score": 0.6524
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-37",
+      "score": 0.6512
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-32",
+      "score": 0.6407
+    },
+    {
+      "id": "langacker-1987-fundations-of-cognitive-grammar-57",
+      "score": 0.6404
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-38",
+      "score": 0.6393
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-29",
+      "score": 0.6367
+    },
+    {
+      "id": "langacker-1987-fundations-of-cognitive-grammar-32",
+      "score": 0.6348
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-36",
+      "score": 0.6339
+    },
+    {
+      "id": "langacker-1987-fundations-of-cognitive-grammar-30",
+      "score": 0.6331
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-28": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-19",
+      "score": 0.787
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-18",
+      "score": 0.7823
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-126",
+      "score": 0.7763
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-149",
+      "score": 0.7739
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-223",
+      "score": 0.7733
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.77
+    },
+    {
+      "id": "leech-1997-principios-de-pragm-tica-12",
+      "score": 0.7633
+    },
+    {
+      "id": "leech-1997-principios-de-pragm-tica-21",
+      "score": 0.7607
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-107",
+      "score": 0.76
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-204",
+      "score": 0.7598
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-29": [
+    {
+      "id": "leech-1997-principios-de-pragm-tica-33",
+      "score": 0.7577
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-254",
+      "score": 0.7567
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-70",
+      "score": 0.7555
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-179",
+      "score": 0.7535
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-165",
+      "score": 0.7523
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-217",
+      "score": 0.7519
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-35",
+      "score": 0.7513
+    },
+    {
+      "id": "morente-1983-lecciones-preliminares-de-filosof-a-1",
+      "score": 0.7509
+    },
+    {
+      "id": "levinson-1989-pragm-tica-42",
+      "score": 0.7508
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-170",
+      "score": 0.7508
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-30": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-33",
+      "score": 0.6619
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-32",
+      "score": 0.6465
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-109",
+      "score": 0.6386
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-35",
+      "score": 0.6367
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-31",
+      "score": 0.6343
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-26",
+      "score": 0.6342
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-5",
+      "score": 0.6324
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-83",
+      "score": 0.6321
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-34",
+      "score": 0.6307
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-107",
+      "score": 0.6295
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-31": [
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-113",
+      "score": 0.7701
+    },
+    {
+      "id": "leech-1997-principios-de-pragm-tica-9",
+      "score": 0.7678
+    },
+    {
+      "id": "langacker-1987-fundations-of-cognitive-grammar-20",
+      "score": 0.7636
+    },
+    {
+      "id": "rorty-1990-el-giro-ling-stico-24",
+      "score": 0.76
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-67",
+      "score": 0.7572
+    },
+    {
+      "id": "cuenca-y-hilferty-1999-intruducci-n-a-la-ling-stica-cognitiva-17",
+      "score": 0.7553
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-180",
+      "score": 0.7537
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-76",
+      "score": 0.7473
+    },
+    {
+      "id": "levinson-1989-pragm-tica-89",
+      "score": 0.7438
+    },
+    {
+      "id": "levinson-1989-pragm-tica-37",
+      "score": 0.7435
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-32": [
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-25",
+      "score": 0.7695
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-32",
+      "score": 0.758
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.7549
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-2",
+      "score": 0.7534
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-106",
+      "score": 0.7532
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-3",
+      "score": 0.7508
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-50",
+      "score": 0.7507
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-87",
+      "score": 0.7502
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-40",
+      "score": 0.7496
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-84",
+      "score": 0.7495
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-33": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-26",
+      "score": 0.8044
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-61",
+      "score": 0.7921
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-12",
+      "score": 0.7884
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-56",
+      "score": 0.7882
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-109",
+      "score": 0.783
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-36",
+      "score": 0.7787
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-29",
+      "score": 0.7771
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-15",
+      "score": 0.7771
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-83",
+      "score": 0.7767
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-211",
+      "score": 0.7734
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-34": [
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-20",
+      "score": 0.7714
+    },
+    {
+      "id": "levinson-1989-pragm-tica-117",
+      "score": 0.7681
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-9",
+      "score": 0.7674
+    },
+    {
+      "id": "levinson-1989-pragm-tica-118",
+      "score": 0.7653
+    },
+    {
+      "id": "levinson-1989-pragm-tica-43",
+      "score": 0.7646
+    },
+    {
+      "id": "levinson-1989-pragm-tica-116",
+      "score": 0.7636
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-82",
+      "score": 0.7631
+    },
+    {
+      "id": "putnam-1994-las-mil-caras-del-realismo-30",
+      "score": 0.7624
+    },
+    {
+      "id": "levinson-1989-pragm-tica-85",
+      "score": 0.7574
+    },
+    {
+      "id": "leech-1997-principios-de-pragm-tica-63",
+      "score": 0.7529
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-35": [
+    {
+      "id": "leech-1997-principios-de-pragm-tica-73",
+      "score": 0.7553
+    },
+    {
+      "id": "levinson-1989-pragm-tica-189",
+      "score": 0.7552
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-89",
+      "score": 0.7506
+    },
+    {
+      "id": "levinson-1989-pragm-tica-149",
+      "score": 0.7503
+    },
+    {
+      "id": "putnam-1999-el-pragmatismo-10",
+      "score": 0.7478
+    },
+    {
+      "id": "langacker-1987-fundations-of-cognitive-grammar-50",
+      "score": 0.7469
+    },
+    {
+      "id": "levinson-1989-pragm-tica-58",
+      "score": 0.7454
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-9",
+      "score": 0.745
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-22",
+      "score": 0.7438
+    },
+    {
+      "id": "leech-1997-principios-de-pragm-tica-183",
+      "score": 0.7434
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-36": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-25",
+      "score": 0.7693
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-7",
+      "score": 0.7632
+    },
+    {
+      "id": "leech-1997-principios-de-pragm-tica-38",
+      "score": 0.7511
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-138",
+      "score": 0.7462
+    },
+    {
+      "id": "levinson-1989-pragm-tica-206",
+      "score": 0.7441
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-31",
+      "score": 0.7379
+    },
+    {
+      "id": "levinson-1989-pragm-tica-19",
+      "score": 0.7362
+    },
+    {
+      "id": "putnam-1994-las-mil-caras-del-realismo-31",
+      "score": 0.7332
+    },
+    {
+      "id": "fontanille-2008-soma-y-sema-23",
+      "score": 0.7289
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-20",
+      "score": 0.7286
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-37": [
+    {
+      "id": "langacker-1987-fundations-of-cognitive-grammar-40",
+      "score": 0.7701
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-35",
+      "score": 0.7683
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-39",
+      "score": 0.7666
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-45",
+      "score": 0.7634
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-110",
+      "score": 0.7614
+    },
+    {
+      "id": "levinson-1989-pragm-tica-136",
+      "score": 0.7602
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-48",
+      "score": 0.7602
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-32",
+      "score": 0.7592
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-76",
+      "score": 0.7591
+    },
+    {
+      "id": "langacker-1987-fundations-of-cognitive-grammar-5",
+      "score": 0.7568
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-38": [
+    {
+      "id": "levinson-1989-pragm-tica-163",
+      "score": 0.7691
+    },
+    {
+      "id": "levinson-2004-significados-presumibles-68",
+      "score": 0.7688
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-105",
+      "score": 0.7685
+    },
+    {
+      "id": "levinson-1989-pragm-tica-177",
+      "score": 0.7633
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-245",
+      "score": 0.7632
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-4",
+      "score": 0.7626
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-258",
+      "score": 0.7623
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-11",
+      "score": 0.7602
+    },
+    {
+      "id": "levinson-2004-significados-presumibles-71",
+      "score": 0.7596
+    },
+    {
+      "id": "honderich-2001-enciclopedia-oxford-46",
+      "score": 0.7587
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-39": [
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-148",
+      "score": 0.6389
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-142",
+      "score": 0.6376
+    },
+    {
+      "id": "putnam-1994-las-mil-caras-del-realismo-29",
+      "score": 0.6371
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-141",
+      "score": 0.6346
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-38",
+      "score": 0.63
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-145",
+      "score": 0.6281
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-152",
+      "score": 0.6271
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-149",
+      "score": 0.6251
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-144",
+      "score": 0.6241
+    },
+    {
+      "id": "levinson-2004-significados-presumibles-68",
+      "score": 0.6223
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-40": [
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-84",
+      "score": 0.7974
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-106",
+      "score": 0.7893
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.7885
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-38",
+      "score": 0.7742
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-132",
+      "score": 0.7712
+    },
+    {
+      "id": "honderich-2001-enciclopedia-oxford-66",
+      "score": 0.7676
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-32",
+      "score": 0.7624
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-50",
+      "score": 0.7576
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-45",
+      "score": 0.755
+    },
+    {
+      "id": "leech-1997-principios-de-pragm-tica-52",
+      "score": 0.7546
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-41": [
+    {
+      "id": "leech-1997-principios-de-pragm-tica-20",
+      "score": 0.7692
+    },
+    {
+      "id": "langacker-1987-fundations-of-cognitive-grammar-12",
+      "score": 0.7403
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-128",
+      "score": 0.7364
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-19",
+      "score": 0.7313
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-35",
+      "score": 0.7305
+    },
+    {
+      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-137",
+      "score": 0.7184
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-36",
+      "score": 0.7116
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-52",
+      "score": 0.7103
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-25",
+      "score": 0.6942
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-31",
+      "score": 0.6907
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-42": [
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-47",
+      "score": 0.7645
+    },
+    {
+      "id": "levinson-2004-significados-presumibles-80",
+      "score": 0.7582
+    },
+    {
+      "id": "putnam-1994-las-mil-caras-del-realismo-41",
+      "score": 0.7534
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-138",
+      "score": 0.7476
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-116",
+      "score": 0.7436
+    },
+    {
+      "id": "putnam-1990-representaci-n-y-realidad-23",
+      "score": 0.742
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-148",
+      "score": 0.7419
+    },
+    {
+      "id": "leech-1997-principios-de-pragm-tica-118",
+      "score": 0.7395
+    },
+    {
+      "id": "leech-1997-principios-de-pragm-tica-161",
+      "score": 0.7382
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-5",
+      "score": 0.7363
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-43": [
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-47",
+      "score": 0.6546
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-60",
+      "score": 0.6542
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-214",
+      "score": 0.6532
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-132",
+      "score": 0.6531
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-23",
+      "score": 0.6495
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-48",
+      "score": 0.6453
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-97",
+      "score": 0.6434
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-216",
+      "score": 0.6432
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-236",
+      "score": 0.643
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-83",
+      "score": 0.6427
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-44": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-45",
+      "score": 0.6721
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-147",
+      "score": 0.6504
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-101",
+      "score": 0.6455
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-46",
+      "score": 0.6448
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-110",
+      "score": 0.6407
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-209",
+      "score": 0.6394
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-145",
+      "score": 0.6394
+    },
+    {
+      "id": "levinson-1989-pragm-tica-74",
+      "score": 0.6383
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-10",
+      "score": 0.6363
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-40",
+      "score": 0.6349
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-45": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-44",
+      "score": 0.6721
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-46",
+      "score": 0.6523
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-11",
+      "score": 0.644
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-40",
+      "score": 0.6413
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-4",
+      "score": 0.6376
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-145",
+      "score": 0.6369
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.6353
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-3",
+      "score": 0.6333
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-41",
+      "score": 0.6321
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-147",
+      "score": 0.6308
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-46": [
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-102",
+      "score": 0.7707
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-154",
+      "score": 0.7645
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-156",
+      "score": 0.762
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-174",
+      "score": 0.7617
+    },
+    {
+      "id": "levinson-1989-pragm-tica-138",
+      "score": 0.7609
+    },
+    {
+      "id": "levinson-1989-pragm-tica-183",
+      "score": 0.7606
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-55",
+      "score": 0.759
+    },
+    {
+      "id": "lyons-1997-sem-ntica-ling-stica-146",
+      "score": 0.7571
+    },
+    {
+      "id": "levinson-2004-significados-presumibles-108",
+      "score": 0.757
+    },
+    {
+      "id": "levinson-1989-pragm-tica-127",
+      "score": 0.7538
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-47": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-46",
+      "score": 0.6679
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.6409
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-17",
+      "score": 0.6365
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-38",
+      "score": 0.6347
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-71",
+      "score": 0.6342
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-48",
+      "score": 0.6333
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-41",
+      "score": 0.6332
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-20",
+      "score": 0.633
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-32",
+      "score": 0.6325
+    },
+    {
+      "id": "strawson-1997-an-lisis-y-metaf-sica-114",
+      "score": 0.6324
+    }
+  ],
+  "quine-1990-filosof-a-de-la-l-gica-48": [
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-221",
+      "score": 0.7709
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-57",
+      "score": 0.7571
+    },
+    {
+      "id": "levinson-2004-significados-presumibles-2",
+      "score": 0.7552
+    },
+    {
+      "id": "levinson-2004-significados-presumibles-64",
+      "score": 0.7532
+    },
+    {
+      "id": "levinson-1989-pragm-tica-94",
+      "score": 0.7513
+    },
+    {
+      "id": "leech-1997-principios-de-pragm-tica-188",
+      "score": 0.7499
+    },
+    {
+      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-231",
+      "score": 0.7482
+    },
+    {
+      "id": "putnam-1988-razon-verdad-e-historia-49",
+      "score": 0.7476
+    },
+    {
+      "id": "levinson-1989-pragm-tica-234",
+      "score": 0.7466
+    },
+    {
+      "id": "putnam-2001-la-trenza-de-los-tres-cabos-81",
+      "score": 0.7449
+    }
+  ],
   "rorty-1990-el-giro-ling-stico-1": [
     {
       "id": "rorty-1991-contigengencia-iron-a-y-solidaridad-26",
@@ -101635,8 +103651,8 @@
       "score": 0.772
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-191",
-      "score": 0.7665
+      "id": "quine-1990-filosof-a-de-la-l-gica-7",
+      "score": 0.7675
     }
   ],
   "rorty-1990-el-giro-ling-stico-13": [
@@ -102035,6 +104051,10 @@
       "score": 0.776
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-26",
+      "score": 0.7738
+    },
+    {
       "id": "rorty-1991-contigengencia-iron-a-y-solidaridad-16",
       "score": 0.7738
     },
@@ -102052,10 +104072,6 @@
     },
     {
       "id": "rorty-1991-contigengencia-iron-a-y-solidaridad-14",
-      "score": 0.7669
-    },
-    {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-109",
       "score": 0.7669
     }
   ],
@@ -102103,6 +104119,10 @@
   ],
   "rorty-1990-el-giro-ling-stico-24": [
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-31",
+      "score": 0.76
+    },
+    {
       "id": "fabbri-2000-el-giro-semi-tico-2",
       "score": 0.7597
     },
@@ -102137,10 +104157,6 @@
     {
       "id": "rorty-1991-contigengencia-iron-a-y-solidaridad-26",
       "score": 0.7487
-    },
-    {
-      "id": "levinson-1989-pragm-tica-34",
-      "score": 0.747
     }
   ],
   "rorty-1990-el-giro-ling-stico-25": [
@@ -102841,6 +104857,10 @@
       "score": 0.7535
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-22",
+      "score": 0.7517
+    },
+    {
       "id": "putnam-1990-representaci-n-y-realidad-98",
       "score": 0.7473
     },
@@ -102851,10 +104871,6 @@
     {
       "id": "putnam-1990-representaci-n-y-realidad-61",
       "score": 0.7433
-    },
-    {
-      "id": "putnam-2001-la-trenza-de-los-tres-cabos-24",
-      "score": 0.7423
     }
   ],
   "rorty-1991-contigengencia-iron-a-y-solidaridad-13": [
@@ -103421,7 +105437,7 @@
       "score": 0.7702
     },
     {
-      "id": "nelson-goodman-1990-19",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-19",
       "score": 0.7676
     },
     {
@@ -103563,12 +105579,12 @@
       "score": 0.749
     },
     {
-      "id": "rorty-1990-el-giro-ling-stico-9",
-      "score": 0.7472
+      "id": "quine-1990-filosof-a-de-la-l-gica-18",
+      "score": 0.7485
     },
     {
-      "id": "rorty-1991-contigengencia-iron-a-y-solidaridad-18",
-      "score": 0.7451
+      "id": "rorty-1990-el-giro-ling-stico-9",
+      "score": 0.7472
     }
   ],
   "rorty-1991-contigengencia-iron-a-y-solidaridad-30": [
@@ -104113,7 +106129,7 @@
       "score": 0.7392
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-84",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-50",
       "score": 0.738
     }
   ],
@@ -104433,6 +106449,14 @@
       "score": 0.7463
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-9",
+      "score": 0.7453
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-4",
+      "score": 0.7443
+    },
+    {
       "id": "putnam-1988-razon-verdad-e-historia-137",
       "score": 0.7382
     },
@@ -104443,14 +106467,6 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-105",
       "score": 0.7368
-    },
-    {
-      "id": "putnam-1988-razon-verdad-e-historia-186",
-      "score": 0.7357
-    },
-    {
-      "id": "putnam-1990-representaci-n-y-realidad-152",
-      "score": 0.7355
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-4": [
@@ -104601,7 +106617,7 @@
       "score": 0.7446
     },
     {
-      "id": "nelson-goodman-1990-17",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-17",
       "score": 0.7425
     },
     {
@@ -104891,11 +106907,11 @@
       "score": 0.7535
     },
     {
-      "id": "nelson-goodman-1990-10",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-10",
       "score": 0.7528
     },
     {
-      "id": "nelson-goodman-1990-19",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-19",
       "score": 0.7472
     },
     {
@@ -104995,8 +107011,8 @@
       "score": 0.7482
     },
     {
-      "id": "putnam-1990-representaci-n-y-realidad-28",
-      "score": 0.7455
+      "id": "quine-1990-filosof-a-de-la-l-gica-14",
+      "score": 0.7463
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-24": [
@@ -105185,6 +107201,10 @@
       "score": 0.6425
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.6392
+    },
+    {
       "id": "strawson-1997-an-lisis-y-metaf-sica-29",
       "score": 0.638
     },
@@ -105201,12 +107221,8 @@
       "score": 0.635
     },
     {
-      "id": "lyons-1997-sem-ntica-ling-stica-133",
-      "score": 0.6325
-    },
-    {
-      "id": "honderich-2001-enciclopedia-oxford-10",
-      "score": 0.631
+      "id": "quine-1990-filosof-a-de-la-l-gica-2",
+      "score": 0.633
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-29": [
@@ -105265,6 +107281,10 @@
       "score": 0.7515
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-46",
+      "score": 0.7507
+    },
+    {
       "id": "putnam-1990-representaci-n-y-realidad-8",
       "score": 0.7503
     },
@@ -105287,10 +107307,6 @@
     {
       "id": "lyons-1997-sem-ntica-ling-stica-40",
       "score": 0.7468
-    },
-    {
-      "id": "levinson-2004-significados-presumibles-23",
-      "score": 0.7462
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-31": [
@@ -105487,6 +107503,10 @@
       "score": 0.7698
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-37",
+      "score": 0.7683
+    },
+    {
       "id": "strawson-1997-an-lisis-y-metaf-sica-101",
       "score": 0.7683
     },
@@ -105495,12 +107515,8 @@
       "score": 0.7673
     },
     {
-      "id": "lyons-1997-sem-ntica-ling-stica-232",
-      "score": 0.7648
-    },
-    {
-      "id": "levinson-1989-pragm-tica-136",
-      "score": 0.7635
+      "id": "quine-1990-filosof-a-de-la-l-gica-10",
+      "score": 0.7664
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-36": [
@@ -105521,6 +107537,10 @@
       "score": 0.7653
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-24",
+      "score": 0.7634
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-18",
       "score": 0.7608
     },
@@ -105539,10 +107559,6 @@
     {
       "id": "levinson-1989-pragm-tica-82",
       "score": 0.7574
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-28",
-      "score": 0.7568
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-37": [
@@ -105911,16 +107927,16 @@
       "score": 0.7448
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-25",
+      "score": 0.7412
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-107",
       "score": 0.7372
     },
     {
       "id": "leech-1997-principios-de-pragm-tica-38",
       "score": 0.7366
-    },
-    {
-      "id": "putnam-1990-representaci-n-y-realidad-77",
-      "score": 0.7342
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-46": [
@@ -105937,7 +107953,7 @@
       "score": 0.7653
     },
     {
-      "id": "nelson-goodman-1990-22",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-22",
       "score": 0.7641
     },
     {
@@ -106029,8 +108045,16 @@
       "score": 0.7652
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-37",
+      "score": 0.7602
+    },
+    {
       "id": "strawson-1997-an-lisis-y-metaf-sica-35",
       "score": 0.7586
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-10",
+      "score": 0.7585
     },
     {
       "id": "strawson-1997-an-lisis-y-metaf-sica-101",
@@ -106039,14 +108063,6 @@
     {
       "id": "putnam-1990-representaci-n-y-realidad-92",
       "score": 0.7564
-    },
-    {
-      "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-45",
-      "score": 0.7543
-    },
-    {
-      "id": "putnam-1988-razon-verdad-e-historia-184",
-      "score": 0.7542
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-49": [
@@ -106101,7 +108117,7 @@
       "score": 0.7719
     },
     {
-      "id": "nelson-goodman-1990-29",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-29",
       "score": 0.7691
     },
     {
@@ -106197,6 +108213,10 @@
       "score": 0.7121
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-41",
+      "score": 0.7103
+    },
+    {
       "id": "leech-1997-principios-de-pragm-tica-20",
       "score": 0.7076
     },
@@ -106211,10 +108231,6 @@
     {
       "id": "moeschler-y-reboul-2000-diccionario-enciclopedico-137",
       "score": 0.6905
-    },
-    {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-45",
-      "score": 0.6895
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-53": [
@@ -106633,7 +108649,7 @@
       "score": 0.7557
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-53",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-87",
       "score": 0.7541
     }
   ],
@@ -106777,7 +108793,7 @@
       "score": 0.7691
     },
     {
-      "id": "nelson-goodman-1990-22",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-22",
       "score": 0.7664
     },
     {
@@ -106923,7 +108939,7 @@
       "score": 0.7617
     },
     {
-      "id": "nelson-goodman-1990-29",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-29",
       "score": 0.7599
     },
     {
@@ -106953,7 +108969,7 @@
       "score": 0.6366
     },
     {
-      "id": "nelson-goodman-1990-34",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-34",
       "score": 0.6364
     },
     {
@@ -107227,6 +109243,10 @@
   ],
   "strawson-1997-an-lisis-y-metaf-sica-77": [
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-9",
+      "score": 0.7768
+    },
+    {
       "id": "strawson-1997-an-lisis-y-metaf-sica-2",
       "score": 0.7707
     },
@@ -107260,10 +109280,6 @@
     },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-42",
-      "score": 0.753
-    },
-    {
-      "id": "putnam-2001-la-trenza-de-los-tres-cabos-156",
       "score": 0.753
     }
   ],
@@ -107431,7 +109447,7 @@
       "score": 0.7564
     },
     {
-      "id": "nelson-goodman-1990-10",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-10",
       "score": 0.7558
     }
   ],
@@ -107767,8 +109783,8 @@
       "score": 0.7471
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-242",
-      "score": 0.7456
+      "id": "quine-1990-filosof-a-de-la-l-gica-1",
+      "score": 0.7469
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-90": [
@@ -107805,12 +109821,12 @@
       "score": 0.7437
     },
     {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-36",
-      "score": 0.7406
+      "id": "quine-1990-filosof-a-de-la-l-gica-1",
+      "score": 0.7414
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-210",
-      "score": 0.7388
+      "id": "strawson-1997-an-lisis-y-metaf-sica-36",
+      "score": 0.7406
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-91": [
@@ -108277,8 +110293,12 @@
   ],
   "strawson-1997-an-lisis-y-metaf-sica-102": [
     {
-      "id": "nelson-goodman-1990-19",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-19",
       "score": 0.7829
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-46",
+      "score": 0.7707
     },
     {
       "id": "warnock-1989-j-l-austin-34",
@@ -108311,10 +110331,6 @@
     {
       "id": "putnam-1990-representaci-n-y-realidad-131",
       "score": 0.7612
-    },
-    {
-      "id": "putnam-1988-razon-verdad-e-historia-166",
-      "score": 0.7593
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-103": [
@@ -108385,7 +110401,7 @@
       "score": 0.7708
     },
     {
-      "id": "nelson-goodman-1990-21",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-21",
       "score": 0.768
     },
     {
@@ -108481,7 +110497,7 @@
       "score": 0.7392
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-77",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-43",
       "score": 0.7378
     }
   ],
@@ -108575,8 +110591,16 @@
       "score": 0.7871
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-33",
+      "score": 0.783
+    },
+    {
       "id": "lyons-1997-sem-ntica-ling-stica-168",
       "score": 0.7804
+    },
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-26",
+      "score": 0.7779
     },
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-62",
@@ -108587,11 +110611,11 @@
       "score": 0.7761
     },
     {
-      "id": "levinson-1989-pragm-tica-11",
+      "id": "levinson-1989-pragm-tica-12",
       "score": 0.7754
     },
     {
-      "id": "levinson-1989-pragm-tica-12",
+      "id": "levinson-1989-pragm-tica-11",
       "score": 0.7754
     },
     {
@@ -108601,14 +110625,6 @@
     {
       "id": "levinson-1989-pragm-tica-14",
       "score": 0.7744
-    },
-    {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-300",
-      "score": 0.773
-    },
-    {
-      "id": "levinson-1989-pragm-tica-243",
-      "score": 0.7728
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-110": [
@@ -108629,6 +110645,10 @@
       "score": 0.7814
     },
     {
+      "id": "quine-1990-filosof-a-de-la-l-gica-10",
+      "score": 0.7794
+    },
+    {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-214",
       "score": 0.7793
     },
@@ -108647,13 +110667,13 @@
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-222",
       "score": 0.7725
-    },
-    {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-33",
-      "score": 0.7702
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-111": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-11",
+      "score": 0.787
+    },
     {
       "id": "lyons-1997-sem-ntica-ling-stica-257",
       "score": 0.787
@@ -108689,10 +110709,6 @@
     {
       "id": "putnam-1990-representaci-n-y-realidad-109",
       "score": 0.7602
-    },
-    {
-      "id": "putnam-1988-razon-verdad-e-historia-185",
-      "score": 0.76
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-112": [
@@ -108729,15 +110745,19 @@
       "score": 0.6304
     },
     {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-102",
+      "id": "quine-1990-filosof-a-de-la-l-gica-47",
       "score": 0.6298
     },
     {
-      "id": "levinson-1989-pragm-tica-88",
-      "score": 0.6283
+      "id": "strawson-1997-an-lisis-y-metaf-sica-102",
+      "score": 0.6298
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-113": [
+    {
+      "id": "quine-1990-filosof-a-de-la-l-gica-31",
+      "score": 0.7701
+    },
     {
       "id": "lyons-1997-sem-ntica-ling-stica-180",
       "score": 0.7697
@@ -108773,10 +110793,6 @@
     {
       "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-159",
       "score": 0.7475
-    },
-    {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-26",
-      "score": 0.747
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-114": [
@@ -108817,8 +110833,8 @@
       "score": 0.6338
     },
     {
-      "id": "davidson-1990-de-la-verdad-y-de-la-interpretaci-n-227",
-      "score": 0.6308
+      "id": "quine-1990-filosof-a-de-la-l-gica-47",
+      "score": 0.6324
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-115": [
@@ -109667,11 +111683,11 @@
       "score": 0.7667
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-46",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-80",
       "score": 0.7598
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-80",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-46",
       "score": 0.7598
     },
     {
@@ -109699,7 +111715,7 @@
       "score": 0.7477
     },
     {
-      "id": "nelson-goodman-1990-30",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-30",
       "score": 0.7465
     }
   ],
@@ -110115,12 +112131,12 @@
       "score": 0.7568
     },
     {
-      "id": "strawson-1997-an-lisis-y-metaf-sica-77",
-      "score": 0.7552
+      "id": "quine-1990-filosof-a-de-la-l-gica-9",
+      "score": 0.7568
     },
     {
-      "id": "levinson-1989-pragm-tica-70",
-      "score": 0.7542
+      "id": "strawson-1997-an-lisis-y-metaf-sica-77",
+      "score": 0.7552
     }
   ],
   "strawson-1997-an-lisis-y-metaf-sica-146": [
@@ -111119,11 +113135,11 @@
       "score": 0.7287
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-43",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-77",
       "score": 0.7281
     },
     {
-      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-77",
+      "id": "greimas-fontanille-1994-semi-tica-de-las-pasiones-43",
       "score": 0.7281
     },
     {
@@ -111313,7 +113329,7 @@
       "score": 0.7584
     },
     {
-      "id": "nelson-goodman-1990-38",
+      "id": "nelson-goodman-1990-maneras-de-hacer-mundos-38",
       "score": 0.7561
     },
     {
