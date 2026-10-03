@@ -315,6 +315,11 @@ def parse_args() -> argparse.Namespace:
         help="Print progress information.",
     )
     parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Process sources and report anomalies but do not write cards.json or extract images.",
+    )
+    parser.add_argument(
         "--report-anomalies",
         action=argparse.BooleanOptionalAction,
         default=True,
@@ -367,7 +372,8 @@ def main() -> None:
         raise SystemExit(f"No configured source files found in {source_dir}")
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    image_root.mkdir(parents=True, exist_ok=True)
+    if not args.dry_run:
+        image_root.mkdir(parents=True, exist_ok=True)
 
     books: list[Book] = []
     group_index: dict[BookGroupKey, Book] = {}
@@ -405,7 +411,10 @@ def main() -> None:
                 print(f"  Extracted {len(footnotes)} footnotes from {last_card.id}")
 
     output_data = {"books": [group.to_dict() for group in books]}
-    output_path.write_text(json.dumps(output_data, ensure_ascii=False, indent=2), encoding="utf-8")
+    if args.dry_run:
+        print(f"[dry-run] Would write {total_cards} cards to {output_path}")
+    else:
+        output_path.write_text(json.dumps(output_data, ensure_ascii=False, indent=2), encoding="utf-8")
 
     anomalies = collect_card_length_anomalies(
         source_results,
