@@ -29,6 +29,11 @@
   let returnToCardId = $state<string | null>(
     typeof sessionStorage !== 'undefined' ? sessionStorage.getItem('cards:returnTo') : null,
   );
+  const hashCardId = (() => {
+    if (typeof window === 'undefined') return null;
+    const m = window.location.hash.match(/^#card-(.+)$/);
+    return m ? m[1] : null;
+  })();
   let mobileDrawerOpen = $state(false);
   let skipScrollToTop = false;
   let composerTrayHeight = $state(0);
@@ -271,12 +276,13 @@
       if (!cancelled) {
         loading = false;
         await cardObs.setupObserver(filteredCards);
-        if (returnToCardId) {
-          sessionStorage.removeItem('cards:returnTo');
-          const id = returnToCardId;
+        // Restore position: returnToCardId takes priority, then hash
+        const restoreId = returnToCardId || hashCardId;
+        if (restoreId) {
+          if (returnToCardId) sessionStorage.removeItem('cards:returnTo');
           returnToCardId = null;
           await tick();
-          await scrollToCard(id);
+          await scrollToCard(restoreId);
         }
       }
     })();
@@ -296,8 +302,9 @@
     }
     if (!selectedBook || !booksModel.some((book) => book.key === selectedBook)) {
       // If restoring a card, pick its book; otherwise default to first book
-      if (returnToCardId) {
-        const target = cards.find((c) => c.id === returnToCardId);
+      const restoreId = returnToCardId || hashCardId;
+      if (restoreId) {
+        const target = cards.find((c) => c.id === restoreId);
         if (target) {
           selectedBook = getBookKey(target);
           return;
@@ -312,6 +319,17 @@
     selectedBook;
     filteredCards.length;
     void cardObs.setupObserver(filteredCards);
+  });
+
+  // Sync focused card to URL hash (e.g. #card-41)
+  $effect(() => {
+    if (loading) return;
+    const id = cardObs.focusedCardId;
+    if (!id) return;
+    const newHash = `#card-${id}`;
+    if (window.location.hash !== newHash) {
+      history.replaceState(null, '', newHash);
+    }
   });
 
   // Sync selected book to URL
