@@ -15,6 +15,15 @@ LEVINSON_2004_PATTERN = r"^\s*(?P<marker>LEVINSON,\s*S\.(?:\s*C\.)?\s*\((?P<year
 # Warnock mixes standalone page lines with running headers such as
 # "Truth p.43" and "Conocimiento y otras mentes p. 25".
 WARNOCK_PAGE_PATTERN = r"^\s*(?:[^\n]{0,80}?\s+)?(?P<marker>[Pp]\.?\s*(?P<page>\d+(?:\s*[-–—]\s*\d+)?))(?:\s+[^\n]{0,80})?\s*$"
+# Quine 1973 citations carry the full book reference on the marker line:
+# "QUINE, W.V.O. (1973: 21). Filosofía de la lógica. Madrid: Alianza."
+# Consume the rest of the line after the closing paren so it doesn't leak into card content.
+QUINE_1973_PATTERN = r"^\s*(?P<marker>[A-ZÁÉÍÓÚÜÑ][^()]{1,180}?\((?P<year>\d{4}(?:-\d{4})?)\s*:\s*(?P<page>\(?[^)\n]+?\)?)\)[^\n]*)"
+# Leech 1997 repeats a full citation line before some page markers:
+# "LEECH, G. (1997). Principios de pragm\u00e1tica. Logro\u00f1o: Universidad de La Rioja."
+# "p. 47"
+# Optionally consume the citation line that precedes the page marker.
+LEECH_1997_PATTERN = r"^\s*(?:LEECH[^()]{0,180}?\(\d{4}\)[^\n]*\n)?\s*[*_]*[pP]\\?\.\s*[*_]*(?P<page>\d+(?:\s*[-\u2013\u2014]\s*\d+)?)(?:\s*\.)?"
 
 
 @dataclass(kw_only=True)
@@ -107,7 +116,7 @@ class SourceDocument(Enum):
     )
     LEECH_1997 = SourceDocumentConfig(
         filename="Leech 1997 Principios de pragmática.odt",
-        split_pattern=PAGE_DOT_PATTERN,
+        split_pattern=LEECH_1997_PATTERN,
         title="Principios de pragmática",
         author="Leech",
         book="Principios de pragmática",
@@ -208,7 +217,7 @@ class SourceDocument(Enum):
     )
     QUINE_1973 = SourceDocumentConfig(
         filename="Quine 1990 filosofía de la lógica.odt",
-        split_pattern=PARENTHESIS_YEAR_PAGE_PATTERN,
+        split_pattern=QUINE_1973_PATTERN,
         title="Filosofía de la lógica",
         author="Quine",
         book="Filosofía de la lógica",
