@@ -2,6 +2,10 @@
 
 Fully-done work is archived in `todo-done.md` — this file tracks open items only.
 
+## Tagging
+
+- [ ] Test decision models https://ollama.com/search?c=decision
+
 ## Card Images
 
 - [ ] Implement image optimization and responsive loading for card images.
