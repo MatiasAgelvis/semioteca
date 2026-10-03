@@ -206,6 +206,14 @@ class SourceDocument(Enum):
         book="La trenza de los tres cabos",
         year="2001",
     )
+    QUINE_1973 = SourceDocumentConfig(
+        filename="Quine 1990 filosofía de la lógica.odt",
+        split_pattern=PARENTHESIS_YEAR_PAGE_PATTERN,
+        title="Filosofía de la lógica",
+        author="Quine",
+        book="Filosofía de la lógica",
+        year="1973",
+    )
     RORTY_1990 = SourceDocumentConfig(
         filename="Rorty 1990 El giro lingüístico.odt",
         split_pattern=PARENTHESIS_YEAR_PAGE_PATTERN,
