@@ -74,7 +74,7 @@ class SourceDocument(Enum):
         year="2008",
     )
     GOODMAN_1990 = SourceDocumentConfig(
-        filename="Nelson Goodman 1990.odt",
+        filename="Nelson Goodman 1990 Maneras de hacer mundos.odt",
         split_pattern=PAGE_DOT_PATTERN,
         title="Maneras de hacer mundos",
         author="Goodman",

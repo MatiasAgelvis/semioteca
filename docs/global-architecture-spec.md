@@ -259,7 +259,7 @@ Vercel deploy
 
 | Script                      | Description                                 |
 | --------------------------- | ------------------------------------------- |
-| `npm run content:generate`  | Run card extraction from source documents   |
+| `npm run content:extract`   | Run card extraction from source documents   |
 | `npm run content:relations` | Compute related-card scores                 |
 | `npm run content:sync`      | Copy backend outputs to frontend static dir |
 | `npm run content:build`     | All four above in sequence                  |

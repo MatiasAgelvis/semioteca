@@ -8,14 +8,14 @@ Generate semantic relationship data between cards and inject it into the static 
 
 ## Current state
 
-| What                            | Where                                                                                |
-| ------------------------------- | ------------------------------------------------------------------------------------ |
-| Card data                       | `backend/cards.json` — 2,556 cards, 23 books, 17 authors, 8 tags                     |
-| Model for tagging (active)      | `Recognai/zeroshot_selectra_medium` (NLI zero-shot, in `nli_tagger.py`)              |
-| Model for embedding (disabled)  | `ibm-granite/granite-embedding-311m-multilingual-r2` (in `embedding_tagger.py`)      |
-| Model prototyped for similarity | `paraphrase-multilingual-MiniLM-L12-v2` (from todo.md)                               |
-| Content sync                    | `scripts/sync-content.mjs` copies `cards.json` → `frontend/static/content/`          |
-| Build pipeline                  | `npm run content:generate` → `cards.json`, then `npm run content:sync` → static site |
+| What                            | Where                                                                               |
+| ------------------------------- | ----------------------------------------------------------------------------------- |
+| Card data                       | `backend/cards.json` — 2,556 cards, 23 books, 17 authors, 8 tags                    |
+| Model for tagging (active)      | `Recognai/zeroshot_selectra_medium` (NLI zero-shot, in `nli_tagger.py`)             |
+| Model for embedding (disabled)  | `ibm-granite/granite-embedding-311m-multilingual-r2` (in `embedding_tagger.py`)     |
+| Model prototyped for similarity | `paraphrase-multilingual-MiniLM-L12-v2` (from todo.md)                              |
+| Content sync                    | `scripts/sync-content.mjs` copies `cards.json` → `frontend/static/content/`         |
+| Build pipeline                  | `npm run content:extract` → `cards.json`, then `npm run content:sync` → static site |
 
 ---
 
@@ -101,7 +101,7 @@ flowchart LR
 Hooks into the existing pipeline:
 
 ```sh
-npm run content:generate   # regenerate cards.json (existing)
+npm run content:extract   # regenerate cards.json (existing)
 npm run content:relations  # NEW: compute relatedCards → card-relations.json
 npm run content:sync       # copy to frontend (existing)
 npm run content:build     # generate + tag + relations + sync
@@ -113,7 +113,7 @@ Updates to `package.json`:
 {
   "scripts": {
     "content:relations": "cd backend && sh ../scripts/uv-run.sh generate_card_relations.py",
-    "content:build": "npm run content:generate && npm run content:tag && npm run content:relations && npm run content:sync",
+    "content:build": "npm run content:extract && npm run content:tag && npm run content:relations && npm run content:sync",
   },
 }
 ```

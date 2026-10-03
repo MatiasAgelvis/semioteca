@@ -41,7 +41,7 @@ This wipes and re-copies `frontend/static/content/` from the backend sources.
 If you modified the source manuscripts or the Python generation logic:
 
 ```sh
-npm run content:generate   # regenerate cards.json and card images only
+npm run content:extract   # regenerate cards.json and card images only
 npm run content:build     # generate + tag + relations + sync in one step
 npm run content:commit-update  # commit staged files with a preset message
 ```
