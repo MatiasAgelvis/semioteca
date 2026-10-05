@@ -286,11 +286,12 @@ export async function downloadPdf(
 
   // Load pdfmake on demand so its multi-MB font VFS doesn't get pulled into
   // every bundle that transitively imports this module.
-  const [{ default: pdfMake }, { default: pdfFonts }] = await Promise.all([
-    import('pdfmake/build/pdfmake'),
-    import('pdfmake/build/vfs_fonts'),
-  ]);
-  (pdfMake as any).vfs = pdfFonts;
+  // Sequential imports: pdfmake must resolve first so that when vfs_fonts
+  // evaluates, `window.pdfMake` exists and its auto-registration
+  // (addVirtualFileSystem) can pick up the fonts automatically.
+  const { default: pdfMake } = await import('pdfmake/build/pdfmake');
+  const { default: pdfFonts } = await import('pdfmake/build/vfs_fonts');
+  pdfMake.addVirtualFileSystem(pdfFonts);
 
   return new Promise((resolve) => {
     const date = new Date().toISOString().slice(0, 10);
