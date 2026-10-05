@@ -16,6 +16,7 @@
     "frontend:dev": "npm --prefix frontend run dev",
     "frontend:check": "npm --prefix frontend run check",
     "frontend:build": "npm --prefix frontend run build",
+    "frontend:deploy": "npm --prefix frontend run vercel:deploy",
     "build": "npm run frontend:build"
   },
   "devDependencies": {
