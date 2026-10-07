@@ -5,6 +5,7 @@
   import { openCardsSearch } from '$lib/stores/cardsSearch';
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
   import Tag from '$lib/components/Tag.svelte';
+  import TagReportForm from '$lib/components/TagReportForm.svelte';
   import { tagDefinitions } from '$lib/utils/tagDescriptions';
   import type { CardImage as CardImageType, CardRecord } from '$lib/types/content';
   import {
@@ -15,7 +16,7 @@
   import { createExcerpt, getHighlightSegments, getMatchCount } from '$lib/utils/search';
   import { stripHtml, sanitizeHtml } from '$lib/utils/html';
   import { linkFootnotes } from '$lib/utils/footnotes';
-  import { VectorPolygon } from '@lucide/svelte';
+  import { VectorPolygon, Flag } from '@lucide/svelte';
 
   let {
     card,
@@ -37,6 +38,7 @@
 
   let element: HTMLElement;
   let expanded = $state(false);
+  let reportOpen = $state(false);
 
   const searchActive = $derived(searchTerms.length > 0);
 
@@ -205,7 +207,7 @@
     <!-- Controls bar: tags left, actions right -->
     <div class="card-actions flex-nowrap items-center justify-between mt-1">
       <div class="flex flex-wrap gap-1 items-end">
-        {#each visibleTags as tag}
+        {#each visibleTags as tag (tag)}
           <div
             class="tooltip tooltip-top before:whitespace-normal before:max-w-50"
             data-tip={tagDefinitions[tag] ?? tag}
@@ -213,6 +215,16 @@
             <Tag {tag} onclick={() => openCardsSearch([tag])} />
           </div>
         {/each}
+        <button
+          type="button"
+          class="btn btn-ghost btn-square h-5 min-h-5 w-5 p-0 transition-opacity opacity-50 hover:opacity-100 focus:opacity-100"
+          class:!opacity-100={reportOpen}
+          title="Reportar o sugerir etiquetas"
+          aria-label="Reportar o sugerir etiquetas"
+          onclick={() => (reportOpen = !reportOpen)}
+        >
+          <Flag size="11" />
+        </button>
       </div>
 
       <div class="flex flex-wrap items-center justify-end gap-2">
@@ -251,3 +263,7 @@
     </div>
   </div>
 </article>
+
+{#if reportOpen}
+  <TagReportForm {card} ondone={() => (reportOpen = false)} />
+{/if}
