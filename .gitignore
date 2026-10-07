@@ -42,5 +42,5 @@ venv/
 backend/cache/
 backend/card-relations.json
 
-# Local Turso/libSQL file when using TURSO_DATABASE_URL=file:./.turso/local.db
-.turso/
+# Local Turso/libSQL file when using TURSO_DATABASE_URL=file:./dev.db
+dev.db
