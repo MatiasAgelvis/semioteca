@@ -18,7 +18,7 @@
   let submitting = $state(false);
 
   const allTagNames = Object.keys(tagDefinitions);
-  const currentTags = card.tags ?? [];
+  const currentTags = $derived(card.tags ?? []);
   const hasTags = $derived(currentTags.length > 0);
   const availableCorrections = $derived(allTagNames.filter((t) => !currentTags.includes(t)));
 
