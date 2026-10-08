@@ -6,6 +6,7 @@
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
   import Tag from '$lib/components/Tag.svelte';
   import TagReportForm from '$lib/components/TagReportForm.svelte';
+  import { REPORT_TAGS_BUTTON_CLASS, REPORT_TAGS_BUTTON_LABEL } from '$lib/utils/reportTags';
   import { tagDefinitions } from '$lib/utils/tagDescriptions';
   import type { CardImage as CardImageType, CardRecord } from '$lib/types/content';
   import {
@@ -217,10 +218,10 @@
         {/each}
         <button
           type="button"
-          class="btn btn-ghost btn-square h-5 min-h-5 w-5 p-0 transition-opacity opacity-50 hover:opacity-100 focus:opacity-100"
+          class={REPORT_TAGS_BUTTON_CLASS}
           class:!opacity-100={reportOpen}
-          title="Reportar o sugerir etiquetas"
-          aria-label="Reportar o sugerir etiquetas"
+          title={REPORT_TAGS_BUTTON_LABEL}
+          aria-label={REPORT_TAGS_BUTTON_LABEL}
           onclick={() => (reportOpen = !reportOpen)}
         >
           <Flag size="11" />
