@@ -20,10 +20,9 @@ function getDb(): Client | null {
   });
 }
 
-let tableReady: Promise<void> | null = null;
+let tableReady: Promise<unknown> | null = null;
 function ensureTable(db: Client): Promise<void> {
-  if (!tableReady) {
-    tableReady = db.execute(`
+  tableReady ??= db.execute(`
       CREATE TABLE IF NOT EXISTS tag_reports (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         card_id TEXT NOT NULL,
@@ -34,8 +33,7 @@ function ensureTable(db: Client): Promise<void> {
         created_at TEXT NOT NULL DEFAULT (datetime('now'))
       )
     `);
-  }
-  return tableReady;
+  return tableReady as Promise<void>;
 }
 
 function unavailable() {
