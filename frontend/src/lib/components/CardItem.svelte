@@ -6,7 +6,7 @@
   import { composer, selectedCardIds, isAtLimit } from '$lib/stores/composer';
   import Tag from '$lib/components/Tag.svelte';
   import TagReportForm from '$lib/components/TagReportForm.svelte';
-  import { REPORT_TAGS_BUTTON_CLASS, REPORT_TAGS_BUTTON_LABEL } from '$lib/utils/reportTags';
+  import ReportTagsButton from '$lib/components/ReportTagsButton.svelte';
   import { tagDefinitions } from '$lib/utils/tagDescriptions';
   import type { CardImage as CardImageType, CardRecord } from '$lib/types/content';
   import {
@@ -17,7 +17,7 @@
   import { createExcerpt, getHighlightSegments, getMatchCount } from '$lib/utils/search';
   import { stripHtml, sanitizeHtml } from '$lib/utils/html';
   import { linkFootnotes } from '$lib/utils/footnotes';
-  import { VectorPolygon, Flag } from '@lucide/svelte';
+  import { VectorPolygon } from '@lucide/svelte';
 
   let {
     card,
@@ -216,16 +216,7 @@
             <Tag {tag} onclick={() => openCardsSearch([tag])} />
           </div>
         {/each}
-        <button
-          type="button"
-          class={REPORT_TAGS_BUTTON_CLASS}
-          class:!opacity-100={reportOpen}
-          title={REPORT_TAGS_BUTTON_LABEL}
-          aria-label={REPORT_TAGS_BUTTON_LABEL}
-          onclick={() => (reportOpen = !reportOpen)}
-        >
-          <Flag size="11" />
-        </button>
+        <ReportTagsButton bind:open={reportOpen} />
       </div>
 
       <div class="flex flex-wrap items-center justify-end gap-2">

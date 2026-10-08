@@ -13,8 +13,8 @@
   import CardContent from '$lib/components/card/CardContent.svelte';
   import CardTags from '$lib/components/card/CardTags.svelte';
   import TagReportForm from '$lib/components/TagReportForm.svelte';
-  import { REPORT_TAGS_BUTTON_CLASS, REPORT_TAGS_BUTTON_LABEL } from '$lib/utils/reportTags';
-  import { VectorPolygon, Flag } from '@lucide/svelte';
+  import ReportTagsButton from '$lib/components/ReportTagsButton.svelte';
+  import { VectorPolygon } from '@lucide/svelte';
   import { openCardsSearch } from '$lib/stores/cardsSearch';
   import { goto } from '$app/navigation';
 
@@ -105,16 +105,7 @@
             openCardsSearch([tag]);
           }}
         />
-        <button
-          type="button"
-          class={REPORT_TAGS_BUTTON_CLASS}
-          class:!opacity-100={reportOpen}
-          title={REPORT_TAGS_BUTTON_LABEL}
-          aria-label={REPORT_TAGS_BUTTON_LABEL}
-          onclick={() => (reportOpen = !reportOpen)}
-        >
-          <Flag size="11" />
-        </button>
+        <ReportTagsButton bind:open={reportOpen} />
       </div>
       <div class="flex flex-wrap items-center justify-end gap-2 ml-auto">
         <button
