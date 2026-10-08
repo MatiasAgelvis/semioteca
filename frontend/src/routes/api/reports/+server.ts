@@ -1,31 +1,51 @@
 import { json } from '@sveltejs/kit';
-import { createClient } from '@libsql/client';
+import { createClient, type Client } from '@libsql/client';
 import { env } from '$env/dynamic/private';
 import type { RequestHandler } from './$types';
-
-const db = createClient({
-  url: env.TURSO_DATABASE_URL ?? '',
-  authToken: env.TURSO_AUTH_TOKEN ?? '',
-});
 
 const MAX_COMMENT_LENGTH = 500;
 const MAX_CARD_ID_LENGTH = 200;
 
-async function ensureTable() {
-  await db.execute(`
-    CREATE TABLE IF NOT EXISTS tag_reports (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      card_id TEXT NOT NULL,
-      incorrect_tags TEXT NOT NULL DEFAULT '[]',
-      corrected_tags TEXT NOT NULL DEFAULT '[]',
-      comment TEXT NOT NULL DEFAULT '',
-      user_agent TEXT NOT NULL DEFAULT '',
-      created_at TEXT NOT NULL DEFAULT (datetime('now'))
-    )
-  `);
+/**
+ * Lazily construct the libsql client. Returning null when the env vars are
+ * missing lets the module be imported safely (e.g. during `vite build`) and
+ * lets the handlers respond with 503 instead of crashing on cold start.
+ */
+function getDb(): Client | null {
+  const url = env.TURSO_DATABASE_URL;
+  if (!url) return null;
+  return createClient({
+    url,
+    authToken: env.TURSO_AUTH_TOKEN,
+  });
+}
+
+let tableReady: Promise<void> | null = null;
+function ensureTable(db: Client): Promise<void> {
+  if (!tableReady) {
+    tableReady = db.execute(`
+      CREATE TABLE IF NOT EXISTS tag_reports (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        card_id TEXT NOT NULL,
+        incorrect_tags TEXT NOT NULL DEFAULT '[]',
+        corrected_tags TEXT NOT NULL DEFAULT '[]',
+        comment TEXT NOT NULL DEFAULT '',
+        user_agent TEXT NOT NULL DEFAULT '',
+        created_at TEXT NOT NULL DEFAULT (datetime('now'))
+      )
+    `);
+  }
+  return tableReady;
+}
+
+function unavailable() {
+  return json({ error: 'Reports unavailable' }, { status: 503 });
 }
 
 export const POST: RequestHandler = async ({ request }) => {
+  const db = getDb();
+  if (!db) return unavailable();
+
   let body: Record<string, unknown>;
   try {
     body = await request.json();
@@ -55,7 +75,7 @@ export const POST: RequestHandler = async ({ request }) => {
     ? body.corrected_tags.filter((t): t is string => typeof t === 'string')
     : [];
 
-  await ensureTable();
+  await ensureTable(db);
   await db.execute({
     sql: `INSERT INTO tag_reports (card_id, incorrect_tags, corrected_tags, comment, user_agent) VALUES (?, ?, ?, ?, ?)`,
     args: [
@@ -71,10 +91,13 @@ export const POST: RequestHandler = async ({ request }) => {
 };
 
 export const GET: RequestHandler = async ({ url }) => {
+  const db = getDb();
+  if (!db) return unavailable();
+
   const limit = Math.min(Number(url.searchParams.get('limit') ?? 50), 200);
   const cardId = url.searchParams.get('card_id');
 
-  await ensureTable();
+  await ensureTable(db);
 
   const result = cardId
     ? await db.execute({
