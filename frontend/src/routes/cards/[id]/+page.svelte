@@ -12,13 +12,16 @@
   import CardHeader from '$lib/components/card/CardHeader.svelte';
   import CardContent from '$lib/components/card/CardContent.svelte';
   import CardTags from '$lib/components/card/CardTags.svelte';
-  import { VectorPolygon } from '@lucide/svelte';
+  import TagReportForm from '$lib/components/TagReportForm.svelte';
+  import { REPORT_TAGS_BUTTON_CLASS, REPORT_TAGS_BUTTON_LABEL } from '$lib/utils/reportTags';
+  import { VectorPolygon, Flag } from '@lucide/svelte';
   import { openCardsSearch } from '$lib/stores/cardsSearch';
   import { goto } from '$app/navigation';
 
   let { data }: { data: PageData } = $props();
 
   let sheetOpen = $state(false);
+  let reportOpen = $state(false);
 
   function handleSelectRelation(cardId: string) {
     sheetOpen = false;
@@ -87,19 +90,32 @@
       <CardContent text={data.card.content} mode="full" images={data.card.images} />
       <p class="mt-5 text-xs opacity-40">
         <button type="button" class="link link-hover" onclick={copyCitation}>Copiar cita</button>
-        · <button type="button" class="link link-hover" onclick={copyCardText}>Copiar texto</button>
+        ·
+        <button type="button" class="link link-hover" onclick={copyCardText}>Copiar texto</button>
       </p>
     </div>
 
     <!-- Controls bar: tags left, actions right -->
     <div class="card-actions flex-nowrap items-center justify-between mt-5">
-      <CardTags
-        tags={data.card.tags}
-        variant="interactive"
-        onTagClick={(tag) => {
-          openCardsSearch([tag]);
-        }}
-      />
+      <div class="flex flex-wrap gap-1 items-end">
+        <CardTags
+          tags={data.card.tags}
+          variant="interactive"
+          onTagClick={(tag) => {
+            openCardsSearch([tag]);
+          }}
+        />
+        <button
+          type="button"
+          class={REPORT_TAGS_BUTTON_CLASS}
+          class:!opacity-100={reportOpen}
+          title={REPORT_TAGS_BUTTON_LABEL}
+          aria-label={REPORT_TAGS_BUTTON_LABEL}
+          onclick={() => (reportOpen = !reportOpen)}
+        >
+          <Flag size="11" />
+        </button>
+      </div>
       <div class="flex flex-wrap items-center justify-end gap-2 ml-auto">
         <button
           type="button"
@@ -135,6 +151,10 @@
       </div>
     </div>
   </article>
+
+  {#if reportOpen}
+    <TagReportForm card={data.card} ondone={() => (reportOpen = false)} />
+  {/if}
 </div>
 
 <RelatedCardsSheet
