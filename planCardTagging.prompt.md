@@ -40,7 +40,7 @@ Replace the current random tagging in [backend/tag_cards.py](/Volumes/BlackHole/
 8. Integrate tagging into the content workflow.
    Place tagging after card generation and before sync. The target flow is:
    [backend/generate_cards_json.py](/Volumes/BlackHole/dev/web/semioteca/backend/generate_cards_json.py#L1) → tagger → [scripts/sync-content.mjs](/Volumes/BlackHole/dev/web/semioteca/scripts/sync-content.mjs#L1)
-   If quality is still being tuned, start as a standalone command first, then fold it into [package.json](/Volumes/BlackHole/dev/web/semioteca/package.json#L1) once stable.
+   If quality is still being tuned, start as a standalone command first, then fold it into [mise.toml](/Volumes/BlackHole/dev/web/semioteca/mise.toml#L1) once stable.
 
 9. Run a review-first rollout.
    Before full tagging, run on a sample across multiple books, inspect zero-tag, one-tag, and multi-tag cases, then tune definitions and thresholds before tagging the full corpus.
@@ -57,7 +57,7 @@ Replace the current random tagging in [backend/tag_cards.py](/Volumes/BlackHole/
 - [backend/card_models.py](/Volumes/BlackHole/dev/web/semioteca/backend/card_models.py#L1) — only if metadata storage changes.
 - [backend/generate_cards_json.py](/Volumes/BlackHole/dev/web/semioteca/backend/generate_cards_json.py#L1) — upstream generation step.
 - [backend/pyproject.toml](/Volumes/BlackHole/dev/web/semioteca/backend/pyproject.toml#L1) — ML dependencies.
-- [package.json](/Volumes/BlackHole/dev/web/semioteca/package.json#L1) — script integration point.
+- [mise.toml](/Volumes/BlackHole/dev/web/semioteca/mise.toml#L1) — script integration point.
 - [scripts/sync-content.mjs](/Volumes/BlackHole/dev/web/semioteca/scripts/sync-content.mjs#L1) — existing sync stage.
 - [README.md](/Volumes/BlackHole/dev/web/semioteca/README.md#L1) — workflow documentation.
 - [frontend/src/lib/types/content.ts](/Volumes/BlackHole/dev/web/semioteca/frontend/src/lib/types/content.ts#L1) — already compatible with tags.
