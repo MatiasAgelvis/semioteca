@@ -140,7 +140,7 @@ To regenerate the lockfile after a pyproject change, run `uv lock`.
 
 ### First-time setup
 
-On a fresh checkout, before `npm run content:*` or `npm run test:unit`
+On a fresh checkout, before `mise run content-*` or `mise run backend-test`
 will work via uv, generate the lockfile once:
 
 ```bash
@@ -239,10 +239,10 @@ Use `--report-anomalies` to inspect these and refine split patterns or source co
 Unit tests live in `backend/tests/` and use `pytest` (declared as a
 dev dependency in `backend/pyproject.toml`).
 
-Run them via npm from the project root:
+Run them via mise from the project root:
 
 ```bash
-npm run test:unit
+mise run backend-test
 ```
 
 Or directly:

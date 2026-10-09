@@ -5,3 +5,54 @@ python = "3.14"
 # `uv` manages its own virtualenv under `backend/.venv`. Mise still pins the
 # Python interpreter version; uv finds it and creates the venv on first
 # `uv sync`.
+
+[tasks.content-extract]
+run = "cd backend && sh ../scripts/uv-run.sh generate_cards_json.py --report-anomalies"
+
+[tasks.content-anomalies]
+run = "cd backend && sh ../scripts/uv-run.sh anomalies.py"
+
+[tasks.content-verify]
+run = "cd backend && sh ../scripts/uv-run.sh verify_cards.py"
+
+[tasks.backend-test]
+run = "sh ./scripts/run-tests.sh"
+
+[tasks.content-relations]
+run = "cd backend && sh ../scripts/uv-run.sh generate_card_relations.py"
+
+[tasks.content-tag]
+run = "cd backend && sh ../scripts/uv-run.sh tag_cards.py"
+
+[tasks.content-tagstats]
+run = "cd backend && sh ../scripts/uv-run.sh tag_stats.py --per-source"
+
+[tasks.content-sync]
+run = "node ./scripts/sync-content.mjs"
+
+[tasks.content-build]
+run = "mise run backend-test && mise run content-extract && mise run content-verify && mise run content-tag && mise run content-relations && mise run content-sync"
+
+[tasks.content-commit-update]
+run = 'git commit -m "chore(cards): update tags and relations" -m "- remove outdated tags from some card entries" -m "- recalculate card similarity scores and relations"'
+
+[tasks.frontend-dev]
+run = "npm --prefix frontend run dev"
+
+[tasks.frontend-check]
+run = "npm --prefix frontend run check"
+
+[tasks.frontend-test]
+run = "npm --prefix frontend run test"
+
+[tasks.frontend-test-watch]
+run = "npm --prefix frontend run test:watch"
+
+[tasks.frontend-build]
+run = "npm --prefix frontend run build"
+
+[tasks.frontend-deploy]
+run = "npm --prefix frontend run vercel:deploy"
+
+[tasks.build]
+run = "npm --prefix frontend run build"
