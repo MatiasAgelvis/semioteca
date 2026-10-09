@@ -10,4 +10,16 @@ declare global {
   }
 }
 
+// Virtual modules provided by the cards-data-fallback Vite plugin
+// (see frontend/vite.config.ts). They bundle the JSON datasets at build
+// time with fallback paths (backend/ first, then static/content/).
+declare module 'virtual:cards-data' {
+  const data: unknown;
+  export default data;
+}
+declare module 'virtual:relations-data' {
+  const data: unknown;
+  export default data;
+}
+
 export {};

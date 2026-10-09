@@ -1,5 +1,6 @@
 <script lang="ts">
   import PageSection from '$lib/components/PageSection.svelte';
+  import { Flag } from '@lucide/svelte';
 </script>
 
 <svelte:head>
@@ -177,6 +178,44 @@
               </li>
             </ol>
             <!-- TODO: captura de pantalla del grafo -->
+          </div>
+        </div>
+
+        <div id="reportar-etiquetas" class="collapse collapse-arrow join-item">
+          <input type="radio" name="guia-accordion" />
+          <div class="collapse-title text-base font-semibold">
+            Reportar etiquetas o sugerir nuevas
+          </div>
+          <div class="collapse-content">
+            <p class="text-base-content/80">
+              Las etiquetas sirven para filtrar y descubrir tarjetas por tema. Si encuentras una
+              etiqueta que no corresponde al contenido, o si crees que falta alguna, puedes
+              reportarlo y el equipo lo revisará.
+            </p>
+            <ol class="mt-2 list-decimal space-y-2 pl-5 text-base-content/80">
+              <li>
+                Junto a las etiquetas de cada tarjeta aparece un pequeño botón con una
+                <span
+                  class="btn btn-ghost btn-square h-5 min-h-5 w-5 p-0 transition-opacity opacity-100"
+                >
+                  <Flag size="11" />
+                </span> (visible al pasar el cursor sobre la zona de etiquetas).
+              </li>
+              <li>
+                Haz clic para abrir el formulario. Marca en rojo las etiquetas que consideres
+                incorrectas y, si quieres, marca en verde las que falten.
+              </li>
+              <li>
+                Opcionalmente, escribe un comentario explicando tu elección (por ejemplo, el tema
+                que crees que debería reflejar la tarjeta).
+              </li>
+              <li>Pulsa <span class="btn btn-primary btn-xs" aria-hidden="true">Enviar</span>.</li>
+            </ol>
+            <p class="mt-3 text-base-content/80">
+              Si la tarjeta <strong>no tiene etiquetas</strong>, el botón aparece siempre visible y
+              el formulario se centra en sugerirlas. Verás todas las disponibles para escoger las
+              que mejor encajen.
+            </p>
           </div>
         </div>
       </div>

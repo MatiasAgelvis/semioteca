@@ -2,6 +2,8 @@ import { readdir, readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
 import { marked } from 'marked';
 import { sanitizeHtml } from '$lib/utils/html';
+import cardsJson from 'virtual:cards-data';
+import relationsJson from 'virtual:relations-data';
 import type {
   BlogPost,
   BlogPostMeta,
@@ -10,6 +12,16 @@ import type {
   PdfResource,
   RelatedCard,
 } from '$lib/types/content';
+
+// Cards dataset is imported at build time so it gets bundled with the
+// catchall serverless function. process.cwd() inside Vercel's Node runtime
+// resolves to /var/task/, so the legacy readFile()/path.join() path below
+// would always return an empty dataset at runtime. The virtual:* modules are
+// provided by a Vite plugin (see vite.config.ts) that falls back between
+// backend/ and frontend/static/content/, so a fresh clone can build even
+// before `npm run content:sync` has been run.
+const CARDS_DATA = cardsJson as CardsDataset;
+const RELATIONS_DATA = relationsJson as Record<string, CardRelationEntry[]>;
 
 const CONTENT_ROOT = path.resolve(process.cwd(), 'static', 'content');
 const BLOG_ROOT = path.join(CONTENT_ROOT, 'blog');
@@ -181,25 +193,17 @@ async function listFilesRecursive(root: string, extension: string): Promise<stri
 }
 
 export async function readCardsDataset(): Promise<CardsDataset> {
-  if (!(await exists(CARDS_JSON_PATH))) {
+  if (!Array.isArray(CARDS_DATA.books)) {
     return { books: [] };
   }
-
-  const raw = await readFile(CARDS_JSON_PATH, 'utf-8');
-  const parsed = JSON.parse(raw) as CardsDataset;
-  if (!Array.isArray(parsed.books)) {
-    return { books: [] };
-  }
-  return parsed;
+  return CARDS_DATA;
 }
 
 /**
  * Returns the raw relations map: { cardId → [{id, score}, ...] }.
  */
 export async function readCardRelations(): Promise<Record<string, CardRelationEntry[]>> {
-  if (!(await exists(RELATIONS_PATH))) return {};
-  const raw = await readFile(RELATIONS_PATH, 'utf-8');
-  return JSON.parse(raw);
+  return RELATIONS_DATA;
 }
 
 /**

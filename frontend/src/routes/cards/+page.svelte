@@ -453,7 +453,14 @@
 
         <div class="space-y-5">
           {#if loading}
-            <p>Cargando tarjetas...</p>
+            <div
+              class="flex flex-col items-center gap-3 py-12 text-base-content/70"
+              role="status"
+              aria-live="polite"
+            >
+              <span class="loading loading-dots loading-lg"></span>
+              <span>Cargando tarjetas...</span>
+            </div>
           {:else}
             {#each filteredCards as card (card.id)}
               <CardItem

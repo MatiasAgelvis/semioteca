@@ -2,12 +2,12 @@ import { error } from '@sveltejs/kit';
 
 import { buildRelatedCards, readCardsDataset } from '$lib/server/content';
 
-export const prerender = true;
-
-export async function entries() {
-  const dataset = await readCardsDataset();
-  return dataset.books.flatMap((book) => book.cards.map((card) => ({ id: card.id })));
-}
+// Per-card pages are rendered on demand by the SvelteKit catchall serverless
+// function. Prerendering all 2,700+ cards would emit two routes per page
+// (rewrite + canonical 308) in the Vercel Build Output API, blowing past the
+// platform's 2048 route limit. The catchall uses SvelteKit's load() to render
+// each card and writes a static-friendly Cache-Control header.
+export const prerender = false;
 
 export async function load({ params, url }) {
   const [dataset, relations] = await Promise.all([

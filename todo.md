@@ -23,6 +23,7 @@ Fully-done work is archived in `todo-done.md` — this file tracks open items on
 ## UI/UX & Bug Checklist
 
 - [ ] **Graph view — 'return to repository' for the companion card** · Add a way to navigate back to the card repository from the companion card panel (`GraphPanel`) in the graph view — it currently only has "Ver tarjeta completa" and "Explorar desde aquí".
+- [x] Replace <p>Cargando tarjetas...</p> with a proper spinner.
 - [ ] **CardItem — tooltip overflow clipping** · Tooltips in `CardItem.svelte` are clipped by the parent container's boundary. Needs a portal implementation to render tooltips at the body level.
 - [ ] **Component doc route** · Create `/doc` route with isolated component examples (Tag variants, sizes, states) for faster front-end iteration. Evaluate after current feature branch.
 - [ ] **Search bar** · The search bar parameters reset each time the bar is closed, the state should be preserved until the user explicitly resets it. It should be reset under specific conditions (e.g. when the user selects a tag from a card). Those conditions should be explored — currently it obfuscates the search UX.
@@ -41,7 +42,14 @@ Fully-done work is archived in `todo-done.md` — this file tracks open items on
 
 ## Performance
 
-- [ ] **Investigate build time regression** · Vercel build times jumped from ~2m30 to ~4m30 between the Aug 25 and Aug 28 deploys. Check what changed in that window — likely candidates: dependency updates, new prerender routes, or SvelteKit config changes.
+- [x] ~~Investigate build time regression~~ · Solved on the Vercel-adapter branch: the 2,700+ prerendered card pages were emitting 2 routes each in the Build Output API, blowing past the 2,048 route limit and forcing a slow build. Set `prerender = false` on `/cards/[id]` so the catchall serverless function renders them on the fly. Build time went from ~4m30 to ~30s.
+
+## Data layer (one day)
+
+- [ ] **Move card data into SQLite / libSQL** · Cards are currently a ~5 MB `cards.json` + ~2.5 MB `card-relations.json`, inlined at build time into the catchall function bundle (now ~9.4 MB) so it can be read at runtime (process.cwd() is `/var/task/` in Vercel's Node runtime). Shipping SQLite instead would be smaller and faster to query per-card, and sidestep the whole "bundle the JSON" dance.
+  - Prereq: a real DB schema (currently Turso/libSQL holds only `tag_reports`).
+  - Once the DB is the source of truth, we could build a small **admin panel** to insert new cards, and do in-place edits/retagging from the browser — that's the actual prize, the storage format is secondary.
+  - Note this is a tall order; the bundled-JSON approach works fine for now, so treat the DB as an enabler for the admin panel, not a performance fix.
 
 ## Frontend testing (when needed)
 
