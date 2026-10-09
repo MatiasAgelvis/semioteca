@@ -4,11 +4,14 @@
     secondary: 'badge-secondary',
     static: 'badge-soft badge-base-content opacity-60',
     filter: 'badge-primary',
+    error: 'badge-error text-error-content',
+    success: 'badge-success text-success-content',
   } as const;
 
   const HOVER_CLASSES = {
     primary: 'hover:badge-primary',
     error: 'hover:badge-error',
+    success: 'hover:badge-success',
   } as const;
 
   const SIZE_CLASSES = {
