@@ -19,10 +19,5 @@
     "frontend:deploy": "npm --prefix frontend run vercel:deploy",
     "build": "npm run frontend:build"
   },
-  "devDependencies": {
-    "prettier": "^3.8.4",
-    "prettier-plugin-svelte": "^4.1.1",
-    "prettier-plugin-tailwindcss": "^0.8.0",
-    "vitest": "^5.0.3"
-  }
+  "devDependencies": {}
 }
