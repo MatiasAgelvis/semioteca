@@ -23,7 +23,7 @@ Fully-done work is archived in `todo-done.md` — this file tracks open items on
 ## UI/UX & Bug Checklist
 
 - [ ] **Graph view — 'return to repository' for the companion card** · Add a way to navigate back to the card repository from the companion card panel (`GraphPanel`) in the graph view — it currently only has "Ver tarjeta completa" and "Explorar desde aquí".
-- [ ] Replace <p>Cargando tarjetas...</p> with a proper spinner.
+- [x] Replace <p>Cargando tarjetas...</p> with a proper spinner.
 - [ ] **CardItem — tooltip overflow clipping** · Tooltips in `CardItem.svelte` are clipped by the parent container's boundary. Needs a portal implementation to render tooltips at the body level.
 - [ ] **Component doc route** · Create `/doc` route with isolated component examples (Tag variants, sizes, states) for faster front-end iteration. Evaluate after current feature branch.
 - [ ] **Search bar** · The search bar parameters reset each time the bar is closed, the state should be preserved until the user explicitly resets it. It should be reset under specific conditions (e.g. when the user selects a tag from a card). Those conditions should be explored — currently it obfuscates the search UX.
