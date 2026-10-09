@@ -15,7 +15,7 @@ run = "cd backend && sh ../scripts/uv-run.sh anomalies.py"
 [tasks.content-verify]
 run = "cd backend && sh ../scripts/uv-run.sh verify_cards.py"
 
-[tasks.test-unit]
+[tasks.backend-test]
 run = "sh ./scripts/run-tests.sh"
 
 [tasks.content-relations]
@@ -31,7 +31,7 @@ run = "cd backend && sh ../scripts/uv-run.sh tag_stats.py --per-source"
 run = "node ./scripts/sync-content.mjs"
 
 [tasks.content-build]
-run = "mise run test-unit && mise run content-extract && mise run content-verify && mise run content-tag && mise run content-relations && mise run content-sync"
+run = "mise run backend-test && mise run content-extract && mise run content-verify && mise run content-tag && mise run content-relations && mise run content-sync"
 
 [tasks.content-commit-update]
 run = 'git commit -m "chore(cards): update tags and relations" -m "- remove outdated tags from some card entries" -m "- recalculate card similarity scores and relations"'
@@ -41,6 +41,12 @@ run = "npm --prefix frontend run dev"
 
 [tasks.frontend-check]
 run = "npm --prefix frontend run check"
+
+[tasks.frontend-test]
+run = "npm --prefix frontend run test"
+
+[tasks.frontend-test-watch]
+run = "npm --prefix frontend run test:watch"
 
 [tasks.frontend-build]
 run = "npm --prefix frontend run build"
