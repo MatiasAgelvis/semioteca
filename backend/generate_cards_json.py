@@ -216,11 +216,27 @@ def split_text_into_cards(text: str, config: SourceDocumentConfig) -> list[CardS
 
     # For each position in `plain`, compute the corresponding position in
     # the original `text` by accounting for removed tags.
+    #
+    # Boundary rule: a tag sitting *exactly* at the requested plain position
+    # belongs to one slice or the other depending on its type. Closing
+    # (</em>) and self-closing (<br />) tags close the slice on the left, so
+    # they are consumed; opening tags (<strong>) start the next marker's
+    # formatting and must stay outside. Otherwise every card ends with a
+    # stray "<strong>" taken from the following marker, and citation-only
+    # sections become non-empty junk cards that survive the blank-card
+    # filter with just "<strong>" as their content.
     def plain_to_original(plain_pos: int) -> int:
         offset = 0
         for tag_start, tag_end in tag_offsets:
-            if tag_start - offset <= plain_pos:
+            tag_plain_pos = tag_start - offset
+            if tag_plain_pos < plain_pos:
                 offset += tag_end - tag_start
+            elif tag_plain_pos == plain_pos:
+                tag = text[tag_start:tag_end]
+                if tag.startswith("</") or tag.endswith("/>"):
+                    offset += tag_end - tag_start
+                else:
+                    break
             else:
                 break
         return plain_pos + offset
