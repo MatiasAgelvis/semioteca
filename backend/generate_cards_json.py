@@ -77,7 +77,9 @@ class HTMLTextExtractor(HTMLParser):
             attrs_dict = dict(attrs)
             src = attrs_dict.get("src") or ""
             if src.startswith("IMAGE_PLACEHOLDER_"):
-                self.parts.append(src.replace("IMAGE_PLACEHOLDER_", "[[IMAGE:").rstrip("/") + "]]")
+                self.parts.append(
+                    src.replace("IMAGE_PLACEHOLDER_", "[[IMAGE:").rstrip("/") + "]]"
+                )
         elif tag == "br":
             self.parts.append("\n")
         elif tag in _ALLOWED_INLINE_TAGS:
@@ -102,8 +104,8 @@ class HTMLTextExtractor(HTMLParser):
 
 
 def normalize_whitespace(text: str) -> str:
-    text = text.replace("\u00A0", " ")
-    text = text.replace("\u202F", " ")
+    text = text.replace("\u00a0", " ")
+    text = text.replace("\u202f", " ")
     return text
 
 
@@ -114,7 +116,9 @@ def html_to_plain_text(html: str) -> str:
     return parser.get_text()
 
 
-def extract_text_and_images_from_docx_bytes(docx_bytes: bytes, image_dir: Path) -> tuple[str, list[ImageRef]]:
+def extract_text_and_images_from_docx_bytes(
+    docx_bytes: bytes, image_dir: Path
+) -> tuple[str, list[ImageRef]]:
     images: list[ImageRef] = []
     image_dir.mkdir(parents=True, exist_ok=True)
 
@@ -139,7 +143,9 @@ def extract_text_and_images_from_docx_bytes(docx_bytes: bytes, image_dir: Path) 
         return {"src": f"IMAGE_PLACEHOLDER_{placeholder_id}"}
 
     with io.BytesIO(docx_bytes) as docx_file:
-        result = mammoth.convert_to_html(docx_file, convert_image=mammoth.images.img_element(image_handler))
+        result = mammoth.convert_to_html(
+            docx_file, convert_image=mammoth.images.img_element(image_handler)
+        )
 
     text = html_to_plain_text(result.value)
     return text, images
@@ -247,7 +253,9 @@ def split_text_into_cards(text: str, config: SourceDocumentConfig) -> list[CardS
     return cards
 
 
-def build_cards_for_source(source_path: Path, config: SourceDocumentConfig, image_root: Path) -> SourceBuildResult:
+def build_cards_for_source(
+    source_path: Path, config: SourceDocumentConfig, image_root: Path
+) -> SourceBuildResult:
     if source_path.suffix.lower() == ".odt":
         docx_bytes = convert_odt_to_docx_bytes(source_path)
     elif source_path.suffix.lower() == ".docx":
@@ -256,18 +264,24 @@ def build_cards_for_source(source_path: Path, config: SourceDocumentConfig, imag
         raise ValueError(f"Unsupported file type: {source_path}")
 
     output_image_dir = image_root / slugify(Path(config.filename).stem)
-    raw_text, images = extract_text_and_images_from_docx_bytes(docx_bytes, output_image_dir)
+    raw_text, images = extract_text_and_images_from_docx_bytes(
+        docx_bytes, output_image_dir
+    )
     sections = split_text_into_cards(raw_text, config)
     contents = [section.content or "" for section in sections]
     stripped_contents, _ = strip_divider(config, contents)
 
     cards: list[Card] = []
     base_id = slugify(Path(config.filename).stem)
-    for index, (section, stripped_content) in enumerate(zip(sections, stripped_contents), start=1):
+    for index, (section, stripped_content) in enumerate(
+        zip(sections, stripped_contents), start=1
+    ):
         card_id = base_id if len(sections) == 1 else f"{base_id}-{index}"
         card_images = [
-            image for image in images
-            if image.placeholder_id is not None and f"[[IMAGE:{image.placeholder_id}]]" in section.content
+            image
+            for image in images
+            if image.placeholder_id is not None
+            and f"[[IMAGE:{image.placeholder_id}]]" in section.content
         ]
         cards.append(
             Card(
@@ -380,7 +394,9 @@ def main() -> None:
     source_results: list[SourceBuildResult] = []
     total_cards = 0
 
-    for config, source_path in tqdm(source_configs, desc="Processing sources", unit="files"):
+    for config, source_path in tqdm(
+        source_configs, desc="Processing sources", unit="files"
+    ):
         if args.verbose:
             print(f"Processing {source_path}")
         source_result = build_cards_for_source(source_path, config, image_root)
@@ -414,7 +430,9 @@ def main() -> None:
     if args.dry_run:
         print(f"[dry-run] Would write {total_cards} cards to {output_path}")
     else:
-        output_path.write_text(json.dumps(output_data, ensure_ascii=False, indent=2), encoding="utf-8")
+        output_path.write_text(
+            json.dumps(output_data, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
 
     anomalies = collect_card_length_anomalies(
         source_results,
