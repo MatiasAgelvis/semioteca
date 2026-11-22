@@ -22,10 +22,6 @@
           Investigación y docencia en semiótica, pragmática y teoría de la interpretación. Este
           espacio agrupa trayectoria académica, publicaciones y producción documental asociada.
         </p>
-        <p class="mt-4 leading-8 text-base-content/70">
-          Los recursos se publican desde el backend como archivos estáticos, manteniendo un flujo de
-          trabajo reproducible para despliegue sin servidor.
-        </p>
       </article>
 
       <article class="rounded-box border border-base-300/70 bg-base-100/90 p-5">
