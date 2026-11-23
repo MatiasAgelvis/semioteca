@@ -5,6 +5,8 @@ build
 .netlify
 .wrangler
 misc
+# Contains SvelteKit placeholders (%sveltekit.body%) Prettier cannot parse
+frontend/src/app.html
 __pycache__
 *.py[cod]
 *$py.class
