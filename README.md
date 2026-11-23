@@ -23,6 +23,24 @@ Tasks are invoked as `mise run <task-name>` (e.g. `mise run content-sync`, `mise
 
 ---
 
+## Formatting
+
+Prettier is the formatter for all JS/TS/Svelte/CSS/JSON/Markdown: single quotes, 2-space
+indent, trailing commas, 100 columns (see `.prettierrc`). The version is pinned in
+`frontend/package.json` (`prettier` and `prettier-plugin-svelte`).
+
+```sh
+mise run format        # rewrite files
+mise run format-check  # verify, suitable for CI
+```
+
+Editor format-on-save (Zed) uses its bundled Prettier against the same config; the mise
+tasks pass the project's svelte plugin explicitly. Files Prettier cannot parse — e.g.
+`frontend/src/app.html`, which contains SvelteKit placeholders — plus generated content
+and caches are excluded in `.prettierignore`.
+
+---
+
 ## Common commands
 
 All commands run from the **repo root**.

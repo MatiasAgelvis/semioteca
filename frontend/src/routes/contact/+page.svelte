@@ -146,7 +146,8 @@
                 rows="5"
                 class="textarea mt-1.5 block w-full"
                 placeholder="Escribe tu mensaje aquí..."
-                minlength="1"></textarea>
+                minlength="1"
+              ></textarea>
             </div>
 
             {#if status === 'sending'}
