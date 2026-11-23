@@ -6,9 +6,9 @@
     { label: 'Inicio', href: '/' },
     { label: 'Tarjetas', href: '/cards' },
     { label: 'Blog', href: '/blog' },
+    ...(SHOW_CV ? [{ label: 'CV', href: '/cv' }] : []),
     { label: 'Contacto', href: '/contact' },
     ...(SHOW_DOCS ? [{ label: 'Documentos', href: '/docs' }] : []),
-    ...(SHOW_CV ? [{ label: 'CV', href: '/cv' }] : []),
   ];
 
   const currentYear = new Date().getFullYear();
