@@ -19,9 +19,9 @@
     { href: '/cards', label: 'Tarjetas' },
     ...(SHOW_GUIDE ? [{ href: '/guia', label: 'Guía' }] : []),
     { href: '/blog', label: 'Blog' },
+    ...(SHOW_CV ? [{ href: '/cv', label: 'CV' }] : []),
     { href: '/contact', label: 'Contacto' },
     ...(SHOW_DOCS ? [{ href: '/docs', label: 'Documentos' }] : []),
-    ...(SHOW_CV ? [{ href: '/cv', label: 'CV' }] : []),
   ];
 
   let suppressFocus = false;
