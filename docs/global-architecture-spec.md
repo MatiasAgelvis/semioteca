@@ -257,19 +257,19 @@ Vercel deploy
 
 ### Tasks (from root `mise.toml`)
 
-| Task                              | Description                                 |
-| --------------------------------- | ------------------------------------------- |
-| `mise run content-extract`        | Run card extraction from source documents   |
-| `mise run content-relations`      | Compute related-card scores                 |
-| `mise run content-sync`           | Copy backend outputs to frontend static dir |
-| `mise run content-build`          | All four above in sequence                  |
-| `mise run frontend-dev`           | Start SvelteKit dev server                  |
-| `mise run frontend-check`         | svelte-check (typecheck + lint)             |
-| `mise run frontend-test`          | Run vitest unit tests once                  |
-| `mise run frontend-test-watch`    | Run vitest in watch mode                    |
-| `mise run frontend-build`         | Production build                            |
-| `mise run build`                  | Frontend build only (content assumed ready) |
-| `mise run backend-test`           | Run backend Python unit tests               |
+| Task                           | Description                                 |
+| ------------------------------ | ------------------------------------------- |
+| `mise run content-extract`     | Run card extraction from source documents   |
+| `mise run content-relations`   | Compute related-card scores                 |
+| `mise run content-sync`        | Copy backend outputs to frontend static dir |
+| `mise run content-build`       | All four above in sequence                  |
+| `mise run frontend-dev`        | Start SvelteKit dev server                  |
+| `mise run frontend-check`      | svelte-check (typecheck + lint)             |
+| `mise run frontend-test`       | Run vitest unit tests once                  |
+| `mise run frontend-test-watch` | Run vitest in watch mode                    |
+| `mise run frontend-build`      | Production build                            |
+| `mise run build`               | Frontend build only (content assumed ready) |
+| `mise run backend-test`        | Run backend Python unit tests               |
 
 ### Server data loading (`lib/server/content.ts`)
 
