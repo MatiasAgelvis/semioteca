@@ -23,12 +23,11 @@ function dedupeArticles(articles: PdfResource[]): PdfResource[] {
 
 export async function load() {
   if (!SHOW_CV) {
-    return { resources: [], articles: [] };
+    return { articles: [] };
   }
 
   const resources = await listPdfResources();
   return {
-    resources: resources.filter((resource) => resource.section === 'cv'),
     articles: dedupeArticles(resources.filter((resource) => resource.section === 'articulos')),
   };
 }
