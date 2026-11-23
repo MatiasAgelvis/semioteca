@@ -23,6 +23,16 @@ Tasks are invoked as `mise run <task-name>` (e.g. `mise run content-sync`, `mise
 
 ---
 
+## Formatting
+
+Prettier is the formatter for all JS/TS/Svelte/CSS/JSON/Markdown: single quotes, 2-space
+indent, trailing commas, 100 columns (see `.prettierrc`). Formatting runs through the
+editor's Prettier on save (Zed ships its own copy), so the repo carries no formatter
+dependency. Files Prettier cannot parse — e.g. `frontend/src/app.html`, which contains
+SvelteKit placeholders — are excluded in `.prettierignore`.
+
+---
+
 ## Common commands
 
 All commands run from the **repo root**.
