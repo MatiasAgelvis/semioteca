@@ -56,3 +56,9 @@ run = "npm --prefix frontend run vercel:deploy"
 
 [tasks.build]
 run = "npm --prefix frontend run build"
+
+[tasks.format]
+run = "frontend/node_modules/.bin/prettier --plugin frontend/node_modules/prettier-plugin-svelte/plugin.js --write ."
+
+[tasks.format-check]
+run = "frontend/node_modules/.bin/prettier --plugin frontend/node_modules/prettier-plugin-svelte/plugin.js --check ."

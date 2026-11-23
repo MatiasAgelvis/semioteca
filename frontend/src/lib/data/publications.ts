@@ -23,12 +23,12 @@ export const PUBLICATION_META: Record<string, PublicationMeta> = {
     year: 2022,
   },
   'El significado performativo en el discurso político. Significado indirecto y las implicaturas con significado presumible en el discurso político venezolano':
-  {
-    authors: ['Valmore Agelvis', 'Rostym Sulbarán'],
-    venue: 'Lengua y Habla',
-    issue: 'N° 25',
-    year: 2021,
-  },
+    {
+      authors: ['Valmore Agelvis', 'Rostym Sulbarán'],
+      venue: 'Lengua y Habla',
+      issue: 'N° 25',
+      year: 2021,
+    },
   'La autocontradicción en enunciados de doble negación, menos por menos da más': {
     title: 'La autocontradicción en enunciados de doble negación: menos por menos da más',
     authors: ['Valmore Agelvis'],
@@ -37,12 +37,12 @@ export const PUBLICATION_META: Record<string, PublicationMeta> = {
     year: 2022,
   },
   'Las implicaturas conversacionales generalizadas y particularizadas en las manchetas del diario El Nacional':
-  {
-    authors: ['Valmore Agelvis', 'Frank Arellano'],
-    venue: 'Lengua y Habla',
-    issue: 'N° 19',
-    year: 2015,
-  },
+    {
+      authors: ['Valmore Agelvis', 'Frank Arellano'],
+      venue: 'Lengua y Habla',
+      issue: 'N° 19',
+      year: 2015,
+    },
   'Léxico fraseológico en el habla de Mérida': {
     authors: ['Valmore Agelvis', 'Nelson Rojas', 'Raquel Vento'],
     venue: 'Lengua y Habla',
@@ -50,14 +50,14 @@ export const PUBLICATION_META: Record<string, PublicationMeta> = {
     year: 2009,
   },
   'Me tiene controlada la habla acercamiento al discurso esquizofrénico desde la semiótica de las pasiones':
-  {
-    title:
-      'Me tiene controlada la habla: acercamiento al discurso esquizofrénico desde la semiótica de las pasiones',
-    authors: ['Jhennifer Rodríguez', 'Valmore Agelvis', 'Hernán Martínez'],
-    venue: 'Lengua y Habla',
-    issue: 'N° 19',
-    year: 2015,
-  },
+    {
+      title:
+        'Me tiene controlada la habla: acercamiento al discurso esquizofrénico desde la semiótica de las pasiones',
+      authors: ['Jhennifer Rodríguez', 'Valmore Agelvis', 'Hernán Martínez'],
+      venue: 'Lengua y Habla',
+      issue: 'N° 19',
+      year: 2015,
+    },
 };
 
 export function publicationMeta(title: string): PublicationMeta | undefined {
