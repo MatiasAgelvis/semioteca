@@ -58,6 +58,12 @@ export const PUBLICATION_META: Record<string, PublicationMeta> = {
       issue: 'N° 19',
       year: 2015,
     },
+  'Reflexiones en torno al lugar del significado en la teoría pragmática': {
+    authors: ['Elennys Oliveros', 'Valmore Agelvis'],
+    venue: 'Letras',
+    issue: 'Vol. 66, N° 109',
+    year: 2026,
+  },
 };
 
 export function publicationMeta(title: string): PublicationMeta | undefined {
