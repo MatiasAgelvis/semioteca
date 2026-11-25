@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { SHOW_CV, SHOW_DOCS } from '$lib/config/features';
+  import { SHOW_CV } from '$lib/config/features';
   import { SITE_AUTHOR } from '$lib/config/site';
   import BlogPostCard from '$lib/components/BlogPostCard.svelte';
   import type { PageData } from './$types';
@@ -47,7 +47,7 @@
   </section>
 
   <section
-    class={`mt-8 grid gap-4 md:grid-cols-2 ${SHOW_DOCS || SHOW_CV ? 'xl:grid-cols-4' : 'xl:grid-cols-2'}`}
+    class={`mt-8 grid gap-4 md:grid-cols-2 ${SHOW_CV ? 'xl:grid-cols-3' : 'xl:grid-cols-2'}`}
   >
     <a
       class="group rounded-box border border-base-300/70 bg-base-100/80 p-5 transition hover:border-primary/30"
@@ -69,18 +69,6 @@
         Análisis de cine y series desde las ciencias del significado.
       </p>
     </a>
-    {#if SHOW_DOCS}
-      <a
-        class="group rounded-box border border-base-300/70 bg-base-100/80 p-5 transition hover:border-primary/30"
-        href="/docs"
-      >
-        <p class="text-primary text-xs font-semibold tracking-[0.2em] uppercase">Archivo</p>
-        <h2 class="mt-2 text-xl font-black text-base-content">Documentos</h2>
-        <p class="mt-3 text-sm leading-7 text-base-content/70">
-          Acceso web y descarga directa de recursos PDF publicados.
-        </p>
-      </a>
-    {/if}
     {#if SHOW_CV}
       <a
         class="group rounded-box border border-base-300/70 bg-base-100/80 p-5 transition hover:border-primary/30"

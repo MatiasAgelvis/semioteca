@@ -11,7 +11,7 @@
     openCardsSearch,
   } from '$lib/stores/cardsSearch';
   import { selectedCount } from '$lib/stores/composer';
-  import { SHOW_CV, SHOW_DOCS, SHOW_GUIDE } from '$lib/config/features';
+  import { SHOW_CV, SHOW_GUIDE } from '$lib/config/features';
   import Logo from '$lib/components/Logo.svelte';
 
   const links = [
@@ -21,7 +21,6 @@
     { href: '/blog', label: 'Blog' },
     ...(SHOW_CV ? [{ href: '/cv', label: 'CV' }] : []),
     { href: '/contact', label: 'Contacto' },
-    ...(SHOW_DOCS ? [{ href: '/docs', label: 'Documentos' }] : []),
   ];
 
   let suppressFocus = false;
