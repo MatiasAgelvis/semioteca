@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { SHOW_CV, SHOW_DOCS } from '$lib/config/features';
+  import { SHOW_CV } from '$lib/config/features';
   import Logo from '$lib/components/Logo.svelte';
 
   const navLinks = [
@@ -8,7 +8,6 @@
     { label: 'Blog', href: '/blog' },
     ...(SHOW_CV ? [{ label: 'CV', href: '/cv' }] : []),
     { label: 'Contacto', href: '/contact' },
-    ...(SHOW_DOCS ? [{ label: 'Documentos', href: '/docs' }] : []),
   ];
 
   const currentYear = new Date().getFullYear();
