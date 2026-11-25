@@ -9,8 +9,6 @@ misc
 .tmp
 .zed
 backend/.pytest_cache
-# Contains SvelteKit placeholders (%sveltekit.body%) Prettier cannot parse
-frontend/src/app.html
 __pycache__
 *.py[cod]
 *$py.class
