@@ -135,7 +135,7 @@
 >
   <div class="card-body p-5">
     <!-- Header: author + book on left, page on right -->
-    <div class="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-2">
+    <div class="grid grid-cols-[minmax(0,1fr)_minmax(0,auto)] items-start gap-2">
       <div class="min-w-0">
         <p class="font-bold min-w-0">
           <HighlightedText segments={authorSegments} />
@@ -151,11 +151,14 @@
           </a>
         </p>
       </div>
-      <div class="flex items-center gap-2 shrink-0">
+      <div class="flex min-w-0 items-center gap-2">
         {#if searchActive}
           <span class="badge badge-warning badge-sm text-xs">{matchCount} coinc.</span>
         {/if}
-        <span class="badge badge-ghost badge-sm tabular-nums font-semibold">
+        <span
+          class="badge badge-ghost badge-sm tabular-nums font-semibold max-w-35 whitespace-normal"
+          title={card.page ? `p. ${card.page}` : undefined}
+        >
           p. <HighlightedText segments={pageSegments} />
         </span>
       </div>
@@ -166,7 +169,7 @@
       <div class="mt-1 space-y-3">
         {#each expandedParts as part}
           {#if part.kind === 'text'}
-            <p class="whitespace-pre-wrap text-sm leading-7 opacity-80">
+            <p class="whitespace-pre-wrap break-words text-sm leading-7 opacity-80">
               {#if searchActive}
                 <HighlightedText
                   segments={getHighlightSegments(stripHtml(part.text), searchTerms)}
@@ -186,7 +189,7 @@
         </p>
       </div>
     {:else}
-      <p class="whitespace-pre-wrap text-sm leading-7 opacity-80">
+      <p class="whitespace-pre-wrap break-words text-sm leading-7 opacity-80">
         {#if searchActive}
           <HighlightedText segments={contentSegments} />
         {:else}
