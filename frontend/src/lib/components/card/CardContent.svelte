@@ -48,7 +48,7 @@
 </script>
 
 {#if mode === 'excerpt'}
-  <p class="whitespace-pre-wrap text-sm leading-7 opacity-80">
+  <p class="whitespace-pre-wrap break-words text-sm leading-7 opacity-80">
     {#if searchTerms.length > 0}
       <HighlightedText segments={excerptSegments} />
     {:else}
@@ -56,14 +56,14 @@
     {/if}
   </p>
 {:else if mode === 'html'}
-  <p class="whitespace-pre-wrap text-sm leading-relaxed opacity-80">
+  <p class="whitespace-pre-wrap break-words text-sm leading-relaxed opacity-80">
     {@html footnotes ? linkFootnotes(sanitizeHtml(text), footnotes) : sanitizeHtml(text)}
   </p>
 {:else if mode === 'full'}
   {#each chunks as chunk, i}
     {#if i % 2 === 0}
       {#if chunk.trim()}
-        <p class="whitespace-pre-wrap text-sm leading-7 opacity-80">
+        <p class="whitespace-pre-wrap break-words text-sm leading-7 opacity-80">
           {#if searchTerms.length > 0}
             <HighlightedText segments={getHighlightSegments(stripHtml(chunk), searchTerms)} />
           {:else}

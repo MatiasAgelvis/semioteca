@@ -446,12 +446,12 @@
         </div>
       </div>
 
-      <div class="grid gap-6 lg:grid-cols-[18rem_minmax(0,1fr)_18rem]">
+      <div class="grid gap-6 grid-cols-[minmax(0,1fr)] lg:grid-cols-[18rem_minmax(0,1fr)_18rem]">
         <div class="hidden lg:block min-w-0">
           <BookSidebar books={booksModel} selectedBook={selectedBook ?? ''} onselect={selectBook} />
         </div>
 
-        <div class="space-y-5">
+        <div class="min-w-0 space-y-5">
           {#if loading}
             <div
               class="flex flex-col items-center gap-3 py-12 text-base-content/70"

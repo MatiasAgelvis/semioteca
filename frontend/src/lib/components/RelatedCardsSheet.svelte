@@ -79,7 +79,7 @@
           {/if}
 
           {#if rel.contentPreview}
-            <p class="mt-2 line-clamp-2 text-xs leading-relaxed opacity-60">
+            <p class="mt-2 line-clamp-2 break-words text-xs leading-relaxed opacity-60">
               {@html rel.contentPreview}
             </p>
           {/if}
