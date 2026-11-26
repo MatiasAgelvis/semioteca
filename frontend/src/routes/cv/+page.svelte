@@ -1,6 +1,12 @@
 <script lang="ts">
   import { ExternalLink, FileText } from '@lucide/svelte';
   import PageSection from '$lib/components/PageSection.svelte';
+  import {
+    SHOW_CV_MANAGEMENT,
+    SHOW_CV_RESEARCH,
+    SHOW_CV_TEACHING,
+    SHOW_CV_TRAJECTORY,
+  } from '$lib/config/features';
   import { publicationMeta, publicationSource } from '$lib/data/publications';
   import { SITE_AUTHOR, SITE_AUTHOR_URL } from '$lib/config/site';
   import type { PageData } from './$types';
@@ -92,13 +98,63 @@
         'Departamento de Lingüística, Escuela de Letras · Universidad de Los Andes · Dedicación exclusiva',
     },
   ];
+
+  const management = [
+    {
+      period: 'Desde 1993',
+      role: 'Representante de la Facultad ante el CDCHTA',
+    },
+    {
+      period: '1995',
+      role: 'Jefe encargado del Departamento de Lingüística',
+    },
+    { period: '1996–1998', role: 'Director de la Escuela de Letras' },
+    {
+      period: '1996',
+      role: 'Decano encargado de la Facultad de Humanidades y Educación',
+    },
+    {
+      period: '2001',
+      role: 'Director de la Escuela de Medios Audiovisuales',
+    },
+    {
+      period: '2006–2009',
+      role: 'Coordinador del Doctorado en Lingüística',
+    },
+    { period: '2007–2008', role: 'Director de la Escuela de Letras' },
+    {
+      period: '2008',
+      role: 'Decano encargado de la Facultad de Humanidades y Educación',
+    },
+  ];
+
+  const research = [
+    {
+      title:
+        'Semántica discursiva y léxica del español de Venezuela. Estudios sincrónicos y diacrónicos',
+      detail: 'CDCHTA · con Danielle Triay, Juana Elvira Ramos y Delci Torres',
+    },
+    {
+      title: 'Zapatazos: la sociedad caracterizada',
+      detail: 'CDCHTA · responsable principal',
+    },
+    {
+      title:
+        'Las pasiones de Medea: hacia un análisis semiótico de las pasiones en la Medea de Séneca',
+      detail: 'CDCHTA · con María Labarca',
+    },
+    {
+      title: 'Alienación e identidad en el filme «Santa Sangre» (1989) de Alejandro Jodorowsky',
+      detail: 'CDCHTA · con Giordana García Sojo',
+    },
+  ];
 </script>
 
 <svelte:head>
   <title>Curriculum | Significado Total</title>
   <meta
     name="description"
-    content={`Trayectoria académica y publicaciones seleccionadas de ${SITE_AUTHOR}.`}
+    content={`Formación académica y publicaciones seleccionadas de ${SITE_AUTHOR}.`}
   />
 </svelte:head>
 
@@ -120,7 +176,9 @@
     </p>
     <div class="mt-7 flex flex-wrap items-center gap-3">
       <a class="btn btn-neutral btn-sm" href="#formacion">Formación</a>
-      <a class="btn btn-outline btn-sm" href="#trayectoria">Trayectoria</a>
+      {#if SHOW_CV_TRAJECTORY}
+        <a class="btn btn-outline btn-sm" href="#trayectoria">Trayectoria</a>
+      {/if}
       <a class="btn btn-outline btn-sm" href="#publicaciones">Publicaciones</a>
       <a class="btn btn-ghost btn-sm" href={SITE_AUTHOR_URL} target="_blank" rel="noreferrer">
         Sitio personal
@@ -161,30 +219,110 @@
     </PageSection>
   </section>
 
-  <section id="trayectoria" class="scroll-mt-24">
-    <PageSection
-      title="Trayectoria académica"
-      description="Etapa previa y carrera docente en la Universidad de Los Andes."
-    >
-      <ul class="grid gap-4 sm:grid-cols-[6.5rem_1fr] sm:gap-x-6 sm:gap-y-5">
-        {#each trajectory as entry (entry.period + entry.title)}
-          <li class="contents">
-            <span class="text-sm font-bold text-primary">{entry.period}</span>
-            <div>
-              <p class="font-semibold text-base-content">
-                {entry.title}
-              </p>
-              {#if entry.detail}
-                <p class="mt-0.5 text-sm leading-6 text-base-content/60">
-                  {entry.detail}
+  {#if SHOW_CV_TRAJECTORY}
+    <section id="trayectoria" class="scroll-mt-24">
+      <PageSection
+        title="Trayectoria académica"
+        description="Etapa previa y carrera docente en la Universidad de Los Andes."
+      >
+        <ul class="grid gap-4 sm:grid-cols-[6.5rem_1fr] sm:gap-x-6 sm:gap-y-5">
+          {#each trajectory as entry (entry.period + entry.title)}
+            <li class="contents">
+              <span class="text-sm font-bold text-primary">{entry.period}</span>
+              <div>
+                <p class="font-semibold text-base-content">
+                  {entry.title}
                 </p>
-              {/if}
-            </div>
+                {#if entry.detail}
+                  <p class="mt-0.5 text-sm leading-6 text-base-content/60">
+                    {entry.detail}
+                  </p>
+                {/if}
+              </div>
+            </li>
+          {/each}
+        </ul>
+      </PageSection>
+    </section>
+  {/if}
+
+  {#if SHOW_CV_MANAGEMENT}
+    <section class="scroll-mt-24">
+      <PageSection
+        title="Gestión y coordinación"
+        description="Cargos académicos y de dirección desempeñados en la Universidad de Los Andes."
+      >
+        <ul class="grid gap-4 sm:grid-cols-[6.5rem_1fr] sm:gap-x-6 sm:gap-y-4">
+          {#each management as entry (entry.period + entry.role)}
+            <li class="contents">
+              <span class="text-sm font-bold text-primary">{entry.period}</span>
+              <p class="leading-6 text-base-content">{entry.role}</p>
+            </li>
+          {/each}
+        </ul>
+      </PageSection>
+    </section>
+  {/if}
+
+  {#if SHOW_CV_RESEARCH}
+    <section class="scroll-mt-24">
+      <PageSection
+        title="Investigación"
+        description="Proyectos culminados con el Consejo de Desarrollo Científico, Humanístico, Tecnológico y de las Artes (CDCHTA)."
+      >
+        <ul class="grid gap-4">
+          {#each research as project (project.title)}
+            <li class="rounded-box border border-base-300/70 bg-base-100/90 px-5 py-4">
+              <p class="font-semibold leading-6 text-base-content">
+                {project.title}
+              </p>
+              <p class="mt-1 text-sm leading-6 text-base-content/60">
+                {project.detail}
+              </p>
+            </li>
+          {/each}
+        </ul>
+      </PageSection>
+    </section>
+  {/if}
+
+  {#if SHOW_CV_TEACHING}
+    <section class="scroll-mt-24">
+      <PageSection title="Docencia y reconocimientos">
+        <ul class="grid gap-4">
+          <li class="rounded-box border border-base-300/70 bg-base-100/90 px-5 py-4">
+            <p class="font-semibold text-base-content">
+              Teoría lingüística, semántica, pragmática y semiótica
+            </p>
+            <p class="mt-1 text-sm leading-6 text-base-content/60">
+              Departamento de Lingüística, Escuela de Letras, Universidad de Los Andes.
+            </p>
           </li>
-        {/each}
-      </ul>
-    </PageSection>
-  </section>
+          <li class="rounded-box border border-base-300/70 bg-base-100/90 px-5 py-4">
+            <p class="font-semibold text-base-content">
+              Seminario «Semiótica de las pasiones y arte»
+            </p>
+            <p class="mt-1 text-sm leading-6 text-base-content/60">
+              Profesor invitado, Doctorado en Ciencias Humanas, Universidad de Los Andes (2014).
+            </p>
+          </li>
+          <li class="rounded-box border border-base-300/70 bg-base-100/90 px-5 py-4">
+            <p class="font-semibold text-base-content">Profesor Meritorio Nivel III</p>
+            <p class="mt-1 text-sm leading-6 text-base-content/60">
+              Reconocimiento de la FAPUV al mérito académico (1998 y 2003).
+            </p>
+          </li>
+          <li class="rounded-box border border-base-300/70 bg-base-100/90 px-5 py-4">
+            <p class="font-semibold text-base-content">Dirección y jurado de tesis</p>
+            <p class="mt-1 text-sm leading-6 text-base-content/60">
+              Tutor de tesis doctorales y trabajos de maestría en Lingüística, y jurado en
+              tribunales de la Universidad de Los Andes.
+            </p>
+          </li>
+        </ul>
+      </PageSection>
+    </section>
+  {/if}
 
   <section id="publicaciones" class="scroll-mt-24">
     <PageSection
