@@ -207,7 +207,7 @@
                 href={link.href}
                 onclick={closeMenu}
                 aria-current={isActive(link.href) ? 'page' : undefined}
-                class={`flex items-center px-2 py-3 text-base font-medium transition-colors ${isActive(link.href) ? 'text-primary' : 'text-base-content/70 hover:text-base-content'}`}
+                class={`flex items-center rounded-lg px-3 py-3 text-base font-medium transition-colors ${isActive(link.href) ? 'text-primary' : 'text-base-content/70 hover:bg-base-200/70 hover:text-base-content'}`}
               >
                 <span class="relative">
                   {link.label}
