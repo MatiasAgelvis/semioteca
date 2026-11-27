@@ -2,7 +2,7 @@
   import { cubicOut } from 'svelte/easing';
   import { fade, fly } from 'svelte/transition';
   import { onMount } from 'svelte';
-  import { Search } from '@lucide/svelte';
+  import { Menu, Search, X } from '@lucide/svelte';
   import { page } from '$app/state';
   import ThemeSwitcher from './ThemeSwitcher.svelte';
   import {
@@ -108,14 +108,14 @@
           <button
             bind:this={searchButtonEl}
             type="button"
-            class={`input input-bordered flex w-full sm:w-80 lg:w-96 items-center gap-2 bg-base-100/90 px-3 sm:px-4 text-left transition-[height,box-shadow] duration-300 ease-out hover:border-primary/50 focus:border-primary focus:outline-hidden mx-auto ${searchSizeClasses}`}
+            class={`input input-bordered flex w-full sm:max-w-80 xl:max-w-96 items-center gap-2 bg-base-100/90 px-3 sm:px-4 text-left transition-[height,box-shadow] duration-300 ease-out hover:border-primary/50 focus:border-primary focus:outline-hidden mx-auto ${searchSizeClasses}`}
             aria-label="Abrir búsqueda"
             onclick={handleSearchAction}
           >
             <Search class="h-4 w-4 shrink-0 opacity-50" aria-hidden="true" />
             <span class="truncate text-sm opacity-50">
-              <span class="lg:hidden">{$cardsSearchQuery || 'Buscar...'}</span>
-              <span class="hidden lg:inline"
+              <span class="xl:hidden">{$cardsSearchQuery || 'Buscar...'}</span>
+              <span class="hidden xl:inline"
                 >{$cardsSearchQuery || 'Buscar en todas las tarjetas'}</span
               >
             </span>
@@ -125,7 +125,7 @@
 
       <div class="flex items-center justify-end gap-2 mr-1">
         <div
-          class={`hidden overflow-hidden transition-[max-width,opacity,transform,margin] duration-300 ease-out xl:block xl:max-w-xl xl:translate-y-0 xl:opacity-100 xl:pointer-events-auto ${navTransitionClasses}`}
+          class={`hidden overflow-hidden transition-[max-width,opacity,transform,margin] duration-300 ease-out lg:block lg:max-w-xl lg:translate-y-0 lg:opacity-100 lg:pointer-events-auto ${navTransitionClasses}`}
         >
           <nav class="flex items-center gap-2 whitespace-nowrap" aria-label="Primary">
             {#each links as link}
@@ -147,12 +147,17 @@
 
         <button
           type="button"
-          class={`btn btn-ghost xl:hidden inline-flex transition-[opacity,transform] duration-300 ease-out ${menuButtonClasses}`}
+          class={`btn btn-ghost h-11 w-11 shrink-0 p-0 lg:hidden ${menuButtonClasses}`}
           onclick={toggleMenu}
           aria-expanded={menuOpen}
-          aria-label="Abrir menu"
+          aria-controls="mobile-nav"
+          aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}
         >
-          Menu
+          {#if menuOpen}
+            <X class="size-5" aria-hidden="true" />
+          {:else}
+            <Menu class="size-5" aria-hidden="true" />
+          {/if}
         </button>
         <div class="flex shrink-0 items-center justify-end gap-2">
           {#if $selectedCount > 0}
@@ -186,15 +191,31 @@
         class="absolute inset-x-0 top-full z-50 border-b border-base-200/80 bg-base-100/95 shadow-lg backdrop-blur-md dark:bg-base-100/92"
         transition:fly={{ y: -10, duration: 220, easing: cubicOut }}
       >
-        <div class="mx-auto flex w-full max-w-7xl flex-col gap-2 px-5 py-4 lg:px-10">
-          <nav class="flex flex-col gap-2" aria-label="Primary mobile">
+        <div
+          class="mx-auto w-full max-w-7xl px-5 pt-3 pb-[calc(1rem+env(safe-area-inset-bottom))] lg:px-10"
+        >
+          <p class="mb-1 text-xs font-semibold uppercase tracking-wider text-base-content/50">
+            Navegación
+          </p>
+          <nav
+            id="mobile-nav"
+            class="grid grid-cols-1 gap-x-6 gap-y-1 border-t border-base-200/60 pt-1 md:grid-cols-2"
+            aria-label="Navegación"
+          >
             {#each links as link}
               <a
                 href={link.href}
-                class={`btn justify-start ${isActive(link.href) ? 'btn-primary' : 'btn-ghost'}`}
                 onclick={closeMenu}
+                aria-current={isActive(link.href) ? 'page' : undefined}
+                class={`flex items-center px-2 py-3 text-base font-medium transition-colors ${isActive(link.href) ? 'text-primary' : 'text-base-content/70 hover:text-base-content'}`}
               >
-                {link.label}
+                <span class="relative">
+                  {link.label}
+                  {#if isActive(link.href)}
+                    <span class="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-primary"
+                    ></span>
+                  {/if}
+                </span>
               </a>
             {/each}
           </nav>
