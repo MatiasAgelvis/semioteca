@@ -202,14 +202,4 @@
       </div>
     {/if}
   </div>
-
-  {#if menuOpen}
-    <button
-      type="button"
-      class="fixed inset-0 z-40 bg-transparent"
-      onclick={closeMenu}
-      aria-label="Cerrar menu"
-      transition:fade={{ duration: 150 }}
-    ></button>
-  {/if}
 </header>
